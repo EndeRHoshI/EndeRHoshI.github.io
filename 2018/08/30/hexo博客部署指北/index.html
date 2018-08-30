@@ -7,19 +7,19 @@
   
   <title>hexo博客部署指北 | HoShI-blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下： 1. 无法上传到github部署hexo时，使用教程中说的repository:https://github.com/andybroker/andybroker.github.io.git无法正确上传，后来用了git@github.com:andybroker/andybroker.github">
+  <meta name="description" content="今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下： 1. 无法上传到github部署hexo时，使用教程中说的repository:https://github.com/andybroker/andybroker.github.io.git无法正确上传，后来用了git@github.com:andybroker/andybroker.githu">
 <meta name="keywords" content="踩坑,博客写作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo博客部署指北">
 <meta property="og:url" content="http://yoursite.com/2018/08/30/hexo博客部署指北/index.html">
 <meta property="og:site_name" content="HoShI-blog">
-<meta property="og:description" content="今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下： 1. 无法上传到github部署hexo时，使用教程中说的repository:https://github.com/andybroker/andybroker.github.io.git无法正确上传，后来用了git@github.com:andybroker/andybroker.github">
+<meta property="og:description" content="今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下： 1. 无法上传到github部署hexo时，使用教程中说的repository:https://github.com/andybroker/andybroker.github.io.git无法正确上传，后来用了git@github.com:andybroker/andybroker.githu">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ogtt75s5d.bkt.clouddn.com/hexo%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png">
-<meta property="og:updated_time" content="2018-08-30T13:47:28.731Z">
+<meta property="og:updated_time" content="2018-08-30T13:48:23.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo博客部署指北">
-<meta name="twitter:description" content="今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下： 1. 无法上传到github部署hexo时，使用教程中说的repository:https://github.com/andybroker/andybroker.github.io.git无法正确上传，后来用了git@github.com:andybroker/andybroker.github">
+<meta name="twitter:description" content="今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下： 1. 无法上传到github部署hexo时，使用教程中说的repository:https://github.com/andybroker/andybroker.github.io.git无法正确上传，后来用了git@github.com:andybroker/andybroker.githu">
 <meta name="twitter:image" content="http://ogtt75s5d.bkt.clouddn.com/hexo%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png">
   
     <link rel="alternate" href="/atom.xml" title="HoShI-blog" type="application/atom+xml">
@@ -93,7 +93,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下：</p>
+        <hr>
+<p>今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下：</p>
 <h4 id="1-无法上传到github"><a href="#1-无法上传到github" class="headerlink" title="1. 无法上传到github"></a>1. 无法上传到github</h4><p>部署hexo时，使用教程中说的<code>repository:https://github.com/andybroker/andybroker.github.io.git</code>无法正确上传，后来用了<code>git@github.com:andybroker/andybroker.github.io.git</code>的方法，应该是直接使用ssh进行上传，故没有写账号密码的过程</p>
 <h4 id="2-配置文件时语言选项"><a href="#2-配置文件时语言选项" class="headerlink" title="2. 配置文件时语言选项"></a>2. 配置文件时语言选项</h4><p>中文的选项不是<code>zh-Hans</code>，而应该是<code>zh-CN</code>，关于其他的一些语言可以在themes中看到，其他的一些配置也可以在themes里对应的主题的配置文件<code>_config.yml</code>中进行配置，languages文件夹内容如下所示：</p>
 <p><img src="http://ogtt75s5d.bkt.clouddn.com/hexo%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png" alt=""></p>
@@ -107,7 +108,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/30/hexo博客部署指北/" data-id="cjlgmjapq00018gvtdlmssirx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/30/hexo博客部署指北/" data-id="cjlgmkhys00012wvtzchtpkkl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客写作/">博客写作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/踩坑/">踩坑</a></li></ul>
