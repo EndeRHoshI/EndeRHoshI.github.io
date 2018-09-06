@@ -1,0 +1,206 @@
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Hexo version: 3.7.1","time":"2018-08-30T10:22:24.064Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Working directory: E:\\hoshi-blog\\","time":"2018-08-30T10:22:24.066Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Config loaded: E:\\hoshi-blog\\_config.yml","time":"2018-08-30T10:22:24.169Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Plugin loaded: hexo-deployer-git","time":"2018-08-30T10:22:24.208Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Plugin loaded: hexo-generator-category","time":"2018-08-30T10:22:24.210Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Plugin loaded: hexo-generator-archive","time":"2018-08-30T10:22:24.212Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Plugin loaded: hexo-generator-index","time":"2018-08-30T10:22:24.213Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Plugin loaded: hexo-generator-tag","time":"2018-08-30T10:22:24.214Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Plugin loaded: hexo-renderer-ejs","time":"2018-08-30T10:22:24.217Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Plugin loaded: hexo-renderer-stylus","time":"2018-08-30T10:22:24.218Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Plugin loaded: hexo-server","time":"2018-08-30T10:22:24.272Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Plugin loaded: hexo-renderer-marked","time":"2018-08-30T10:22:24.277Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Script loaded: themes\\landscape\\scripts\\fancybox.js","time":"2018-08-30T10:22:24.279Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Loading database.","time":"2018-08-30T10:22:24.284Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":30,"msg":"Start processing","time":"2018-08-30T10:22:24.293Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Theme config loaded.","time":"2018-08-30T10:22:24.341Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: _config.yml","time":"2018-08-30T10:22:24.341Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/blank.gif","time":"2018-08-30T10:22:24.352Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/fancybox_loading.gif","time":"2018-08-30T10:22:24.352Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/fancybox_loading@2x.gif","time":"2018-08-30T10:22:24.353Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/fancybox_overlay.png","time":"2018-08-30T10:22:24.353Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/fancybox_sprite.png","time":"2018-08-30T10:22:24.353Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/fancybox_sprite@2x.png","time":"2018-08-30T10:22:24.354Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/jquery.fancybox.css","time":"2018-08-30T10:22:24.354Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/jquery.fancybox.js","time":"2018-08-30T10:22:24.355Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/jquery.fancybox.pack.js","time":"2018-08-30T10:22:24.355Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/css/style.styl","time":"2018-08-30T10:22:24.355Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/js/script.js","time":"2018-08-30T10:22:24.355Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/category.ejs","time":"2018-08-30T10:22:24.365Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/archive.ejs","time":"2018-08-30T10:22:24.366Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/index.ejs","time":"2018-08-30T10:22:24.366Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/page.ejs","time":"2018-08-30T10:22:24.366Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/tag.ejs","time":"2018-08-30T10:22:24.366Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/layout.ejs","time":"2018-08-30T10:22:24.366Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: _posts/hello-world.md","time":"2018-08-30T10:22:24.376Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/post.ejs","time":"2018-08-30T10:22:24.401Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/de.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/ja.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/es.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/fr.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/default.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/ko.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/pt.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/nl.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/no.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/ru.yml","time":"2018-08-30T10:22:24.407Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/zh-CN.yml","time":"2018-08-30T10:22:24.408Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: languages/zh-TW.yml","time":"2018-08-30T10:22:24.408Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/helpers/fancybox_buttons.png","time":"2018-08-30T10:22:24.408Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-buttons.js","time":"2018-08-30T10:22:24.409Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-buttons.css","time":"2018-08-30T10:22:24.409Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-media.js","time":"2018-08-30T10:22:24.410Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-thumbs.css","time":"2018-08-30T10:22:24.410Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-thumbs.js","time":"2018-08-30T10:22:24.410Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/css/fonts/FontAwesome.otf","time":"2018-08-30T10:22:24.412Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/css/fonts/fontawesome-webfont.eot","time":"2018-08-30T10:22:24.412Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/css/fonts/fontawesome-webfont.woff","time":"2018-08-30T10:22:24.412Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/archive.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/after-footer.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/article.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/archive-post.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/footer.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/google-analytics.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/head.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/gauges-analytics.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/header.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/mobile-nav.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_widget/archive.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/sidebar.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_widget/category.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_widget/recent_posts.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_widget/tag.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_widget/tagcloud.ejs","time":"2018-08-30T10:22:24.419Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/css/fonts/fontawesome-webfont.ttf","time":"2018-08-30T10:22:24.420Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/post/category.ejs","time":"2018-08-30T10:22:24.422Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/post/date.ejs","time":"2018-08-30T10:22:24.422Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/post/gallery.ejs","time":"2018-08-30T10:22:24.423Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/post/tag.ejs","time":"2018-08-30T10:22:24.423Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/post/nav.ejs","time":"2018-08-30T10:22:24.423Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: layout/_partial/post/title.ejs","time":"2018-08-30T10:22:24.424Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/css/fonts/fontawesome-webfont.svg","time":"2018-08-30T10:22:24.425Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Processed: source/css/images/banner.jpg","time":"2018-08-30T10:22:24.427Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Generator: page","time":"2018-08-30T10:22:24.571Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Generator: post","time":"2018-08-30T10:22:24.571Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Generator: category","time":"2018-08-30T10:22:24.571Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Generator: archive","time":"2018-08-30T10:22:24.571Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Generator: index","time":"2018-08-30T10:22:24.571Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Generator: tag","time":"2018-08-30T10:22:24.571Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Generator: asset","time":"2018-08-30T10:22:24.572Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":30,"msg":"Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.","time":"2018-08-30T10:22:24.576Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":13528,"level":20,"msg":"Database saved","time":"2018-08-30T10:22:24.579Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Hexo version: 3.7.1","time":"2018-08-30T10:23:01.594Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Working directory: E:\\hoshi-blog\\","time":"2018-08-30T10:23:01.596Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Config loaded: E:\\hoshi-blog\\_config.yml","time":"2018-08-30T10:23:01.695Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Plugin loaded: hexo-deployer-git","time":"2018-08-30T10:23:01.732Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Plugin loaded: hexo-generator-archive","time":"2018-08-30T10:23:01.735Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Plugin loaded: hexo-generator-category","time":"2018-08-30T10:23:01.736Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Plugin loaded: hexo-generator-index","time":"2018-08-30T10:23:01.738Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Plugin loaded: hexo-generator-tag","time":"2018-08-30T10:23:01.739Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Plugin loaded: hexo-renderer-ejs","time":"2018-08-30T10:23:01.742Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Plugin loaded: hexo-renderer-marked","time":"2018-08-30T10:23:01.747Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Plugin loaded: hexo-renderer-stylus","time":"2018-08-30T10:23:01.747Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Plugin loaded: hexo-server","time":"2018-08-30T10:23:01.801Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Script loaded: themes\\landscape\\scripts\\fancybox.js","time":"2018-08-30T10:23:01.804Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Loading database.","time":"2018-08-30T10:23:01.811Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":30,"msg":"Start processing","time":"2018-08-30T10:23:01.827Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: _posts/hello-world.md","time":"2018-08-30T10:23:01.852Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Theme config loaded.","time":"2018-08-30T10:23:01.888Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: _config.yml","time":"2018-08-30T10:23:01.890Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/fancybox_loading@2x.gif","time":"2018-08-30T10:23:01.890Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/blank.gif","time":"2018-08-30T10:23:01.891Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/fancybox_loading.gif","time":"2018-08-30T10:23:01.891Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/fancybox_overlay.png","time":"2018-08-30T10:23:01.891Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/fancybox_sprite.png","time":"2018-08-30T10:23:01.891Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/fancybox_sprite@2x.png","time":"2018-08-30T10:23:01.891Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/jquery.fancybox.css","time":"2018-08-30T10:23:01.891Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/jquery.fancybox.js","time":"2018-08-30T10:23:01.892Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/jquery.fancybox.pack.js","time":"2018-08-30T10:23:01.892Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/css/style.styl","time":"2018-08-30T10:23:01.892Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/js/script.js","time":"2018-08-30T10:23:01.892Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/archive.ejs","time":"2018-08-30T10:23:01.907Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/category.ejs","time":"2018-08-30T10:23:01.907Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/layout.ejs","time":"2018-08-30T10:23:01.907Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/index.ejs","time":"2018-08-30T10:23:01.907Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/page.ejs","time":"2018-08-30T10:23:01.907Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/post.ejs","time":"2018-08-30T10:23:01.907Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/tag.ejs","time":"2018-08-30T10:23:01.908Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/default.yml","time":"2018-08-30T10:23:01.911Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/de.yml","time":"2018-08-30T10:23:01.911Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/fr.yml","time":"2018-08-30T10:23:01.911Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/es.yml","time":"2018-08-30T10:23:01.911Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/ko.yml","time":"2018-08-30T10:23:01.911Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/ja.yml","time":"2018-08-30T10:23:01.911Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/nl.yml","time":"2018-08-30T10:23:01.911Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/no.yml","time":"2018-08-30T10:23:01.912Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/pt.yml","time":"2018-08-30T10:23:01.912Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/ru.yml","time":"2018-08-30T10:23:01.912Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/zh-CN.yml","time":"2018-08-30T10:23:01.912Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: languages/zh-TW.yml","time":"2018-08-30T10:23:01.912Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/helpers/fancybox_buttons.png","time":"2018-08-30T10:23:01.912Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-buttons.css","time":"2018-08-30T10:23:01.912Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-buttons.js","time":"2018-08-30T10:23:01.913Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-media.js","time":"2018-08-30T10:23:01.913Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-thumbs.css","time":"2018-08-30T10:23:01.913Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/fancybox/helpers/jquery.fancybox-thumbs.js","time":"2018-08-30T10:23:01.913Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/css/fonts/FontAwesome.otf","time":"2018-08-30T10:23:01.914Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/css/fonts/fontawesome-webfont.eot","time":"2018-08-30T10:23:01.914Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/css/fonts/fontawesome-webfont.woff","time":"2018-08-30T10:23:01.914Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/css/fonts/fontawesome-webfont.ttf","time":"2018-08-30T10:23:01.917Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/article.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/archive-post.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/after-footer.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/google-analytics.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/footer.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/head.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/archive.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/gauges-analytics.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/header.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_widget/archive.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/mobile-nav.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/sidebar.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_widget/category.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_widget/recent_posts.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_widget/tag.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_widget/tagcloud.ejs","time":"2018-08-30T10:23:01.922Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/post/nav.ejs","time":"2018-08-30T10:23:01.926Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/post/category.ejs","time":"2018-08-30T10:23:01.926Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/post/gallery.ejs","time":"2018-08-30T10:23:01.926Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/post/date.ejs","time":"2018-08-30T10:23:01.926Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/post/title.ejs","time":"2018-08-30T10:23:01.926Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/css/fonts/fontawesome-webfont.svg","time":"2018-08-30T10:23:01.926Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: source/css/images/banner.jpg","time":"2018-08-30T10:23:01.927Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Processed: layout/_partial/post/tag.ejs","time":"2018-08-30T10:23:01.928Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Generator: page","time":"2018-08-30T10:23:01.983Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Generator: post","time":"2018-08-30T10:23:01.983Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Generator: archive","time":"2018-08-30T10:23:01.983Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Generator: category","time":"2018-08-30T10:23:01.983Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Generator: index","time":"2018-08-30T10:23:01.983Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Generator: tag","time":"2018-08-30T10:23:01.983Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Generator: asset","time":"2018-08-30T10:23:01.989Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":30,"msg":"Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.","time":"2018-08-30T10:23:01.994Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":3700,"level":20,"msg":"Database saved","time":"2018-08-30T10:23:02.002Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Hexo version: 3.7.1","time":"2018-08-30T10:35:37.982Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Working directory: E:\\hoshi-blog\\","time":"2018-08-30T10:35:37.984Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Config loaded: E:\\hoshi-blog\\_config.yml","time":"2018-08-30T10:35:38.089Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Plugin loaded: hexo-generator-category","time":"2018-08-30T10:35:38.108Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Plugin loaded: hexo-deployer-git","time":"2018-08-30T10:35:38.131Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Plugin loaded: hexo-renderer-ejs","time":"2018-08-30T10:35:38.136Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Plugin loaded: hexo-generator-index","time":"2018-08-30T10:35:38.137Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Plugin loaded: hexo-generator-archive","time":"2018-08-30T10:35:38.139Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Plugin loaded: hexo-generator-tag","time":"2018-08-30T10:35:38.140Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Plugin loaded: hexo-renderer-marked","time":"2018-08-30T10:35:38.145Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Plugin loaded: hexo-renderer-stylus","time":"2018-08-30T10:35:38.146Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Plugin loaded: hexo-server","time":"2018-08-30T10:35:38.202Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Loading database.","time":"2018-08-30T10:35:38.208Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":30,"msg":"Start processing","time":"2018-08-30T10:35:38.218Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Processed: _posts/hello-world.md","time":"2018-08-30T10:35:38.238Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Generator: page","time":"2018-08-30T10:35:38.357Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Generator: post","time":"2018-08-30T10:35:38.357Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Generator: category","time":"2018-08-30T10:35:38.357Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Generator: index","time":"2018-08-30T10:35:38.357Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Generator: archive","time":"2018-08-30T10:35:38.357Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Generator: tag","time":"2018-08-30T10:35:38.357Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Generator: asset","time":"2018-08-30T10:35:38.357Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":30,"msg":"Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.","time":"2018-08-30T10:35:38.361Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-JGRJG8S","pid":916,"level":20,"msg":"Database saved","time":"2018-08-30T10:35:38.370Z","v":0}
