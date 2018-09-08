@@ -52,12 +52,6 @@
     							</li>
     						
     							<li>
-    								<a class='nav-projects flat-box' href='https://xaoxuu.com/proj'>
-    									<i class='fa fa-cube fa-'></i>&nbsp;项目
-    								</a>
-    							</li>
-    						
-    							<li>
     								<a class='nav-home flat-box' href='/'>
     									<i class='fa fa-rss fa-'></i>&nbsp;博客
     								</a>
@@ -114,10 +108,6 @@
                         </li>
                     
                         <li>
-                            <a class='nav-projects flat-box nav flat-box' href='https://xaoxuu.com/proj'><i class='fa fa-cube fa-fw'></i>&nbsp;项目</a>
-                        </li>
-                    
-                        <li>
                             <a class='nav-home flat-box nav flat-box' href='/'><i class='fa fa-rss fa-fw'></i>&nbsp;博客</a>
                         </li>
                     
@@ -148,38 +138,6 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
-            <a href="/2018/09/08/haha/">
-                
-                    haha
-                
-            </a>
-        </h2>
-        <time>
-            2018-09-08
-        </time>
-        
-    
-    <div class='cats'>
-        
-    </div>
-
-
-    </section>
-
-    <section class="article typo">
-        
-        
-
-        
-    </section>
-</article>
-
-        </div>
-    
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
             <a href="/2018/08/30/hexo博客部署指北/">
                 
                     hexo博客部署指北
@@ -200,22 +158,22 @@
 
     <section class="article typo">
         <p>今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下：</p>
-<h4 id="1-无法上传到github"><a href="#1-无法上传到github" class="headerlink" title="1. 无法上传到github"></a>1. 无法上传到github</h4><ul>
-<li>部署hexo时，使用教程中说的<code>repository:https://github.com/andybroker/andybroker.github.io.git</code>无法正确上传，后来用了<a href="mailto:`git@github.com" target="_blank" rel="noopener">`git@github.com</a>:andybroker/andybroker.github.io.git`的方法，应该是直接使用ssh进行上传，故没有写账号密码的过程</li>
-</ul>
-<h4 id="2-配置文件时语言选项"><a href="#2-配置文件时语言选项" class="headerlink" title="2. 配置文件时语言选项"></a>2. 配置文件时语言选项</h4><ul>
-<li>中文的选项不是<code>zh-Hans</code>，而应该是<code>zh-CN</code>，关于其他的一些语言可以在themes中看到，其他的一些配置也可以在themes里对应的主题的配置文件<code>_config.yml</code>中进行配置，languages文件夹内容如下所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/hexo%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png?raw=true" alt=""></li>
-</ul>
-<h4 id="3-hexo修改主题"><a href="#3-hexo修改主题" class="headerlink" title="3. hexo修改主题"></a>3. hexo修改主题</h4><ul>
-<li>需要把主题先下载下来再进行配置使用</li>
-</ul>
-<h4 id="4-hexo的配置文件"><a href="#4-hexo的配置文件" class="headerlink" title="4. hexo的配置文件"></a>4. hexo的配置文件</h4><ul>
-<li>其中的参数需要在冒号后空一格，不能直接连接冒号</li>
-</ul>
-<h4 id="不断使用和尝试中，如果有新的坑会继续补充"><a href="#不断使用和尝试中，如果有新的坑会继续补充" class="headerlink" title="不断使用和尝试中，如果有新的坑会继续补充"></a>不断使用和尝试中，如果有新的坑会继续补充</h4><ul>
-<li>从零搭建hexo参考文章：<a href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/" target="_blank" rel="noopener">http://visugar.com/2017/05/04/20170504SetUpHexoBlog/</a> 这个博主也是使用hexo的，可以多多参考</li>
-<li>hexo主题网站: <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></li>
-</ul>
+<h4 id="1-无法上传到github"><a href="#1-无法上传到github" class="headerlink" title="1. 无法上传到github"></a>1. 无法上传到github</h4><blockquote>
+<p>部署hexo时，使用教程中说的<code>repository:https://github.com/andybroker/andybroker.github.io.git</code>无法正确上传，后来用了<a href="mailto:`git@github.com" target="_blank" rel="noopener">`git@github.com</a>:andybroker/andybroker.github.io.git`的方法，应该是直接使用ssh进行上传，故没有写账号密码的过程</p>
+</blockquote>
+<h4 id="2-配置文件时语言选项"><a href="#2-配置文件时语言选项" class="headerlink" title="2. 配置文件时语言选项"></a>2. 配置文件时语言选项</h4><blockquote>
+<p>中文的选项不是<code>zh-Hans</code>，而应该是<code>zh-CN</code>，关于其他的一些语言可以在themes中看到，其他的一些配置也可以在themes里对应的主题的配置文件<code>_config.yml</code>中进行配置，languages文件夹内容如下所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/hexo%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png?raw=true" alt=""></p>
+</blockquote>
+<h4 id="3-hexo修改主题"><a href="#3-hexo修改主题" class="headerlink" title="3. hexo修改主题"></a>3. hexo修改主题</h4><blockquote>
+<p>需要把主题先下载下来再进行配置使用</p>
+</blockquote>
+<h4 id="4-hexo的配置文件"><a href="#4-hexo的配置文件" class="headerlink" title="4. hexo的配置文件"></a>4. hexo的配置文件</h4><blockquote>
+<p>其中的参数需要在冒号后空一格，不能直接连接冒号</p>
+</blockquote>
+<h4 id="不断使用和尝试中，如果有新的坑会继续补充"><a href="#不断使用和尝试中，如果有新的坑会继续补充" class="headerlink" title="不断使用和尝试中，如果有新的坑会继续补充"></a>不断使用和尝试中，如果有新的坑会继续补充</h4><blockquote>
+<p>从零搭建hexo参考文章：<a href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/" target="_blank" rel="noopener">http://visugar.com/2017/05/04/20170504SetUpHexoBlog/</a> 这个博主也是使用hexo的，可以多多参考</p>
+<p>hexo主题网站: <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+</blockquote>
 
         
 
@@ -280,10 +238,6 @@
               
                 
                     <a href="https://music.163.com/#/user/home?id=63035382" class="social flat-box" target="_blank" rel="external"><i class="social fa fa-music" aria-hidden="true"></i></a>
-                
-              
-                
-                    <a href="atom" class="social flat-box" target="_blank" rel="external"><i class="social fa fa-rss" aria-hidden="true"></i></a>
                 
               
                 
@@ -396,10 +350,6 @@
           
               
                   <a href="https://music.163.com/#/user/home?id=63035382" class="social fa fa-music flat-box" target="_blank" rel="external"></a>
-              
-          
-              
-                  <a href="atom" class="social fa fa-rss flat-box" target="_blank" rel="external"></a>
               
           
               
