@@ -267,16 +267,58 @@ TAB: menu-complete
 </tr>
 </tbody>
 </table>
-<ul>
-<li>还可能存在错漏或需要补充，将会慢慢完善</li>
-</ul>
-
+<h2 id="还可能存在错漏或需要补充，将会慢慢完善"><a href="#还可能存在错漏或需要补充，将会慢慢完善" class="headerlink" title="还可能存在错漏或需要补充，将会慢慢完善"></a>还可能存在错漏或需要补充，将会慢慢完善</h2>
         
 
         
             <div class="full-width auto-padding tags">
                 
                     <a href="/tags/Mac/"><i class="fa fa-tag fa-fw"></i>&nbsp;Mac</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+        </div>
+    
+        <div class='post-wrapper'>
+            <article class="post reveal ">
+    <section class="meta">
+        <h2 class="title">
+            <a href="/2018/09/08/apk无法在某款手机上运行解决方案/">
+                
+                    apk无法在某款手机上运行
+                
+            </a>
+        </h2>
+        <time>
+            2018-09-08
+        </time>
+        
+    
+    <div class='cats'>
+        <a href="/categories/问题集锦/">问题集锦</a>
+    </div>
+
+
+    </section>
+
+    <section class="article typo">
+        <p>昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是公司的LG测试机却提示缺少WelcomeAcitivitu，如下图所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E7%BC%BA%E5%B0%91WelcomeActivity%E9%94%99%E8%AF%AF.png?raw=true" alt=""><br>就连去官网下载正式版的app也提示安装包可能已经损坏，所以询问同事，告知有可能是卸载不完全，可以看看是否卸载完全，或者用adb去彻底删除它，程序在手机上已经用常规的删除方法卸载了，无法确认是否卸载完全，所以决定动用adb，使用adb的过程如下：</p>
+<ol>
+<li>首先确认已经配置好adb，并且你的Android设备可以被你的电脑识别，可以通过输入命令<code>adb devices</code>来进行测试是否安装好了adb，如果没有，则可以通过Homebrew安装：<br><code>brew cask install android-platform-tools</code>（如果没有Homebrew，则<code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code>）</li>
+<li>如果记得包名或者知道包名的话，直接跳到第三步，如果不记得包名或者不知道包名，之所以这样说，是因为对于通过ADB卸载一个应用程序，你必须知道这个应用程序的程序包名称，但是包名称未必是某应用的APK文件名字，比如Yahoo! Mail（雅虎邮箱）Android终端应用，它的程序包名称可能是yahoo.mobile.client.android.mail。所以你可以使用指令<code>adb shell pm list packages</code>来列出所有包名，找到自己的程序的包名</li>
+<li>输入指令<code>adb uninstall com.example.package</code>按Enter回车键确认，当Success提示出现后，应用即从你的Android设备中移除，其他以此类推</li>
+</ol>
+<p>再次运行程序，成功安装</p>
+
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/Android/"><i class="fa fa-tag fa-fw"></i>&nbsp;Android</a>
                 
             </div>
         
@@ -373,7 +415,7 @@ TAB: menu-complete
                 
                     <li><a class="flat-box" href="/categories/日常开发记录/"><div class='name'>日常开发记录</div><div class='badge'>1</div></a></li>
                 
-                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>1</div></a></li>
+                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>2</div></a></li>
                 
             </ul>
         
@@ -386,7 +428,7 @@ TAB: menu-complete
     <section class='m_widget tagcloud'>
         <div class="header"><i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;标签</div>
         <div class='content'>
-            <a href="/tags/Mac/" style="font-size: 14px; color: #999">Mac</a> <a href="/tags/博客部署/" style="font-size: 14px; color: #999">博客部署</a> <a href="/tags/踩坑/" style="font-size: 14px; color: #999">踩坑</a>
+            <a href="/tags/Android/" style="font-size: 14px; color: #999">Android</a> <a href="/tags/Mac/" style="font-size: 14px; color: #999">Mac</a> <a href="/tags/博客部署/" style="font-size: 14px; color: #999">博客部署</a> <a href="/tags/踩坑/" style="font-size: 14px; color: #999">踩坑</a>
         </div>
     </section>
 

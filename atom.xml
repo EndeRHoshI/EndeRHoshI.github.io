@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-08T08:24:05.000Z</updated>
+  <updated>2018-09-08T08:31:10.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://yoursite.com/2018/09/08/Mac%E7%BB%88%E7%AB%AF%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/"/>
     <id>http://yoursite.com/2018/09/08/Mac终端自动补全及常用命令汇总/</id>
     <published>2018-09-08T08:11:28.000Z</published>
-    <updated>2018-09-08T08:24:05.000Z</updated>
+    <updated>2018-09-08T08:31:10.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="终端自动补全的配置"><a href="#终端自动补全的配置" class="headerlink" title="终端自动补全的配置"></a>终端自动补全的配置</h2><ol><li><p>首先打开终端，输入 : </p><pre><code>nano .inputrc</code></pre></li><li><p>然后在文件里面写上：</p><pre><code>set completion-ignore-case onset show-all-if-ambiguous onTAB: menu-complete</code></pre></li><li><p>最后<code>ctrl + o</code> ，回车，重启终端，要使用自动补全按tap键就ok了</p></li></ol><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><table><thead><tr><th>指令</th><th>作用</th></tr></thead><tbody><tr><td>pwd</td><td>当前工作目录</td></tr><tr><td>cd（不加参数）</td><td>进root</td></tr><tr><td>cd（folder）</td><td>进入文件夹</td></tr><tr><td>cd ..</td><td>上级目录</td></tr><tr><td>cd ~</td><td>返回root</td></tr><tr><td>cd -</td><td>返回上一个访问的目录</td></tr><tr><td>rm 文件名</td><td>删除</td></tr><tr><td>cat 文件名(less)</td><td>在终端下查看文件</td></tr><tr><td>ls</td><td>列出目录下所有文件</td></tr><tr><td>cp 文件名 目标目录</td><td>将文件拷贝到目标目录下</td></tr><tr><td>~代表root</td><td>如：~/Document/CPP2/</td></tr><tr><td>mkdir</td><td>新建文件夹</td></tr><tr><td>g++ 源文件名</td><td>编译源文件，产生a.out</td></tr><tr><td>./文件名</td><td>运行  例如：./a.out &lt; 输入文件名 &gt; 输出文件名</td></tr><tr><td>control+d</td><td>中断a.out运行</td></tr><tr><td>nano</td><td>编写脚本语言　　ctrl+o存储</td></tr><tr><td>nano ….sh</td><td>打开</td></tr><tr><td>bash ….sh</td><td>运行脚本</td></tr><tr><td>echo “…$i…”</td><td>输出语句</td></tr><tr><td>tar -zxf abc.tar.gz</td><td>tar文件解压</td></tr><tr><td>ssh <a href="mailto:root@192.168.1.222" target="_blank" rel="noopener">root@192.168.1.222</a></td><td>以root账号远程连接222服务器</td></tr><tr><td>unrar x abc.rar</td><td>rar文件解压，需要安装rar工具</td></tr></tbody></table><ul><li>还可能存在错漏或需要补充，将会慢慢完善</li></ul>]]></content>
+    <content type="html"><![CDATA[<h2 id="终端自动补全的配置"><a href="#终端自动补全的配置" class="headerlink" title="终端自动补全的配置"></a>终端自动补全的配置</h2><ol><li><p>首先打开终端，输入 : </p><pre><code>nano .inputrc</code></pre></li><li><p>然后在文件里面写上：</p><pre><code>set completion-ignore-case onset show-all-if-ambiguous onTAB: menu-complete</code></pre></li><li><p>最后<code>ctrl + o</code> ，回车，重启终端，要使用自动补全按tap键就ok了</p></li></ol><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><table><thead><tr><th>指令</th><th>作用</th></tr></thead><tbody><tr><td>pwd</td><td>当前工作目录</td></tr><tr><td>cd（不加参数）</td><td>进root</td></tr><tr><td>cd（folder）</td><td>进入文件夹</td></tr><tr><td>cd ..</td><td>上级目录</td></tr><tr><td>cd ~</td><td>返回root</td></tr><tr><td>cd -</td><td>返回上一个访问的目录</td></tr><tr><td>rm 文件名</td><td>删除</td></tr><tr><td>cat 文件名(less)</td><td>在终端下查看文件</td></tr><tr><td>ls</td><td>列出目录下所有文件</td></tr><tr><td>cp 文件名 目标目录</td><td>将文件拷贝到目标目录下</td></tr><tr><td>~代表root</td><td>如：~/Document/CPP2/</td></tr><tr><td>mkdir</td><td>新建文件夹</td></tr><tr><td>g++ 源文件名</td><td>编译源文件，产生a.out</td></tr><tr><td>./文件名</td><td>运行  例如：./a.out &lt; 输入文件名 &gt; 输出文件名</td></tr><tr><td>control+d</td><td>中断a.out运行</td></tr><tr><td>nano</td><td>编写脚本语言　　ctrl+o存储</td></tr><tr><td>nano ….sh</td><td>打开</td></tr><tr><td>bash ….sh</td><td>运行脚本</td></tr><tr><td>echo “…$i…”</td><td>输出语句</td></tr><tr><td>tar -zxf abc.tar.gz</td><td>tar文件解压</td></tr><tr><td>ssh <a href="mailto:root@192.168.1.222" target="_blank" rel="noopener">root@192.168.1.222</a></td><td>以root账号远程连接222服务器</td></tr><tr><td>unrar x abc.rar</td><td>rar文件解压，需要安装rar工具</td></tr></tbody></table><h2 id="还可能存在错漏或需要补充，将会慢慢完善"><a href="#还可能存在错漏或需要补充，将会慢慢完善" class="headerlink" title="还可能存在错漏或需要补充，将会慢慢完善"></a>还可能存在错漏或需要补充，将会慢慢完善</h2>]]></content>
     
     <summary type="html">
     
@@ -40,6 +40,31 @@
     
     
       <category term="Mac" scheme="http://yoursite.com/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>apk无法在某款手机上运行</title>
+    <link href="http://yoursite.com/2018/09/08/apk%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://yoursite.com/2018/09/08/apk无法在某款手机上运行解决方案/</id>
+    <published>2018-09-08T07:42:37.000Z</published>
+    <updated>2018-09-08T08:32:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是公司的LG测试机却提示缺少WelcomeAcitivitu，如下图所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E7%BC%BA%E5%B0%91WelcomeActivity%E9%94%99%E8%AF%AF.png?raw=true" alt=""><br>就连去官网下载正式版的app也提示安装包可能已经损坏，所以询问同事，告知有可能是卸载不完全，可以看看是否卸载完全，或者用adb去彻底删除它，程序在手机上已经用常规的删除方法卸载了，无法确认是否卸载完全，所以决定动用adb，使用adb的过程如下：</p><ol><li>首先确认已经配置好adb，并且你的Android设备可以被你的电脑识别，可以通过输入命令<code>adb devices</code>来进行测试是否安装好了adb，如果没有，则可以通过Homebrew安装：<br><code>brew cask install android-platform-tools</code>（如果没有Homebrew，则<code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code>）</li><li>如果记得包名或者知道包名的话，直接跳到第三步，如果不记得包名或者不知道包名，之所以这样说，是因为对于通过ADB卸载一个应用程序，你必须知道这个应用程序的程序包名称，但是包名称未必是某应用的APK文件名字，比如Yahoo! Mail（雅虎邮箱）Android终端应用，它的程序包名称可能是yahoo.mobile.client.android.mail。所以你可以使用指令<code>adb shell pm list packages</code>来列出所有包名，找到自己的程序的包名</li><li>输入指令<code>adb uninstall com.example.package</code>按Enter回车键确认，当Success提示出现后，应用即从你的Android设备中移除，其他以此类推</li></ol><p>再次运行程序，成功安装</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是公司的LG测试机却提示缺少WelcomeAcitivitu，如下图所示：&lt;img src=&quot;https://github.com/EndeRHoshI/Photo/blob/master/blog/%E
+      
+    
+    </summary>
+    
+      <category term="问题集锦" scheme="http://yoursite.com/categories/%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
   </entry>
   
