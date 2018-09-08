@@ -46,12 +46,6 @@
                         
     						
     							<li>
-    								<a class='nav-about flat-box' href='/'>
-    									<i class='fa fa-home fa-'></i>&nbsp;主页
-    								</a>
-    							</li>
-    						
-    							<li>
     								<a class='nav-home flat-box' href='/'>
     									<i class='fa fa-rss fa-'></i>&nbsp;博客
     								</a>
@@ -104,10 +98,6 @@
                 
                     
                         <li>
-                            <a class='nav-about flat-box nav flat-box' href='/'><i class='fa fa-home fa-fw'></i>&nbsp;主页</a>
-                        </li>
-                    
-                        <li>
                             <a class='nav-home flat-box nav flat-box' href='/'><i class='fa fa-rss fa-fw'></i>&nbsp;博客</a>
                         </li>
                     
@@ -147,7 +137,7 @@
     <section class="article typo">
 
         <div class="article-entry" itemprop="articleBody">
-            <p>昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是公司的LG测试机却提示缺少WelcomeAcitivitu，如下图所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E7%BC%BA%E5%B0%91WelcomeActivity%E9%94%99%E8%AF%AF.png?raw=true" alt=""><br>就连去官网下载正式版的app也提示安装包可能已经损坏，所以询问同事，告知有可能是卸载不完全，可以看看是否卸载完全，或者用adb去彻底删除它，程序在手机上已经用常规的删除方法卸载了，无法确认是否卸载完全，所以决定动用adb，使用adb的过程如下：</p>
+            <p>昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是公司的LG测试机却提示缺少WelcomeAcitivity，如下图所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E7%BC%BA%E5%B0%91WelcomeActivity%E9%94%99%E8%AF%AF.png?raw=true" alt=""><br>就连去官网下载正式版的app也提示安装包可能已经损坏，所以询问同事，告知有可能是卸载不完全，可以看看是否卸载完全，或者用adb去彻底删除它，程序在手机上已经用常规的删除方法卸载了，无法确认是否卸载完全，所以决定动用adb，使用adb的过程如下：</p>
 <ol>
 <li>首先确认已经配置好adb，并且你的Android设备可以被你的电脑识别，可以通过输入命令<code>adb devices</code>来进行测试是否安装好了adb，如果没有，则可以通过Homebrew安装：<br><code>brew cask install android-platform-tools</code>（如果没有Homebrew，则<code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code>）</li>
 <li>如果记得包名或者知道包名的话，直接跳到第三步，如果不记得包名或者不知道包名，之所以这样说，是因为对于通过ADB卸载一个应用程序，你必须知道这个应用程序的程序包名称，但是包名称未必是某应用的APK文件名字，比如Yahoo! Mail（雅虎邮箱）Android终端应用，它的程序包名称可能是yahoo.mobile.client.android.mail。所以你可以使用指令<code>adb shell pm list packages</code>来列出所有包名，找到自己的程序的包名</li>
@@ -290,21 +280,21 @@
             <div class="social-wrapper">
               
                 
-                    <a href="mailto:me@xaoxuu.com" class="social flat-box" target="_blank" rel="external"><i class="social fa fa-envelope" aria-hidden="true"></i></a>
+                    <a href="mailto:me@enderhoshi@gmail.com" class="social flat-box" target="_blank" rel="external"><i class="social fa fa-envelope" aria-hidden="true"></i></a>
                 
               
                 
-                    <a href="https://github.com/xaoxuu" class="social flat-box" target="_blank" rel="external"><i class="social fa fa-github" aria-hidden="true"></i></a>
-                
-              
-                
-              
+                    <a href="https://github.com/EndeRHoshI" class="social flat-box" target="_blank" rel="external"><i class="social fa fa-github" aria-hidden="true"></i></a>
                 
               
                 
               
                 
-                    <a href="https://music.163.com/#/user/home?id=63035382" class="social flat-box" target="_blank" rel="external"><i class="social fa fa-music" aria-hidden="true"></i></a>
+              
+                
+              
+                
+                    <a href="https://music.163.com/#/user/home?id=129985924" class="social flat-box" target="_blank" rel="external"><i class="social fa fa-music" aria-hidden="true"></i></a>
                 
               
                 
@@ -369,7 +359,7 @@
         <section class='m_widget music'>
     <div class='header'><i class="fa fa-headphones fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;音乐</div>
     <div class='content'>
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=450 src="//music.163.com/outchain/player?type=0&id=746319661&auto=0&height=450"></iframe>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=450 src="//music.163.com/outchain/player?type=0&id=172697558&auto=0&height=450"></iframe>
     </div>
 </section>
 
@@ -380,10 +370,10 @@
     <div class='content'>
         <ul class="entry" id="links">
             
-                <li><a class="flat-box" target="_blank" rel="external nofollow noopener noreferrer" href="https://xaoxuu.com">
+                <li><a class="flat-box" target="_blank" rel="external nofollow noopener noreferrer" href="/uzhipeng.github.io">
                     <div class='name'>
                         <i class="fa fa-user-circle-o fa-fw" aria-hidden="true"></i>
-                        &nbsp;&nbsp;xaoxuu
+                        &nbsp;&nbsp;uzhipeng 后台大佬/身高192
                     </div>
                 </a></li>
             
@@ -410,21 +400,21 @@
         <div class="social-wrapper">
           
               
-                  <a href="mailto:me@xaoxuu.com" class="social fa fa-envelope flat-box" target="_blank" rel="external"></a>
+                  <a href="mailto:me@enderhoshi@gmail.com" class="social fa fa-envelope flat-box" target="_blank" rel="external"></a>
               
           
               
-                  <a href="https://github.com/xaoxuu" class="social fa fa-github flat-box" target="_blank" rel="external"></a>
-              
-          
-              
-          
+                  <a href="https://github.com/EndeRHoshI" class="social fa fa-github flat-box" target="_blank" rel="external"></a>
               
           
               
           
               
-                  <a href="https://music.163.com/#/user/home?id=63035382" class="social fa fa-music flat-box" target="_blank" rel="external"></a>
+          
+              
+          
+              
+                  <a href="https://music.163.com/#/user/home?id=129985924" class="social fa fa-music flat-box" target="_blank" rel="external"></a>
               
           
               
