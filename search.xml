@@ -3,10 +3,37 @@
   
     
     <entry>
+      <title>Mac终端自动补全及常用命令汇总</title>
+      <link href="/2018/09/08/Mac%E7%BB%88%E7%AB%AF%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/"/>
+      <url>/2018/09/08/Mac%E7%BB%88%E7%AB%AF%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</url>
+      <content type="html"><![CDATA[<h2 id="终端自动补全的配置"><a href="#终端自动补全的配置" class="headerlink" title="终端自动补全的配置"></a>终端自动补全的配置</h2><ol><li><p>首先打开终端，输入 : </p><pre><code>nano .inputrc</code></pre></li><li><p>然后在文件里面写上：</p><pre><code>set completion-ignore-case onset show-all-if-ambiguous onTAB: menu-complete</code></pre></li><li><p>最后<code>ctrl + o</code> ，回车，重启终端，要使用自动补全按tap键就ok了</p></li></ol><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><table><thead><tr><th>指令</th><th>作用</th></tr></thead><tbody><tr><td>pwd</td><td>当前工作目录</td></tr><tr><td>cd（不加参数）</td><td>进root</td></tr><tr><td>cd（folder）</td><td>进入文件夹</td></tr><tr><td>cd ..</td><td>上级目录</td></tr><tr><td>cd ~</td><td>返回root</td></tr><tr><td>cd -</td><td>返回上一个访问的目录</td></tr><tr><td>rm 文件名</td><td>删除</td></tr><tr><td>cat 文件名(less)</td><td>在终端下查看文件</td></tr><tr><td>ls</td><td>列出目录下所有文件</td></tr><tr><td>cp 文件名 目标目录</td><td>将文件拷贝到目标目录下</td></tr><tr><td>~代表root</td><td>如：~/Document/CPP2/</td></tr><tr><td>mkdir</td><td>新建文件夹</td></tr><tr><td>g++ 源文件名</td><td>编译源文件，产生a.out</td></tr><tr><td>./文件名</td><td>运行  例如：./a.out &lt; 输入文件名 &gt; 输出文件名</td></tr><tr><td>control+d</td><td>中断a.out运行</td></tr><tr><td>nano</td><td>编写脚本语言　　ctrl+o存储</td></tr><tr><td>nano ….sh</td><td>打开</td></tr><tr><td>bash ….sh</td><td>运行脚本</td></tr><tr><td>echo “…$i…”</td><td>输出语句</td></tr><tr><td>tar -zxf abc.tar.gz</td><td>tar文件解压</td></tr><tr><td>ssh <a href="mailto:root@192.168.1.222" target="_blank" rel="noopener">root@192.168.1.222</a></td><td>以root账号远程连接222服务器</td></tr><tr><td>unrar x abc.rar</td><td>rar文件解压，需要安装rar工具</td></tr></tbody></table><ul><li>还可能存在错漏或需要补充，将会慢慢完善</li></ul>]]></content>
+      
+      <categories>
+          
+          <category> 问题集锦 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mac </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>hexo博客部署指北</title>
       <link href="/2018/08/30/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8C%97/"/>
       <url>/2018/08/30/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8C%97/</url>
       <content type="html"><![CDATA[<p>今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下：</p><h4 id="1-无法上传到github"><a href="#1-无法上传到github" class="headerlink" title="1. 无法上传到github"></a>1. 无法上传到github</h4><blockquote><p>部署hexo时，使用教程中说的<code>repository:https://github.com/andybroker/andybroker.github.io.git</code>无法正确上传，后来用了<a href="mailto:`git@github.com" target="_blank" rel="noopener">`git@github.com</a>:andybroker/andybroker.github.io.git`的方法，应该是直接使用ssh进行上传，故没有写账号密码的过程</p></blockquote><h4 id="2-配置文件时语言选项"><a href="#2-配置文件时语言选项" class="headerlink" title="2. 配置文件时语言选项"></a>2. 配置文件时语言选项</h4><blockquote><p>中文的选项不是<code>zh-Hans</code>，而应该是<code>zh-CN</code>，关于其他的一些语言可以在themes中看到，其他的一些配置也可以在themes里对应的主题的配置文件<code>_config.yml</code>中进行配置，languages文件夹内容如下所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/hexo%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png?raw=true" alt=""></p></blockquote><h4 id="3-hexo修改主题"><a href="#3-hexo修改主题" class="headerlink" title="3. hexo修改主题"></a>3. hexo修改主题</h4><blockquote><p>需要把主题先下载下来再进行配置使用</p></blockquote><h4 id="4-hexo的配置文件"><a href="#4-hexo的配置文件" class="headerlink" title="4. hexo的配置文件"></a>4. hexo的配置文件</h4><blockquote><p>其中的参数需要在冒号后空一格，不能直接连接冒号</p></blockquote><h4 id="不断使用和尝试中，如果有新的坑会继续补充"><a href="#不断使用和尝试中，如果有新的坑会继续补充" class="headerlink" title="不断使用和尝试中，如果有新的坑会继续补充"></a>不断使用和尝试中，如果有新的坑会继续补充</h4><blockquote><p>从零搭建hexo参考文章：<a href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/" target="_blank" rel="noopener">http://visugar.com/2017/05/04/20170504SetUpHexoBlog/</a> 这个博主也是使用hexo的，可以多多参考</p><p>hexo主题网站: <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p></blockquote>]]></content>
+      
+      <categories>
+          
+          <category> 日常开发记录 </category>
+          
+      </categories>
       
       
         <tags>
