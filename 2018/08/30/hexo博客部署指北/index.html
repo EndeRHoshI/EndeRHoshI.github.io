@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Archives: 2018/9 | HoshI-blog</title>
+  <title>hexo博客部署指北 | HoshI-blog</title>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -134,28 +134,16 @@
     <div class="l_body">
     <div class='container clearfix'>
         <div class='l_main'>
+            <article id="post-hexo博客部署指北" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    <section class='meta'>
+        <h1 class="title">
             
-	
-    <script>
-        window.subData= { title:'year : 2018.9'}
-    </script>
-
-
-<section class="post-list">
-    
-    
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
-            <a href="/2018/09/08/haha/">
-                
-                    haha
-                
-            </a>
-        </h2>
+                hexo博客部署指北
+            
+        </h1>
         <time>
-            2018-09-08
+            2018-08-30&nbsp;&nbsp;
+            <i class="fa fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
         </time>
         
     
@@ -167,19 +155,105 @@
     </section>
 
     <section class="article typo">
-        
-        
 
-        
-    </section>
-</article>
+        <div class="article-entry" itemprop="articleBody">
+            <p>今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下：</p>
+<h4 id="1-无法上传到github"><a href="#1-无法上传到github" class="headerlink" title="1. 无法上传到github"></a>1. 无法上传到github</h4><ul>
+<li>部署hexo时，使用教程中说的<code>repository:https://github.com/andybroker/andybroker.github.io.git</code>无法正确上传，后来用了<a href="mailto:`git@github.com" target="_blank" rel="noopener">`git@github.com</a>:andybroker/andybroker.github.io.git`的方法，应该是直接使用ssh进行上传，故没有写账号密码的过程</li>
+</ul>
+<h4 id="2-配置文件时语言选项"><a href="#2-配置文件时语言选项" class="headerlink" title="2. 配置文件时语言选项"></a>2. 配置文件时语言选项</h4><ul>
+<li>中文的选项不是<code>zh-Hans</code>，而应该是<code>zh-CN</code>，关于其他的一些语言可以在themes中看到，其他的一些配置也可以在themes里对应的主题的配置文件<code>_config.yml</code>中进行配置，languages文件夹内容如下所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/hexo%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png?raw=true" alt=""></li>
+</ul>
+<h4 id="3-hexo修改主题"><a href="#3-hexo修改主题" class="headerlink" title="3. hexo修改主题"></a>3. hexo修改主题</h4><ul>
+<li>需要把主题先下载下来再进行配置使用</li>
+</ul>
+<h4 id="4-hexo的配置文件"><a href="#4-hexo的配置文件" class="headerlink" title="4. hexo的配置文件"></a>4. hexo的配置文件</h4><ul>
+<li>其中的参数需要在冒号后空一格，不能直接连接冒号</li>
+</ul>
+<h4 id="不断使用和尝试中，如果有新的坑会继续补充"><a href="#不断使用和尝试中，如果有新的坑会继续补充" class="headerlink" title="不断使用和尝试中，如果有新的坑会继续补充"></a>不断使用和尝试中，如果有新的坑会继续补充</h4><ul>
+<li>从零搭建hexo参考文章：<a href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/" target="_blank" rel="noopener">http://visugar.com/2017/05/04/20170504SetUpHexoBlog/</a> 这个博主也是使用hexo的，可以多多参考</li>
+<li>hexo主题网站: <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></li>
+</ul>
 
         </div>
-    
-</section>
+
+        
+            <div class="article-tags tags">
+                
+                    <a href="/tags/踩坑/"><i class="fa fa-tag fa-fw" aria-hidden="true"></i>&nbsp;踩坑</a>
+                
+                    <a href="/tags/博客部署/"><i class="fa fa-tag fa-fw" aria-hidden="true"></i>&nbsp;博客部署</a>
+                
+            </div>
+        
+
+        
+            <div class="prev-next">
+                
+                    <section class="prev" >
+                        <span class="art-item-left">
+                            <h6><i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;上一篇</h6>
+                            <h4>
+                                <a href="/2018/09/08/haha/" rel="prev" title="haha">
+                                  
+                                      haha
+                                  
+                                </a>
+                            </h4>
+                            
+                        </span>
+                    </section>
+                
+                
+            </div>
+        
+
+    </section>
+
+</article>
+
+<br>
+
+<!-- 显示推荐文章和评论 -->
+
+    <article class="post white-box comments">
+        <section class="article typo">
+
+            
+                
+
+    <div class="recommended_posts">
+        <h4><i class="fa fa-bookmark fa-fw" aria-hidden="true"></i>&nbsp;你可能感兴趣的文章</h4>
+        <ul>
+            
+                <li><a href="http://yoursite.com/2018/09/08/haha/">haha</a></li>
+            
+        </ul>
+    </div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 
 
+            
 
+            
+
+                
+
+                
+
+                
+            
+
+        </section>
+    </article>
+
+
+<script>
+    window.subData = {
+        title: 'hexo博客部署指北',
+        tools: true
+    }
+</script>
 
 
         </div>
@@ -311,6 +385,13 @@
     
     
         
+    <section class='m_widget toc-wrapper'>
+        <div class="header"><i class="fa fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;目录</div>
+        <div class='content'>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-无法上传到github"><span class="toc-text">1. 无法上传到github</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-配置文件时语言选项"><span class="toc-text">2. 配置文件时语言选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-hexo修改主题"><span class="toc-text">3. hexo修改主题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-hexo的配置文件"><span class="toc-text">4. hexo的配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不断使用和尝试中，如果有新的坑会继续补充"><span class="toc-text">不断使用和尝试中，如果有新的坑会继续补充</span></a></li></ol>
+        </div>
+    </section>
+
 
     
 
@@ -408,6 +489,10 @@
 <script src="/js/search.js"></script>
 <script src="/js/app.js"></script>
 
+
+    
+    
+    
 
 
     <script>setLoadingBarProgress(100);</script>
