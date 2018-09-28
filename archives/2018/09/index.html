@@ -128,6 +128,61 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
+            <a href="/2018/09/08/Mac环境下Android Studio无法找到R文件的问题/">
+                
+                    Mac环境下Android Studio无法找到R文件|Mac修改只读文件
+                
+            </a>
+        </h2>
+        <time>
+            2018-09-08
+        </time>
+        
+    
+    <div class='cats'>
+        <a href="/categories/问题集锦/">问题集锦</a>
+    </div>
+
+
+    </section>
+
+    <section class="article typo">
+        <p>&emsp;&emsp;前段时间为了更快地编译项目更换了Mac系统，搭建好环境后把项目pull下来，然后编译运行，发现报错，无法生成R文件，出现R类找不到的问题，即使是clean、rebuild之后也找不到，当时的报错信息和记录没有保留，所以没有图来展示</p>
+<p>&emsp;&emsp;因为同事已经迁移环境，所以他们遇到了这个问题，也先顺利解决了，具体原因就是随着项目的不断开发，R文件太大以至于超出了配置大小，R文件没有被IDE正确地生成class文件</p>
+<p>&emsp;&emsp;找到了问题，所以就去更改就可以了，打开AS目录下的<code>idea.properties</code>配置文件，将<code>idea.max.intellisense.filesize=2500</code>这个值改大些，如5000，保存然后重启AS，发现这时就可以正常找到R文件了</p>
+<p>&emsp;&emsp;另外还有一点小插曲，在对文件进行修改时，我使用Mac命令行来对文件进行修改，提示只读文件不可改动，具体的操作如下：（my.cnf为只读文件）</p>
+<pre><code>sudo  chmod 755 /etc/my.cnf
+</code></pre><p>然后输入mac锁屏密码（其实就是超级管理密码）回车然后再: </p>
+<pre><code>sudo vim /etc/my.cnf
+</code></pre><p>编辑文件加上所需要的内容，这样就可以完成了，但是如果直接从<code>应用程序-&gt;显示包内容</code>处打开的话，就可以直接修改</p>
+<ul>
+<li>参考自：Android Studio R类找不到(Mac) <a href="https://blog.csdn.net/a740169405/article/details/79169914" target="_blank" rel="noopener">https://blog.csdn.net/a740169405/article/details/79169914</a></li>
+<li>参考自：mac下面如何修改只读文件 <a href="https://blog.csdn.net/vr_jia/article/details/78026178" target="_blank" rel="noopener">https://blog.csdn.net/vr_jia/article/details/78026178</a></li>
+<li>参考自：微信公众号-Android填坑指南</li>
+</ul>
+
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/踩坑/"><i class="fa fa-tag fa-fw"></i>&nbsp;踩坑</a>
+                
+                    <a href="/tags/Android/"><i class="fa fa-tag fa-fw"></i>&nbsp;Android</a>
+                
+                    <a href="/tags/Mac/"><i class="fa fa-tag fa-fw"></i>&nbsp;Mac</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+        </div>
+    
+        <div class='post-wrapper'>
+            <article class="post reveal ">
+    <section class="meta">
+        <h2 class="title">
             <a href="/2018/09/08/Mac终端自动补全及常用命令汇总/">
                 
                     Mac终端自动补全及常用命令汇总
@@ -407,7 +462,7 @@ TAB: menu-complete
                 
                     <li><a class="flat-box" href="/categories/日常开发记录/"><div class='name'>日常开发记录</div><div class='badge'>1</div></a></li>
                 
-                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>2</div></a></li>
+                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>3</div></a></li>
                 
             </ul>
         
@@ -420,7 +475,7 @@ TAB: menu-complete
     <section class='m_widget tagcloud'>
         <div class="header"><i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;标签</div>
         <div class='content'>
-            <a href="/tags/Android/" style="font-size: 14px; color: #999">Android</a> <a href="/tags/Mac/" style="font-size: 14px; color: #999">Mac</a> <a href="/tags/博客部署/" style="font-size: 14px; color: #999">博客部署</a> <a href="/tags/踩坑/" style="font-size: 14px; color: #999">踩坑</a>
+            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Mac/" style="font-size: 24px; color: #555">Mac</a> <a href="/tags/博客部署/" style="font-size: 14px; color: #999">博客部署</a> <a href="/tags/踩坑/" style="font-size: 24px; color: #555">踩坑</a>
         </div>
     </section>
 
