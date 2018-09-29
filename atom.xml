@@ -63,9 +63,9 @@
       <category term="问题集锦" scheme="http://yoursite.com/categories/%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
       <category term="踩坑" scheme="http://yoursite.com/tags/%E8%B8%A9%E5%9D%91/"/>
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
       <category term="Mac" scheme="http://yoursite.com/tags/Mac/"/>
     
