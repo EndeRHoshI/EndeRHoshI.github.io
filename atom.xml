@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-29T04:29:11.000Z</updated>
+  <updated>2018-09-29T04:34:54.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Mac终端自动补全及常用命令汇总</title>
+    <title>Markdown常用语法</title>
     <link href="http://yoursite.com/2018/09/29/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/"/>
     <id>http://yoursite.com/2018/09/29/Markdown常用语法/</id>
     <published>2018-09-29T03:33:28.000Z</published>
-    <updated>2018-09-29T04:29:11.000Z</updated>
+    <updated>2018-09-29T04:34:54.000Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;我简化并且整理了一些网上文章中的MarkDown的常用语法，在我的<code>有道云笔记</code>-&gt;<code>多人协作</code>-&gt;<code>编辑模式</code>下可以看到效果是怎么实现的，因为hexo渲染长文时貌似会导致页面空白，而且文章发在博客上看起来也并不好看，所以还是不发在博客上了</p><p>&emsp;&emsp;原文附在结尾</p><p>&emsp;&emsp;2016/11/18</p><hr><h2 id="补充内容"><a href="#补充内容" class="headerlink" title="补充内容"></a>补充内容</h2><p>Markdown是不支持缩进的</p><p>在Markdown里按下四个空格，就自动转入Code模式</p><p>在Markdown里一个回车，不是分段而是换行，要两个回车，才是分段</p><p>分段和换行的区别是：换行后，上一行和下一行在一个段落里，其视觉表现为，行前距和行后距与一行字太多导致的自然换行是一致的（大约0.5个字高LineHeight）<br>而段落不同，段落的行前距离和行后距大约是一个字高</p><p>这种视觉上的差异自然地让人明白：这是两个不同的段落</p><p>技术层，段落是<code>&lt;p&gt;</code>，换行是<code>&lt;br&gt;</code>，两者不同</p><p>如果需要增加缩进，可以自己写：</p><p>半方大的空白<code>&amp;ensp;</code>或<code>&amp;#8194</code>;</p><p>全方大的空白<code>&amp;emsp;</code>或<code>&amp;#8195</code>;</p><p>不断行的空白格<code>&amp;nbsp;</code>或<code>&amp;#160;</code></p><ul><li>本段来自 felcon 的CSDN 博客 ，全文地址请点击：<a href="https://blog.csdn.net/felcon/article/details/45333077?utm_source=copy" target="_blank" rel="noopener">https://blog.csdn.net/felcon/article/details/45333077?utm_source=copy</a> </li></ul><hr><h2 id="Markdown-免费编辑器"><a href="#Markdown-免费编辑器" class="headerlink" title="Markdown 免费编辑器"></a>Markdown 免费编辑器</h2><ul><li><h3 id="Windows-平台"><a href="#Windows-平台" class="headerlink" title="Windows 平台"></a>Windows 平台</h3><ul><li><a href="http://markdownpad.com/" target="_blank" rel="noopener">MarkdownPad</a></li><li><a href="http://code52.org/DownmarkerWPF/" target="_blank" rel="noopener">MarkPad</a></li></ul></li><li><h3 id="Linux-平台"><a href="#Linux-平台" class="headerlink" title="Linux 平台"></a>Linux 平台</h3><ul><li>ReText</li></ul></li><li><h3 id="Mac-平台"><a href="#Mac-平台" class="headerlink" title="Mac 平台"></a>Mac 平台</h3><ul><li><a href="http://25.io/mou/" target="_blank" rel="noopener">Mou</a></li></ul></li><li><h3 id="在线编辑器"><a href="#在线编辑器" class="headerlink" title="在线编辑器"></a>在线编辑器</h3><ul><li><a href="http://ttscoff.github.io/MarkdownEditing/" target="_blank" rel="noopener">Markable.in</a></li><li><a href="http://dillinger.io/" target="_blank" rel="noopener">Dillinger.io</a></li></ul></li><li><h3 id="浏览器插件"><a href="#浏览器插件" class="headerlink" title="浏览器插件"></a>浏览器插件</h3><ul><li>MaDe (Chrome)</li><li><a href="https://chrome.google.com/webstore/detail/minimalist-markdown-edito/pghodfjepegmciihfhdipmimghiakcjf?utm_source=chrome-app-launcher-info-dialog" target="_blank" rel="noopener">Minimalist Markdown Editor</a></li></ul></li><li><h3 id="高级应用"><a href="#高级应用" class="headerlink" title="高级应用"></a>高级应用</h3><ul><li>Sublime Text 2 + MarkdownEditing / 教程</li></ul></li></ul><hr><p>内容已经简化，完整版：<del><a href="http://wowubuntu.com/markdown/index.html#precode" target="_blank" rel="noopener">http://wowubuntu.com/markdown/index.html#precode</a></del>(链接已经失效)</p><p>简化版：<del><a href="http://wowubuntu.com/markdown/basic.html" target="_blank" rel="noopener">http://wowubuntu.com/markdown/basic.html</a></del>(链接已经失效)</p><p>本文用Markdown编写，用作查阅和展示，要查询具体的用法需要查看源文件然后再对比预览</p>]]></content>
     
