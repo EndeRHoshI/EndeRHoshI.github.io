@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Mac终端自动补全及常用命令汇总 | HoshI-blog</title>
+  <title>AS下载插件|使用Parcelable接口 | HoshI-blog</title>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -114,15 +114,15 @@
     <div class="l_body">
     <div class='container clearfix'>
         <div class='l_main'>
-            <article id="post-Mac终端自动补全及常用命令汇总" class="post white-box article-type-post" itemscope itemprop="blogPost">
+            <article id="post-AS下载插件和Parcelable接口" class="post white-box article-type-post" itemscope itemprop="blogPost">
     <section class='meta'>
         <h1 class="title">
             
-                Mac终端自动补全及常用命令汇总
+                AS下载插件|使用Parcelable接口
             
         </h1>
         <time>
-            2018-09-08&nbsp;&nbsp;
+            2018-10-08&nbsp;&nbsp;
             <i class="fa fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
         </time>
         
@@ -137,123 +137,67 @@
     <section class="article typo">
 
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="终端自动补全的配置"><a href="#终端自动补全的配置" class="headerlink" title="终端自动补全的配置"></a>终端自动补全的配置</h2><ol>
-<li><p>首先打开终端，输入 : </p>
-<pre><code>nano .inputrc
-</code></pre></li>
-<li><p>然后在文件里面写上：</p>
-<pre><code>set completion-ignore-case on
-set show-all-if-ambiguous on
-TAB: menu-complete
-</code></pre></li>
-<li><p>最后<code>ctrl + o</code> ，回车，重启终端，要使用自动补全时按tap键就ok了</p>
-</li>
-</ol>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pwd</td>
-<td>当前工作目录</td>
-</tr>
-<tr>
-<td>cd（不加参数）</td>
-<td>进root</td>
-</tr>
-<tr>
-<td>cd（folder）</td>
-<td>进入文件夹</td>
-</tr>
-<tr>
-<td>cd ..</td>
-<td>上级目录</td>
-</tr>
-<tr>
-<td>cd ~</td>
-<td>返回root</td>
-</tr>
-<tr>
-<td>cd -</td>
-<td>返回上一个访问的目录</td>
-</tr>
-<tr>
-<td>rm 文件名</td>
-<td>删除</td>
-</tr>
-<tr>
-<td>cat 文件名(less)</td>
-<td>在终端下查看文件</td>
-</tr>
-<tr>
-<td>ls</td>
-<td>列出目录下所有文件</td>
-</tr>
-<tr>
-<td>cp 文件名 目标目录</td>
-<td>将文件拷贝到目标目录下</td>
-</tr>
-<tr>
-<td>~代表root</td>
-<td>如：~/Document/CPP2/</td>
-</tr>
-<tr>
-<td>mkdir</td>
-<td>新建文件夹</td>
-</tr>
-<tr>
-<td>g++ 源文件名</td>
-<td>编译源文件，产生a.out</td>
-</tr>
-<tr>
-<td>./文件名</td>
-<td>运行  例如：./a.out &lt; 输入文件名 &gt; 输出文件名</td>
-</tr>
-<tr>
-<td>control+d</td>
-<td>中断a.out运行</td>
-</tr>
-<tr>
-<td>nano</td>
-<td>编写脚本语言　　ctrl+o存储</td>
-</tr>
-<tr>
-<td>nano ….sh</td>
-<td>打开</td>
-</tr>
-<tr>
-<td>bash ….sh</td>
-<td>运行脚本</td>
-</tr>
-<tr>
-<td>echo “…$i…”</td>
-<td>输出语句</td>
-</tr>
-<tr>
-<td>tar -zxf abc.tar.gz</td>
-<td>tar文件解压</td>
-</tr>
-<tr>
-<td>ssh <a href="mailto:root@192.168.1.222" target="_blank" rel="noopener">root@192.168.1.222</a></td>
-<td>以root账号远程连接222服务器</td>
-</tr>
-<tr>
-<td>unrar x abc.rar</td>
-<td>rar文件解压，需要安装rar工具</td>
-</tr>
-</tbody>
-</table>
-<h2 id="还可能存在错漏或需要补充，将会慢慢完善"><a href="#还可能存在错漏或需要补充，将会慢慢完善" class="headerlink" title="还可能存在错漏或需要补充，将会慢慢完善"></a>还可能存在错漏或需要补充，将会慢慢完善</h2>
+            <p>&emsp;&emsp;今天回顾上周的一些开发任务，结合主管审查代码之后提出的一些建议，对代码进行一些整理，看到一条这样的：</p>
+<blockquote>
+<pre><code>import com.google.gson.annotations.SerializedName
+data class CurrencReviewEntity(
+</code></pre><p>可以考虑替换为实现<code>Parcelable</code>接口</p>
+<p>新写的实体类，如果不是工具生成，可以直接用kotlin写，然后用<code>Option + T</code>快捷键自动实现<code>Parcelable</code>接口</p>
+</blockquote>
+<p>&emsp;&emsp;原来的代码中使用了<code>SerializedName</code>注解来对JSON数据实体类进行映射，主管给出的建议中要求使用Parcelable接口来实现</p>
+<p>&emsp;&emsp;我打开实体类点了几次<code>Option + T</code>没有任何反应，原来是要再下载一个插件<code>Android Parcelable code generator</code>，遂打开AS的preferences，然后查找插件进行下载：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/AS%20parcelable%E6%8F%92%E4%BB%B6.png?raw=true" alt=""></p>
+<p>&emsp;&emsp;却弹出了如下错误：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%87%BA%E9%94%99.png?raw=true" alt=""></p>
+<p>&emsp;&emsp;懒得去设置代理地址了，所以直接去jetbrains的插件官网：<a href="https://plugins.jetbrains.com/" target="_blank" rel="noopener">https://plugins.jetbrains.com/</a> 搜索下载好，然后解压到AS/Contents/plugins目录下</p>
+<p>&emsp;&emsp;然后再重启AS，大功告成，我们可以点击实体类名右侧的空白，用快捷键自动补全试试：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%7C%E4%BD%BF%E7%94%A8Parcelable%E6%8E%A5%E5%8F%A3-%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%AE%9E%E7%8E%B0Parcelable%E6%8E%A5%E5%8F%A3.png?raw=true" alt=""></p>
+<p>&emsp;&emsp;然后代码如下：</p>
+<pre><code>@Keep
+data class TickerCommentResponse (
+    @SerializedName(&quot;success&quot;) var success: Boolean,
+    @SerializedName(&quot;error&quot;) var error: String,
+    @SerializedName(&quot;errorCode&quot;) var errorCode: Int,
+    @SerializedName(&quot;data&quot;) var data: TickerCommentBean
+) : Parcelable {
+  constructor(parcel: Parcel) : this(
+    parcel.readByte() != 0.toByte(),
+    parcel.readString(),
+    parcel.readInt(),
+    TODO(&quot;data&quot;)) {
+  }
+
+  override fun writeToParcel(parcel: Parcel, flags: Int) {
+    parcel.writeByte(if (success) 1 else 0)
+    parcel.writeString(error)
+    parcel.writeInt(errorCode)
+  }
+
+  override fun describeContents(): Int {
+    return 0
+  }
+
+  companion object CREATOR : Parcelable.Creator&lt;TickerCommentResponse&gt; {
+    override fun createFromParcel(parcel: Parcel): TickerCommentResponse {
+      return TickerCommentResponse(parcel)
+    }
+
+    override fun newArray(size: Int): Array&lt;TickerCommentResponse?&gt; {
+      return arrayOfNulls(size)
+    }
+  }
+}
+</code></pre><p>&emsp;&emsp;因为这里的TickerCommentBean是另一个实体类，所以我们再把constructor处修改好就可以了：</p>
+<pre><code>constructor(parcel: Parcel) : this(
+  parcel.readByte() != 0.toByte(),
+  parcel.readString(),
+  parcel.readInt(),
+  parcel.readParcelable(TickerCommentBean::class.java.classLoader))
+</code></pre><p>&emsp;&emsp;注意这里的TickerCommentBean也需要实现Parcelable接口，否则报错</p>
+<h3 id="到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"><a href="#到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口" class="headerlink" title="到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"></a><strong>到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</strong></h3>
         </div>
 
         
             <div class="article-tags tags">
                 
-                    <a href="/tags/Mac/"><i class="fa fa-tag fa-fw" aria-hidden="true"></i>&nbsp;Mac</a>
+                    <a href="/tags/Android/"><i class="fa fa-tag fa-fw" aria-hidden="true"></i>&nbsp;Android</a>
                 
             </div>
         
@@ -261,45 +205,21 @@ TAB: menu-complete
         
             <div class="prev-next">
                 
-                    <section class="prev" >
-                        <span class="art-item-left">
-                            <h6><i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;上一篇</h6>
-                            <h4>
-                                <a href="/2018/09/28/Mac环境下Android Studio无法找到R文件的问题/" rel="prev" title="Mac环境下Android Studio无法找到R文件|Mac修改只读文件">
-                                  
-                                      Mac环境下Android Studio无法找到R文件|Mac修改只读文件
-                                  
-                                </a>
-                            </h4>
-                            
-                                <h6 class="tags">
-                                    
-                                        <i class="fa fa-tag fa-fw"></i>Android
-                                    
-                                        <i class="fa fa-tag fa-fw"></i>Mac
-                                    
-                                        <i class="fa fa-tag fa-fw"></i>踩坑
-                                    
-                                </h6>
-                            
-                        </span>
-                    </section>
-                
                 
                     <section class="next">
                         <span class="art-item-right" aria-hidden="true">
                             <h6>下一篇&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/2018/09/08/apk无法在某款手机上运行解决方案/" rel="prev" title="apk无法在某款手机上运行">
+                                <a href="/2018/09/29/Markdown常用语法/" rel="prev" title="Markdown常用语法">
                                     
-                                        apk无法在某款手机上运行
+                                        Markdown常用语法
                                     
                                 </a>
                             </h4>
                             
                                 <h6 class="tags">
                                     
-                                        <i class="fa fa-tag fa-fw"></i>Android
+                                        <i class="fa fa-tag fa-fw"></i>Markdown
                                     
                                 </h6>
                             
@@ -333,9 +253,9 @@ TAB: menu-complete
             
                 <li><a href="http://yoursite.com/2018/09/28/Mac环境下Android Studio无法找到R文件的问题/">Mac环境下Android Studio无法找到R文件|Mac修改只读文件</a></li>
             
-                <li><a href="http://yoursite.com/2018/09/08/apk无法在某款手机上运行解决方案/">apk无法在某款手机上运行</a></li>
+                <li><a href="http://yoursite.com/2018/09/08/Mac终端自动补全及常用命令汇总/">Mac终端自动补全及常用命令汇总</a></li>
             
-                <li><a href="http://yoursite.com/2018/08/30/hexo博客部署指北/">hexo博客部署指北</a></li>
+                <li><a href="http://yoursite.com/2018/09/08/apk无法在某款手机上运行解决方案/">apk无法在某款手机上运行</a></li>
             
         </ul>
     </div>
@@ -359,7 +279,7 @@ TAB: menu-complete
 
 <script>
     window.subData = {
-        title: 'Mac终端自动补全及常用命令汇总',
+        title: 'AS下载插件|使用Parcelable接口',
         tools: true
     }
 </script>
@@ -512,7 +432,7 @@ TAB: menu-complete
     <section class='m_widget toc-wrapper'>
         <div class="header"><i class="fa fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;目录</div>
         <div class='content'>
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#终端自动补全的配置"><span class="toc-text">终端自动补全的配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用命令"><span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#还可能存在错漏或需要补充，将会慢慢完善"><span class="toc-text">还可能存在错漏或需要补充，将会慢慢完善</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"><span class="toc-text">到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</span></a></li></ol>
         </div>
     </section>
 

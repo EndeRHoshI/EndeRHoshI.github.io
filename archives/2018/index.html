@@ -128,6 +128,98 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
+            <a href="/2018/10/08/AS下载插件和Parcelable接口/">
+                
+                    AS下载插件|使用Parcelable接口
+                
+            </a>
+        </h2>
+        <time>
+            2018-10-08
+        </time>
+        
+    
+    <div class='cats'>
+        <a href="/categories/问题集锦/">问题集锦</a>
+    </div>
+
+
+    </section>
+
+    <section class="article typo">
+        <p>&emsp;&emsp;今天回顾上周的一些开发任务，结合主管审查代码之后提出的一些建议，对代码进行一些整理，看到一条这样的：</p>
+<blockquote>
+<pre><code>import com.google.gson.annotations.SerializedName
+data class CurrencReviewEntity(
+</code></pre><p>可以考虑替换为实现<code>Parcelable</code>接口</p>
+<p>新写的实体类，如果不是工具生成，可以直接用kotlin写，然后用<code>Option + T</code>快捷键自动实现<code>Parcelable</code>接口</p>
+</blockquote>
+<p>&emsp;&emsp;原来的代码中使用了<code>SerializedName</code>注解来对JSON数据实体类进行映射，主管给出的建议中要求使用Parcelable接口来实现</p>
+<p>&emsp;&emsp;我打开实体类点了几次<code>Option + T</code>没有任何反应，原来是要再下载一个插件<code>Android Parcelable code generator</code>，遂打开AS的preferences，然后查找插件进行下载：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/AS%20parcelable%E6%8F%92%E4%BB%B6.png?raw=true" alt=""></p>
+<p>&emsp;&emsp;却弹出了如下错误：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%87%BA%E9%94%99.png?raw=true" alt=""></p>
+<p>&emsp;&emsp;懒得去设置代理地址了，所以直接去jetbrains的插件官网：<a href="https://plugins.jetbrains.com/" target="_blank" rel="noopener">https://plugins.jetbrains.com/</a> 搜索下载好，然后解压到AS/Contents/plugins目录下</p>
+<p>&emsp;&emsp;然后再重启AS，大功告成，我们可以点击实体类名右侧的空白，用快捷键自动补全试试：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%7C%E4%BD%BF%E7%94%A8Parcelable%E6%8E%A5%E5%8F%A3-%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%AE%9E%E7%8E%B0Parcelable%E6%8E%A5%E5%8F%A3.png?raw=true" alt=""></p>
+<p>&emsp;&emsp;然后代码如下：</p>
+<pre><code>@Keep
+data class TickerCommentResponse (
+    @SerializedName(&quot;success&quot;) var success: Boolean,
+    @SerializedName(&quot;error&quot;) var error: String,
+    @SerializedName(&quot;errorCode&quot;) var errorCode: Int,
+    @SerializedName(&quot;data&quot;) var data: TickerCommentBean
+) : Parcelable {
+  constructor(parcel: Parcel) : this(
+    parcel.readByte() != 0.toByte(),
+    parcel.readString(),
+    parcel.readInt(),
+    TODO(&quot;data&quot;)) {
+  }
+
+  override fun writeToParcel(parcel: Parcel, flags: Int) {
+    parcel.writeByte(if (success) 1 else 0)
+    parcel.writeString(error)
+    parcel.writeInt(errorCode)
+  }
+
+  override fun describeContents(): Int {
+    return 0
+  }
+
+  companion object CREATOR : Parcelable.Creator&lt;TickerCommentResponse&gt; {
+    override fun createFromParcel(parcel: Parcel): TickerCommentResponse {
+      return TickerCommentResponse(parcel)
+    }
+
+    override fun newArray(size: Int): Array&lt;TickerCommentResponse?&gt; {
+      return arrayOfNulls(size)
+    }
+  }
+}
+</code></pre><p>&emsp;&emsp;因为这里的TickerCommentBean是另一个实体类，所以我们再把constructor处修改好就可以了：</p>
+<pre><code>constructor(parcel: Parcel) : this(
+  parcel.readByte() != 0.toByte(),
+  parcel.readString(),
+  parcel.readInt(),
+  parcel.readParcelable(TickerCommentBean::class.java.classLoader))
+</code></pre><p>&emsp;&emsp;注意这里的TickerCommentBean也需要实现Parcelable接口，否则报错</p>
+<h3 id="到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"><a href="#到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口" class="headerlink" title="到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"></a><strong>到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</strong></h3>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/Android/"><i class="fa fa-tag fa-fw"></i>&nbsp;Android</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+        </div>
+    
+        <div class='post-wrapper'>
+            <article class="post reveal ">
+    <section class="meta">
+        <h2 class="title">
             <a href="/2018/09/29/Markdown常用语法/">
                 
                     Markdown常用语法
@@ -397,9 +489,9 @@
                 
                     <a href="/tags/Android/"><i class="fa fa-tag fa-fw"></i>&nbsp;Android</a>
                 
-                    <a href="/tags/踩坑/"><i class="fa fa-tag fa-fw"></i>&nbsp;踩坑</a>
-                
                     <a href="/tags/Mac/"><i class="fa fa-tag fa-fw"></i>&nbsp;Mac</a>
+                
+                    <a href="/tags/踩坑/"><i class="fa fa-tag fa-fw"></i>&nbsp;踩坑</a>
                 
             </div>
         
@@ -750,7 +842,7 @@ TAB: menu-complete
                 
                     <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>2</div></a></li>
                 
-                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>3</div></a></li>
+                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>4</div></a></li>
                 
             </ul>
         
