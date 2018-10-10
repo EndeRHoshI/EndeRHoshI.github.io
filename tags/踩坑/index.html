@@ -150,10 +150,10 @@
 <p>&emsp;&emsp;因为同事已经迁移环境，所以他们也遇到了这个问题，先顺利解决了，具体原因就是，随着项目的不断开发，R文件太大，以至于超出了配置大小，所以R文件没有被IDE正确地生成class文件</p>
 <p>&emsp;&emsp;找到了问题所在，去更改配置就可以了，打开AS目录下的<code>idea.properties</code>配置文件，将<code>idea.max.intellisense.filesize=2500</code>这个值改大些，如5000，保存然后重启AS，发现这时就可以正常找到R文件了</p>
 <p>&emsp;&emsp;另外还有一点小插曲，在对文件进行修改时，我是用Mac命令行来对文件进行修改的，提示只读文件不可改动，解决问题的具体操作如下：（my.cnf为只读文件）</p>
-<pre><code>sudo  chmod 755 /etc/my.cnf
-</code></pre><p>然后输入mac锁屏密码（其实就是超级管理密码）回车然后再: </p>
-<pre><code>sudo vim /etc/my.cnf
-</code></pre><p>就可以编辑文件，加上所你需要的内容，这样就可以完成了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo  chmod 755 /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<p>然后输入mac锁屏密码（其实就是超级管理密码）回车然后再: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<p>就可以编辑文件，加上所你需要的内容，这样就可以完成了</p>
 <ul>
 <li>参考自：Android Studio R类找不到(Mac) <a href="https://blog.csdn.net/a740169405/article/details/79169914" target="_blank" rel="noopener">https://blog.csdn.net/a740169405/article/details/79169914</a></li>
 <li>参考自：mac下面如何修改只读文件 <a href="https://blog.csdn.net/vr_jia/article/details/78026178" target="_blank" rel="noopener">https://blog.csdn.net/vr_jia/article/details/78026178</a></li>
@@ -167,9 +167,9 @@
                 
                     <a href="/tags/Android/"><i class="fa fa-tag fa-fw"></i>&nbsp;Android</a>
                 
-                    <a href="/tags/Mac/"><i class="fa fa-tag fa-fw"></i>&nbsp;Mac</a>
-                
                     <a href="/tags/踩坑/"><i class="fa fa-tag fa-fw"></i>&nbsp;踩坑</a>
+                
+                    <a href="/tags/Mac/"><i class="fa fa-tag fa-fw"></i>&nbsp;Mac</a>
                 
             </div>
         

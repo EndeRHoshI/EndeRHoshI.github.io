@@ -139,9 +139,10 @@
         <div class="article-entry" itemprop="articleBody">
             <p>&emsp;&emsp;今天回顾上周的一些开发任务，结合主管审查代码之后提出的一些建议，对代码进行一些整理，看到一条这样的：</p>
 <blockquote>
-<pre><code>import com.google.gson.annotations.SerializedName
-data class CurrencReviewEntity(
-</code></pre><p>可以考虑替换为实现<code>Parcelable</code>接口</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">import</span> com.google.gson.annotations.SerializedName</span><br><span class="line">&gt;<span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">CurrencReviewEntity</span></span>(</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>可以考虑替换为实现<code>Parcelable</code>接口</p>
 <p>新写的实体类，如果不是工具生成，可以直接用kotlin写，然后用<code>Option + T</code>快捷键自动实现<code>Parcelable</code>接口</p>
 </blockquote>
 <p>&emsp;&emsp;原来的代码中使用了<code>SerializedName</code>注解来对JSON数据实体类进行映射，主管给出的建议中要求使用Parcelable接口来实现</p>
@@ -150,48 +151,12 @@ data class CurrencReviewEntity(
 <p>&emsp;&emsp;懒得去设置代理地址了，所以直接去jetbrains的插件官网：<a href="https://plugins.jetbrains.com/" target="_blank" rel="noopener">https://plugins.jetbrains.com/</a> 搜索下载好，然后解压到AS/Contents/plugins目录下</p>
 <p>&emsp;&emsp;然后再重启AS，大功告成，我们可以点击实体类名右侧的空白，用快捷键自动补全试试：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%7C%E4%BD%BF%E7%94%A8Parcelable%E6%8E%A5%E5%8F%A3-%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%AE%9E%E7%8E%B0Parcelable%E6%8E%A5%E5%8F%A3.png?raw=true" alt=""></p>
 <p>&emsp;&emsp;然后代码如下：</p>
-<pre><code>@Keep
-data class TickerCommentResponse (
-    @SerializedName(&quot;success&quot;) var success: Boolean,
-    @SerializedName(&quot;error&quot;) var error: String,
-    @SerializedName(&quot;errorCode&quot;) var errorCode: Int,
-    @SerializedName(&quot;data&quot;) var data: TickerCommentBean
-) : Parcelable {
-  constructor(parcel: Parcel) : this(
-    parcel.readByte() != 0.toByte(),
-    parcel.readString(),
-    parcel.readInt(),
-    TODO(&quot;data&quot;)) {
-  }
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Keep</span></span><br><span class="line"><span class="function">data class <span class="title">TickerCommentResponse</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    @SerializedName(<span class="string">"success"</span>)</span> var success: Boolean,</span></span><br><span class="line"><span class="function">    @<span class="title">SerializedName</span><span class="params">(<span class="string">"error"</span>)</span> var error: String,</span></span><br><span class="line"><span class="function">    @<span class="title">SerializedName</span><span class="params">(<span class="string">"errorCode"</span>)</span> var errorCode: Int,</span></span><br><span class="line"><span class="function">    @<span class="title">SerializedName</span><span class="params">(<span class="string">"data"</span>)</span> var data: TickerCommentBean</span></span><br><span class="line"><span class="function">) : Parcelable </span>&#123;</span><br><span class="line">  constructor(parcel: Parcel) : <span class="keyword">this</span>(</span><br><span class="line">    parcel.readByte() != <span class="number">0</span>.toByte(),</span><br><span class="line">    parcel.readString(),</span><br><span class="line">    parcel.readInt(),</span><br><span class="line">    TODO(<span class="string">"data"</span>)) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">override fun <span class="title">writeToParcel</span><span class="params">(parcel: Parcel, flags: Int)</span> </span>&#123;</span><br><span class="line">    parcel.writeByte(<span class="keyword">if</span> (success) <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line">    parcel.writeString(error)</span><br><span class="line">    parcel.writeInt(errorCode)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">override fun <span class="title">describeContents</span><span class="params">()</span>: Int </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  companion object CREATOR : Parcelable.Creator&lt;TickerCommentResponse&gt; &#123;</span><br><span class="line">    <span class="function">override fun <span class="title">createFromParcel</span><span class="params">(parcel: Parcel)</span>: TickerCommentResponse </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> TickerCommentResponse(parcel)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">override fun <span class="title">newArray</span><span class="params">(size: Int)</span>: Array&lt;TickerCommentResponse?&gt; </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> arrayOfNulls(size)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;因为这里的TickerCommentBean是另一个实体类，所以我们再把constructor处修改好就可以了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constructor(parcel: Parcel) : <span class="keyword">this</span>(</span><br><span class="line">  parcel.readByte() != <span class="number">0</span>.toByte(),</span><br><span class="line">  parcel.readString(),</span><br><span class="line">  parcel.readInt(),</span><br><span class="line">  parcel.readParcelable(TickerCommentBean::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>.<span class="title">classLoader</span>))</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;注意这里的TickerCommentBean也需要实现Parcelable接口，否则报错</p>
+<p>&emsp;&emsp;<strong>到最后发现原来只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</strong></p>
 
-  override fun writeToParcel(parcel: Parcel, flags: Int) {
-    parcel.writeByte(if (success) 1 else 0)
-    parcel.writeString(error)
-    parcel.writeInt(errorCode)
-  }
-
-  override fun describeContents(): Int {
-    return 0
-  }
-
-  companion object CREATOR : Parcelable.Creator&lt;TickerCommentResponse&gt; {
-    override fun createFromParcel(parcel: Parcel): TickerCommentResponse {
-      return TickerCommentResponse(parcel)
-    }
-
-    override fun newArray(size: Int): Array&lt;TickerCommentResponse?&gt; {
-      return arrayOfNulls(size)
-    }
-  }
-}
-</code></pre><p>&emsp;&emsp;因为这里的TickerCommentBean是另一个实体类，所以我们再把constructor处修改好就可以了：</p>
-<pre><code>constructor(parcel: Parcel) : this(
-  parcel.readByte() != 0.toByte(),
-  parcel.readString(),
-  parcel.readInt(),
-  parcel.readParcelable(TickerCommentBean::class.java.classLoader))
-</code></pre><p>&emsp;&emsp;注意这里的TickerCommentBean也需要实现Parcelable接口，否则报错</p>
-<h3 id="到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"><a href="#到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口" class="headerlink" title="到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"></a><strong>到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</strong></h3>
         </div>
 
         
@@ -429,13 +394,6 @@ data class TickerCommentResponse (
     
     
         
-    <section class='m_widget toc-wrapper'>
-        <div class="header"><i class="fa fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;目录</div>
-        <div class='content'>
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"><span class="toc-text">到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</span></a></li></ol>
-        </div>
-    </section>
-
 
     
 

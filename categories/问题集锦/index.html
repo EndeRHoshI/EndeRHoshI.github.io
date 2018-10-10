@@ -148,9 +148,10 @@
     <section class="article typo">
         <p>&emsp;&emsp;今天回顾上周的一些开发任务，结合主管审查代码之后提出的一些建议，对代码进行一些整理，看到一条这样的：</p>
 <blockquote>
-<pre><code>import com.google.gson.annotations.SerializedName
-data class CurrencReviewEntity(
-</code></pre><p>可以考虑替换为实现<code>Parcelable</code>接口</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">import</span> com.google.gson.annotations.SerializedName</span><br><span class="line">&gt;<span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">CurrencReviewEntity</span></span>(</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>可以考虑替换为实现<code>Parcelable</code>接口</p>
 <p>新写的实体类，如果不是工具生成，可以直接用kotlin写，然后用<code>Option + T</code>快捷键自动实现<code>Parcelable</code>接口</p>
 </blockquote>
 <p>&emsp;&emsp;原来的代码中使用了<code>SerializedName</code>注解来对JSON数据实体类进行映射，主管给出的建议中要求使用Parcelable接口来实现</p>
@@ -159,48 +160,12 @@ data class CurrencReviewEntity(
 <p>&emsp;&emsp;懒得去设置代理地址了，所以直接去jetbrains的插件官网：<a href="https://plugins.jetbrains.com/" target="_blank" rel="noopener">https://plugins.jetbrains.com/</a> 搜索下载好，然后解压到AS/Contents/plugins目录下</p>
 <p>&emsp;&emsp;然后再重启AS，大功告成，我们可以点击实体类名右侧的空白，用快捷键自动补全试试：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%7C%E4%BD%BF%E7%94%A8Parcelable%E6%8E%A5%E5%8F%A3-%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%AE%9E%E7%8E%B0Parcelable%E6%8E%A5%E5%8F%A3.png?raw=true" alt=""></p>
 <p>&emsp;&emsp;然后代码如下：</p>
-<pre><code>@Keep
-data class TickerCommentResponse (
-    @SerializedName(&quot;success&quot;) var success: Boolean,
-    @SerializedName(&quot;error&quot;) var error: String,
-    @SerializedName(&quot;errorCode&quot;) var errorCode: Int,
-    @SerializedName(&quot;data&quot;) var data: TickerCommentBean
-) : Parcelable {
-  constructor(parcel: Parcel) : this(
-    parcel.readByte() != 0.toByte(),
-    parcel.readString(),
-    parcel.readInt(),
-    TODO(&quot;data&quot;)) {
-  }
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Keep</span></span><br><span class="line"><span class="function">data class <span class="title">TickerCommentResponse</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    @SerializedName(<span class="string">"success"</span>)</span> var success: Boolean,</span></span><br><span class="line"><span class="function">    @<span class="title">SerializedName</span><span class="params">(<span class="string">"error"</span>)</span> var error: String,</span></span><br><span class="line"><span class="function">    @<span class="title">SerializedName</span><span class="params">(<span class="string">"errorCode"</span>)</span> var errorCode: Int,</span></span><br><span class="line"><span class="function">    @<span class="title">SerializedName</span><span class="params">(<span class="string">"data"</span>)</span> var data: TickerCommentBean</span></span><br><span class="line"><span class="function">) : Parcelable </span>&#123;</span><br><span class="line">  constructor(parcel: Parcel) : <span class="keyword">this</span>(</span><br><span class="line">    parcel.readByte() != <span class="number">0</span>.toByte(),</span><br><span class="line">    parcel.readString(),</span><br><span class="line">    parcel.readInt(),</span><br><span class="line">    TODO(<span class="string">"data"</span>)) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">override fun <span class="title">writeToParcel</span><span class="params">(parcel: Parcel, flags: Int)</span> </span>&#123;</span><br><span class="line">    parcel.writeByte(<span class="keyword">if</span> (success) <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line">    parcel.writeString(error)</span><br><span class="line">    parcel.writeInt(errorCode)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">override fun <span class="title">describeContents</span><span class="params">()</span>: Int </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  companion object CREATOR : Parcelable.Creator&lt;TickerCommentResponse&gt; &#123;</span><br><span class="line">    <span class="function">override fun <span class="title">createFromParcel</span><span class="params">(parcel: Parcel)</span>: TickerCommentResponse </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> TickerCommentResponse(parcel)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">override fun <span class="title">newArray</span><span class="params">(size: Int)</span>: Array&lt;TickerCommentResponse?&gt; </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> arrayOfNulls(size)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;因为这里的TickerCommentBean是另一个实体类，所以我们再把constructor处修改好就可以了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constructor(parcel: Parcel) : <span class="keyword">this</span>(</span><br><span class="line">  parcel.readByte() != <span class="number">0</span>.toByte(),</span><br><span class="line">  parcel.readString(),</span><br><span class="line">  parcel.readInt(),</span><br><span class="line">  parcel.readParcelable(TickerCommentBean::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>.<span class="title">classLoader</span>))</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;注意这里的TickerCommentBean也需要实现Parcelable接口，否则报错</p>
+<p>&emsp;&emsp;<strong>到最后发现原来只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</strong></p>
 
-  override fun writeToParcel(parcel: Parcel, flags: Int) {
-    parcel.writeByte(if (success) 1 else 0)
-    parcel.writeString(error)
-    parcel.writeInt(errorCode)
-  }
-
-  override fun describeContents(): Int {
-    return 0
-  }
-
-  companion object CREATOR : Parcelable.Creator&lt;TickerCommentResponse&gt; {
-    override fun createFromParcel(parcel: Parcel): TickerCommentResponse {
-      return TickerCommentResponse(parcel)
-    }
-
-    override fun newArray(size: Int): Array&lt;TickerCommentResponse?&gt; {
-      return arrayOfNulls(size)
-    }
-  }
-}
-</code></pre><p>&emsp;&emsp;因为这里的TickerCommentBean是另一个实体类，所以我们再把constructor处修改好就可以了：</p>
-<pre><code>constructor(parcel: Parcel) : this(
-  parcel.readByte() != 0.toByte(),
-  parcel.readString(),
-  parcel.readInt(),
-  parcel.readParcelable(TickerCommentBean::class.java.classLoader))
-</code></pre><p>&emsp;&emsp;注意这里的TickerCommentBean也需要实现Parcelable接口，否则报错</p>
-<h3 id="到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"><a href="#到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口" class="headerlink" title="到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口"></a><strong>到最后发现只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</strong></h3>
         
 
         
@@ -242,10 +207,10 @@ data class TickerCommentResponse (
 <p>&emsp;&emsp;因为同事已经迁移环境，所以他们也遇到了这个问题，先顺利解决了，具体原因就是，随着项目的不断开发，R文件太大，以至于超出了配置大小，所以R文件没有被IDE正确地生成class文件</p>
 <p>&emsp;&emsp;找到了问题所在，去更改配置就可以了，打开AS目录下的<code>idea.properties</code>配置文件，将<code>idea.max.intellisense.filesize=2500</code>这个值改大些，如5000，保存然后重启AS，发现这时就可以正常找到R文件了</p>
 <p>&emsp;&emsp;另外还有一点小插曲，在对文件进行修改时，我是用Mac命令行来对文件进行修改的，提示只读文件不可改动，解决问题的具体操作如下：（my.cnf为只读文件）</p>
-<pre><code>sudo  chmod 755 /etc/my.cnf
-</code></pre><p>然后输入mac锁屏密码（其实就是超级管理密码）回车然后再: </p>
-<pre><code>sudo vim /etc/my.cnf
-</code></pre><p>就可以编辑文件，加上所你需要的内容，这样就可以完成了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo  chmod 755 /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<p>然后输入mac锁屏密码（其实就是超级管理密码）回车然后再: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<p>就可以编辑文件，加上所你需要的内容，这样就可以完成了</p>
 <ul>
 <li>参考自：Android Studio R类找不到(Mac) <a href="https://blog.csdn.net/a740169405/article/details/79169914" target="_blank" rel="noopener">https://blog.csdn.net/a740169405/article/details/79169914</a></li>
 <li>参考自：mac下面如何修改只读文件 <a href="https://blog.csdn.net/vr_jia/article/details/78026178" target="_blank" rel="noopener">https://blog.csdn.net/vr_jia/article/details/78026178</a></li>
@@ -259,9 +224,9 @@ data class TickerCommentResponse (
                 
                     <a href="/tags/Android/"><i class="fa fa-tag fa-fw"></i>&nbsp;Android</a>
                 
-                    <a href="/tags/Mac/"><i class="fa fa-tag fa-fw"></i>&nbsp;Mac</a>
-                
                     <a href="/tags/踩坑/"><i class="fa fa-tag fa-fw"></i>&nbsp;踩坑</a>
+                
+                    <a href="/tags/Mac/"><i class="fa fa-tag fa-fw"></i>&nbsp;Mac</a>
                 
             </div>
         
@@ -295,13 +260,11 @@ data class TickerCommentResponse (
     <section class="article typo">
         <h2 id="终端自动补全的配置"><a href="#终端自动补全的配置" class="headerlink" title="终端自动补全的配置"></a>终端自动补全的配置</h2><ol>
 <li><p>首先打开终端，输入 : </p>
-<pre><code>nano .inputrc
-</code></pre></li>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano .inputrc</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>然后在文件里面写上：</p>
-<pre><code>set completion-ignore-case on
-set show-all-if-ambiguous on
-TAB: menu-complete
-</code></pre></li>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> completion-ignore-case on</span><br><span class="line"><span class="built_in">set</span> show-all-if-ambiguous on</span><br><span class="line">TAB: menu-complete</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>最后<code>ctrl + o</code> ，回车，重启终端，要使用自动补全时按tap键就ok了</p>
 </li>
 </ol>
@@ -403,7 +366,8 @@ TAB: menu-complete
 </tr>
 </tbody>
 </table>
-<h2 id="还可能存在错漏或需要补充，将会慢慢完善"><a href="#还可能存在错漏或需要补充，将会慢慢完善" class="headerlink" title="还可能存在错漏或需要补充，将会慢慢完善"></a>还可能存在错漏或需要补充，将会慢慢完善</h2>
+<p><strong>还可能存在错漏或需要补充，将会慢慢完善</strong></p>
+
         
 
         
@@ -443,11 +407,22 @@ TAB: menu-complete
     <section class="article typo">
         <p>昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是公司的LG测试机却提示缺少WelcomeAcitivity，如下图所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E7%BC%BA%E5%B0%91WelcomeActivity%E9%94%99%E8%AF%AF.png?raw=true" alt=""><br>就连去官网下载正式版的app也提示安装包可能已经损坏，所以询问同事，告知有可能是卸载不完全，可以看看是否卸载完全，或者用adb去彻底删除它，程序在手机上已经用常规的删除方法卸载了，无法确认是否卸载完全，所以决定动用adb，使用adb的过程如下：</p>
 <ol>
-<li>首先确认已经配置好adb，并且你的Android设备可以被你的电脑识别，可以通过输入命令<code>adb devices</code>来进行测试是否安装好了adb，如果没有，则可以通过Homebrew安装：<br><code>brew cask install android-platform-tools</code>（如果没有Homebrew，则<code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code>）</li>
-<li>如果记得包名或者知道包名的话，直接跳到第三步，如果不记得包名或者不知道包名，之所以这样说，是因为对于通过ADB卸载一个应用程序，你必须知道这个应用程序的程序包名称，但是包名称未必是某应用的APK文件名字，比如Yahoo! Mail（雅虎邮箱）Android终端应用，它的程序包名称可能是yahoo.mobile.client.android.mail。所以你可以使用指令<code>adb shell pm list packages</code>来列出所有包名，找到自己的程序的包名</li>
-<li>输入指令<code>adb uninstall com.example.package</code>按Enter回车键确认，当Success提示出现后，应用即从你的Android设备中移除，其他以此类推</li>
+<li><p>首先确认已经配置好adb，并且你的Android设备可以被你的电脑识别，可以通过输入命令<code>adb devices</code>来进行测试是否安装好了adb，如果没有，则可以通过Homebrew安装：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install android-platform-tools</span><br></pre></td></tr></table></figure>
+<p> 如果没有Homebrew，则</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果记得包名或者知道包名的话，直接跳到第三步，如果不记得包名或者不知道包名，之所以这样说，是因为对于通过ADB卸载一个应用程序，你必须知道这个应用程序的程序包名称，但是包名称未必是某应用的APK文件名字，比如Yahoo! Mail（雅虎邮箱）Android终端应用，它的程序包名称可能是yahoo.mobile.client.android.mail</p>
+<p> 所以你可以使用指令</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell pm list packages</span><br></pre></td></tr></table></figure>
+<p> 来列出所有包名，找到自己的程序的包名</p>
+</li>
+<li><p>输入指令</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb uninstall com.example.package</span><br></pre></td></tr></table></figure>
+<p> 按Enter回车键确认，当Success提示出现后，应用即从你的Android设备中移除，其他以此类推</p>
+</li>
 </ol>
-<p>再次运行程序，成功安装</p>
+<p>完成上述步骤后，再次运行程序，成功安装</p>
 
         
 
