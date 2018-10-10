@@ -147,13 +147,7 @@
 
     <section class="article typo">
         <p>&emsp;&emsp;今天回顾上周的一些开发任务，结合主管审查代码之后提出的一些建议，对代码进行一些整理，看到一条这样的：</p>
-<blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">import</span> com.google.gson.annotations.SerializedName</span><br><span class="line">&gt; <span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">CurrencReviewEntity</span></span>(</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>可以考虑替换为实现<code>Parcelable</code>接口</p>
-<p>新写的实体类，如果不是工具生成，可以直接用kotlin写，然后用<code>Option + T</code>快捷键自动实现<code>Parcelable</code>接口</p>
-</blockquote>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.gson.annotations.SerializedName</span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">CurrencReviewEntity</span></span>(</span><br><span class="line">  </span><br><span class="line"><span class="comment">//可以考虑替换为实现Parcelable接口</span></span><br><span class="line"><span class="comment">//新写的实体类，如果不是工具生成，可以直接用kotlin写，然后用Option + T快捷键自动实现Parcelable接口</span></span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;原来的代码中使用了<code>SerializedName</code>注解来对JSON数据实体类进行映射，主管给出的建议中要求使用Parcelable接口来实现</p>
 <p>&emsp;&emsp;我打开实体类点了几次<code>Option + T</code>没有任何反应，原来是要再下载一个插件<code>Android Parcelable code generator</code>，遂打开AS的preferences，然后查找插件进行下载：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/AS%20parcelable%E6%8F%92%E4%BB%B6.png?raw=true" alt=""></p>
 <p>&emsp;&emsp;却弹出了如下错误：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%87%BA%E9%94%99.png?raw=true" alt=""></p>
