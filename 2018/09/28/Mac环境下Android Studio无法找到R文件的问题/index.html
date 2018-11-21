@@ -132,10 +132,10 @@
     <section class="article typo">
 
         <div class="article-entry" itemprop="articleBody">
-            <p>&emsp;&emsp;前段时间为了更快地编译项目更换了Mac系统，搭建好环境后把项目pull下来，然后编译运行，发现报错，无法生成R文件，出现R类找不到的问题，即使是clean、rebuild之后也找不到，当时的报错信息和记录没有保留，所以没有图来展示</p>
-<p>&emsp;&emsp;因为同事已经迁移环境，所以他们也遇到了这个问题，先顺利解决了，具体原因就是，随着项目的不断开发，R文件太大，以至于超出了配置大小，所以R文件没有被IDE正确地生成class文件</p>
-<p>&emsp;&emsp;找到了问题所在，去更改配置就可以了，打开AS目录下的<code>idea.properties</code>配置文件，将<code>idea.max.intellisense.filesize=2500</code>这个值改大些，如5000，保存然后重启AS，发现这时就可以正常找到R文件了</p>
-<p>&emsp;&emsp;另外还有一点小插曲，在对文件进行修改时，我是用Mac命令行来对文件进行修改的，提示只读文件不可改动，解决问题的具体操作如下：（my.cnf为只读文件）</p>
+            <p>前段时间为了更快地编译项目更换了Mac系统，搭建好环境后把项目pull下来，然后编译运行，发现报错，无法生成R文件，出现R类找不到的问题，即使是clean、rebuild之后也找不到，当时的报错信息和记录没有保留，所以没有图来展示</p>
+<p>因为同事已经迁移环境，所以他们也遇到了这个问题，先顺利解决了，具体原因就是，随着项目的不断开发，R文件太大，以至于超出了配置大小，所以R文件没有被IDE正确地生成class文件</p>
+<p>找到了问题所在，去更改配置就可以了，打开AS目录下的<code>idea.properties</code>配置文件，将<code>idea.max.intellisense.filesize=2500</code>这个值改大些，如5000，保存然后重启AS，发现这时就可以正常找到R文件了</p>
+<p>另外还有一点小插曲，在对文件进行修改时，我是用Mac命令行来对文件进行修改的，提示只读文件不可改动，解决问题的具体操作如下：（my.cnf为只读文件）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo  chmod 755 /etc/my.cnf</span><br></pre></td></tr></table></figure>
 <p>然后输入mac锁屏密码（其实就是超级管理密码）回车然后再: </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
@@ -149,15 +149,15 @@
         </div>
 
         <section class='meta'>
-            <time class="time" itemprop="dateUpdated" datetime="2018-10-10T15:03:54+08:00" content="2018-10-10">
+            <time class="time" itemprop="dateUpdated" datetime="2018-11-21T15:57:28+08:00" content="2018-11-21">
                 <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
-                本文最后更新于：2018-10-10
+                本文最后更新于：2018-11-21
             </time>
             
                 
                 <div class="tags">
                     <i class="fas fa-tags fa-fw" aria-hidden="true"></i>
-                    <a class="tag" href="/tags/Android/">Android</a>, <a class="tag" href="/tags/Mac/">Mac</a>, <a class="tag" href="/tags/踩坑/">踩坑</a>
+                    <a class="tag" href="/tags/Android/">Android</a>, <a class="tag" href="/tags/踩坑/">踩坑</a>, <a class="tag" href="/tags/Mac/">Mac</a>
                 </div>
             
         </section>
@@ -348,9 +348,9 @@
         
             <ul class="entry">
                 
-                    <li><a class="flat-box" href="/categories/日常开发记录/"><div class='name'>日常开发记录</div><div class='badge'>1</div></a></li>
+                    <li><a class="flat-box" href="/categories/开发记录/"><div class='name'>开发记录</div><div class='badge'>1</div></a></li>
                 
-                    <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>2</div></a></li>
+                    <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>3</div></a></li>
                 
                     <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>5</div></a></li>
                 
