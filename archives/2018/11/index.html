@@ -151,7 +151,7 @@
 </li>
 <li><p>找不到drawable的资源文件，对应的drawable的hdpi或xhdpi等文件夹的图片资源有缺失，但是我显然不是因为这个</p>
 </li>
-<li><p>构造函数问题：自定义一个View，必须派生实现基类View的三个构造函数</p>
+<li><p>构造函数问题：自定义View，派生实现基类View的构造函数不全</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> : <span class="type">View &#123;</span></span></span><br><span class="line">  <span class="keyword">constructor</span>(context: Context) : <span class="keyword">super</span>(context)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet) : <span class="keyword">super</span>(context, attrs)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet?, defStyle: <span class="built_in">Int</span>) : <span class="keyword">super</span>(context, attrs, defStyle)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以简化为以下这样</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(context: Context, attributeSet: AttributeSet? = <span class="literal">null</span>, defStyle: <span class="built_in">Int</span> = <span class="number">0</span>) : View(context, attributeSet, defStyle) &#123;&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>

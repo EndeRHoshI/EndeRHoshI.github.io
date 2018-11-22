@@ -142,11 +142,11 @@
 </li>
 <li><p>找不到drawable的资源文件，对应的drawable的hdpi或xhdpi等文件夹的图片资源有缺失，但是我显然不是因为这个</p>
 </li>
-<li><p>构造函数问题：自定义一个View，必须派生实现基类View的三个构造函数</p>
+<li><p>构造函数问题：自定义View，派生实现基类View的构造函数不全</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> : <span class="type">View &#123;</span></span></span><br><span class="line">  <span class="keyword">constructor</span>(context: Context) : <span class="keyword">super</span>(context)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet) : <span class="keyword">super</span>(context, attrs)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet?, defStyle: <span class="built_in">Int</span>) : <span class="keyword">super</span>(context, attrs, defStyle)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以简化为以下这样</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(context: Context, attributeSet: AttributeSet? = <span class="literal">null</span>, defStyle: <span class="built_in">Int</span> = <span class="number">0</span>) : View(context, attributeSet, defStyle) &#123;&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>从网上的一些文章来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数应该是在不同的应用场合来实例化一个View对象的，但是后来我又多搜了一点，发现了一些不同的看法<br><a id="more"></a><br>不过在当前这里看来，我在新建这个View编写构造函数的时候，有些构造函数的参数没写全，比如上面的第二条constructor，后面我写成了: super(context)，所以看来问题是出在这里了，当时看到提示后面的Parameter ‘attrs’ is never used还觉得无所谓，原来是不可以的，于是补上构造函数，再次运行，果然没问题了</p>
+<p>从网上的一些文章来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数应该是在不同的应用场合来实例化一个View对象的，但是后来我又多搜了一点，发现了一些不同的看法<br><a id="more"></a><br>不过在当前这里看来，我在新建这个View编写构造函数的时候，有些构造函数的参数没写全，比如上面的第二条constructor，后面我写成了: super(context)，所以根本没有调用到父类的第二个构造函数，所以看来问题是出在这里了，当时看到提示后面的Parameter ‘attrs’ is never used还觉得无所谓，原来是不可以的，于是补上构造函数的参数，再次运行，果然没问题了</p>
 <h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>可以看到上面我使用了@JvmOverloads注解，那么刚好可以研究分析下这个@JvmOverloads注解是用来干嘛的，可以参考<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html" target="_blank" rel="noopener">官方文档</a>：</p>
 <blockquote>
 <p>指示Kotlin编译器为此函数生成替换默认参数值的重载。</p>
@@ -201,7 +201,7 @@
         </div>
 
         <section class='meta'>
-            <time class="time" itemprop="dateUpdated" datetime="2018-11-22T11:46:39+08:00" content="2018-11-22">
+            <time class="time" itemprop="dateUpdated" datetime="2018-11-22T11:56:05+08:00" content="2018-11-22">
                 <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
                 本文最后更新于：2018-11-22
             </time>
