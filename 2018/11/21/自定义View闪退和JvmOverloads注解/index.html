@@ -143,11 +143,10 @@
 <li><p>找不到drawable的资源文件，对应的drawable的hdpi或xhdpi等文件夹的图片资源有缺失，但是我显然不是因为这个</p>
 </li>
 <li><p>构造函数问题：自定义一个View，必须派生实现基类View的三个构造函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> : <span class="type">View &#123;</span></span></span><br><span class="line">  <span class="keyword">constructor</span>(context: Context) : <span class="keyword">super</span>(context)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet) : <span class="keyword">super</span>(context, attrs)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet?, defStyle: <span class="built_in">Int</span>) : <span class="keyword">super</span>(context, attrs, defStyle)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//可以简化为以下这样</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(context: Context, attributeSet: AttributeSet? = <span class="literal">null</span>, defStyle: <span class="built_in">Int</span> = <span class="number">0</span>) : View(context, attributeSet, defStyle) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> : <span class="type">View &#123;</span></span></span><br><span class="line">  <span class="keyword">constructor</span>(context: Context) : <span class="keyword">super</span>(context)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet) : <span class="keyword">super</span>(context, attrs)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet?, defStyle: <span class="built_in">Int</span>) : <span class="keyword">super</span>(context, attrs, defStyle)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以简化为以下这样</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(context: Context, attributeSet: AttributeSet? = <span class="literal">null</span>, defStyle: <span class="built_in">Int</span> = <span class="number">0</span>) : View(context, attributeSet, defStyle) &#123;&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>从网上的一些文章来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数应该是在不同的应用场合来实例化一个View对象的，但是后来我又多搜了一点，发现了一些不同的看法</p>
-<p>不过在当前这里看来，我在新建这个View编写构造函数的时候，有些构造函数的参数没写全，比如上面的第二条constructor，后面我写成了: super(context)，所以看来问题是出在这里了，当时看到提示后面的Parameter ‘attrs’ is never used还觉得无所谓，原来是不可以的，于是补上构造函数，再次运行，果然没问题了</p>
+<p>从网上的一些文章来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数应该是在不同的应用场合来实例化一个View对象的，但是后来我又多搜了一点，发现了一些不同的看法<br><a id="more"></a><br>不过在当前这里看来，我在新建这个View编写构造函数的时候，有些构造函数的参数没写全，比如上面的第二条constructor，后面我写成了: super(context)，所以看来问题是出在这里了，当时看到提示后面的Parameter ‘attrs’ is never used还觉得无所谓，原来是不可以的，于是补上构造函数，再次运行，果然没问题了</p>
 <h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>可以看到上面我使用了@JvmOverloads注解，那么刚好可以研究分析下这个@JvmOverloads注解是用来干嘛的，可以参考<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html" target="_blank" rel="noopener">官方文档</a>：</p>
 <blockquote>
 <p>指示Kotlin编译器为此函数生成替换默认参数值的重载。</p>
@@ -186,14 +185,23 @@
 </ul>
 <p>也就是说,系统默认只会调用Custom View的前两个构造函数,至于第三个构造函数的调用,通常是我们自己在构造函数中主动调用的（例如,在第二个构造函数中调用第三个构造函数）.</p>
 <p>至于自定义属性的获取,通常是在构造函数中通过obtainStyledAttributes函数实现的.</p>
-<p>然后我自己做了个实验，验证了一些看法，也加深了自己的理解，首先上文中提及的@JvmOverloads注解，只是将kotlin的重载暴露给了java使用，也就是说，在kotlin中，可以直接利用构造函数赋默认值的方法来重载，但是因为java中没有这种机制，如果要将重载的方法暴露给java，就要使用@JvmOverloads注解</p>
+<p>然后我自己做了个实验，验证了一些看法，也加深了自己的理解，首先上文中提及的@JvmOverloads注解，只是将kotlin的重载暴露给了java使用，也就是说，在kotlin中，可以直接利用构造函数赋默认值的方法来重载，但是因为java中没有这种机制，如官方文档所说：“写一个有默认参数值的 Kotlin 函数，在 Java 中只会有一个所有参数都存在的完整参数签名的方法可见”，如果要将重载的方法暴露给java，就要使用@JvmOverloads注解</p>
 <p>而kotlin中的利用参数赋默认值来进行重载又是怎么样的呢，接下来可以看下我的实验：</p>
+<ul>
+<li>没有默认值，就没有重载，构造方法就是声明的那一条<img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3-%E6%97%A0%E9%BB%98%E8%AE%A4%E5%80%BC%E6%97%A0%E9%87%8D%E8%BD%BD.jpg" alt=""></li>
+<li>第一个参数有默认值<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3-%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%E9%BB%98%E8%AE%A4%E5%80%BC.jpg?raw=true" alt=""></li>
+<li>第一第二个参数有默认值<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3-%E4%B8%80%E4%BA%8C%E5%8F%82%E6%95%B0%E9%BB%98%E8%AE%A4%E5%80%BC.jpg?raw=true" alt=""></li>
+<li>第一第三个参数有默认值<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3-%E4%B8%80%E4%B8%89%E5%8F%82%E6%95%B0%E9%BB%98%E8%AE%A4%E5%80%BC.jpg?raw=true" alt=""></li>
+<li>第二第三个参数有默认值<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3-%E4%BA%8C%E4%B8%89%E5%8F%82%E6%95%B0%E9%BB%98%E8%AE%A4%E5%80%BC.jpg?raw=true" alt=""></li>
+<li>三个参数都有默认值<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3/%E8%87%AA%E5%AE%9A%E4%B9%89View%E9%97%AA%E9%80%80%E5%92%8CJvmOverloads%E6%B3%A8%E8%A7%A3-%E6%89%80%E6%9C%89%E5%8F%82%E6%95%B0%E9%BB%98%E8%AE%A4%E5%80%BC.jpg?raw=true" alt=""></li>
+</ul>
+<p>这里接近文档所说：“对于每一个有默认值的参数，都会生成一个额外的重载，这个重载会把这个参数和它右边的所有参数都移除掉”，但是好像应该作些修改，并不是把右边所有”参数“都移除，而是把右边所有”有默认值的参数移除“，这样似乎更加正确，不过还有待考证</p>
 <p>参考文章：<a href="https://blog.csdn.net/zhao123h/article/details/52210732" target="_blank" rel="noopener">Android View 四个构造函数详解</a></p>
 
         </div>
 
         <section class='meta'>
-            <time class="time" itemprop="dateUpdated" datetime="2018-11-22T10:54:26+08:00" content="2018-11-22">
+            <time class="time" itemprop="dateUpdated" datetime="2018-11-22T11:46:39+08:00" content="2018-11-22">
                 <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
                 本文最后更新于：2018-11-22
             </time>
