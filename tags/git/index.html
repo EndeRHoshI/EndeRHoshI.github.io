@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Archives: 2018/10 | HoshI-blog</title>
+  <title>Tag: git | HoshI-blog</title>
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" href="/">
@@ -108,9 +108,8 @@
     <div class='container clearfix'>
         <div class='l_main'>
             
-	
     <script>
-        window.subData= { title:'year : 2018.10'}
+        window.subData= { title:'tag : git'}
     </script>
 
 
@@ -121,47 +120,65 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
-            <a href="/2018/10/08/AS下载插件和Parcelable接口/">
+            <a href="/2018/09/28/Git忽略文件和操作系统尾部换行符问题/">
                 
-                    AS下载插件|使用Parcelable接口
+                    Git忽略文件和操作系统尾部换行符问题
                 
             </a>
         </h2>
         <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-10-08
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-09-28
         </time>
         
     
     <div class='cats'>
         <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/问题集锦/">问题集锦</a>
+        <a class="categories" href="/categories/日常查阅/">日常查阅</a>
     </div>
 
 
     </section>
 
     <section class="article typo">
-        <p>今天回顾上周的一些开发任务，结合主管审查代码之后提出的一些建议，对代码进行一些整理，看到一条这样的：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.gson.annotations.SerializedName</span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">CurrencReviewEntity</span></span>(</span><br><span class="line">  </span><br><span class="line"><span class="comment">//可以考虑替换为实现Parcelable接口</span></span><br><span class="line"><span class="comment">//新写的实体类，如果不是工具生成，可以直接用kotlin写，然后用Option + T快捷键自动实现Parcelable接口</span></span><br></pre></td></tr></table></figure>
-<p>原来的代码中使用了<code>SerializedName</code>注解来对JSON数据实体类进行映射，主管给出的建议中要求使用Parcelable接口来实现</p>
-<p>我打开实体类点了几次<code>Option + T</code>没有任何反应，原来是要再下载一个插件<code>Android Parcelable code generator</code>，遂打开AS的preferences，然后查找插件进行下载：</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-parcelable%E6%8F%92%E4%BB%B6.png" alt=""></p>
-<p>却弹出了如下错误：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%87%BA%E9%94%99.png" alt=""></p>
-<p>懒得去设置代理地址了，所以直接去<a href="https://plugins.jetbrains.com/" target="_blank" rel="noopener">jetbrains的插件官网</a> 搜索下载好，然后解压到AS/Contents/plugins目录下</p>
-<p>然后再重启AS，大功告成，我们可以点击实体类名右侧的空白，用快捷键自动补全试试：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%AE%9E%E7%8E%B0Parcelable%E6%8E%A5%E5%8F%A3.png" alt=""></p>
-<p>然后代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Keep</span></span><br><span class="line"><span class="function">data class <span class="title">TickerCommentResponse</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  @SerializedName(<span class="string">"success"</span>)</span> var success: Boolean,</span></span><br><span class="line"><span class="function">  @<span class="title">SerializedName</span><span class="params">(<span class="string">"error"</span>)</span> var error: String,</span></span><br><span class="line"><span class="function">  @<span class="title">SerializedName</span><span class="params">(<span class="string">"errorCode"</span>)</span> var errorCode: Int,</span></span><br><span class="line"><span class="function">  @<span class="title">SerializedName</span><span class="params">(<span class="string">"data"</span>)</span> var data: TickerCommentBean</span></span><br><span class="line"><span class="function">) : Parcelable </span>&#123;</span><br><span class="line">  constructor(parcel: Parcel) : <span class="keyword">this</span>(</span><br><span class="line">    parcel.readByte() != <span class="number">0</span>.toByte(),</span><br><span class="line">    parcel.readString(),</span><br><span class="line">    parcel.readInt(),</span><br><span class="line">    TODO(<span class="string">"data"</span>)) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">override fun <span class="title">writeToParcel</span><span class="params">(parcel: Parcel, flags: Int)</span> </span>&#123;</span><br><span class="line">    parcel.writeByte(<span class="keyword">if</span> (success) <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line">    parcel.writeString(error)</span><br><span class="line">    parcel.writeInt(errorCode)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">override fun <span class="title">describeContents</span><span class="params">()</span>: Int </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  companion object CREATOR : Parcelable.Creator&lt;TickerCommentResponse&gt; &#123;</span><br><span class="line">    <span class="function">override fun <span class="title">createFromParcel</span><span class="params">(parcel: Parcel)</span>: TickerCommentResponse </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> TickerCommentResponse(parcel)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">override fun <span class="title">newArray</span><span class="params">(size: Int)</span>: Array&lt;TickerCommentResponse?&gt; </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> arrayOfNulls(size)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因为这里的TickerCommentBean是另一个实体类，所以我们再把constructor处修改好就可以了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constructor(parcel: Parcel) : <span class="keyword">this</span>(</span><br><span class="line">  parcel.readByte() != <span class="number">0</span>.toByte(),</span><br><span class="line">  parcel.readString(),</span><br><span class="line">  parcel.readInt(),</span><br><span class="line">  parcel.readParcelable(TickerCommentBean::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>.<span class="title">classLoader</span>))</span></span><br></pre></td></tr></table></figure>
-<p>注意这里的TickerCommentBean也需要实现Parcelable接口，否则报错</p>
-<p><strong>到最后发现原来只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</strong></p>
-
+        <h1 id="Git忽略文件"><a href="#Git忽略文件" class="headerlink" title="Git忽略文件"></a>Git忽略文件</h1><p>这两天把毕设拉到Mac上想解决一下闪退的问题，修改完提交的时候发现出现了一个.DS_Store文件，这个.DS_Store是Mac OS保存文件夹的自定义属性的隐藏文件，如文件的图标位置或背景色，相当于Windows的desktop.ini，而我并不想把这个多余的东西提交上去，上网看了下，附上两条命令便于查阅：</p>
+<ol>
+<li><p>禁止.DS_store生成：打开   “终端” ，复制黏贴下面的命令，回车执行，重启Mac即可生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恢复.DS_store生成： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.desktopservices DSDontWriteNetworkStores</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>但是我只是不想把它传上去而已，不至于禁止它生成，所以按往常一样写一个.gitignore文件就好，操作如下：</p>
+<ol>
+<li><p>创建.gitignore文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch .gitignore</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑.gitignore文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .gitignore</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>补充.gitignore的内容，按规则填写想要忽略的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bin</span><br><span class="line">.idea/</span><br><span class="line">*.iml</span><br><span class="line">*.classes</span><br><span class="line">*.jar</span><br><span class="line">*.war</span><br><span class="line">*.ear</span><br><span class="line">target</span><br><span class="line">.settings</span><br><span class="line">.classpath</span><br><span class="line">.project</span><br><span class="line">.metadata/</span><br><span class="line">classes/</span><br><span class="line">logs/</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">rebel.xml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>保存.gitignore并退出编辑： 按ESC键，并输入以下命令，完成操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">：wq</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+        
+            <div class="readmore">
+                <a href="/2018/09/28/Git忽略文件和操作系统尾部换行符问题/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
         
 
         
             <div class="full-width auto-padding tags">
                 
-                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
+                    <a href="/tags/Mac/"><i class="fas fa-tag fa-fw"></i>&nbsp;Mac</a>
+                
+                    <a href="/tags/git/"><i class="fas fa-tag fa-fw"></i>&nbsp;git</a>
                 
             </div>
         
@@ -171,8 +188,6 @@
         </div>
     
 </section>
-
-
 
 
 
