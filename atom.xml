@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-11-29T06:43:17.800Z</updated>
+  <updated>2018-11-29T06:52:09.685Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2018/11/29/%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84RSS%E6%BA%90/"/>
     <id>http://yoursite.com/2018/11/29/打造自己的RSS源/</id>
     <published>2018-11-29T06:29:28.000Z</published>
-    <updated>2018-11-29T06:43:17.800Z</updated>
+    <updated>2018-11-29T06:52:09.685Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如今我们可以通过各种 app、公众号、聚合信息网站获取相对大众并符合自己的信息，但也有缺点：我需要下载这么多个 app 吗？公众号我还需要一个个点开看吗？这些网站就拥有所有我想知道的吗？订阅 RSS 源就可以帮助我们解决这些问题</p><h2 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h2><p>RSS（Really Simple Syndication，简易信息聚合）是一种消息来源格式规范，表达了「聚合真的很简单」这样的愿景，我们可以将其看作是一种定制个性化推送信息的服务。</p><h2 id="RSS阅读器"><a href="#RSS阅读器" class="headerlink" title="RSS阅读器"></a>RSS阅读器</h2><p>市面上有非常多的RSS阅读器，由于比较习惯使用手机阅读文章，所以我主要使用 App Store 上的 <a href="https://itunes.apple.com/cn/app/rss%E9%98%85%E8%AF%BB%E5%99%A8/id1129672005?mt=8" target="_blank" rel="noopener">RSS 阅读器</a></p><p>不同的平台有不同的阅读器，这里不详细展开，有需要的再自行google</p><h2 id="RSS源"><a href="#RSS源" class="headerlink" title="RSS源"></a>RSS源</h2><p>RSS阅读器有了，我们要订阅些什么源呢？可以看看知乎上的 <a href="https://www.zhihu.com/question/19580096" target="_blank" rel="noopener">这个你必读的 RSS 订阅源有哪些？</a>这里面同样有一些关于RSS阅读器的内容，可以参考一下</p><p>参考文章：<a href="https://www.ifanr.com/app/770271" target="_blank" rel="noopener">https://www.ifanr.com/app/770271</a> ，之后再作补全</p>]]></content>
     
