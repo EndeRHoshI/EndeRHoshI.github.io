@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Tag: git | HoshI-blog</title>
+  <title>打造自己的RSS源 | HoshI-blog</title>
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" href="/">
@@ -118,88 +118,134 @@
     <div class="l_body">
     <div class='container clearfix'>
         <div class='l_main'>
-            
-    <script>
-        window.subData= { title:'tag : git'}
-    </script>
-
-
-<section class="post-list">
-    
-    
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
-            <a href="/2018/11/28/Git忽略文件和操作系统尾部换行符问题/">
-                
-                    Git忽略文件和操作系统尾部换行符问题
-                
-            </a>
-        </h2>
+            <article id="post-打造自己的RSS源" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    <section class='meta'>
+        
+            <h1 class="title">打造自己的RSS源</h1>
+        
         <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-11-28
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+            2018-11-29
         </time>
+        <div class="browse"><i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+        </div>
         
     
     <div class='cats'>
         <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/日常查阅/">日常查阅</a>
+        <a class="categories" href="/categories/开发记录/">开发记录</a>
     </div>
 
 
     </section>
 
     <section class="article typo">
-        <h1 id="Git忽略文件"><a href="#Git忽略文件" class="headerlink" title="Git忽略文件"></a>Git忽略文件</h1><p>这两天把毕设拉到Mac上想解决一下闪退的问题，修改完提交的时候发现出现了一个.DS_Store文件，这个.DS_Store是Mac OS保存文件夹的自定义属性的隐藏文件，如文件的图标位置或背景色，相当于Windows的desktop.ini，而我并不想把这个多余的东西提交上去，上网看了下，附上两条命令便于查阅：</p>
-<ol>
-<li><p>禁止.DS_store生成：打开   “终端” ，复制黏贴下面的命令，回车执行，重启Mac即可生效</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>恢复.DS_store生成： </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.desktopservices DSDontWriteNetworkStores</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>但是我只是不想把它传上去而已，不至于禁止它生成，所以按往常一样写一个.gitignore文件就好，操作如下：</p>
-<ol>
-<li><p>创建.gitignore文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch .gitignore</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编辑.gitignore文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .gitignore</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>补充.gitignore的内容，按规则填写想要忽略的文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bin</span><br><span class="line">.idea/</span><br><span class="line">*.iml</span><br><span class="line">*.classes</span><br><span class="line">*.jar</span><br><span class="line">*.war</span><br><span class="line">*.ear</span><br><span class="line">target</span><br><span class="line">.settings</span><br><span class="line">.classpath</span><br><span class="line">.project</span><br><span class="line">.metadata/</span><br><span class="line">classes/</span><br><span class="line">logs/</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">rebel.xml</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>保存.gitignore并退出编辑： 按ESC键，并输入以下命令，完成操作</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">：wq</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-        
-            <div class="readmore">
-                <a href="/2018/11/28/Git忽略文件和操作系统尾部换行符问题/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
 
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/Mac/"><i class="fas fa-tag fa-fw"></i>&nbsp;Mac</a>
-                
-                    <a href="/tags/git/"><i class="fas fa-tag fa-fw"></i>&nbsp;git</a>
-                
-            </div>
-        
-    </section>
-</article>
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如今我们可以通过各种 app、公众号、聚合信息网站获取相对大众并符合自己的信息，但也有缺点：我需要下载这么多个 app 吗？公众号我还需要一个个点开看吗？这些网站就拥有所有我想知道的吗？订阅 RSS 源就可以帮助我们解决这些问题</p>
+<h2 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h2><p>RSS（Really Simple Syndication，简易信息聚合）是一种消息来源格式规范，表达了「聚合真的很简单」这样的愿景，我们可以将其看作是一种定制个性化推送信息的服务。</p>
+<h2 id="RSS阅读器"><a href="#RSS阅读器" class="headerlink" title="RSS阅读器"></a>RSS阅读器</h2><p>市面上有非常多的RSS阅读器，由于比较习惯使用手机阅读文章，所以我主要使用 App Store 上的 <a href="https://itunes.apple.com/cn/app/rss%E9%98%85%E8%AF%BB%E5%99%A8/id1129672005?mt=8" target="_blank" rel="noopener">RSS 阅读器</a></p>
+<p>不同的平台有不同的阅读器，这里不详细展开，有需要的再自行google</p>
+<h2 id="RSS源"><a href="#RSS源" class="headerlink" title="RSS源"></a>RSS源</h2><p>RSS阅读器有了，我们要订阅些什么源呢？可以看看知乎上的 <a href="https://www.zhihu.com/question/19580096" target="_blank" rel="noopener">这个你必读的 RSS 订阅源有哪些？</a>这里面同样有一些关于RSS阅读器的内容，可以参考一下</p>
+<p>参考文章：<a href="https://www.ifanr.com/app/770271" target="_blank" rel="noopener">https://www.ifanr.com/app/770271</a> ，之后再作补全</p>
 
         </div>
-    
-</section>
 
+        <section class='meta'>
+            <time class="time" itemprop="dateUpdated" datetime="2018-11-29T14:43:17+08:00" content="2018-11-29">
+                <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
+                本文最后更新于：2018-11-29
+            </time>
+            
+                
+                <div class="tags">
+                    <i class="fas fa-tags fa-fw" aria-hidden="true"></i>
+                    <a class="tag" href="/tags/博客部署/">博客部署</a>, <a class="tag" href="/tags/RSS/">RSS</a>
+                </div>
+            
+        </section>
+
+        
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一篇&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2018/11/28/Git忽略文件和操作系统尾部换行符问题/" rel="prev" title="Git忽略文件和操作系统尾部换行符问题">
+                                    
+                                        Git忽略文件和操作系统尾部换行符问题
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <i class="fas fa-tags fa-fw" aria-hidden="true"></i>
+                                    <a class="tag" href="/tags/Mac/">Mac</a>, <a class="tag" href="/tags/git/">git</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+
+    </section>
+
+</article>
+
+<br>
+
+<!-- 显示推荐文章和评论 -->
+
+    <article class="post white-box comments">
+        <section class="article typo">
+
+            
+                
+
+    <div class="recommended_posts">
+        <h4><i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>&nbsp;你可能感兴趣的文章</h4>
+        <ul>
+            
+                <li><a href="http://yoursite.com/2018/11/28/Git忽略文件和操作系统尾部换行符问题/">Git忽略文件和操作系统尾部换行符问题</a></li>
+            
+                <li><a href="http://yoursite.com/2018/11/21/自定义View闪退和JvmOverloads注解/">加载自定义View应用闪退|@JvmOverloads详解</a></li>
+            
+                <li><a href="http://yoursite.com/2018/11/14/Android字体使用探索/">Android字体使用探索</a></li>
+            
+                <li><a href="http://yoursite.com/2018/11/08/Glide无法加载细长图片解决方法/">Glide无法加载细长图片解决方法</a></li>
+            
+                <li><a href="http://yoursite.com/2018/10/08/AS下载插件和Parcelable接口/">AS下载插件|使用Parcelable接口</a></li>
+            
+        </ul>
+    </div>
+
+
+            
+
+            
+
+                
+
+                
+
+                
+            
+
+        </section>
+    </article>
+
+
+<script>
+    window.subData = {
+        title: '打造自己的RSS源',
+        tools: true
+    }
+</script>
 
 
         </div>
@@ -447,6 +493,10 @@
 <script src="/js/search.js"></script>
 <script src="/js/app.js"></script>
 
+
+    
+    
+    
 
 
     <script>setLoadingBarProgress(100);</script>
