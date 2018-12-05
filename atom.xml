@@ -76,9 +76,9 @@
       <category term="开发记录" scheme="http://yoursite.com/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/"/>
     
     
-      <category term="博客部署" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"/>
-    
       <category term="RSS" scheme="http://yoursite.com/tags/RSS/"/>
+    
+      <category term="博客部署" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"/>
     
   </entry>
   
@@ -339,9 +339,9 @@
     
       <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
-      <category term="Mac" scheme="http://yoursite.com/tags/Mac/"/>
-    
       <category term="踩坑" scheme="http://yoursite.com/tags/%E8%B8%A9%E5%9D%91/"/>
+    
+      <category term="Mac" scheme="http://yoursite.com/tags/Mac/"/>
     
   </entry>
   
