@@ -157,25 +157,23 @@
 <li><p>解锁BootLoader</p>
 <p>手机关机后，长按音量-和电源键，一直到看见一个盖子打开躺在地上的安卓机器人为止。这时就已经进入了fastboot页面了，这时可以看到左下角的一些关于手机的信息</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E8%A7%A3%E9%94%81BootLoader.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
- <a id="more"></a>
-<p>其中有一条 Device is LOCKED ，那现在就来解锁设备，命令行输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot devices</span><br></pre></td></tr></table></figure>
-<p>检查链接设备</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E8%AE%BE%E5%A4%87%E8%A7%A3%E9%94%81%E6%A8%A1%E5%BC%8F.png" alt=""></p>
-<p>前边的序列号就是你的设备的Serial Number（序列号），后边为fastboot链接，如果得不到这样的结果，可能是 adb 和驱动没有配置好。弄好了继续输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot oem unlock</span><br></pre></td></tr></table></figure>
-<p>手机会跳转到一个页面，问你是否解锁，但是这时我遇到一个报错，提示未知命令</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E6%9C%AA%E7%9F%A5%E5%91%BD%E4%BB%A4.png" alt=""></p>
-<p>看了下官方文档，也就是上方的下载镜像文件的网址，原来是指令已经更换为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot flashing unlock</span><br></pre></td></tr></table></figure>
-<p>输入后，正确跳转到询问是否解锁的页面</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E8%A7%A3%E9%94%81BootLoader%E8%AF%A2%E9%97%AE.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
-<p>按音量上键，选择yes，点击电源键确定，稍后手机会重启进入recovery，重启就好了，可能时间比较长，静静等候。（在这一步中，已经刷入第三方recovery的话，重新解锁会卡死在开机动画，或者在开机画面不断循环，还要重新刷镜像，但是不要重刷recovery，重刷recovery会把之前的第三方刷掉）重新进入fastboot界面，方法同上。</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E5%B7%B2%E7%BB%8F%E8%A7%A3%E9%94%81BootLoader.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
-<p>你会看到 Device is UNLOCKED 至此解锁完毕，要重新上锁也很简单，在Bootbloader下输入命令 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot flashing lock</span><br></pre></td></tr></table></figure>
-<p>Bootloader会重新上锁。</p>
 </li>
+</ol>
+<a id="more"></a>
+<p>   其中有一条 Device is LOCKED ，那现在就来解锁设备，命令行输入：<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot devices</span><br></pre></td></tr></table></figure></p>
+<p>   检查链接设备</p>
+<p>   <img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E8%AE%BE%E5%A4%87%E8%A7%A3%E9%94%81%E6%A8%A1%E5%BC%8F.png" alt=""></p>
+<p>   前边的序列号就是你的设备的Serial Number（序列号），后边为fastboot链接，如果得不到这样的结果，可能是 adb 和驱动没有配置好。弄好了继续输入<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot oem unlock</span><br></pre></td></tr></table></figure></p>
+<p>   手机会跳转到一个页面，问你是否解锁，但是这时我遇到一个报错，提示未知命令</p>
+<p>   <img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E6%9C%AA%E7%9F%A5%E5%91%BD%E4%BB%A4.png" alt=""></p>
+<p>   看了下官方文档，也就是上方的下载镜像文件的网址，原来是指令已经更换为：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot flashing unlock</span><br></pre></td></tr></table></figure></p>
+<p>   输入后，正确跳转到询问是否解锁的页面</p>
+<p>   <img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E8%A7%A3%E9%94%81BootLoader%E8%AF%A2%E9%97%AE.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
+<p>   按音量上键，选择yes，点击电源键确定，稍后手机会重启进入recovery，重启就好了，可能时间比较长，静静等候。（在这一步中，已经刷入第三方recovery的话，重新解锁会卡死在开机动画，或者在开机画面不断循环，还要重新刷镜像，但是不要重刷recovery，重刷recovery会把之前的第三方刷掉）重新进入fastboot界面，方法同上。</p>
+<p>   <img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E5%B7%B2%E7%BB%8F%E8%A7%A3%E9%94%81BootLoader.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
+<p>   你会看到 Device is UNLOCKED 至此解锁完毕，要重新上锁也很简单，在Bootbloader下输入命令<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot flashing lock</span><br></pre></td></tr></table></figure></p>
+<p>   Bootloader会重新上锁。</p>
+<ol start="4">
 <li><p>线刷</p>
 <p>前面操作都结束且成功，就可以开始线刷系统了，什么是卡刷和线刷呢？参考：<a href="https://blog.csdn.net/xx326664162/article/details/50358392" target="_blank" rel="noopener">线刷和卡刷的区别以及步骤</a></p>
 <ul>
@@ -224,7 +222,7 @@
         </div>
 
         <section class='meta'>
-            <time class="time" itemprop="dateUpdated" datetime="2018-12-05T11:10:08+08:00" content="2018-12-05">
+            <time class="time" itemprop="dateUpdated" datetime="2018-12-05T21:29:00+08:00" content="2018-12-05">
                 <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
                 本文最后更新于：2018-12-05
             </time>
