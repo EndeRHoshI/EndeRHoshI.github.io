@@ -132,6 +132,154 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
+            <a href="/2018/09/08/Mac终端自动补全及常用命令汇总/">
+                
+                    Mac终端自动补全及常用命令汇总
+                
+            </a>
+        </h2>
+        <time class="time">
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-09-08
+        </time>
+        
+    
+    <div class='cats'>
+        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+        <a class="categories" href="/categories/问题集锦/">问题集锦</a>
+    </div>
+
+
+    </section>
+
+    <section class="article typo">
+        <h2 id="终端自动补全的配置"><a href="#终端自动补全的配置" class="headerlink" title="终端自动补全的配置"></a>终端自动补全的配置</h2><ol>
+<li><p>首先打开终端，输入 : </p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano .inputrc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后在文件里面写上：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> completion-ignore-case on</span><br><span class="line"><span class="built_in">set</span> show-all-if-ambiguous on</span><br><span class="line">TAB: menu-complete</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后<code>ctrl + o</code> ，回车，重启终端，要使用自动补全时按tap键就ok了</p>
+</li>
+</ol>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pwd</td>
+<td>当前工作目录</td>
+</tr>
+<tr>
+<td>cd（不加参数）</td>
+<td>进root</td>
+</tr>
+<tr>
+<td>cd（folder）</td>
+<td>进入文件夹</td>
+</tr>
+<tr>
+<td>cd ..</td>
+<td>上级目录</td>
+</tr>
+<tr>
+<td>cd ~</td>
+<td>返回root</td>
+</tr>
+<tr>
+<td>cd -</td>
+<td>返回上一个访问的目录</td>
+</tr>
+<tr>
+<td>rm 文件名</td>
+<td>删除</td>
+</tr>
+<tr>
+<td>cat 文件名(less)</td>
+<td>在终端下查看文件</td>
+</tr>
+<tr>
+<td>ls</td>
+<td>列出目录下所有文件</td>
+</tr>
+<tr>
+<td>cp 文件名 目标目录</td>
+<td>将文件拷贝到目标目录下</td>
+</tr>
+<tr>
+<td>~代表root</td>
+<td>如：~/Document/CPP2/</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>新建文件夹</td>
+</tr>
+<tr>
+<td>g++ 源文件名</td>
+<td>编译源文件，产生a.out</td>
+</tr>
+<tr>
+<td>./文件名</td>
+<td>运行  例如：./a.out &lt; 输入文件名 &gt; 输出文件名</td>
+</tr>
+<tr>
+<td>control+d</td>
+<td>中断a.out运行</td>
+</tr>
+<tr>
+<td>nano</td>
+<td>编写脚本语言　　ctrl+o存储</td>
+</tr>
+<tr>
+<td>nano ….sh</td>
+<td>打开</td>
+</tr>
+<tr>
+<td>bash ….sh</td>
+<td>运行脚本</td>
+</tr>
+<tr>
+<td>echo “…$i…”</td>
+<td>输出语句</td>
+</tr>
+<tr>
+<td>tar -zxf abc.tar.gz</td>
+<td>tar文件解压</td>
+</tr>
+<tr>
+<td>ssh <a href="mailto:root@192.168.1.222" target="_blank" rel="noopener">root@192.168.1.222</a></td>
+<td>以root账号远程连接222服务器</td>
+</tr>
+<tr>
+<td>unrar x abc.rar</td>
+<td>rar文件解压，需要安装rar工具</td>
+</tr>
+</tbody>
+</table>
+<p><strong>还可能存在错漏或需要补充，将会慢慢完善</strong></p>
+
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/Mac/"><i class="fas fa-tag fa-fw"></i>&nbsp;Mac</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+        </div>
+    
+        <div class='post-wrapper'>
+            <article class="post reveal ">
+    <section class="meta">
+        <h2 class="title">
             <a href="/2018/09/08/APK无法在某款手机上运行解决方案/">
                 
                     apk无法在某款手机上运行
@@ -383,7 +531,7 @@
         
             <ul class="entry">
                 
-                    <li><a class="flat-box" href="/categories/开发记录/"><div class='name'>开发记录</div><div class='badge'>2</div></a></li>
+                    <li><a class="flat-box" href="/categories/开发记录/"><div class='name'>开发记录</div><div class='badge'>3</div></a></li>
                 
                     <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>4</div></a></li>
                 
@@ -400,7 +548,7 @@
     <section class='m_widget tagcloud'>
         <div class="header"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;标签</div>
         <div class='content'>
-            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Glide/" style="font-size: 14px; color: #999">Glide</a> <a href="/tags/Mac/" style="font-size: 20.67px; color: #6c6c6c">Mac</a> <a href="/tags/Markdown/" style="font-size: 14px; color: #999">Markdown</a> <a href="/tags/RSS/" style="font-size: 14px; color: #999">RSS</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/博客部署/" style="font-size: 17.33px; color: #828282">博客部署</a> <a href="/tags/踩坑/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
+            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Glide/" style="font-size: 14px; color: #999">Glide</a> <a href="/tags/Mac/" style="font-size: 20.67px; color: #6c6c6c">Mac</a> <a href="/tags/Markdown/" style="font-size: 14px; color: #999">Markdown</a> <a href="/tags/Nexus-6p/" style="font-size: 14px; color: #999">Nexus 6p</a> <a href="/tags/RSS/" style="font-size: 14px; color: #999">RSS</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/博客部署/" style="font-size: 17.33px; color: #828282">博客部署</a> <a href="/tags/手机/" style="font-size: 14px; color: #999">手机</a> <a href="/tags/踩坑/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
         </div>
     </section>
 
