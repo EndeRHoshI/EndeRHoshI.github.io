@@ -218,7 +218,7 @@
     </section>
 
     <section class="article typo">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前不久项目中要求实现一些小控件，用来展示图表或者看好看空的人数对比，于是就自定义了一些View，用于绘图</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前不久项目中要求实现一些小控件，用来展示图表或者显示正反双方的人数对比，于是就自定义了一些View，用于绘图</p>
 <p>把View写好后，放到程序里跑起来，却闪退了，报错提示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: itemView.sev_safety_score_bar must not be null</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">android.view.InflateException: Binary XML file line <span class="comment">#77: Binary XML file line #77: Error inflating class </span></span><br><span class="line">Caused by: android.view.InflateException: Binary XML file line <span class="comment">#77: Error inflating class </span></span><br><span class="line">Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.Context, interface android.util.AttributeSet]</span><br></pre></td></tr></table></figure></p>
 <h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>一般这种情况，会有几种原因：</p>
 <ol>
@@ -232,7 +232,7 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> : <span class="type">View &#123;</span></span></span><br><span class="line">  <span class="keyword">constructor</span>(context: Context) : <span class="keyword">super</span>(context)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet) : <span class="keyword">super</span>(context, attrs)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet?, defStyle: <span class="built_in">Int</span>) : <span class="keyword">super</span>(context, attrs, defStyle)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以简化为以下这样</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(context: Context, attributeSet: AttributeSet? = <span class="literal">null</span>, defStyle: <span class="built_in">Int</span> = <span class="number">0</span>) : View(context, attributeSet, defStyle) &#123;&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>从网上的一些文章来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数应该是在不同的应用场合来实例化一个View对象的，但是后来我又多搜了一点，发现了一些不同的看法<br>
+<p>从网上的一些说法来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数是在不同的应用场合来实例化一个View对象的，但是事实是不是这样的呢，我发现了一些不同的看法<br>
         
             <div class="readmore">
                 <a href="/2018/11/21/自定义View闪退和JvmOverloads注解/" class="flat-box">
@@ -643,13 +643,8 @@
         
             <div class='content'>
                 
-                    <h2>玩家 程序员</h2>
+                    <h2>EndeRHoshI</h2>
                 
-                
-                    <div>
-                        <i class="fas fa-quote-left fa-3x fa-pull-left" aria-hidden="true"></i>
-                        人在末世天气晴
-                    </div>
                 
             </div>
         
