@@ -160,7 +160,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.desktopservices DSDontWriteNetworkStores</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>但是我只是不想把它传上去而已，不至于禁止它生成，所以按往常一样写一个.gitignore文件就好，操作如下：</p>
+<p>但是我只是不想把它传上去而已，不至于禁止它生成，所以按往常一样写一个.gitignore文件就好，操作如下：</p>
 <ol>
 <li><p>创建.gitignore文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch .gitignore</span><br></pre></td></tr></table></figure>
@@ -168,7 +168,7 @@
 <li><p>编辑.gitignore文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .gitignore</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>补充.gitignore的内容，按规则填写想要忽略的文件：</p>
+<li><p>补充.gitignore的内容，按规则填写想要忽略的文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bin</span><br><span class="line">.idea/</span><br><span class="line">*.iml</span><br><span class="line">*.classes</span><br><span class="line">*.jar</span><br><span class="line">*.war</span><br><span class="line">*.ear</span><br><span class="line">target</span><br><span class="line">.settings</span><br><span class="line">.classpath</span><br><span class="line">.project</span><br><span class="line">.metadata/</span><br><span class="line">classes/</span><br><span class="line">logs/</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">rebel.xml</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>保存.gitignore并退出编辑： 按ESC键，并输入以下命令，完成操作</p>
@@ -229,9 +229,9 @@
 <p>Android 8.0（API级别26）引入了一项新功能，即XML中的字体，它允许您将字体用作资源。您可以在font文件res/font/夹中添加文件以将字体捆绑为资源。这些字体在您的R文件中编译，并在Android Studio中自动提供。我们可以借助新资源类型访问字体资源font。例如，要访问字体资源，就可以使用@font/myfont或R.font.myfont</p>
 <p>要在运行Android 4.1（API级别16）及更高版本的设备上使用字体XML功能，请使用支持库26。有关使用支持库的更多信息，请参阅使用支持库</p>
 </blockquote>
-<p>以上是文档开头的简介，接着往下看，可以看到，在API level 26或者以上时，只需简单的几步就可以使用字体资源:</p>
+<p>以上是文档开头的简介，接着往下看，可以看到，在API level 26或者以上时，只需简单的几步就可以使用字体资源:</p>
 <h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><ol>
-<li>首先要创建一个字体资源文件夹：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%88%9B%E5%BB%BA%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt=""></li>
+<li>首先要创建一个字体资源文件夹：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%88%9B%E5%BB%BA%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt=""></li>
 </ol>
         
             <div class="readmore">
@@ -436,8 +436,8 @@
 <td>Ctrl + O</td>
 </tr>
 <tr>
-<td>快速定位到符号（变量）</td>
-<td>Cmd + option + O</td>
+<td>快速定位到符号（变量）</td>
+<td>Cmd + option + O</td>
 <td>Ctrl + O</td>
 </tr>
 <tr>
@@ -482,7 +482,7 @@
 </tr>
 <tr>
 <td>导入包优化，调整导入包位置）</td>
-<td>Cmd + option + o</td>
+<td>Cmd + option + o</td>
 <td>Ctrl + Alt + o</td>
 </tr>
 <tr>

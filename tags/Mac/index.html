@@ -160,7 +160,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.desktopservices DSDontWriteNetworkStores</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>但是我只是不想把它传上去而已，不至于禁止它生成，所以按往常一样写一个.gitignore文件就好，操作如下：</p>
+<p>但是我只是不想把它传上去而已，不至于禁止它生成，所以按往常一样写一个.gitignore文件就好，操作如下：</p>
 <ol>
 <li><p>创建.gitignore文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch .gitignore</span><br></pre></td></tr></table></figure>
@@ -168,7 +168,7 @@
 <li><p>编辑.gitignore文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .gitignore</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>补充.gitignore的内容，按规则填写想要忽略的文件：</p>
+<li><p>补充.gitignore的内容，按规则填写想要忽略的文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bin</span><br><span class="line">.idea/</span><br><span class="line">*.iml</span><br><span class="line">*.classes</span><br><span class="line">*.jar</span><br><span class="line">*.war</span><br><span class="line">*.ear</span><br><span class="line">target</span><br><span class="line">.settings</span><br><span class="line">.classpath</span><br><span class="line">.project</span><br><span class="line">.metadata/</span><br><span class="line">classes/</span><br><span class="line">logs/</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">rebel.xml</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>保存.gitignore并退出编辑： 按ESC键，并输入以下命令，完成操作</p>
@@ -289,8 +289,8 @@
 <td>Ctrl + O</td>
 </tr>
 <tr>
-<td>快速定位到符号（变量）</td>
-<td>Cmd + option + O</td>
+<td>快速定位到符号（变量）</td>
+<td>Cmd + option + O</td>
 <td>Ctrl + O</td>
 </tr>
 <tr>
@@ -335,7 +335,7 @@
 </tr>
 <tr>
 <td>导入包优化，调整导入包位置）</td>
-<td>Cmd + option + o</td>
+<td>Cmd + option + o</td>
 <td>Ctrl + Alt + o</td>
 </tr>
 <tr>
@@ -474,7 +474,7 @@
 <li><p>然后在文件里面写上：</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> completion-ignore-case on</span><br><span class="line"><span class="built_in">set</span> show-all-if-ambiguous on</span><br><span class="line">TAB: menu-complete</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>最后<code>ctrl + o</code> ，回车，重启终端，要使用自动补全时按tap键就ok了</p>
+<li><p>最后<code>ctrl + o</code> ，回车，重启终端，要使用自动补全时按tap键就ok了</p>
 </li>
 </ol>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><table>

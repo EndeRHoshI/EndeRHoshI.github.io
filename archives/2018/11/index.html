@@ -155,7 +155,7 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如今我们可以通过各种 app、公众号、聚合信息网站获取相对大众并符合自己的信息，但也有缺点：我需要下载这么多个 app 吗？公众号我还需要一个个点开看吗？这些网站就拥有所有我想知道的吗？订阅 RSS 源就可以帮助我们解决这些问题</p>
 <h2 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h2><p>RSS（Really Simple Syndication，简易信息聚合）是一种消息来源格式规范，表达了「聚合真的很简单」这样的愿景，我们可以将其看作是一种定制个性化推送信息的服务。</p>
 <h2 id="RSS阅读器"><a href="#RSS阅读器" class="headerlink" title="RSS阅读器"></a>RSS阅读器</h2><p>市面上有非常多的RSS阅读器，由于比较习惯使用手机阅读文章，所以我主要使用 App Store 上的 <a href="https://itunes.apple.com/cn/app/rss%E9%98%85%E8%AF%BB%E5%99%A8/id1129672005?mt=8" target="_blank" rel="noopener">RSS 阅读器</a></p>
-<p>不同的平台有不同的阅读器，这里不详细展开，有需要的再自行google</p>
+<p>不同的平台有不同的阅读器，这里不详细展开，有需要的再自行google</p>
 <h2 id="RSS源"><a href="#RSS源" class="headerlink" title="RSS源"></a>RSS源</h2><p>RSS阅读器有了，我们要订阅些什么源呢？可以看看知乎上的 <a href="https://www.zhihu.com/question/19580096" target="_blank" rel="noopener">这个你必读的 RSS 订阅源有哪些？</a>这里面同样有一些关于RSS阅读器的内容，可以参考一下</p>
 <p>参考文章：<a href="https://www.ifanr.com/app/770271" target="_blank" rel="noopener">https://www.ifanr.com/app/770271</a> ，之后再作补全</p>
 
@@ -208,7 +208,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.desktopservices DSDontWriteNetworkStores</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>但是我只是不想把它传上去而已，不至于禁止它生成，所以按往常一样写一个.gitignore文件就好，操作如下：</p>
+<p>但是我只是不想把它传上去而已，不至于禁止它生成，所以按往常一样写一个.gitignore文件就好，操作如下：</p>
 <ol>
 <li><p>创建.gitignore文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch .gitignore</span><br></pre></td></tr></table></figure>
@@ -216,7 +216,7 @@
 <li><p>编辑.gitignore文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .gitignore</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>补充.gitignore的内容，按规则填写想要忽略的文件：</p>
+<li><p>补充.gitignore的内容，按规则填写想要忽略的文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bin</span><br><span class="line">.idea/</span><br><span class="line">*.iml</span><br><span class="line">*.classes</span><br><span class="line">*.jar</span><br><span class="line">*.war</span><br><span class="line">*.ear</span><br><span class="line">target</span><br><span class="line">.settings</span><br><span class="line">.classpath</span><br><span class="line">.project</span><br><span class="line">.metadata/</span><br><span class="line">classes/</span><br><span class="line">logs/</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">rebel.xml</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>保存.gitignore并退出编辑： 按ESC键，并输入以下命令，完成操作</p>
@@ -270,9 +270,9 @@
     </section>
 
     <section class="article typo">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前不久项目中要求实现一些小控件，用来展示图表或者显示正反双方的人数对比，于是就自定义了一些View，用于绘图</p>
-<p>把View写好后，放到程序里跑起来，却闪退了，报错提示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: itemView.sev_safety_score_bar must not be null</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">android.view.InflateException: Binary XML file line <span class="comment">#77: Binary XML file line #77: Error inflating class </span></span><br><span class="line">Caused by: android.view.InflateException: Binary XML file line <span class="comment">#77: Error inflating class </span></span><br><span class="line">Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.Context, interface android.util.AttributeSet]</span><br></pre></td></tr></table></figure></p>
-<h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>一般这种情况，会有几种原因：</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前不久项目中要求实现一些小控件，用来展示图表或者显示正反双方的人数对比，于是就自定义了一些View，用于绘图</p>
+<p>把View写好后，放到程序里跑起来，却闪退了，报错提示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: itemView.sev_safety_score_bar must not be null</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">android.view.InflateException: Binary XML file line <span class="comment">#77: Binary XML file line #77: Error inflating class </span></span><br><span class="line">Caused by: android.view.InflateException: Binary XML file line <span class="comment">#77: Error inflating class </span></span><br><span class="line">Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.Context, interface android.util.AttributeSet]</span><br></pre></td></tr></table></figure></p>
+<h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>一般这种情况，会有几种原因：</p>
 <ol>
 <li><p>引用类名问题：自定义一个View之后，将他用于布局文件中，必须使用完整路径名来引用，不能只使用类名，检查了一下，不是这个原因导致的</p>
 </li>
@@ -284,7 +284,7 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> : <span class="type">View &#123;</span></span></span><br><span class="line">  <span class="keyword">constructor</span>(context: Context) : <span class="keyword">super</span>(context)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet) : <span class="keyword">super</span>(context, attrs)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet?, defStyle: <span class="built_in">Int</span>) : <span class="keyword">super</span>(context, attrs, defStyle)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以简化为以下这样</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(context: Context, attributeSet: AttributeSet? = <span class="literal">null</span>, defStyle: <span class="built_in">Int</span> = <span class="number">0</span>) : View(context, attributeSet, defStyle) &#123;&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>从网上的一些说法来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数是在不同的应用场合来实例化一个View对象的，但是事实是不是这样的呢，我发现了一些不同的看法<br>
+<p>从网上的一些说法来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数是在不同的应用场合来实例化一个View对象的，但是事实是不是这样的呢，我发现了一些不同的看法<br>
         
             <div class="readmore">
                 <a href="/2018/11/21/自定义View闪退和JvmOverloads注解/" class="flat-box">
@@ -339,9 +339,9 @@
 <p>Android 8.0（API级别26）引入了一项新功能，即XML中的字体，它允许您将字体用作资源。您可以在font文件res/font/夹中添加文件以将字体捆绑为资源。这些字体在您的R文件中编译，并在Android Studio中自动提供。我们可以借助新资源类型访问字体资源font。例如，要访问字体资源，就可以使用@font/myfont或R.font.myfont</p>
 <p>要在运行Android 4.1（API级别16）及更高版本的设备上使用字体XML功能，请使用支持库26。有关使用支持库的更多信息，请参阅使用支持库</p>
 </blockquote>
-<p>以上是文档开头的简介，接着往下看，可以看到，在API level 26或者以上时，只需简单的几步就可以使用字体资源:</p>
+<p>以上是文档开头的简介，接着往下看，可以看到，在API level 26或者以上时，只需简单的几步就可以使用字体资源:</p>
 <h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><ol>
-<li>首先要创建一个字体资源文件夹：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%88%9B%E5%BB%BA%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt=""></li>
+<li>首先要创建一个字体资源文件夹：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%88%9B%E5%BB%BA%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt=""></li>
 </ol>
         
             <div class="readmore">
@@ -388,10 +388,10 @@
     </section>
 
     <section class="article typo">
-        <p>今天在开发过程中，看到测试的bug反馈中有一条挺有趣的，就是当用户发出很细很长的图片时，无法加载出那个细长图片，为什么说细长图片，而不直接说长图呢，接下来就慢慢分享下这个bug的解决流程</p>
+        <p>今天在开发过程中，看到测试的bug反馈中有一条挺有趣的，就是当用户发出很细很长的图片时，无法加载出那个细长图片，为什么说细长图片，而不直接说长图呢，接下来就慢慢分享下这个bug的解决流程</p>
 <p>以下就是今天看到的诡异bug</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-bug%E5%8F%8D%E9%A6%88.png" alt=""></p>
-<p>可以看到，这个用户发了一条很长很长的图片，在安卓端显示的时候是空白的，但是在iOS端则是正常的，由此可以推断，后台返回给我们的数据应该是正常的，我验证了一下，在postman中发起请求，得到缩略图和原图后保存了下来，可以看到两个图片的信息如下：</p>
+<p>可以看到，这个用户发了一条很长很长的图片，在安卓端显示的时候是空白的，但是在iOS端则是正常的，由此可以推断，后台返回给我们的数据应该是正常的，我验证了一下，在postman中发起请求，得到缩略图和原图后保存了下来，可以看到两个图片的信息如下：</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E5%8E%9F%E5%9B%BE.jpg" alt=""></p>
 <p>明明就是实实在在存在的图像，怎么显示空白呢，同事之前遇到过一个无法显示长图的情况，那是因为图片的宽或者高超过了手机的限制，所以导致无法正常显示图片，解决的方案是载入图像时分段载入，就不会出现不显示图片的情况。但是我这里的两张图，一张顶多也就5000，而缩略图更加诡异，明明只有408的高度，却显示不出来了，这就奇怪得很了，继续看看是什么原因</p>
         

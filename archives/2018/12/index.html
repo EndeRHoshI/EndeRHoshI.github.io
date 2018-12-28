@@ -152,7 +152,7 @@
     </section>
 
     <section class="article typo">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在项目中遇到一个关于快应用的问题，就是在应用内某个页面使用WebView查看微博时，会发生一次跳转到快应用的行为，在一些机型（目前发现华为的一些机型）上会因为scheme协议的问题而无法正确跳转，加载不了页面，而在另一个类似的页面打开，又没有发生跳转，只在应用内打开了微博页面，后来通过排查，用不是太妥善的方法解决了问题，先做下记录，以后再完善</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在项目中遇到一个关于快应用的问题，就是在应用内某个页面使用WebView查看微博时，会发生一次跳转到快应用的行为，在一些机型（目前发现华为的一些机型）上会因为scheme协议的问题而无法正确跳转，加载不了页面，而在另一个类似的页面打开，又没有发生跳转，只在应用内打开了微博页面，后来通过排查，用不是太妥善的方法解决了问题，先做下记录，以后再完善</p>
 <h2 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h2><p>在使用以下机型的时候会出现下面图中的问题，而华为荣耀8青春版却又没有这个问题</p>
 <ul>
 <li>华为畅享6  <ul>
@@ -169,7 +169,7 @@
 <p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E5%BE%AE%E5%8D%9A%E7%9B%B4%E6%92%ADbug.png?raw=true" width="400" height="690" alt="图片名称" align="center"></p>
 </li>
 </ul>
-<p>图中的报错信息显示是加载到了一个未知的scheme，导致无法加载页面，我load的明明就是一个http链接，怎么会变成scheme呢，从报错中的hwfastapp就可以看出端倪，fastapp不就是之前发布的快应用吗？先去了解下什么是<a href="https://www.quickapp.cn/" target="_blank" rel="noopener">快应用</a></p>
+<p>图中的报错信息显示是加载到了一个未知的scheme，导致无法加载页面，我load的明明就是一个http链接，怎么会变成scheme呢，从报错中的hwfastapp就可以看出端倪，fastapp不就是之前发布的快应用吗？先去了解下什么是<a href="https://www.quickapp.cn/" target="_blank" rel="noopener">快应用</a></p>
         
             <div class="readmore">
                 <a href="/2018/12/12/WebView加载链接跳转快应用问题/" class="flat-box">
@@ -219,13 +219,13 @@
     </section>
 
     <section class="article typo">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为Android开发者，肯定要对各种Android手机都非常熟悉，那自然也不能少了Google亲儿子中的Nexus系列了，为了体验一下原生Android的流畅和官方全家桶的舒适体验，我在某宝上面弄了一台450RMB的Nexus6P，这几天拿到了，准备鼓捣鼓捣，学习一下</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为Android开发者，肯定要对各种Android手机都非常熟悉，那自然也不能少了Google亲儿子中的Nexus系列了，为了体验一下原生Android的流畅和官方全家桶的舒适体验，我在某宝上面弄了一台450RMB的Nexus6P，这几天拿到了，准备鼓捣鼓捣，学习一下</p>
 <p>首先踩的坑肯定就是网络相关的了，因为众所周知的原因，这个亲儿子无法与亲爹服务器取得联络，所以即使是连上了正常的WiFi，也非常调皮地在右上角显示“已连接，但无法访问互联网”，只有当你不断点击跳过各种设置后，才可以上网，但是右上角仍然是显示一个带叉叉的WiFi图标，用以提醒你当前的网络不是稳定的科学的网络</p>
-<p>既然这篇想讲刷机，现在又已经能上网了，先来研究下刷机和root是怎么回事，网络这个问题，就留待以后再研究了</p>
+<p>既然这篇想讲刷机，现在又已经能上网了，先来研究下刷机和root是怎么回事，网络这个问题，就留待以后再研究了</p>
 <h2 id="开始刷机"><a href="#开始刷机" class="headerlink" title="开始刷机"></a>开始刷机</h2><p>我拿到手机的时候，店家就已经帮我刷了8.1.0版本的Android，想要刷机，先去看看都有些什么镜像，因为是入门，这里就直接去下载<a href="https://developers.google.com/android/images#hammerhead" target="_blank" rel="noopener">官方镜像</a>，以后再看看其他各种魔改的镜像，拿到想要刷的镜像之后，有以下几个步骤：</p>
 <ol>
 <li><p>配置ADB环境变量（SDK）</p>
-<p>搜索下载ADB，这里不再赘述，ADB的相关指令可以自行Google</p>
+<p>搜索下载ADB，这里不再赘述，ADB的相关指令可以自行Google</p>
 </li>
 <li><p>安装ADB手机驱动</p>
 <p>只要下好ADB，连接上手机，电脑会自动下载并为手机安装上驱动，这里也不赘述</p>

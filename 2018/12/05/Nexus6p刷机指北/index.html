@@ -143,13 +143,13 @@
     <section class="article typo">
 
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为Android开发者，肯定要对各种Android手机都非常熟悉，那自然也不能少了Google亲儿子中的Nexus系列了，为了体验一下原生Android的流畅和官方全家桶的舒适体验，我在某宝上面弄了一台450RMB的Nexus6P，这几天拿到了，准备鼓捣鼓捣，学习一下</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为Android开发者，肯定要对各种Android手机都非常熟悉，那自然也不能少了Google亲儿子中的Nexus系列了，为了体验一下原生Android的流畅和官方全家桶的舒适体验，我在某宝上面弄了一台450RMB的Nexus6P，这几天拿到了，准备鼓捣鼓捣，学习一下</p>
 <p>首先踩的坑肯定就是网络相关的了，因为众所周知的原因，这个亲儿子无法与亲爹服务器取得联络，所以即使是连上了正常的WiFi，也非常调皮地在右上角显示“已连接，但无法访问互联网”，只有当你不断点击跳过各种设置后，才可以上网，但是右上角仍然是显示一个带叉叉的WiFi图标，用以提醒你当前的网络不是稳定的科学的网络</p>
-<p>既然这篇想讲刷机，现在又已经能上网了，先来研究下刷机和root是怎么回事，网络这个问题，就留待以后再研究了</p>
+<p>既然这篇想讲刷机，现在又已经能上网了，先来研究下刷机和root是怎么回事，网络这个问题，就留待以后再研究了</p>
 <h2 id="开始刷机"><a href="#开始刷机" class="headerlink" title="开始刷机"></a>开始刷机</h2><p>我拿到手机的时候，店家就已经帮我刷了8.1.0版本的Android，想要刷机，先去看看都有些什么镜像，因为是入门，这里就直接去下载<a href="https://developers.google.com/android/images#hammerhead" target="_blank" rel="noopener">官方镜像</a>，以后再看看其他各种魔改的镜像，拿到想要刷的镜像之后，有以下几个步骤：</p>
 <ol>
 <li><p>配置ADB环境变量（SDK）</p>
-<p>搜索下载ADB，这里不再赘述，ADB的相关指令可以自行Google</p>
+<p>搜索下载ADB，这里不再赘述，ADB的相关指令可以自行Google</p>
 </li>
 <li><p>安装ADB手机驱动</p>
 <p>只要下好ADB，连接上手机，电脑会自动下载并为手机安装上驱动，这里也不赘述</p>
@@ -166,8 +166,8 @@
 <p>   前边的序列号就是你的设备的Serial Number（序列号），后边为fastboot链接，如果得不到这样的结果，可能是 adb 和驱动没有配置好。弄好了继续输入<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot oem unlock</span><br></pre></td></tr></table></figure></p>
 <p>   手机会跳转到一个页面，问你是否解锁，但是这时我遇到一个报错，提示未知命令</p>
 <p>   <img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E6%9C%AA%E7%9F%A5%E5%91%BD%E4%BB%A4.png" alt=""></p>
-<p>   看了下官方文档，也就是上方的下载镜像文件的网址，原来是指令已经更换为：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot flashing unlock</span><br></pre></td></tr></table></figure></p>
-<p>   输入后，正确跳转到询问是否解锁的页面</p>
+<p>   看了下官方文档，也就是上方的下载镜像文件的网址，原来是指令已经更换为：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot flashing unlock</span><br></pre></td></tr></table></figure></p>
+<p>   输入后，正确跳转到询问是否解锁的页面</p>
 <p>   <img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E8%A7%A3%E9%94%81BootLoader%E8%AF%A2%E9%97%AE.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
 <p>   按音量上键，选择yes，点击电源键确定，稍后手机会重启进入recovery，重启就好了，可能时间比较长，静静等候。（在这一步中，已经刷入第三方recovery的话，重新解锁会卡死在开机动画，或者在开机画面不断循环，还要重新刷镜像，但是不要重刷recovery，重刷recovery会把之前的第三方刷掉）重新进入fastboot界面，方法同上。</p>
 <p>   <img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E5%B7%B2%E7%BB%8F%E8%A7%A3%E9%94%81BootLoader.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
@@ -202,17 +202,17 @@
 <p>线刷包格式多种多样有：三星的是 .tar、.md5等，索尼为.ftf，HTC为.exe等</p>
 </li>
 </ul>
-<p>简单了解了一下这两种刷机方式，然后解压我们下载好的系统镜像：</p>
+<p>简单了解了一下这两种刷机方式，然后解压我们下载好的系统镜像：</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E9%95%9C%E5%83%8F%E8%A7%A3%E5%8E%8B%E5%90%8E.png" alt=""></p>
 <p>再把image-angler-opm7.181205.001.zip解压出来，得到一些Recovery和system的img文件，放到同一目录下，cd 进入此文件夹，依次执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fastboot flash recovery recovery.img</span><br><span class="line">fastboot flash boot boot.img</span><br><span class="line">fastboot flash system system.img</span><br><span class="line">fastboot flash cache cache.img</span><br><span class="line">fastboot flash userdata userdata.img</span><br><span class="line">fastboot reboot</span><br></pre></td></tr></table></figure>
-<p>或者其实可以不用解压，Mac系统直接把.sh文件拉到终端中，或者/flash-all.sh，Windows系统双击打开.bat文件，就可以自动执行以上语句<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E7%94%A8%E8%84%9A%E6%9C%AC%E5%BC%80%E5%A7%8B%E5%88%B7%E6%9C%BA.png" alt=""></p>
+<p>或者其实可以不用解压，Mac系统直接把.sh文件拉到终端中，或者/flash-all.sh，Windows系统双击打开.bat文件，就可以自动执行以上语句<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E7%94%A8%E8%84%9A%E6%9C%AC%E5%BC%80%E5%A7%8B%E5%88%B7%E6%9C%BA.png" alt=""></p>
 <p>最后就刷机成功了，开机就可以进入手机设置流程</p>
 </li>
 </ol>
 <h2 id="adb-fastboot常用命令及刷机技巧"><a href="#adb-fastboot常用命令及刷机技巧" class="headerlink" title="adb fastboot常用命令及刷机技巧"></a>adb fastboot常用命令及刷机技巧</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">adb devices                         显示设备信息</span><br><span class="line"></span><br><span class="line">adb install 123.apk                 安装一个软件</span><br><span class="line"></span><br><span class="line">adb uninstall -k 123.apk            删除一个软件</span><br><span class="line"></span><br><span class="line">adb shell                           进入shell环境</span><br><span class="line"></span><br><span class="line">adb push c:/1.txt /sdcard/sdir/     向设备推送文件</span><br><span class="line"></span><br><span class="line">adb pull /sdcard/1.txt C:/          从设备取回文件</span><br><span class="line"></span><br><span class="line">adb reboot bootloader/recovery      使手机重启进入BL或RE</span><br><span class="line"></span><br><span class="line">adb shell settings put global captive_portal_https_url https://www.google.cn/generate_204 </span><br><span class="line">去除WiFi叹号, 貌似仅对Android 7有效</span><br></pre></td></tr></table></figure>
-<h2 id="穿插题外话"><a href="#穿插题外话" class="headerlink" title="穿插题外话"></a>穿插题外话</h2><p>图片上传后旋转不正确，因为图片的 EXIF 里标记了旋转 Rotate 90 CW ，直接打开图片时 chrome 会自动调整过来，这时应该在图片链接尾部加上参数imageMogr2/auto-orient，如your_image_path?imageMogr2/auto-orient，可以让图片正常显示，详情查看<a href="https://developer.qiniu.com/dora/manual/1270/the-advanced-treatment-of-images-imagemogr2" target="_blank" rel="noopener">七牛云存储-图片高级处理</a>，<a href="https://segmentfault.com/q/1010000009427045" target="_blank" rel="noopener">原问题点击此处查看</a>，<a href="https://www.zhihu.com/question/23378396" target="_blank" rel="noopener">关于使用HTML语言调整Markdown中的图片的方法</a></p>
-<h2 id="有待更新"><a href="#有待更新" class="headerlink" title="有待更新"></a>有待更新</h2><p>这次只是简单地了解了刷机的基本操作和基本常识，root失败了，卡在不断地进入recovery那里，网络的问题还没有弄好，也没有体验到Google全家桶的强大，以后再研究下，继续不断更新，附上几篇参考的文章：</p>
+<h2 id="穿插题外话"><a href="#穿插题外话" class="headerlink" title="穿插题外话"></a>穿插题外话</h2><p>图片上传后旋转不正确，因为图片的 EXIF 里标记了旋转 Rotate 90 CW ，直接打开图片时 chrome 会自动调整过来，这时应该在图片链接尾部加上参数imageMogr2/auto-orient，如your_image_path?imageMogr2/auto-orient，可以让图片正常显示，详情查看<a href="https://developer.qiniu.com/dora/manual/1270/the-advanced-treatment-of-images-imagemogr2" target="_blank" rel="noopener">七牛云存储-图片高级处理</a>，<a href="https://segmentfault.com/q/1010000009427045" target="_blank" rel="noopener">原问题点击此处查看</a>，<a href="https://www.zhihu.com/question/23378396" target="_blank" rel="noopener">关于使用HTML语言调整Markdown中的图片的方法</a></p>
+<h2 id="有待更新"><a href="#有待更新" class="headerlink" title="有待更新"></a>有待更新</h2><p>这次只是简单地了解了刷机的基本操作和基本常识，root失败了，卡在不断地进入recovery那里，网络的问题还没有弄好，也没有体验到Google全家桶的强大，以后再研究下，继续不断更新，附上几篇参考的文章：</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/380807fa1532" target="_blank" rel="noopener">Android手机刷机基础知识扫盲贴</a></li>
 <li><a href="https://www.shintaku.cc/posts/adb/" target="_blank" rel="noopener">使用adb工具刷机</a></li>
@@ -222,9 +222,9 @@
         </div>
 
         <section class='meta'>
-            <time class="time" itemprop="dateUpdated" datetime="2018-12-05T21:29:00+08:00" content="2018-12-05">
+            <time class="time" itemprop="dateUpdated" datetime="2018-12-28T19:51:26+08:00" content="2018-12-28">
                 <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
-                本文最后更新于：2018-12-05
+                本文最后更新于：2018-12-28
             </time>
             
                 
@@ -485,7 +485,7 @@
     <section class='m_widget toc-wrapper'>
         <div class="header"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;目录</div>
         <div class='content'>
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始刷机"><span class="toc-text">开始刷机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#adb-fastboot常用命令及刷机技巧"><span class="toc-text">adb fastboot常用命令及刷机技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#穿插题外话"><span class="toc-text">穿插题外话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有待更新"><span class="toc-text">有待更新</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始刷机"><span class="toc-text">开始刷机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#adb-fastboot常用命令及刷机技巧"><span class="toc-text">adb fastboot常用命令及刷机技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#穿插题外话"><span class="toc-text">穿插题外话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有待更新"><span class="toc-text">有待更新</span></a></li></ol>
         </div>
     </section>
 
