@@ -199,7 +199,7 @@
     </section>
 
     <section class="article typo">
-        <h1 id="Git忽略文件"><a href="#Git忽略文件" class="headerlink" title="Git忽略文件"></a>Git忽略文件</h1><p>这两天把毕设拉到Mac上想解决一下闪退的问题，修改完提交的时候发现出现了一个.DS_Store文件，这个.DS_Store是Mac OS保存文件夹的自定义属性的隐藏文件，如文件的图标位置或背景色，相当于Windows的desktop.ini，而我并不想把这个多余的东西提交上去，上网看了下，附上两条命令便于查阅：</p>
+        <p>这两天把毕设拉到Mac上想解决一下闪退的问题，修改完提交的时候发现出现了一个.DS_Store文件，这个.DS_Store是Mac OS保存文件夹的自定义属性的隐藏文件，如文件的图标位置或背景色，相当于Windows的desktop.ini，而我并不想把这个多余的东西提交上去，上网看了下，附上两条命令便于查阅：</p>
 <ol>
 <li><p>禁止.DS_store生成：打开   “终端” ，复制黏贴下面的命令，回车执行，重启Mac即可生效</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</span><br></pre></td></tr></table></figure>
