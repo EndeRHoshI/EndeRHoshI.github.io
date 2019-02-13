@@ -156,59 +156,15 @@
 <p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E9%97%AE%E9%A2%98%E5%A4%8D%E7%8E%B0%E5%9B%BE.jpg?raw=true" width="460" height="800" alt="图片名称" align="center"></p>
 <p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F.jpg?raw=true" width="460" height="800" alt="图片名称" align="center"></p>
 <p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E7%8A%B6%E6%80%81%E6%A0%8F%E7%A9%BF%E9%80%8F.jpg?raw=true" width="460" height="800" alt="图片名称" align="center"></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E9%A2%9C%E8%89%B2.png" alt=""></p>
 <p>项目中其他地方的遮罩可以完整的盖住整个手机屏幕，连同状态栏一起，所以先去看看这些地方是如何实现的，一共有两种：</p>
-<ol>
-<li>布局中设置android:fitsSystemWindows=”true”的同时，使用了自定义的TransLinearLayout<ul>
-<li>这个TranslinearLayout中的onMeasure方法中，加上了WindowInsets的getSystemWindowInsetTop取得的高度<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-TransLinearLayout%E7%9A%84getTopInset.png" alt=""><br>而WindowInsets这里的inset的直译是插入物，可以理解为特定屏幕区域，WindowInsets的三个成员变量mSystemWindowInsets，mWindowDecorInsets，mStableInsets表示了三种屏幕区域，而SystemWindowInsets系统窗口区域代表着整个屏幕窗口上，状态栏，导航栏，输入法等系统窗口占用的区域<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-getTopInset%E6%96%B9%E6%B3%95.png" alt=""><br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-getSystemWindowInsetTop%E6%96%B9%E6%B3%95.png" alt=""><br>这里的top表示的是顶部占位区域的宽度，即状态栏的宽度，长度默认是屏宽</li>
-</ul>
-</li>
-<li><p>某些Activity的Theme中加上windowTranslucentStatus=true属性，或者在活动的onCreate代码中设置</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowTranslucentStatus"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure>
- <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;</span><br><span class="line">  window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setContentView(R.layout.ai_kline_act_kline_master)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;</span><br><span class="line">  <span class="keyword">val</span> titleBar = findViewById&lt;ConstraintLayout&gt;(R.id.ai_kline_master_title_bar)</span><br><span class="line">  <span class="keyword">var</span> statusBarHeight = <span class="number">60</span></span><br><span class="line">  <span class="keyword">if</span> (ScreenUtil.getStatusBarHeight(<span class="keyword">this</span>) != <span class="number">0</span>) &#123;</span><br><span class="line">    statusBarHeight = ScreenUtil.getStatusBarHeight(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  titleBar.setPadding(titleBar.paddingLeft, titleBar.paddingTop + statusBarHeight, titleBar.paddingRight, titleBar.paddingBottom)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> titleBarLayoutParams = titleBar.layoutParams</span><br><span class="line">  titleBarLayoutParams.height = titleBarLayoutParams.height + statusBarHeight</span><br><span class="line">  titleBar.layoutParams = titleBarLayoutParams</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>至此明白了需要怎样去实现，解决了问题，但是从这里可以看出我对主题，状态栏相关的知识不够扎实，故对相关内容重新整理归纳一下</p>
-<p>首先是主题相关的内容，Android5.0发布后，support-v7-appcompat 也更新到V21，增加了ToolBar、recyclerview、cardview等控件。Android从5.0开始支持 Material Design 应用，可以通过修改各项参数来达到不同的主题效果，以下是各项参数的作用</p>
-<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-colorPrimary%E7%AD%89%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3.jpg?raw=true" alt=""></p>
-<ul>
-<li>textColorPrimary 应用的主要文字颜色，ActionBar的标题文字默认使用该颜色</li>
-<li>colorPrimary 应用的主要色调，actionBar默认使用该颜色，Toolbar导航栏的底色</li>
-<li>statusBarColor 状态栏颜色，默认使用colorPrimaryDark</li>
-<li>colorPrimaryDark 应用的主要暗色调，statusBarColor默认使用该颜色</li>
-<li>windowBackground 窗口背景颜色</li>
-<li>navigationBarColor 底部栏颜色</li>
-<li>colorAccent CheckBox，RadioButton，SwitchCompat等一般控件的选中效果默认采用该颜色</li>
-<li>colorForeground 应用的前景色，ListView的分割线，switch滑动区默认使用该颜色</li>
-<li>colorBackground 应用的背景色，popMenu的背景默认使用该颜色</li>
-<li>colorControlNormal CheckBox，RadioButton，SwitchCompat等默认状态的颜色。</li>
-<li>colorControlHighlight 控件按压时的色调</li>
-<li>colorControlActivated 控件选中时的颜色，默认使用colorAccent</li>
-<li>colorButtonNormal 默认按钮的背景颜色</li>
-<li>editTextColor ：默认EditView输入框字体的颜色。</li>
-<li>textColor Button，textView的文字颜色</li>
-<li>textColorPrimaryDisableOnly RadioButton checkbox等控件的文字</li>
-<li>colorSwitchThumbNormal switch thumbs 默认状态的颜色. (switch off)</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"windowNoTitle"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"windowActionBar"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowNoTitle"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowActionBar"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>又发现到AppCompatActivity中出现了windowNoTitle属性，前边不需要加”android:”，那这两个有什么区别吗？</p>
-<p>其实带android的是系统的，不带android是兼容样式的，就是Theme.AppCompat样式的，因为是 support 包里重新定义了这个属性，即windowNoTitle是appcompat-v7中的属性，在appcompat-v7\res\values\values.xml中定义了，可以打开appcompat-v7\res\values\values.xml搜索AppCompatTheme，可以找到定义的”windowNoTitle”、”windowActionBar”等属性。</p>
-<p>“windowNoTitle”属性在代码中可以使用R.attr.windowNoTitle访问，<br>“android:windowNoTitle”则需要使用android.R.attr.windowNoTitle访问。</p>
-<p>使用AppCompatActivity时（Activity必须使用Theme.AppCompat主题及其子主题），测试发现：</p>
-<ol>
-<li>“android:windowActionBar”属性在AppCompatActivity中不起作用</li>
-<li>windowNoTitle = false 并且 android:windowNoTitle = false 时，会出现两个标题，位于下方的是AppCompatActivity的标题栏<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E9%87%8D%E5%A4%8D%E5%AF%BC%E8%87%B4%E4%B8%A4%E4%B8%AAActionBar.jpg?raw=true" width="460" height="800" alt="图片名称" align="center"></li>
-<li>当windowNoTitle = false，windowActionBar = false 时，会报错: AppCompat does not support the current theme features<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E9%87%8D%E5%A4%8D%E6%8A%A5%E9%94%99.png" alt=""></li>
-<li>windowNoTitle = true 并且 android:windowNoTitle = true时 ,无标题</li>
-</ol>
-<p>然后是状态栏的沉浸式实现的转变：</p>
-<ol>
-<li><p>Android4.4（API 19） - Android 5.0（API 21）： 这个阶段可以实现沉浸式，但是表现得还不是很好，实现方式为: 通过FLAG_TRANSLUCENT_STATUS设置状态栏为透明并且为全屏模式，然后通过添加一个与StatusBar 一样大小的View，将View 的 background 设置为我们想要的颜色，或者是像上文那样动态设置一个padding，从而来实现沉浸式</p>
-<p>这里的FLAG_TRANSLUCENT_STATUS的含义是：设置状态栏透明，并且变为全屏模式，从注释中看到，当window的这个属性有效的时候，会自动设置 system ui visibility的标志SYSTEM_UI_FLAG_LAYOUT_STABLE 和 SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-FLAG_TRANSLUCENT_STATUS.png" alt=""></p>
-</li>
-<li>Android 5.0（API 21）以上版本： 在Android 5.0的时候，加入了一个重要的属性和方法 android:statusBarColor （对应方法为 setStatusBarColor），通过这个方法我们就可以轻松实现沉浸式</li>
-<li>Android 6.0（API 23）以上版本：Android6.0以上的实现方式和Android 5.0 +是一样，但是从Android 6.0（API 23）开始，我们可以改状态栏的绘制模式，可以显示白色或浅黑色的内容和图标（除了魅族手机，魅族自家有做源码更改，6.0以下就能实现）<a href="https://blog.csdn.net/geekqian/article/details/60468734" target="_blank" rel="noopener">示例</a><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//6.0 以上可以设置状态栏的字体为黑色，使用下面代码可以打开亮色状态栏模式，实现黑色字体，白底的需求用这句setStatusBarColor(Color.WHITE)</span></span><br><span class="line">window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</span><br></pre></td></tr></table></figure></li>
-</ol>
-
+        
+            <div class="readmore">
+                <a href="/2019/02/13/Android状态栏与主题探究/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
         
 
         
