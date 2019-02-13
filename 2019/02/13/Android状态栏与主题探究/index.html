@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Category: 开发记录 | HoshI-blog</title>
+  <title>Android状态栏与主题探究 | HoshI-blog</title>
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" href="/">
@@ -118,28 +118,18 @@
     <div class="l_body">
     <div class='container clearfix'>
         <div class='l_main'>
-            
-    <script>
-        window.subData= { title:'category : 开发记录'}
-    </script>
-
-
-<section class="post-list">
-    
-    
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
-            <a href="/2019/02/13/Android状态栏与主题探究/">
-                
-                    Android状态栏与主题探究
-                
-            </a>
-        </h2>
+            <article id="post-Android状态栏与主题探究" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    <section class='meta'>
+        
+            <h1 class="title">Android状态栏与主题探究</h1>
+        
         <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2019-02-13
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+            2019-02-13
         </time>
+        <div class="browse"><i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+        </div>
         
     
     <div class='cats'>
@@ -151,7 +141,9 @@
     </section>
 
     <section class="article typo">
-        <p>前不久在写一个功能的时候，遇到一个添加引导页的需求，直接照搬了之前的引导页的实现方式，使用了 <a href="https://github.com/huburt-Hu/NewbieGuide" target="_blank" rel="noopener">NewbieGuide</a> 来实现，发现在Activity中引导页弹出时无法遮盖状态栏，除了状态栏外的部分才能正常被遮盖，所以探究下这个是什么原因导致的</p>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>前不久在写一个功能的时候，遇到一个添加引导页的需求，直接照搬了之前的引导页的实现方式，使用了 <a href="https://github.com/huburt-Hu/NewbieGuide" target="_blank" rel="noopener">NewbieGuide</a> 来实现，发现在Activity中引导页弹出时无法遮盖状态栏，除了状态栏外的部分才能正常被遮盖，所以探究下这个是什么原因导致的</p>
 <p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E9%97%AE%E9%A2%98%E5%A4%8D%E7%8E%B0%E5%9B%BE.jpg?raw=true" width="460" height="800" alt="图片名称" align="center"></p>
 <p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F.jpg?raw=true" width="460" height="800" alt="图片名称" align="center"></p>
 <p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E7%8A%B6%E6%80%81%E6%A0%8F%E7%A9%BF%E9%80%8F.jpg?raw=true" width="460" height="800" alt="图片名称" align="center"></p>
@@ -208,223 +200,102 @@
 <li>Android 6.0（API 23）以上版本：Android6.0以上的实现方式和Android 5.0 +是一样，但是从Android 6.0（API 23）开始，我们可以改状态栏的绘制模式，可以显示白色或浅黑色的内容和图标（除了魅族手机，魅族自家有做源码更改，6.0以下就能实现）<a href="https://blog.csdn.net/geekqian/article/details/60468734" target="_blank" rel="noopener">示例</a><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//6.0 以上可以设置状态栏的字体为黑色，使用下面代码可以打开亮色状态栏模式，实现黑色字体，白底的需求用这句setStatusBarColor(Color.WHITE)</span></span><br><span class="line">window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</span><br></pre></td></tr></table></figure></li>
 </ol>
 
-        
+        </div>
+
+        <section class='meta'>
+            <time class="time" itemprop="dateUpdated" datetime="2019-02-13T19:22:23+08:00" content="2019-02-13">
+                <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
+                本文最后更新于：2019-02-13
+            </time>
+            
+                
+                <div class="tags">
+                    <i class="fas fa-tags fa-fw" aria-hidden="true"></i>
+                    <a class="tag" href="/tags/Android/">Android</a>
+                </div>
+            
+        </section>
 
         
-            <div class="full-width auto-padding tags">
+            <div class="prev-next">
                 
-                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一篇&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2018/12/12/WebView加载链接跳转快应用问题/" rel="prev" title="WebView加载链接跳转快应用问题">
+                                    
+                                        WebView加载链接跳转快应用问题
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <i class="fas fa-tags fa-fw" aria-hidden="true"></i>
+                                    <a class="tag" href="/tags/Android/">Android</a>, <a class="tag" href="/tags/快应用/">快应用</a>, <a class="tag" href="/tags/WebView/">WebView</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
                 
             </div>
         
+
     </section>
+
 </article>
 
-        </div>
-    
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
-            <a href="/2018/12/05/Nexus6p刷机指北/">
+<br>
+
+<!-- 显示推荐文章和评论 -->
+
+    <article class="post white-box comments">
+        <section class="article typo">
+
+            
                 
-                    Nexus6p刷机指北
-                
-            </a>
-        </h2>
-        <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-12-05
-        </time>
-        
-    
-    <div class='cats'>
-        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/开发记录/">开发记录</a>
+
+    <div class="recommended_posts">
+        <h4><i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>&nbsp;你可能感兴趣的文章</h4>
+        <ul>
+            
+                <li><a href="http://yoursite.com/2018/12/12/WebView加载链接跳转快应用问题/">WebView加载链接跳转快应用问题</a></li>
+            
+                <li><a href="http://yoursite.com/2018/12/05/Nexus6p刷机指北/">Nexus6p刷机指北</a></li>
+            
+                <li><a href="http://yoursite.com/2018/11/29/打造自己的RSS源/">打造自己的RSS源</a></li>
+            
+                <li><a href="http://yoursite.com/2018/11/28/Git忽略文件和操作系统尾部换行符问题/">Git忽略文件和操作系统尾部换行符问题</a></li>
+            
+                <li><a href="http://yoursite.com/2018/11/21/自定义View闪退和JvmOverloads注解/">加载自定义View应用闪退|@JvmOverloads详解</a></li>
+            
+        </ul>
     </div>
 
 
-    </section>
+            
 
-    <section class="article typo">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为Android开发者，肯定要对各种Android手机都非常熟悉，那自然也不能少了Google亲儿子中的Nexus系列了，为了体验一下原生Android的流畅和官方全家桶的舒适体验，我在某宝上面弄了一台450RMB的Nexus6P，这几天拿到了，准备鼓捣鼓捣，学习一下</p>
-<p>首先踩的坑肯定就是网络相关的了，因为众所周知的原因，这个亲儿子无法与亲爹服务器取得联络，所以即使是连上了正常的WiFi，也非常调皮地在右上角显示“已连接，但无法访问互联网”，只有当你不断点击跳过各种设置后，才可以上网，但是右上角仍然是显示一个带叉叉的WiFi图标，用以提醒你当前的网络不是稳定的科学的网络</p>
-<p>既然这篇想讲刷机，现在又已经能上网了，先来研究下刷机和root是怎么回事，网络这个问题，就留待以后再研究了</p>
-<h2 id="开始刷机"><a href="#开始刷机" class="headerlink" title="开始刷机"></a>开始刷机</h2><p>我拿到手机的时候，店家就已经帮我刷了8.1.0版本的Android，想要刷机，先去看看都有些什么镜像，因为是入门，这里就直接去下载<a href="https://developers.google.com/android/images#hammerhead" target="_blank" rel="noopener">官方镜像</a>，以后再看看其他各种魔改的镜像，拿到想要刷的镜像之后，有以下几个步骤：</p>
-<ol>
-<li><p>配置ADB环境变量（SDK）</p>
-<p>搜索下载ADB，这里不再赘述，ADB的相关指令可以自行Google</p>
-</li>
-<li><p>安装ADB手机驱动</p>
-<p>只要下好ADB，连接上手机，电脑会自动下载并为手机安装上驱动，这里也不赘述</p>
-</li>
-<li><p>解锁BootLoader</p>
-<p>手机关机后，长按音量-和电源键，一直到看见一个盖子打开躺在地上的安卓机器人为止。这时就已经进入了fastboot页面了，这时可以看到左下角的一些关于手机的信息</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E8%A7%A3%E9%94%81BootLoader.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
-</li>
-</ol>
-        
-            <div class="readmore">
-                <a href="/2018/12/05/Nexus6p刷机指北/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
+            
 
-        
-            <div class="full-width auto-padding tags">
                 
-                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
+
                 
-                    <a href="/tags/手机/"><i class="fas fa-tag fa-fw"></i>&nbsp;手机</a>
+
                 
-                    <a href="/tags/Nexus-6p/"><i class="fas fa-tag fa-fw"></i>&nbsp;Nexus 6p</a>
-                
-            </div>
-        
-    </section>
-</article>
+            
 
-        </div>
-    
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
-            <a href="/2018/11/29/打造自己的RSS源/">
-                
-                    打造自己的RSS源
-                
-            </a>
-        </h2>
-        <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-11-29
-        </time>
-        
-    
-    <div class='cats'>
-        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/开发记录/">开发记录</a>
-    </div>
+        </section>
+    </article>
 
 
-    </section>
-
-    <section class="article typo">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如今我们可以通过各种 app、公众号、聚合信息网站获取相对大众并符合自己的信息，但也有缺点：我需要下载这么多个 app 吗？公众号我还需要一个个点开看吗？这些网站就拥有所有我想知道的吗？订阅 RSS 源就可以帮助我们解决这些问题</p>
-<h2 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h2><p>RSS（Really Simple Syndication，简易信息聚合）是一种消息来源格式规范，表达了「聚合真的很简单」这样的愿景，我们可以将其看作是一种定制个性化推送信息的服务。</p>
-<h2 id="RSS阅读器"><a href="#RSS阅读器" class="headerlink" title="RSS阅读器"></a>RSS阅读器</h2><p>市面上有非常多的RSS阅读器，由于比较习惯使用手机阅读文章，所以我主要使用 App Store 上的 <a href="https://itunes.apple.com/cn/app/rss%E9%98%85%E8%AF%BB%E5%99%A8/id1129672005?mt=8" target="_blank" rel="noopener">RSS 阅读器</a></p>
-<p>不同的平台有不同的阅读器，这里不详细展开，有需要的再自行google</p>
-<h2 id="RSS源"><a href="#RSS源" class="headerlink" title="RSS源"></a>RSS源</h2><p>RSS阅读器有了，我们要订阅些什么源呢？可以看看知乎上的 <a href="https://www.zhihu.com/question/19580096" target="_blank" rel="noopener">这个你必读的 RSS 订阅源有哪些？</a>这里面同样有一些关于RSS阅读器的内容，可以参考一下</p>
-<p>参考文章：<a href="https://www.ifanr.com/app/770271" target="_blank" rel="noopener">https://www.ifanr.com/app/770271</a> ，之后再作补全</p>
-
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/博客部署/"><i class="fas fa-tag fa-fw"></i>&nbsp;博客部署</a>
-                
-                    <a href="/tags/RSS/"><i class="fas fa-tag fa-fw"></i>&nbsp;RSS</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-        </div>
-    
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
-            <a href="/2018/08/30/hexo博客部署指北/">
-                
-                    hexo博客部署指北
-                
-            </a>
-        </h2>
-        <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-08-30
-        </time>
-        
-    
-    <div class='cats'>
-        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/开发记录/">开发记录</a>
-    </div>
-
-
-    </section>
-
-    <section class="article typo">
-        <p>今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下：</p>
-<ul>
-<li><p>无法上传到github</p>
-<p>  部署hexo时，使用教程中说的repository: </p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/andybroker/andybroker.github.io.git</span><br></pre></td></tr></table></figure>
-<p>  无法正确上传，后来用了</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git@github.com:andybroker/andybroker.github.io.git</span><br></pre></td></tr></table></figure>
-<p>  才正确，应该是直接使用ssh进行上传，故没有写账号密码的过程</p>
-</li>
-<li><p>配置文件时语言选项</p>
-<p>  中文的选项不是<code>zh-Hans</code>，而应该是<code>zh-CN</code>，关于其他的一些语言可以在themes中看到，其他的一些配置也可以在themes里对应的主题的配置文件<code>_config.yml</code>中进行配置，languages文件夹内容如下所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/hexo%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png?raw=true" alt=""></p>
-</li>
-<li><p>hexo修改主题</p>
-<p>需要把主题先下载下来再进行配置使用</p>
-</li>
-<li><p>hexo的配置文件</p>
-<p>其中的参数需要在冒号后空一格，不能直接连接冒号</p>
-</li>
-<li><p>更换电脑时的操作</p>
-<ol>
-<li><p>安装Node.js</p>
-<ul>
-<li><p>检查是否安装brew</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew -v</span><br></pre></td></tr></table></figure>
-<p>安装homebrew：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
-<p>安装node:(如果之前已经手动安装过node，再次通过homebrew安装往往产生冲突，可以先删除，如果是通过homebrew安装的，下发命令<code>brew uninstall node</code>即可，如果是通过安装包安装的，手动删除node的安装文件即可)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew link node</span><br><span class="line">brew uninstall node</span><br><span class="line">brew install node</span><br></pre></td></tr></table></figure>
-<p>检查是否安装node:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>注：安装cnpm（npm由于源服务器在国外，下载node包速度较慢，cnpm使用国内镜像，下载速度较快）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>安装hexo:</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g hexo</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>把博客文件从git上拉下来，或者用iCloud中的，基本上只要在Mac上更新博客，都可以直接用iCloud文稿中的文件，但是如果要更新git上的文件，就要先拉到本地，用iCloud的将其覆盖，再推到远端</p>
-</li>
-</ol>
-</li>
-</ul>
-<h4 id="不断使用和尝试中，如果有新的坑会继续补充"><a href="#不断使用和尝试中，如果有新的坑会继续补充" class="headerlink" title="不断使用和尝试中，如果有新的坑会继续补充"></a>不断使用和尝试中，如果有新的坑会继续补充</h4><blockquote>
-<p>从零搭建hexo参考文章：<a href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/" target="_blank" rel="noopener">http://visugar.com/2017/05/04/20170504SetUpHexoBlog/</a> 这个博主也是使用hexo的，可以多多参考</p>
-<p>hexo主题网站: <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-</blockquote>
-
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/踩坑/"><i class="fas fa-tag fa-fw"></i>&nbsp;踩坑</a>
-                
-                    <a href="/tags/博客部署/"><i class="fas fa-tag fa-fw"></i>&nbsp;博客部署</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-        </div>
-    
-</section>
-
+<script>
+    window.subData = {
+        title: 'Android状态栏与主题探究',
+        tools: true
+    }
+</script>
 
 
         </div>
@@ -667,6 +538,10 @@
 <script src="/js/search.js"></script>
 <script src="/js/app.js"></script>
 
+
+    
+    
+    
 
 
     <script>setLoadingBarProgress(100);</script>
