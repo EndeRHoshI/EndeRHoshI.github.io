@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Tag: Nexus 6p | HoshI-blog</title>
+  <title>Tag: Android | HoshI-blog</title>
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" href="/">
@@ -120,7 +120,7 @@
         <div class='l_main'>
             
     <script>
-        window.subData= { title:'tag : Nexus 6p'}
+        window.subData= { title:'tag : Android'}
     </script>
 
 
@@ -131,59 +131,51 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
-            <a href="/2018/12/05/Nexus6p刷机指北/">
+            <a href="/2018/09/08/APK无法在某款手机上运行解决方案/">
                 
-                    Nexus6p刷机指北
+                    APK无法在某款手机上运行解决方案
                 
             </a>
         </h2>
         <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-12-05
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-09-08
         </time>
         
     
     <div class='cats'>
         <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/开发记录/">开发记录</a>
+        <a class="categories" href="/categories/问题集锦/">问题集锦</a>
     </div>
 
 
     </section>
 
     <section class="article typo">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为Android开发者，肯定要对各种Android手机都非常熟悉，那自然也不能少了Google亲儿子中的Nexus系列了，为了体验一下原生Android的流畅和官方全家桶的舒适体验，我在某宝上面弄了一台450RMB的Nexus6P，这几天拿到了，准备鼓捣鼓捣，学习一下</p>
-<p>首先踩的坑肯定就是网络相关的了，因为众所周知的原因，这个亲儿子无法与亲爹服务器取得联络，所以即使是连上了正常的WiFi，也非常调皮地在右上角显示“已连接，但无法访问互联网”，只有当你不断点击跳过各种设置后，才可以上网，但是右上角仍然是显示一个带叉叉的WiFi图标，用以提醒你当前的网络不是稳定的科学的网络</p>
-<p>既然这篇想讲刷机，现在又已经能上网了，先来研究下刷机和root是怎么回事，网络这个问题，就留待以后再研究了</p>
-<h2 id="开始刷机"><a href="#开始刷机" class="headerlink" title="开始刷机"></a>开始刷机</h2><p>我拿到手机的时候，店家就已经帮我刷了8.1.0版本的Android，想要刷机，先去看看都有些什么镜像，因为是入门，这里就直接去下载<a href="https://developers.google.com/android/images#hammerhead" target="_blank" rel="noopener">官方镜像</a>，以后再看看其他各种魔改的镜像，拿到想要刷的镜像之后，有以下几个步骤：</p>
+        <p>昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是公司的LG测试机却提示缺少WelcomeAcitivity，如下图所示：<img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/APK%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/APK%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-%E7%BC%BA%E5%B0%91WelcomeActivity%E9%94%99%E8%AF%AF.png" alt=""><br>就连去官网下载正式版的app也提示安装包可能已经损坏，所以询问同事，告知有可能是卸载不完全，可以看看是否卸载完全，或者用adb去彻底删除它，程序在手机上已经用常规的删除方法卸载了，无法确认是否卸载完全，所以决定动用adb，使用adb的过程如下：</p>
 <ol>
-<li><p>配置ADB环境变量（SDK）</p>
-<p>搜索下载ADB，这里不再赘述，ADB的相关指令可以自行Google</p>
+<li><p>首先确认已经配置好adb，并且你的Android设备可以被你的电脑识别，可以通过输入命令<code>adb devices</code>来进行测试是否安装好了adb，如果没有，则可以通过Homebrew安装：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install android-platform-tools</span><br></pre></td></tr></table></figure>
+<p> 如果没有Homebrew，则</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>安装ADB手机驱动</p>
-<p>只要下好ADB，连接上手机，电脑会自动下载并为手机安装上驱动，这里也不赘述</p>
+<li><p>如果记得包名或者知道包名的话，直接跳到第三步，如果不记得包名或者不知道包名，之所以这样说，是因为对于通过ADB卸载一个应用程序，你必须知道这个应用程序的程序包名称，但是包名称未必是某应用的APK文件名字，比如Yahoo! Mail（雅虎邮箱）Android终端应用，它的程序包名称可能是yahoo.mobile.client.android.mail</p>
+<p> 所以你可以使用指令</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell pm list packages</span><br></pre></td></tr></table></figure>
+<p> 来列出所有包名，找到自己的程序的包名</p>
 </li>
-<li><p>解锁BootLoader</p>
-<p>手机关机后，长按音量-和电源键，一直到看见一个盖子打开躺在地上的安卓机器人为止。这时就已经进入了fastboot页面了，这时可以看到左下角的一些关于手机的信息</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E8%A7%A3%E9%94%81BootLoader.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
+<li><p>输入指令</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb uninstall com.example.package</span><br></pre></td></tr></table></figure>
+<p> 按Enter回车键确认，当Success提示出现后，应用即从你的Android设备中移除，其他以此类推</p>
 </li>
 </ol>
-        
-            <div class="readmore">
-                <a href="/2018/12/05/Nexus6p刷机指北/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
+<p>完成上述步骤后，再次运行程序，成功安装</p>
+
         
 
         
             <div class="full-width auto-padding tags">
                 
                     <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
-                
-                    <a href="/tags/手机/"><i class="fas fa-tag fa-fw"></i>&nbsp;手机</a>
-                
-                    <a href="/tags/Nexus-6p/"><i class="fas fa-tag fa-fw"></i>&nbsp;Nexus 6p</a>
                 
             </div>
         
@@ -193,6 +185,25 @@
         </div>
     
 </section>
+
+
+    <br>
+    <div class="prev-next">
+        <div class="prev-next">
+            
+                <a class="prev" rel="prev" href="/tags/Android/">
+                    <section class="post prev" >
+                        <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
+                    </section>
+                </a>
+            
+            <p class="current">
+                2 / 2
+            </p>
+            
+
+        </div>
+    </div>
 
 
 

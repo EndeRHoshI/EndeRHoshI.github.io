@@ -199,15 +199,18 @@
 <p>这里的FLAG_TRANSLUCENT_STATUS的含义是：设置状态栏透明，并且变为全屏模式，从注释中看到，当window的这个属性有效的时候，会自动设置 system ui visibility的标志SYSTEM_UI_FLAG_LAYOUT_STABLE 和 SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-FLAG_TRANSLUCENT_STATUS.png" alt=""></p>
 </li>
 <li>Android 5.0（API 21）以上版本： 在Android 5.0的时候，加入了一个重要的属性和方法 android:statusBarColor （对应方法为 setStatusBarColor），通过这个方法我们就可以轻松实现沉浸式</li>
-<li>Android 6.0（API 23）以上版本：Android6.0以上的实现方式和Android 5.0 +是一样，但是从Android 6.0（API 23）开始，我们可以改状态栏的绘制模式，可以显示白色或浅黑色的内容和图标（除了魅族手机，魅族自家有做源码更改，6.0以下就能实现）<a href="https://blog.csdn.net/geekqian/article/details/60468734" target="_blank" rel="noopener">示例</a><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//6.0 以上可以设置状态栏的字体为黑色，使用下面代码可以打开亮色状态栏模式，实现黑色字体，白底的需求用这句setStatusBarColor(Color.WHITE)</span></span><br><span class="line">window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</span><br></pre></td></tr></table></figure></li>
+<li><p>Android 6.0（API 23）以上版本：Android6.0以上的实现方式和Android 5.0 +是一样，但是从Android 6.0（API 23）开始，我们可以改状态栏的绘制模式，可以显示白色或浅黑色的内容和图标（除了魅族手机，魅族自家有做源码更改，6.0以下就能实现）<a href="https://blog.csdn.net/geekqian/article/details/60468734" target="_blank" rel="noopener">示例</a></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//6.0 以上可以设置状态栏的字体为黑色，使用下面代码可以打开亮色状态栏模式，实现黑色字体，白底的需求用这句setStatusBarColor(Color.WHITE)</span></span><br><span class="line">window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</span><br></pre></td></tr></table></figure>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>同样的操作，在 Android 8.0 以上似乎并不能很好地实现，而是更符合 flag 原本的定义，FLAG_TRANSLUCENT_STATUS 其中的 TRANSLUCENT 的意思是半透明的意思，所以在 8.0 以上的时候，设置这个 FLAG 会让状态栏半透明，同时 SYSTEM_UI_FLAG_LAYOUT_STABLE（让应用的主体内容占用系统状态栏的空间）和SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN（全屏）也会生效，造成顶部和状态栏重叠的情况，同时有一条半透明的状态栏在上面，这样子的话，在 Android7.0 中可以完美实现的沉浸式，在 8.0 的时候还是会显示一条半透明状态栏，所以如果要实现沉浸式，设置 FLAG_TRANSLUCENT_STATUS 和 android:windowTranslucentStatus = true 其实并不是太可取，应该要动态改变状态栏的颜色来实现真正的沉浸式，可以设置状态栏颜色与下方控件颜色一致，或者在没有设置 FLAG_TRANSLUCENT_STATUS 而设置了 FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS 的同时，设置状态栏颜色为透明，因为设置 FLAG_TRANSLUCENT_STATUS 会使得状态栏默认为半透明颜色</p>
+</li>
 </ol>
 
         </div>
 
         <section class='meta'>
-            <time class="time" itemprop="dateUpdated" datetime="2019-02-18T14:21:10+08:00" content="2019-02-18">
+            <time class="time" itemprop="dateUpdated" datetime="2019-02-19T16:03:02+08:00" content="2019-02-19">
                 <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
-                本文最后更新于：2019-02-18
+                本文最后更新于：2019-02-19
             </time>
             
                 
@@ -220,6 +223,26 @@
 
         
             <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一篇</h6>
+                            <h4>
+                                <a href="/2019/04/04/Java Calendar类解析/" rel="prev" title="Java Calendar类解析">
+                                  
+                                      Java Calendar类解析
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <i class="fas fa-tags fa-fw" aria-hidden="true"></i>
+                                    <a class="tag" href="/tags/Android/">Android</a>, <a class="tag" href="/tags/Java/">Java</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
                 
                 
                     <section class="next">
@@ -263,6 +286,8 @@
         <h4><i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>&nbsp;你可能感兴趣的文章</h4>
         <ul>
             
+                <li><a href="http://yoursite.com/2019/04/04/Java Calendar类解析/">Java Calendar类解析</a></li>
+            
                 <li><a href="http://yoursite.com/2018/12/12/WebView加载链接跳转快应用问题/">WebView加载链接跳转快应用问题</a></li>
             
                 <li><a href="http://yoursite.com/2018/12/05/Nexus6p刷机指北/">Nexus6p刷机指北</a></li>
@@ -270,8 +295,6 @@
                 <li><a href="http://yoursite.com/2018/11/29/打造自己的RSS源/">打造自己的RSS源</a></li>
             
                 <li><a href="http://yoursite.com/2018/11/28/Git忽略文件和操作系统尾部换行符问题/">Git忽略文件和操作系统尾部换行符问题</a></li>
-            
-                <li><a href="http://yoursite.com/2018/11/21/自定义View闪退和JvmOverloads注解/">加载自定义View应用闪退|@JvmOverloads详解</a></li>
             
         </ul>
     </div>
@@ -381,7 +404,7 @@
                 
                     <li><a class="flat-box" href="/categories/开发记录/"><div class='name'>开发记录</div><div class='badge'>4</div></a></li>
                 
-                    <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>4</div></a></li>
+                    <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>5</div></a></li>
                 
                     <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>7</div></a></li>
                 
@@ -396,7 +419,7 @@
     <section class='m_widget tagcloud'>
         <div class="header"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;标签</div>
         <div class='content'>
-            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Glide/" style="font-size: 14px; color: #999">Glide</a> <a href="/tags/Mac/" style="font-size: 20.67px; color: #6c6c6c">Mac</a> <a href="/tags/Markdown/" style="font-size: 14px; color: #999">Markdown</a> <a href="/tags/Nexus-6p/" style="font-size: 14px; color: #999">Nexus 6p</a> <a href="/tags/RSS/" style="font-size: 14px; color: #999">RSS</a> <a href="/tags/WebView/" style="font-size: 14px; color: #999">WebView</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/博客部署/" style="font-size: 17.33px; color: #828282">博客部署</a> <a href="/tags/快应用/" style="font-size: 14px; color: #999">快应用</a> <a href="/tags/手机/" style="font-size: 14px; color: #999">手机</a> <a href="/tags/踩坑/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
+            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Glide/" style="font-size: 14px; color: #999">Glide</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/Mac/" style="font-size: 20.67px; color: #6c6c6c">Mac</a> <a href="/tags/Markdown/" style="font-size: 14px; color: #999">Markdown</a> <a href="/tags/Nexus-6p/" style="font-size: 14px; color: #999">Nexus 6p</a> <a href="/tags/RSS/" style="font-size: 14px; color: #999">RSS</a> <a href="/tags/WebView/" style="font-size: 14px; color: #999">WebView</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/博客部署/" style="font-size: 17.33px; color: #828282">博客部署</a> <a href="/tags/快应用/" style="font-size: 14px; color: #999">快应用</a> <a href="/tags/手机/" style="font-size: 14px; color: #999">手机</a> <a href="/tags/踩坑/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
         </div>
     </section>
 
