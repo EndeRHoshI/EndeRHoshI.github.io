@@ -132,9 +132,9 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
-            <a href="/2019/05/05/Mac环境下使用命令行运行Kotlin/">
+            <a href="/2019/05/05/Kotlin REPL 使用/">
                 
-                    Mac环境下使用命令行运行Kotlin
+                    Kotlin REPL 使用
                 
             </a>
         </h2>
@@ -152,8 +152,11 @@
     </section>
 
     <section class="article typo">
-        <p>有时候我们在编程时，想要跑一小段代码，写单元测试比较麻烦，这个时候就希望可以在命令行中单独写一小段，跑出来看看结果，具体步骤如下</p>
-<p>首先我们需要一个已经装好 Kotlin 插件的 IDE ，无论是 Android Studio 还是 IntelliJ IDEA 都可以，去到 IDE 的 plugins 目录下，比如我是 Android Studio ，目录是 <code>[用户目录]/[Android Studio 配置文件]/config/plugins/</code> ，再找到 <code>Kotlin/kotlinc</code> ，把这个 <code>kotlinc</code> 目录完整拷贝到一个你想要放的地方</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有时候我们在编程时，想要跑一小段代码验证计算结果，写单元测试比较麻烦，这个时候就希望可以在命令行中单独写一小段，跑出来看看结果，这其实就是 Kotlin 自带的交互式编程命令行，即 REPL（Read-Eval-Print Loop 的简写，直译为 “读取-求值-输出”循环），尤其适合快速实验一些东西，具体的实现步骤如下</p>
+<h2 id="IDE中使用"><a href="#IDE中使用" class="headerlink" title="IDE中使用"></a>IDE中使用</h2><p>首先我们需要一个已经装好 Kotlin 插件的 IDE ，无论是 Android Studio 还是 IntelliJ IDEA 都可以，点击 Tools 菜单，打开Kotlin-&gt;Kotlin REPL，即可在控制台书写代码运行<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Kotlin%20REPL%20%E4%BD%BF%E7%94%A8/Kotlin%20REPL%20%E4%BD%BF%E7%94%A8-Android%20Studio%E4%B8%AD%E4%BD%8D%E7%BD%AE.png" alt=""></p>
+<p>需要注意的是，Enter是换行，运行代码是 command + Enter 或者左边的运行键<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Kotlin%20REPL%20%E4%BD%BF%E7%94%A8/Kotlin%20REPL%20%E4%BD%BF%E7%94%A8-Android%20Studio%E4%B8%AD%E4%BD%BF%E7%94%A8.png" alt=""></p>
+<h2 id="命令行中使用"><a href="#命令行中使用" class="headerlink" title="命令行中使用"></a>命令行中使用</h2><p>如果我已经有一个已经装好 Kotlin 插件的 IDE ，但是我又不想打开 IDE 再运行 REPL ，那么就可以直接用命令行打开 Kotlin 的 REPL</p>
+<p>去到 IDE 的 plugins 目录下，比如我是 Android Studio ，目录是 <code>[用户目录]/[Android Studio 配置文件]/config/plugins/</code> ，找到 <code>Kotlin/kotlinc</code> ，把这个 <code>kotlinc</code> 目录完整拷贝到一个你想要放的地方</p>
 <p>这个 <code>kotlinc</code> 目录下大概有这些东西</p>
 <p>kotlinc:</p>
 <ul>
@@ -180,19 +183,20 @@
 </ul>
 <p>然后就去配环境变量，打开终端，输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/.bash_profile    //使用 nano 命令打开 .bash_profile 修改环境变量</span><br></pre></td></tr></table></figure></p>
 <p>添加如下两行代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> KOTLIN_HOME=/Users/lvqx/Desktop/kotlinc</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$KOTLIN_HOME</span>/bin</span><br></pre></td></tr></table></figure></p>
-<p>其中的lvqx/Desktop可以替换为你想要的位置，我这里直接放在桌面了</p>
+<p>其中的<code>lvqx/Desktop</code>可以替换为你想要的位置，我这里直接放在桌面了</p>
 <p>之后 control + O 保存 或者 control + X 退出并保存，再在终端输入以下命令使配置生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
 <p>然后就可以在命令行输入<code>kotlinc</code>打开 REPL 编写一小段程序跑起来了</p>
 <p>不过我这里会出现如下提示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-bash: /Users/lvqx/Desktop/kotlinc/bin/kotlin: Permission denied</span><br></pre></td></tr></table></figure></p>
 <p>所以需要去到目录下给相应的文件相应的权限，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x [文件名或者通配符]</span><br></pre></td></tr></table></figure></p>
 <p>之后就可以在命令行输入<code>kotlinc</code>打开 REPL 了，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lvqx-Mac-work:bin lvqx$ kotlinc</span><br><span class="line">Welcome to Kotlin version 1.3.20 (JRE 1.8.0_192-b12)</span><br><span class="line">Type :<span class="built_in">help</span> <span class="keyword">for</span> <span class="built_in">help</span>, :quit <span class="keyword">for</span> quit</span><br><span class="line">&gt;&gt;&gt; val kotlin = <span class="string">"Kotlin is awesome!"</span></span><br><span class="line">&gt;&gt;&gt; println(<span class="string">"Hey boy, <span class="variable">$kotlin</span>"</span>)</span><br><span class="line">Hey boy, Kotlin is awesome!</span><br><span class="line">&gt;&gt;&gt; val a = 1</span><br><span class="line">&gt;&gt;&gt; val b = 232</span><br><span class="line">&gt;&gt;&gt; val c = 123</span><br><span class="line">&gt;&gt;&gt; println(a + b + c)</span><br><span class="line">356</span><br><span class="line">&gt;&gt;&gt; :quit</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，输入print相关语法时，会自动运行代码并输出</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在 IDE 中使用 REPL 可以使用 IDE 的语法高亮和补全功能，更方便地指定运行时机也可以更方便地查看结果，但是需要打开 IDE 再进行操作</p>
+<p>而使用命令行打开，简单快捷，但是不及IDE简洁优雅，查看结果有一点点麻烦和不可控</p>
 
         
 
         
             <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/Mac/"><i class="fas fa-tag fa-fw"></i>&nbsp;Mac</a>
                 
                     <a href="/tags/Kotlin/"><i class="fas fa-tag fa-fw"></i>&nbsp;Kotlin</a>
                 
@@ -407,7 +411,7 @@
     <section class='m_widget tagcloud'>
         <div class="header"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;标签</div>
         <div class='content'>
-            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Glide/" style="font-size: 14px; color: #999">Glide</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/Kotlin/" style="font-size: 14px; color: #999">Kotlin</a> <a href="/tags/Mac/" style="font-size: 21.5px; color: #666">Mac</a> <a href="/tags/Markdown/" style="font-size: 14px; color: #999">Markdown</a> <a href="/tags/Nexus-6p/" style="font-size: 14px; color: #999">Nexus 6p</a> <a href="/tags/RSS/" style="font-size: 14px; color: #999">RSS</a> <a href="/tags/WebView/" style="font-size: 14px; color: #999">WebView</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/博客部署/" style="font-size: 16.5px; color: #888">博客部署</a> <a href="/tags/快应用/" style="font-size: 14px; color: #999">快应用</a> <a href="/tags/手机/" style="font-size: 14px; color: #999">手机</a> <a href="/tags/踩坑/" style="font-size: 19px; color: #777">踩坑</a>
+            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Glide/" style="font-size: 14px; color: #999">Glide</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/Kotlin/" style="font-size: 14px; color: #999">Kotlin</a> <a href="/tags/Mac/" style="font-size: 20.67px; color: #6c6c6c">Mac</a> <a href="/tags/Markdown/" style="font-size: 14px; color: #999">Markdown</a> <a href="/tags/Nexus-6p/" style="font-size: 14px; color: #999">Nexus 6p</a> <a href="/tags/RSS/" style="font-size: 14px; color: #999">RSS</a> <a href="/tags/WebView/" style="font-size: 14px; color: #999">WebView</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/博客部署/" style="font-size: 17.33px; color: #828282">博客部署</a> <a href="/tags/快应用/" style="font-size: 14px; color: #999">快应用</a> <a href="/tags/手机/" style="font-size: 14px; color: #999">手机</a> <a href="/tags/踩坑/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
         </div>
     </section>
 
