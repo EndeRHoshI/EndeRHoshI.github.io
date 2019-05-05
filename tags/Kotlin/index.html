@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Archives: 2018/10 | HoshI-blog</title>
+  <title>Tag: Kotlin | HoshI-blog</title>
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" href="/">
@@ -119,9 +119,8 @@
     <div class='container clearfix'>
         <div class='l_main'>
             
-	
     <script>
-        window.subData= { title:'year : 2018.10'}
+        window.subData= { title:'tag : Kotlin'}
     </script>
 
 
@@ -132,47 +131,69 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
-            <a href="/2018/10/08/AS下载插件和Parcelable接口/">
+            <a href="/2019/05/05/Mac环境下使用命令行运行Kotlin/">
                 
-                    AS下载插件|使用Parcelable接口
+                    Mac环境下使用命令行运行Kotlin
                 
             </a>
         </h2>
         <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-10-08
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2019-05-05
         </time>
         
     
     <div class='cats'>
         <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/问题集锦/">问题集锦</a>
+        <a class="categories" href="/categories/日常查阅/">日常查阅</a>
     </div>
 
 
     </section>
 
     <section class="article typo">
-        <p>今天回顾上周的一些开发任务，结合主管审查代码之后提出的一些建议，对代码进行一些整理，看到一条这样的：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.gson.annotations.SerializedName</span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">CurrencReviewEntity</span></span>(</span><br><span class="line">  </span><br><span class="line"><span class="comment">//可以考虑替换为实现Parcelable接口</span></span><br><span class="line"><span class="comment">//新写的实体类，如果不是工具生成，可以直接用kotlin写，然后用Option + T快捷键自动实现Parcelable接口</span></span><br></pre></td></tr></table></figure>
-<p>原来的代码中使用了<code>SerializedName</code>注解来对JSON数据实体类进行映射，主管给出的建议中要求使用Parcelable接口来实现</p>
-<p>我打开实体类点了几次<code>Option + T</code>没有任何反应，原来是要再下载一个插件<code>Android Parcelable code generator</code>，遂打开AS的preferences，然后查找插件进行下载：</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-parcelable%E6%8F%92%E4%BB%B6.png" alt=""></p>
-<p>却弹出了如下错误：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%87%BA%E9%94%99.png" alt=""></p>
-<p>懒得去设置代理地址了，所以直接去<a href="https://plugins.jetbrains.com/" target="_blank" rel="noopener">jetbrains的插件官网</a> 搜索下载好，然后解压到AS/Contents/plugins目录下</p>
-<p>然后再重启AS，大功告成，我们可以点击实体类名右侧的空白，用快捷键自动补全试试：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%AE%9E%E7%8E%B0Parcelable%E6%8E%A5%E5%8F%A3.png" alt=""></p>
-<p>然后代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Keep</span></span><br><span class="line"><span class="function">data class <span class="title">TickerCommentResponse</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  @SerializedName(<span class="string">"success"</span>)</span> var success: Boolean,</span></span><br><span class="line"><span class="function">  @<span class="title">SerializedName</span><span class="params">(<span class="string">"error"</span>)</span> var error: String,</span></span><br><span class="line"><span class="function">  @<span class="title">SerializedName</span><span class="params">(<span class="string">"errorCode"</span>)</span> var errorCode: Int,</span></span><br><span class="line"><span class="function">  @<span class="title">SerializedName</span><span class="params">(<span class="string">"data"</span>)</span> var data: TickerCommentBean</span></span><br><span class="line"><span class="function">) : Parcelable </span>&#123;</span><br><span class="line">  constructor(parcel: Parcel) : <span class="keyword">this</span>(</span><br><span class="line">    parcel.readByte() != <span class="number">0</span>.toByte(),</span><br><span class="line">    parcel.readString(),</span><br><span class="line">    parcel.readInt(),</span><br><span class="line">    TODO(<span class="string">"data"</span>)) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">override fun <span class="title">writeToParcel</span><span class="params">(parcel: Parcel, flags: Int)</span> </span>&#123;</span><br><span class="line">    parcel.writeByte(<span class="keyword">if</span> (success) <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line">    parcel.writeString(error)</span><br><span class="line">    parcel.writeInt(errorCode)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">override fun <span class="title">describeContents</span><span class="params">()</span>: Int </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  companion object CREATOR : Parcelable.Creator&lt;TickerCommentResponse&gt; &#123;</span><br><span class="line">    <span class="function">override fun <span class="title">createFromParcel</span><span class="params">(parcel: Parcel)</span>: TickerCommentResponse </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> TickerCommentResponse(parcel)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">override fun <span class="title">newArray</span><span class="params">(size: Int)</span>: Array&lt;TickerCommentResponse?&gt; </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> arrayOfNulls(size)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因为这里的TickerCommentBean是另一个实体类，所以我们再把constructor处修改好就可以了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constructor(parcel: Parcel) : <span class="keyword">this</span>(</span><br><span class="line">  parcel.readByte() != <span class="number">0</span>.toByte(),</span><br><span class="line">  parcel.readString(),</span><br><span class="line">  parcel.readInt(),</span><br><span class="line">  parcel.readParcelable(TickerCommentBean::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>.<span class="title">classLoader</span>))</span></span><br></pre></td></tr></table></figure>
-<p>注意这里的TickerCommentBean也需要实现Parcelable接口，否则报错</p>
-<p><strong>到最后发现原来只是快捷键不一样，其实并不需要下载插件就可以直接自动实现Parcelable接口</strong></p>
+        <p>有时候我们在编程时，想要跑一小段代码，写单元测试比较麻烦，这个时候就希望可以在命令行中单独写一小段，跑出来看看结果，具体步骤如下</p>
+<p>首先我们需要一个已经装好 Kotlin 插件的 IDE ，无论是 Android Studio 还是 IntelliJ IDEA 都可以，去到 IDE 的 plugins 目录下，比如我是 Android Studio ，目录是 <code>[用户目录]/[Android Studio 配置文件]/config/plugins/</code> ，再找到 <code>Kotlin/kotlinc</code> ，把这个 <code>kotlinc</code> 目录完整拷贝到一个你想要放的地方</p>
+<p>这个 <code>kotlinc</code> 目录下大概有这些东西</p>
+<p>kotlinc:</p>
+<ul>
+<li>bin:<ul>
+<li>kotlin.bat</li>
+<li>kotlin</li>
+<li>kotlinc.bat</li>
+<li>kotlinc</li>
+<li>kotlinc-js.bat</li>
+<li>kotlinc-js</li>
+<li>kotlinc-jvm.bat</li>
+<li>kotlinc-jvm</li>
+</ul>
+</li>
+<li>lib:<ul>
+<li>一堆 jar</li>
+</ul>
+</li>
+<li>license:<ul>
+<li>一堆 txt</li>
+</ul>
+</li>
+<li>build.txt</li>
+</ul>
+<p>然后就去配环境变量，打开终端，输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/.bash_profile    //使用 nano 命令打开 .bash_profile 修改环境变量</span><br></pre></td></tr></table></figure></p>
+<p>添加如下两行代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> KOTLIN_HOME=/Users/lvqx/Desktop/kotlinc</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$KOTLIN_HOME</span>/bin</span><br></pre></td></tr></table></figure></p>
+<p>其中的lvqx/Desktop可以替换为你想要的位置，我这里直接放在桌面了</p>
+<p>之后 control + O 保存 或者 control + X 退出并保存，再在终端输入以下命令使配置生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>然后就可以在命令行输入<code>kotlinc</code>打开 REPL 编写一小段程序跑起来了</p>
+<p>不过我这里会出现如下提示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-bash: /Users/lvqx/Desktop/kotlinc/bin/kotlin: Permission denied</span><br></pre></td></tr></table></figure></p>
+<p>所以需要去到目录下给相应的文件相应的权限，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x [文件名或者通配符]</span><br></pre></td></tr></table></figure></p>
+<p>之后就可以在命令行输入<code>kotlinc</code>打开 REPL 了，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lvqx-Mac-work:bin lvqx$ kotlinc</span><br><span class="line">Welcome to Kotlin version 1.3.20 (JRE 1.8.0_192-b12)</span><br><span class="line">Type :<span class="built_in">help</span> <span class="keyword">for</span> <span class="built_in">help</span>, :quit <span class="keyword">for</span> quit</span><br><span class="line">&gt;&gt;&gt; val kotlin = <span class="string">"Kotlin is awesome!"</span></span><br><span class="line">&gt;&gt;&gt; println(<span class="string">"Hey boy, <span class="variable">$kotlin</span>"</span>)</span><br><span class="line">Hey boy, Kotlin is awesome!</span><br><span class="line">&gt;&gt;&gt; val a = 1</span><br><span class="line">&gt;&gt;&gt; val b = 232</span><br><span class="line">&gt;&gt;&gt; val c = 123</span><br><span class="line">&gt;&gt;&gt; println(a + b + c)</span><br><span class="line">356</span><br><span class="line">&gt;&gt;&gt; :quit</span><br></pre></td></tr></table></figure></p>
 
         
 
         
             <div class="full-width auto-padding tags">
                 
-                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
+                    <a href="/tags/Mac/"><i class="fas fa-tag fa-fw"></i>&nbsp;Mac</a>
+                
+                    <a href="/tags/Kotlin/"><i class="fas fa-tag fa-fw"></i>&nbsp;Kotlin</a>
                 
             </div>
         
@@ -182,8 +203,6 @@
         </div>
     
 </section>
-
-
 
 
 
