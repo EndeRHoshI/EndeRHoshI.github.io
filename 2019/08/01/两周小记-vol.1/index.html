@@ -145,7 +145,7 @@
         <div class="article-entry" itemprop="articleBody">
             <p>这个小记主要是记录从开发到发版的两周里遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
 <h2 id="No-1-如何在右侧显示android复选框"><a href="#No-1-如何在右侧显示android复选框" class="headerlink" title="No.1 如何在右侧显示android复选框"></a>No.1 如何在右侧显示android复选框</h2><p>如下设置即可，其中 drawable 方向就是复选框显示选中框的方向<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android:button="@null"</span><br><span class="line">android:drawableRight="?android:attr/listChoiceIndicatorMultiple"</span><br></pre></td></tr></table></figure></p>
-<h2 id="No-2-RecyclerView隐藏item-多布局-的所在区域显示空白"><a href="#No-2-RecyclerView隐藏item-多布局-的所在区域显示空白" class="headerlink" title="No.2 RecyclerView隐藏item(多布局)的所在区域显示空白"></a>No.2 RecyclerView隐藏item(多布局)的所在区域显示空白</h2><p>在 RecyclerView 是多种布局的情况下，需要把 RecyclerView 的其中一个条目GONE掉，若只是把内容隐藏，这样就会出现一片空白区域，高度不会改变，解决方法是，隐藏时把 item 的高度宽度设置为 0，需要显示的时候再设置回来</p>
+<h2 id="No-2-RecyclerView隐藏item-多布局-的所在区域显示空白"><a href="#No-2-RecyclerView隐藏item-多布局-的所在区域显示空白" class="headerlink" title="No.2 RecyclerView隐藏item(多布局)的所在区域显示空白"></a>No.2 RecyclerView隐藏item(多布局)的所在区域显示空白</h2><p>在 RecyclerView 是多种布局的情况下，需要把 RecyclerView 的其中一个条目 GONE 掉，若只是把内容隐藏，这样就会出现一片空白区域，高度不会改变，解决方法是，隐藏时把 item 的高度宽度设置为 0，需要显示的时候再设置回来</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (type == TYPE1) &#123; <span class="comment">// 某个类型，反正就是要隐藏的类型或者状态</span></span><br><span class="line">  <span class="keyword">val</span> param = holder.itemView.layoutParams</span><br><span class="line">  param.height = <span class="number">0</span></span><br><span class="line">  param.width = <span class="number">0</span></span><br><span class="line">  holder.itemView.layoutParams = param</span><br><span class="line">  ...</span><br><span class="line">&#125; <span class="keyword">else</span> &#123; <span class="comment">// 其他类型，要显示的类型或者状态，恢复宽高</span></span><br><span class="line">  <span class="keyword">val</span> param = holder.itemView.layoutParams</span><br><span class="line">  param.height = ScreenUtil.dp2px(context, <span class="number">46</span>F)</span><br><span class="line">  param.width = RelativeLayout.LayoutParams.MATCH_PARENT</span><br><span class="line">  holder.itemView.layoutParams = param</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="No-3-git-commit-–amend撤销方法"><a href="#No-3-git-commit-–amend撤销方法" class="headerlink" title="No.3 git commit –amend撤销方法"></a>No.3 git commit –amend撤销方法</h2><p>有时候手忙脚乱，错误地使用了 git commit –amend，也就是在 AS 中提交时，手滑点了右上角的 Amend commit，导致上一次的提交被覆盖了，丢失了提交记录，或者导致分支状况不一致无法上传到远端服务器，这时就要想办法撤销掉这个错误的 amend commit，回到之前的状态，解决方法如下：</p>
 <p>首先使用 git reflog 命令查看操作记录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">6889e84 (HEAD -&gt; master) HEAD@&#123;0&#125;: commit (amend): modified 1/2/3.txt</span><br><span class="line">b82585f HEAD@&#123;1&#125;: commit: modified 1/2.txt</span><br></pre></td></tr></table></figure></p>
@@ -178,13 +178,18 @@
 <h4 id="3-如果两者中一个是定值，一个是wrap-content"><a href="#3-如果两者中一个是定值，一个是wrap-content" class="headerlink" title="3. 如果两者中一个是定值，一个是wrap_content"></a>3. 如果两者中一个是定值，一个是wrap_content</h4><p>比如layout_width=”100px”，layout_height=”wrap_content”时，ImageView 的宽将始终是 100px，而高则分两种情况：</p>
 <ul>
 <li>当图片的宽小于 100px 时，layout_height 将与图片的高相同，即图片不会缩放，完整显示在 ImageView 中，ImageView 高度与图片实际高度相同，图片没有占满 ImageView，ImageView 中有空白</li>
-<li>当图片的宽大于等于100px时，此时ImageView将与图片拥有相同的宽高比，因此 ImageView 的 layout_height 值为：100 除以图片的宽高比，比如图片是 500X500 的，那么 layout_height 是 100，图片将保持宽高比缩放，完整显示在 ImageView 中，并且完全占满 ImageView<h2 id="No-7-硬件加速导致画线不显示（有待深入研究，先总结现象）"><a href="#No-7-硬件加速导致画线不显示（有待深入研究，先总结现象）" class="headerlink" title="No.7 硬件加速导致画线不显示（有待深入研究，先总结现象）"></a>No.7 硬件加速导致画线不显示（有待深入研究，先总结现象）</h2></li>
+<li>当图片的宽大于等于100px时，此时ImageView将与图片拥有相同的宽高比，因此 ImageView 的 layout_height 值为：100 除以图片的宽高比，比如图片是 500X500 的，那么 layout_height 是 100，图片将保持宽高比缩放，完整显示在 ImageView 中，并且完全占满 ImageView</li>
+</ul>
+<h2 id="No-7-硬件加速导致画线不显示（有待深入研究，先总结现象）"><a href="#No-7-硬件加速导致画线不显示（有待深入研究，先总结现象）" class="headerlink" title="No.7 硬件加速导致画线不显示（有待深入研究，先总结现象）"></a>No.7 硬件加速导致画线不显示（有待深入研究，先总结现象）</h2><ul>
 <li>Android 9.0 drawLine drawPath 都可以正常实现画线，抗锯齿，实现虚线</li>
 <li>Android 9.0 以下 <ul>
 <li>drawLine 一定能画出线，但是不能画出虚线 (抗锯齿有效)</li>
-<li>drawPath 一定能画出虚线，但是大斜率的时候线会消失 (抗锯齿无效) 因为x y值过大，不进行绘制了<h2 id="No-8-startForegroundService-方法导致报错-RemoteServiceException-引起闪退"><a href="#No-8-startForegroundService-方法导致报错-RemoteServiceException-引起闪退" class="headerlink" title="No.8 startForegroundService 方法导致报错 RemoteServiceException 引起闪退"></a>No.8 startForegroundService 方法导致报错 RemoteServiceException 引起闪退</h2>闪退机型：(均为 Android 9.0 系统)</li>
+<li>drawPath 一定能画出虚线，但是大斜率的时候线会消失 (抗锯齿无效) 因为x y值过大，不进行绘制了</li>
 </ul>
 </li>
+</ul>
+<h2 id="No-8-startForegroundService-方法导致报错-RemoteServiceException-引起闪退"><a href="#No-8-startForegroundService-方法导致报错-RemoteServiceException-引起闪退" class="headerlink" title="No.8 startForegroundService 方法导致报错 RemoteServiceException 引起闪退"></a>No.8 startForegroundService 方法导致报错 RemoteServiceException 引起闪退</h2><p>闪退机型：(均为 Android 9.0 系统)</p>
+<ul>
 <li>小米 MI NOTE 3</li>
 <li>华为 <ul>
 <li>P30 Pro (VOG AL00)</li>
@@ -259,7 +264,7 @@
         </div>
 
         <section class='meta'>
-            <time class="time" itemprop="dateUpdated" datetime="2019-08-01T10:17:23+08:00" content="2019-08-01">
+            <time class="time" itemprop="dateUpdated" datetime="2019-08-01T10:20:57+08:00" content="2019-08-01">
                 <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
                 本文最后更新于：2019-08-01
             </time>
