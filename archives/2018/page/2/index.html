@@ -188,62 +188,6 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
-            <a href="/2018/09/28/两周小记-vol.1/">
-                
-                    两周小记-vol.1
-                
-            </a>
-        </h2>
-        <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-09-28
-        </time>
-        
-    
-    <div class='cats'>
-        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/问题集锦/">问题集锦</a>
-    </div>
-
-
-    </section>
-
-    <section class="article typo">
-        <p>这个小记主要是记录从开发到发版的两周里遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
-<h2 id="No-1-如何在右侧显示android复选框"><a href="#No-1-如何在右侧显示android复选框" class="headerlink" title="No.1 如何在右侧显示android复选框"></a>No.1 如何在右侧显示android复选框</h2><p>如下设置即可，其中 drawable 方向就是复选框显示选中框的方向<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android:button="@null"</span><br><span class="line">android:drawableRight="?android:attr/listChoiceIndicatorMultiple"</span><br></pre></td></tr></table></figure></p>
-<h2 id="No-2-RecyclerView隐藏item-多布局-的所在区域显示空白"><a href="#No-2-RecyclerView隐藏item-多布局-的所在区域显示空白" class="headerlink" title="No.2 RecyclerView隐藏item(多布局)的所在区域显示空白"></a>No.2 RecyclerView隐藏item(多布局)的所在区域显示空白</h2><p>在 RecyclerView 是多种布局的情况下，需要把 RecyclerView 的其中一个条目GONE掉，若只是把内容隐藏，这样就会出现一片空白区域，高度不会改变，解决方法是，隐藏时把 item 的高度宽度设置为 0，需要显示的时候再设置回来</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (type == TYPE1) &#123; <span class="comment">// 某个类型，反正就是要隐藏的类型或者状态</span></span><br><span class="line">  <span class="keyword">val</span> param = holder.itemView.layoutParams</span><br><span class="line">  param.height = <span class="number">0</span></span><br><span class="line">  param.width = <span class="number">0</span></span><br><span class="line">  holder.itemView.layoutParams = param</span><br><span class="line">  ...</span><br><span class="line">&#125; <span class="keyword">else</span> &#123; <span class="comment">// 其他类型，要显示的类型或者状态，恢复宽高</span></span><br><span class="line">  <span class="keyword">val</span> param = holder.itemView.layoutParams</span><br><span class="line">  param.height = ScreenUtil.dp2px(context, <span class="number">46</span>F)</span><br><span class="line">  param.width = RelativeLayout.LayoutParams.MATCH_PARENT</span><br><span class="line">  holder.itemView.layoutParams = param</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="No-3-git-commit-–amend撤销方法"><a href="#No-3-git-commit-–amend撤销方法" class="headerlink" title="No.3 git commit –amend撤销方法"></a>No.3 git commit –amend撤销方法</h2><p>有时候手忙脚乱，错误地使用了 git commit –amend，也就是在 AS 中提交时，手滑点了右上角的 Amend commit，导致上一次的提交被覆盖了，丢失了提交记录，或者导致分支状况不一致无法上传到远端服务器，这时就要想办法撤销掉这个错误的 amend commit，回到之前的状态，解决方法如下：</p>
-<p>首先使用 git reflog 命令查看操作记录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">6889e84 (HEAD -&gt; master) HEAD@&#123;0&#125;: commit (amend): modified 1/2/3.txt</span><br><span class="line">b82585f HEAD@&#123;1&#125;: commit: modified 1/2.txt</span><br></pre></td></tr></table></figure></p>
-<p>然后可以看到你的 amend commit，之后再使用 git reset，其中 reset 后面的就是你在 reflog 命令中查到的 id，或者后面的 HEAD@{x}<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset b82585f</span><br></pre></td></tr></table></figure></p>
-<p>不使用 <code>git reset --hard</code> 的目的就是为了保留本地修改，否则修改就会被丢弃，如果一个 commit 被 amend 了多次, 也可以用这种方法撤销到任意一次 amend 处:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">937fd53 HEAD@&#123;0&#125;: commit (amend): add blank line to index.html</span><br><span class="line">7589755 HEAD@&#123;1&#125;: commit (amend): add blank line to index.html</span><br><span class="line">f7ade82 HEAD@&#123;2&#125;: commit (amend): add blank line to index.html</span><br><span class="line">c1c1b21 HEAD@&#123;3&#125;: commit (amend): add blank line to index.html</span><br><span class="line">9ff821d HEAD@&#123;4&#125;: commit: add blank line to index.html</span><br><span class="line">$ git reset --soft HEAD@&#123;2&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以看出, 不止是 amend 操作, 其他操作也可以用这种方法进行撤销</p>
-        
-            <div class="readmore">
-                <a href="/2018/09/28/两周小记-vol.1/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
-                
-                    <a href="/tags/踩坑/"><i class="fas fa-tag fa-fw"></i>&nbsp;踩坑</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-        </div>
-    
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
             <a href="/2018/09/08/Mac终端自动补全及常用命令汇总/">
                 
                     Mac终端自动补全及常用命令汇总

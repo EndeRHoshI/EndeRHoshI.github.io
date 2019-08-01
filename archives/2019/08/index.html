@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Tag: Android | HoshI-blog</title>
+  <title>Archives: 2019/8 | HoshI-blog</title>
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" href="/">
@@ -119,8 +119,9 @@
     <div class='container clearfix'>
         <div class='l_main'>
             
+	
     <script>
-        window.subData= { title:'tag : Android'}
+        window.subData= { title:'year : 2019.8'}
     </script>
 
 
@@ -131,14 +132,14 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
-            <a href="/2018/09/28/Mac环境下Android Studio无法找到R文件的问题/">
+            <a href="/2019/08/01/两周小记-vol.1/">
                 
-                    Mac环境下Android Studio无法找到R文件|Mac修改只读文件
+                    两周小记-vol.1
                 
             </a>
         </h2>
         <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-09-28
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2019-08-01
         </time>
         
     
@@ -151,87 +152,30 @@
     </section>
 
     <section class="article typo">
-        <p>前段时间为了更快地编译项目更换了Mac系统，搭建好环境后把项目pull下来，然后编译运行，发现报错，无法生成R文件，出现R类找不到的问题，即使是clean、rebuild之后也找不到，当时的报错信息和记录没有保留，所以没有图来展示</p>
-<p>因为同事已经迁移环境，所以他们也遇到了这个问题，先顺利解决了，具体原因就是，随着项目的不断开发，R文件太大，以至于超出了配置大小，所以R文件没有被IDE正确地生成class文件</p>
-<p>找到了问题所在，去更改配置就可以了，打开AS目录下的<code>idea.properties</code>配置文件，将<code>idea.max.intellisense.filesize=2500</code>这个值改大些，如5000，保存然后重启AS，发现这时就可以正常找到R文件了</p>
-<p>另外还有一点小插曲，在对文件进行修改时，我是用Mac命令行来对文件进行修改的，提示只读文件不可改动，解决问题的具体操作如下：（my.cnf为只读文件）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo  chmod 755 /etc/my.cnf</span><br></pre></td></tr></table></figure>
-<p>然后输入mac锁屏密码（其实就是超级管理密码）回车然后再: </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
-<p>就可以编辑文件，加上所你需要的内容，这样就可以完成了</p>
-<ul>
-<li>参考自：<a href="https://blog.csdn.net/a740169405/article/details/79169914" target="_blank" rel="noopener">Android Studio R类找不到(Mac)</a></li>
-<li>参考自：<a href="https://blog.csdn.net/vr_jia/article/details/78026178" target="_blank" rel="noopener">mac下面如何修改只读文件</a></li>
-<li>参考自：微信公众号-Android填坑指南</li>
-</ul>
-
+        <p>这个小记主要是记录从开发到发版的两周里遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
+<h2 id="No-1-如何在右侧显示android复选框"><a href="#No-1-如何在右侧显示android复选框" class="headerlink" title="No.1 如何在右侧显示android复选框"></a>No.1 如何在右侧显示android复选框</h2><p>如下设置即可，其中 drawable 方向就是复选框显示选中框的方向<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android:button="@null"</span><br><span class="line">android:drawableRight="?android:attr/listChoiceIndicatorMultiple"</span><br></pre></td></tr></table></figure></p>
+<h2 id="No-2-RecyclerView隐藏item-多布局-的所在区域显示空白"><a href="#No-2-RecyclerView隐藏item-多布局-的所在区域显示空白" class="headerlink" title="No.2 RecyclerView隐藏item(多布局)的所在区域显示空白"></a>No.2 RecyclerView隐藏item(多布局)的所在区域显示空白</h2><p>在 RecyclerView 是多种布局的情况下，需要把 RecyclerView 的其中一个条目GONE掉，若只是把内容隐藏，这样就会出现一片空白区域，高度不会改变，解决方法是，隐藏时把 item 的高度宽度设置为 0，需要显示的时候再设置回来</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (type == TYPE1) &#123; <span class="comment">// 某个类型，反正就是要隐藏的类型或者状态</span></span><br><span class="line">  <span class="keyword">val</span> param = holder.itemView.layoutParams</span><br><span class="line">  param.height = <span class="number">0</span></span><br><span class="line">  param.width = <span class="number">0</span></span><br><span class="line">  holder.itemView.layoutParams = param</span><br><span class="line">  ...</span><br><span class="line">&#125; <span class="keyword">else</span> &#123; <span class="comment">// 其他类型，要显示的类型或者状态，恢复宽高</span></span><br><span class="line">  <span class="keyword">val</span> param = holder.itemView.layoutParams</span><br><span class="line">  param.height = ScreenUtil.dp2px(context, <span class="number">46</span>F)</span><br><span class="line">  param.width = RelativeLayout.LayoutParams.MATCH_PARENT</span><br><span class="line">  holder.itemView.layoutParams = param</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="No-3-git-commit-–amend撤销方法"><a href="#No-3-git-commit-–amend撤销方法" class="headerlink" title="No.3 git commit –amend撤销方法"></a>No.3 git commit –amend撤销方法</h2><p>有时候手忙脚乱，错误地使用了 git commit –amend，也就是在 AS 中提交时，手滑点了右上角的 Amend commit，导致上一次的提交被覆盖了，丢失了提交记录，或者导致分支状况不一致无法上传到远端服务器，这时就要想办法撤销掉这个错误的 amend commit，回到之前的状态，解决方法如下：</p>
+<p>首先使用 git reflog 命令查看操作记录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">6889e84 (HEAD -&gt; master) HEAD@&#123;0&#125;: commit (amend): modified 1/2/3.txt</span><br><span class="line">b82585f HEAD@&#123;1&#125;: commit: modified 1/2.txt</span><br></pre></td></tr></table></figure></p>
+<p>然后可以看到你的 amend commit，之后再使用 git reset，其中 reset 后面的就是你在 reflog 命令中查到的 id，或者后面的 HEAD@{x}<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset b82585f</span><br></pre></td></tr></table></figure></p>
+<p>不使用 <code>git reset --hard</code> 的目的就是为了保留本地修改，否则修改就会被丢弃，如果一个 commit 被 amend 了多次, 也可以用这种方法撤销到任意一次 amend 处:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">937fd53 HEAD@&#123;0&#125;: commit (amend): add blank line to index.html</span><br><span class="line">7589755 HEAD@&#123;1&#125;: commit (amend): add blank line to index.html</span><br><span class="line">f7ade82 HEAD@&#123;2&#125;: commit (amend): add blank line to index.html</span><br><span class="line">c1c1b21 HEAD@&#123;3&#125;: commit (amend): add blank line to index.html</span><br><span class="line">9ff821d HEAD@&#123;4&#125;: commit: add blank line to index.html</span><br><span class="line">$ git reset --soft HEAD@&#123;2&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看出, 不止是 amend 操作, 其他操作也可以用这种方法进行撤销</p>
         
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
-                
-                    <a href="/tags/Mac/"><i class="fas fa-tag fa-fw"></i>&nbsp;Mac</a>
-                
-                    <a href="/tags/踩坑/"><i class="fas fa-tag fa-fw"></i>&nbsp;踩坑</a>
-                
+            <div class="readmore">
+                <a href="/2019/08/01/两周小记-vol.1/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
             </div>
         
-    </section>
-</article>
-
-        </div>
-    
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
-            <a href="/2018/09/08/APK无法在某款手机上运行解决方案/">
-                
-                    APK无法在某款手机上运行解决方案
-                
-            </a>
-        </h2>
-        <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-09-08
-        </time>
-        
-    
-    <div class='cats'>
-        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/问题集锦/">问题集锦</a>
-    </div>
-
-
-    </section>
-
-    <section class="article typo">
-        <p>昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是公司的LG测试机却提示缺少WelcomeAcitivity，如下图所示：<img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/APK%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/APK%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-%E7%BC%BA%E5%B0%91WelcomeActivity%E9%94%99%E8%AF%AF.png" alt=""><br>就连去官网下载正式版的app也提示安装包可能已经损坏，所以询问同事，告知有可能是卸载不完全，可以看看是否卸载完全，或者用adb去彻底删除它，程序在手机上已经用常规的删除方法卸载了，无法确认是否卸载完全，所以决定动用adb，使用adb的过程如下：</p>
-<ol>
-<li><p>首先确认已经配置好adb，并且你的Android设备可以被你的电脑识别，可以通过输入命令<code>adb devices</code>来进行测试是否安装好了adb，如果没有，则可以通过Homebrew安装：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install android-platform-tools</span><br></pre></td></tr></table></figure>
-<p> 如果没有Homebrew，则</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果记得包名或者知道包名的话，直接跳到第三步，如果不记得包名或者不知道包名，之所以这样说，是因为对于通过ADB卸载一个应用程序，你必须知道这个应用程序的程序包名称，但是包名称未必是某应用的APK文件名字，比如Yahoo! Mail（雅虎邮箱）Android终端应用，它的程序包名称可能是yahoo.mobile.client.android.mail</p>
-<p> 所以你可以使用指令</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell pm list packages</span><br></pre></td></tr></table></figure>
-<p> 来列出所有包名，找到自己的程序的包名</p>
-</li>
-<li><p>输入指令</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb uninstall com.example.package</span><br></pre></td></tr></table></figure>
-<p> 按Enter回车键确认，当Success提示出现后，应用即从你的Android设备中移除，其他以此类推</p>
-</li>
-</ol>
-<p>完成上述步骤后，再次运行程序，成功安装</p>
-
-        
 
         
             <div class="full-width auto-padding tags">
                 
                     <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
+                
+                    <a href="/tags/踩坑/"><i class="fas fa-tag fa-fw"></i>&nbsp;踩坑</a>
                 
             </div>
         
@@ -243,23 +187,6 @@
 </section>
 
 
-    <br>
-    <div class="prev-next">
-        <div class="prev-next">
-            
-                <a class="prev" rel="prev" href="/tags/Android/">
-                    <section class="post prev" >
-                        <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
-                    </section>
-                </a>
-            
-            <p class="current">
-                2 / 2
-            </p>
-            
-
-        </div>
-    </div>
 
 
 
