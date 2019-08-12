@@ -131,6 +131,68 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
+            <a href="/2019/08/12/Android Q 适配/">
+                
+                    Android 版本适配
+                
+            </a>
+        </h2>
+        <time class="time">
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2019-08-12
+        </time>
+        
+    
+    <div class='cats'>
+        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+        <a class="categories" href="/categories/问题集锦/">问题集锦</a>
+    </div>
+
+
+    </section>
+
+    <section class="article typo">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前阵子适配 Android 9.0时，遇到一些坑，感觉适配准备得不够充分就上线，会遇到非常多的问题，而现在再过几周，Android Q 正式版就要发布了，今天 Google 宣布发布最后一个 Beta 测试版 Android Q Beta 6了，所以适配 Android Q 的工作也要尽早完成 <a href="https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&amp;mid=2652050165&amp;idx=1&amp;sn=7280b6f3d056eab106aeef8c97324dfc&amp;chksm=808cb2b0b7fb3ba601927ccccaacd814f14dfdc306cc377bdb07b72659ddf8190cbcc0797bae&amp;mpshare=1&amp;scene=23&amp;srcid=&amp;sharer_sharetime=1565589898193&amp;sharer_shareid=72a963f2ffe6f59cb6e70b8e4f2dbe01#rd" target="_blank" rel="noopener">Beta 6 现已发布，Android Q 正式版即将面世！</a></p>
+<h2 id="适配-Android-9-0-的坑"><a href="#适配-Android-9-0-的坑" class="headerlink" title="适配 Android 9.0 的坑"></a>适配 Android 9.0 的坑</h2><p><a href="https://developer.android.com/about/versions/pie/android-9.0" target="_blank" rel="noopener">Android 9 功能和 API</a></p>
+<h2 id="适配-Android-10-0-应当注意的事项"><a href="#适配-Android-10-0-应当注意的事项" class="headerlink" title="适配 Android 10.0 应当注意的事项"></a>适配 Android 10.0 应当注意的事项</h2><p><a href="https://developer.android.google.cn/preview/" target="_blank" rel="noopener">Android Q 测试版</a></p>
+<p><a href="https://developer.android.com/preview/features" target="_blank" rel="noopener">Android 10 功能和 API</a></p>
+<h2 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h2><p>总之，先搞到 Android Q 的手机或者模拟器先，可以查看<a href="https://developer.android.google.cn/preview/get?hl=zh_cn" target="_blank" rel="noopener">获取 Android Q 测试版</a></p>
+<p>成功打开 Android Q 版本的模拟器之后，先打开设置看一看，可以看到当前的系统版本号</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true" alt=""></p>
+<p><a href="https://developer.android.google.cn/preview/release-notes" target="_blank" rel="noopener">支持与版本说明</a></p>
+<p><a href="https://source.android.com/setup/start/build-numbers" target="_blank" rel="noopener">代号、标记和细分版本号</a></p>
+<p><a href="https://source.android.com/setup/build/running" target="_blank" rel="noopener">关于代号官方文档</a></p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E5%9F%BA%E5%B8%A6%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true" alt=""></p>
+<p>然后直接在 Android Q 上运行应用，查看应用的运行情况，是否存在打不开，卡顿，闪退等比较明显的现象</p>
+<p>上面的操作没问题了，于是直接把 targetSdkVersion 改为 29</p>
+<p><a href="https://chinagdg.org/2016/01/picking-your-compilesdkversion-minsdkversion-targetsdkversion/" target="_blank" rel="noopener">如何选择 compileSdkVersion, minSdkVersion 和 targetSdkVersion</a></p>
+<p>编译运行，发现出现了非常多的报错，都是类型错误，原本没有说明是可为空的对象，现在变成了可为空的，比如 Parcel 的 readString() 方法，Class 的 cast() 方法等</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-Packages%20Unavailable.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-Android%20SDK%20Manager.jpg" alt=""></p>
+<p><a href="https://developer.android.google.cn/kotlin" target="_blank" rel="noopener">使用 Kotlin 开发 Android 应用</a></p>
+<p><a href="https://developer.android.google.cn/reference/kotlin/android/os/Parcel?hl=en#readString(" target="_blank" rel="noopener">Parcel readString 可为 null</a>)</p>
+<p>所以要对这些可为空的对象进行处理，让代码可以正常编译运行，最后可以正常运行在 Android Q 的模拟器上</p>
+<ul>
+<li>扫描非 SDK 接口<br>所谓非 SDK 接口，在 iOS 开发中类似于“私有 API”，通俗的说，两者都是官方提供的接口，但前者明文包含在 SDK 中，允许开发者调用；后者出于各方面原因（比如还在测试中或是这个接口仅供系统内部调用），不鼓励甚至禁止开发者调用</li>
+</ul>
+
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+        </div>
+    
+        <div class='post-wrapper'>
+            <article class="post reveal ">
+    <section class="meta">
+        <h2 class="title">
             <a href="/2019/08/01/两周小记-vol.1/">
                 
                     两周小记-vol.1
@@ -643,195 +705,6 @@
 
         </div>
     
-        <div class='post-wrapper'>
-            <article class="post reveal ">
-    <section class="meta">
-        <h2 class="title">
-            <a href="/2018/09/28/Android Studio for Mac快捷键汇总/">
-                
-                    Android Studio for Mac快捷键汇总
-                
-            </a>
-        </h2>
-        <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-09-28
-        </time>
-        
-    
-    <div class='cats'>
-        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-        <a class="categories" href="/categories/日常查阅/">日常查阅</a>
-    </div>
-
-
-    </section>
-
-    <section class="article typo">
-        <p> Mac上Android Studio常用的快捷键如下，以后遇到新的有助于提高代码效率的操作，将会不断收录在本文，方便以后查阅</p>
-<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>Mac OSX</th>
-<th>Win/Linux</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>自动完成代码</td>
-<td>Cmd + Space</td>
-</tr>
-<tr>
-<td>智能自动完成代码</td>
-<td>Cmd + Shift + Space</td>
-</tr>
-<tr>
-<td>完成声明</td>
-<td>Cmd + Shift + Enter</td>
-</tr>
-<tr>
-<td>查看方法参数方法</td>
-<td>Cmd + P</td>
-</tr>
-<tr>
-<td>单行注释</td>
-<td>Cmd + /</td>
-<td>Ctrl + /</td>
-</tr>
-<tr>
-<td>多行注释</td>
-<td>Cmd + option + /</td>
-<td>Ctrl + Alt + /</td>
-</tr>
-<tr>
-<td>格式化代码</td>
-<td>Cmd + option + L</td>
-<td>Ctrl + Alt + L</td>
-</tr>
-<tr>
-<td>查找</td>
-<td>Cmd + F</td>
-<td>Ctrl + F</td>
-</tr>
-<tr>
-<td>替换</td>
-<td>Cmd + R</td>
-<td>Ctrl + R</td>
-</tr>
-<tr>
-<td>删除行</td>
-<td>Cmd + Delete</td>
-<td>Ctrl + Y</td>
-</tr>
-<tr>
-<td>快捷生成结构体</td>
-<td>Cmd + option + T</td>
-<td>Ctrl + Alt + T</td>
-</tr>
-<tr>
-<td>快速定位到类</td>
-<td>Cmd + O</td>
-<td>Ctrl + O</td>
-</tr>
-<tr>
-<td>快速定位到符号（变量）</td>
-<td>Cmd + option + O</td>
-<td>Ctrl + O</td>
-</tr>
-<tr>
-<td>快捷定位到行首/尾</td>
-<td>Cmd + Left/Right</td>
-<td>Ctrl + Left/Right</td>
-</tr>
-<tr>
-<td>折叠展开代码块</td>
-<td>Cmd + Plus/Minus</td>
-<td>Ctrl + Plus/Minus</td>
-</tr>
-<tr>
-<td>折叠全部代码块</td>
-<td>Cmd + Shift + Plus/Minus</td>
-<td>Ctrl + Shift + Plus/Minus</td>
-</tr>
-<tr>
-<td>文件结构</td>
-<td>Cmd + F12</td>
-<td>Ctrl + F12</td>
-</tr>
-<tr>
-<td>查找调用位置</td>
-<td>Cmd + option + H</td>
-<td>Ctrl + Alt + H</td>
-</tr>
-<tr>
-<td>大小写转换</td>
-<td>Cmd + Shift + U</td>
-<td>Ctrl + Shift + U</td>
-</tr>
-<tr>
-<td>删除行</td>
-<td>Cmd + X</td>
-<td>Ctrl + X</td>
-</tr>
-<tr>
-<td>复制行</td>
-<td>Cmd + D</td>
-<td>Ctrl + D</td>
-</tr>
-<tr>
-<td>导入包优化，调整导入包位置）</td>
-<td>Cmd + option + o</td>
-<td>Ctrl + Alt + o</td>
-</tr>
-<tr>
-<td>清除无效包引用</td>
-<td>option + Control + O</td>
-<td>Alt + Ctrl + O</td>
-</tr>
-<tr>
-<td>上下移动代码</td>
-<td>option + Shift + Up/Down</td>
-<td>Alt + Shift + Up/Down</td>
-</tr>
-<tr>
-<td>扩大缩小选中范围</td>
-<td>option + Up/Down</td>
-<td>Ctrl + W/Ctrl + Shift + W</td>
-</tr>
-<tr>
-<td>导包，自动修正</td>
-<td>option + return</td>
-<td>Alt + enter</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>保持按下Shift + Alt状态，点击工作空间：多光标同步编辑。</li>
-</ul>
-<h2 id="Mac中的特殊键"><a href="#Mac中的特殊键" class="headerlink" title="Mac中的特殊键"></a>Mac中的特殊键</h2><ul>
-<li>⌘ : Command ()</li>
-<li>⌃ : Control</li>
-<li>⌥ : Option (alt)</li>
-<li>⇧ : Shift</li>
-<li>⇪ : Caps Lock</li>
-</ul>
-
-        
-
-        
-            <div class="full-width auto-padding tags">
-                
-                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
-                
-                    <a href="/tags/Mac/"><i class="fas fa-tag fa-fw"></i>&nbsp;Mac</a>
-                
-            </div>
-        
-    </section>
-</article>
-
-        </div>
-    
 </section>
 
 
@@ -938,7 +811,7 @@
                 
                     <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>6</div></a></li>
                 
-                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>8</div></a></li>
+                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>9</div></a></li>
                 
             </ul>
         
