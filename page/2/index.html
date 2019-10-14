@@ -127,6 +127,68 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
+            <a href="/2018/11/21/自定义View闪退和JvmOverloads注解/">
+                
+                    加载自定义View应用闪退|@JvmOverloads详解
+                
+            </a>
+        </h2>
+        <time class="time">
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-11-21
+        </time>
+        
+    
+    <div class='cats'>
+        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+        <a class="categories" href="/categories/问题集锦/">问题集锦</a>
+    </div>
+
+
+    </section>
+
+    <section class="article typo">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前不久项目中要求实现一些小控件，用来展示图表或者显示正反双方的人数对比，于是就自定义了一些View，用于绘图</p>
+<p>把View写好后，放到程序里跑起来，却闪退了，报错提示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: itemView.sev_safety_score_bar must not be null</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">android.view.InflateException: Binary XML file line <span class="comment">#77: Binary XML file line #77: Error inflating class </span></span><br><span class="line">Caused by: android.view.InflateException: Binary XML file line <span class="comment">#77: Error inflating class </span></span><br><span class="line">Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.Context, interface android.util.AttributeSet]</span><br></pre></td></tr></table></figure></p>
+<h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>一般这种情况，会有几种原因：</p>
+<ol>
+<li><p>引用类名问题：自定义一个View之后，将他用于布局文件中，必须使用完整路径名来引用，不能只使用类名，检查了一下，不是这个原因导致的</p>
+</li>
+<li><p>编译的中间文件没有清理干净，就是你在原生系统代码的编译环境下编译APK之后，特别是修改了XML，出现标题所述现象，这个时候你只需要删除out目录下编译生成的中间文件夹即可（具体名字记不清了:在编译过程中，系统会将那个位置打印出来，通过串口来看吧，…/out/……/…./classes.dex,你循着这个路径往前推到你的应用的project名字那一层文件夹），删除再重新make就OK了，但是我好像也不是这个原因，Invalidate Caches / Restart 并不起作用</p>
+</li>
+<li><p>找不到drawable的资源文件，对应的drawable的hdpi或xhdpi等文件夹的图片资源有缺失，但是我显然不是因为这个</p>
+</li>
+<li><p>构造函数问题：自定义View，派生实现基类View的构造函数不全</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> : <span class="type">View &#123;</span></span></span><br><span class="line">  <span class="keyword">constructor</span>(context: Context) : <span class="keyword">super</span>(context)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet) : <span class="keyword">super</span>(context, attrs)</span><br><span class="line">  <span class="keyword">constructor</span>(context: Context, attrs: AttributeSet?, defStyle: <span class="built_in">Int</span>) : <span class="keyword">super</span>(context, attrs, defStyle)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以简化为以下这样</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafetyExamView</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(context: Context, attributeSet: AttributeSet? = <span class="literal">null</span>, defStyle: <span class="built_in">Int</span> = <span class="number">0</span>) : View(context, attributeSet, defStyle) &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>从网上的一些说法来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数是在不同的应用场合来实例化一个View对象的，但是事实是不是这样的呢，我发现了一些不同的看法<br>
+        
+            <div class="readmore">
+                <a href="/2018/11/21/自定义View闪退和JvmOverloads注解/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
+                
+                    <a href="/tags/踩坑/"><i class="fas fa-tag fa-fw"></i>&nbsp;踩坑</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+        </div>
+    
+        <div class='post-wrapper'>
+            <article class="post reveal ">
+    <section class="meta">
+        <h2 class="title">
             <a href="/2018/11/14/Android字体使用探索/">
                 
                     Android字体使用探索
@@ -1023,7 +1085,7 @@
                 
                     <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>6</div></a></li>
                 
-                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>9</div></a></li>
+                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>10</div></a></li>
                 
             </ul>
         
