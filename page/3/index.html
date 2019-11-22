@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Tag: Nexus 6p | HoshI-blog</title>
+  <title>HoshI-blog</title>
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" href="/">
@@ -119,10 +119,6 @@
     <div class='container clearfix'>
         <div class='l_main'>
             
-    <script>
-        window.subData= { title:'tag : Nexus 6p'}
-    </script>
-
 
 <section class="post-list">
     
@@ -131,14 +127,14 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
-            <a href="/2018/12/05/Nexus6p刷机指北/">
+            <a href="/2018/08/30/hexo博客部署指北/">
                 
-                    Nexus6p刷机指北
+                    hexo博客部署指北
                 
             </a>
         </h2>
         <time class="time">
-            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-12-05
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-08-30
         </time>
         
     
@@ -151,39 +147,63 @@
     </section>
 
     <section class="article typo">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为Android开发者，肯定要对各种Android手机都非常熟悉，那自然也不能少了Google亲儿子中的Nexus系列了，为了体验一下原生Android的流畅和官方全家桶的舒适体验，我在某宝上面弄了一台450RMB的Nexus6P，这几天拿到了，准备鼓捣鼓捣，学习一下</p>
-<p>首先踩的坑肯定就是网络相关的了，因为众所周知的原因，这个亲儿子无法与亲爹服务器取得联络，所以即使是连上了正常的WiFi，也非常调皮地在右上角显示“已连接，但无法访问互联网”，只有当你不断点击跳过各种设置后，才可以上网，但是右上角仍然是显示一个带叉叉的WiFi图标，用以提醒你当前的网络不是稳定的科学的网络</p>
-<p>既然这篇想讲刷机，现在又已经能上网了，先来研究下刷机和root是怎么回事，网络这个问题，就留待以后再研究了</p>
-<h2 id="开始刷机"><a href="#开始刷机" class="headerlink" title="开始刷机"></a>开始刷机</h2><p>我拿到手机的时候，店家就已经帮我刷了8.1.0版本的Android，想要刷机，先去看看都有些什么镜像，因为是入门，这里就直接去下载<a href="https://developers.google.com/android/images#hammerhead" target="_blank" rel="noopener">官方镜像</a>，以后再看看其他各种魔改的镜像，拿到想要刷的镜像之后，有以下几个步骤：</p>
+        <p>今天尝试部署hexo博客，发现确实是十分的简明快捷，以后要多加使用。这次的部署过程中遇到几个问题如下：</p>
+<ul>
+<li><p>无法上传到github</p>
+<p>  部署hexo时，使用教程中说的repository: </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/andybroker/andybroker.github.io.git</span><br></pre></td></tr></table></figure>
+<p>  无法正确上传，后来用了</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git@github.com:andybroker/andybroker.github.io.git</span><br></pre></td></tr></table></figure>
+<p>  才正确，应该是直接使用ssh进行上传，故没有写账号密码的过程</p>
+</li>
+<li><p>配置文件时语言选项</p>
+<p>  中文的选项不是<code>zh-Hans</code>，而应该是<code>zh-CN</code>，关于其他的一些语言可以在themes中看到，其他的一些配置也可以在themes里对应的主题的配置文件<code>_config.yml</code>中进行配置，languages文件夹内容如下所示：<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/hexo%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png?raw=true" alt=""></p>
+</li>
+<li><p>hexo修改主题</p>
+<p>需要把主题先下载下来再进行配置使用</p>
+</li>
+<li><p>hexo的配置文件</p>
+<p>其中的参数需要在冒号后空一格，不能直接连接冒号</p>
+</li>
+<li><p>更换电脑时的操作</p>
 <ol>
-<li><p>配置ADB环境变量（SDK）</p>
-<p>搜索下载ADB，这里不再赘述，ADB的相关指令可以自行Google</p>
+<li><p>安装Node.js</p>
+<ul>
+<li><p>检查是否安装brew</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew -v</span><br></pre></td></tr></table></figure>
+<p>安装homebrew：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>安装node:(如果之前已经手动安装过node，再次通过homebrew安装往往产生冲突，可以先删除，如果是通过homebrew安装的，下发命令<code>brew uninstall node</code>即可，如果是通过安装包安装的，手动删除node的安装文件即可)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew link node</span><br><span class="line">brew uninstall node</span><br><span class="line">brew install node</span><br></pre></td></tr></table></figure>
+<p>检查是否安装node:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>安装ADB手机驱动</p>
-<p>只要下好ADB，连接上手机，电脑会自动下载并为手机安装上驱动，这里也不赘述</p>
+<li><p>注：安装cnpm（npm由于源服务器在国外，下载node包速度较慢，cnpm使用国内镜像，下载速度较快）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>解锁BootLoader</p>
-<p>手机关机后，长按音量-和电源键，一直到看见一个盖子打开躺在地上的安卓机器人为止。这时就已经进入了fastboot页面了，这时可以看到左下角的一些关于手机的信息</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97/Nexus6p%E5%88%B7%E6%9C%BA%E5%8F%8Aroot%E6%8C%87%E5%8C%97-%E8%A7%A3%E9%94%81BootLoader.JPG?imageMogr2/auto-orient" width="600" height="800" alt="图片名称" align="center"></p>
+</ul>
+</li>
+<li><p>安装hexo:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g hexo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把博客文件从git上拉下来，或者用iCloud中的，基本上只要在Mac上更新博客，都可以直接用iCloud文稿中的文件，但是如果要更新git上的文件，就要先拉到本地，用iCloud的将其覆盖，再推到远端</p>
 </li>
 </ol>
-        
-            <div class="readmore">
-                <a href="/2018/12/05/Nexus6p刷机指北/" class="flat-box">
-                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-                    阅读全文
-                </a>
-            </div>
+</li>
+</ul>
+<h4 id="不断使用和尝试中，如果有新的坑会继续补充"><a href="#不断使用和尝试中，如果有新的坑会继续补充" class="headerlink" title="不断使用和尝试中，如果有新的坑会继续补充"></a>不断使用和尝试中，如果有新的坑会继续补充</h4><blockquote>
+<p>从零搭建hexo参考文章：<a href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/" target="_blank" rel="noopener">http://visugar.com/2017/05/04/20170504SetUpHexoBlog/</a> 这个博主也是使用hexo的，可以多多参考</p>
+<p>hexo主题网站: <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+</blockquote>
+
         
 
         
             <div class="full-width auto-padding tags">
                 
-                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
+                    <a href="/tags/踩坑/"><i class="fas fa-tag fa-fw"></i>&nbsp;踩坑</a>
                 
-                    <a href="/tags/手机/"><i class="fas fa-tag fa-fw"></i>&nbsp;手机</a>
-                
-                    <a href="/tags/Nexus-6p/"><i class="fas fa-tag fa-fw"></i>&nbsp;Nexus 6p</a>
+                    <a href="/tags/博客部署/"><i class="fas fa-tag fa-fw"></i>&nbsp;博客部署</a>
                 
             </div>
         
@@ -193,6 +213,25 @@
         </div>
     
 </section>
+
+
+    <br>
+    <div class="prev-next">
+        <div class="prev-next">
+            
+                <a class="prev" rel="prev" href="/page/2/">
+                    <section class="post prev" >
+                        <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
+                    </section>
+                </a>
+            
+            <p class="current">
+                3 / 3
+            </p>
+            
+
+        </div>
+    </div>
 
 
 

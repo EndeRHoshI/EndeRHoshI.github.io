@@ -131,6 +131,58 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
+            <a href="/2019/11/14/如何正确终止forEach|Kotlin操作符(run、with、let、also、apply)的差异与选择/">
+                
+                    如何正确终止forEach|Kotlin操作符(run、with、let、also、apply)的差异
+                
+            </a>
+        </h2>
+        <time class="time">
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2019-11-14
+        </time>
+        
+    
+    <div class='cats'>
+        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+        <a class="categories" href="/categories/日常查阅/">日常查阅</a>
+    </div>
+
+
+    </section>
+
+    <section class="article typo">
+        <h2 id="如何正确终止forEach"><a href="#如何正确终止forEach" class="headerlink" title="如何正确终止forEach"></a>如何正确终止forEach</h2><p>在一次编码中，我发现我的 forEach 函数使用 return@forEach 无法跳出遍历，而是会把所有元素都遍历完，使用 return 的话会直接跳出整个函数体，自然是不符合的，于是我做了些试验，想要得出真正跳出 forEach 遍历的方法</p>
+<p>假设我们需要输出一个列表的一部分内容，可以用到 for 循环加个 break 来处理，如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line"><span class="keyword">for</span> (e <span class="keyword">in</span> list) &#123;</span><br><span class="line">  <span class="keyword">if</span> (e &gt; <span class="number">3</span>) <span class="keyword">break</span></span><br><span class="line">  println(e)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>很简单，当 e 大于 3 时，就会跳出 for 循环，也就是说，会输出 1 和 3 两个数字：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach%7CKotlin%E6%93%8D%E4%BD%9C%E7%AC%A6(run%E3%80%81with%E3%80%81let%E3%80%81also%E3%80%81apply" alt="">%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-for%E4%B8%AD%E6%96%AD%E7%A4%BA%E4%BE%8B.png)</p>
+<p>如果改成用 forEach 呢，就会是下面这样：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>)</span><br><span class="line">list.forEach &#123;</span><br><span class="line">  <span class="keyword">if</span> (it &gt; <span class="number">3</span>) ???</span><br><span class="line">  println(it)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里的 ??? 应当填写什么呢，我第一反应就写了个 return@forEach，跑起来之后发现，确实达到了我们的效果</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach%7CKotlin%E6%93%8D%E4%BD%9C%E7%AC%A6(run%E3%80%81with%E3%80%81let%E3%80%81also%E3%80%81apply" alt="">%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-forEach%E4%B8%AD%E6%96%AD%E7%A4%BA%E4%BE%8B.png)</p>
+        
+            <div class="readmore">
+                <a href="/2019/11/14/如何正确终止forEach|Kotlin操作符(run、with、let、also、apply)的差异与选择/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/Kotlin/"><i class="fas fa-tag fa-fw"></i>&nbsp;Kotlin</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+        </div>
+    
+        <div class='post-wrapper'>
+            <article class="post reveal ">
+    <section class="meta">
+        <h2 class="title">
             <a href="/2019/05/05/Kotlin REPL 使用/">
                 
                     Kotlin REPL 使用
@@ -749,7 +801,7 @@
                 
                     <li><a class="flat-box" href="/categories/开发记录/"><div class='name'>开发记录</div><div class='badge'>4</div></a></li>
                 
-                    <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>6</div></a></li>
+                    <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>7</div></a></li>
                 
                     <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>10</div></a></li>
                 
@@ -764,7 +816,7 @@
     <section class='m_widget tagcloud'>
         <div class="header"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;标签</div>
         <div class='content'>
-            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Glide/" style="font-size: 14px; color: #999">Glide</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/Kotlin/" style="font-size: 14px; color: #999">Kotlin</a> <a href="/tags/Mac/" style="font-size: 19px; color: #777">Mac</a> <a href="/tags/Markdown/" style="font-size: 14px; color: #999">Markdown</a> <a href="/tags/Nexus-6p/" style="font-size: 14px; color: #999">Nexus 6p</a> <a href="/tags/RSS/" style="font-size: 14px; color: #999">RSS</a> <a href="/tags/WebView/" style="font-size: 14px; color: #999">WebView</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/博客部署/" style="font-size: 16.5px; color: #888">博客部署</a> <a href="/tags/快应用/" style="font-size: 14px; color: #999">快应用</a> <a href="/tags/手机/" style="font-size: 14px; color: #999">手机</a> <a href="/tags/踩坑/" style="font-size: 21.5px; color: #666">踩坑</a>
+            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Glide/" style="font-size: 14px; color: #999">Glide</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/Kotlin/" style="font-size: 16.5px; color: #888">Kotlin</a> <a href="/tags/Mac/" style="font-size: 19px; color: #777">Mac</a> <a href="/tags/Markdown/" style="font-size: 14px; color: #999">Markdown</a> <a href="/tags/Nexus-6p/" style="font-size: 14px; color: #999">Nexus 6p</a> <a href="/tags/RSS/" style="font-size: 14px; color: #999">RSS</a> <a href="/tags/WebView/" style="font-size: 14px; color: #999">WebView</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/博客部署/" style="font-size: 16.5px; color: #888">博客部署</a> <a href="/tags/快应用/" style="font-size: 14px; color: #999">快应用</a> <a href="/tags/手机/" style="font-size: 14px; color: #999">手机</a> <a href="/tags/踩坑/" style="font-size: 21.5px; color: #666">踩坑</a>
         </div>
     </section>
 
