@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Java Calendar类解析 | HoshI-blog</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" href="/">
+  <link rel="alternate" href="/atom.xml" title="HoshI-blog">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="shortcut icon" href="" />
+  <link rel="icon" href="" />
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+</head>
+
+<body>
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+
+
+    <script>setLoadingBarProgress(20)</script>
+    <header class="l_header">
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+			<a class="logo flat-box" href='/' >HoshI-blog</a>
+				<div class='menu'>
+					<ul class='h-list'>
+            
+    					
+    						<li>
+    							<a class='nav-home flat-box' href='/'>
+    								<i class='fas fa-star fa-fw'></i>&nbsp;博客
+  								</a>
+  							</li>
+        			
+    						<li>
+    							<a class='nav-archives flat-box' href='/archives'>
+    								<i class='fas fa-copy fa-fw'></i>&nbsp;归档
+  								</a>
+  							</li>
+        			
+    						<li>
+    							<a class='nav-RSS flat-box' href='https://feed43.com/8774738638080284.xml'>
+    								<i class='fas fa-rss-square fa-fw'></i>&nbsp;RSS
+  								</a>
+  							</li>
+        			
+        		
+					</ul>
+					<div class='underline'></div>
+				</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<span class="icon"><i class="fas fa-search fa-fw"></i></span>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></span></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="fas fa-comments fa-fw flat-box" href='javascript:void(0)'></a></li>
+				<li class='s-top'><a class="fas fa-arrow-circle-up fa-fw flat-box" href='javascript:void(0)'></a></li>
+				<li class='s-toc'><a class="fas fa-list fa-fw flat-box" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+		<nav>
+      <ul>
+          
+              
+                  <li>
+                      <a class='nav-home flat-box nav flat-box' href='/'>
+                      <i class='fas fa-star fa-fw'></i>&nbsp;博客</a>
+                  </li>
+              
+                  <li>
+                      <a class='nav-archives flat-box nav flat-box' href='/archives'>
+                      <i class='fas fa-copy fa-fw'></i>&nbsp;归档</a>
+                  </li>
+              
+                  <li>
+                      <a class='nav-RSS flat-box nav flat-box' href='https://feed43.com/8774738638080284.xml'>
+                      <i class='fas fa-rss-square fa-fw'></i>&nbsp;RSS</a>
+                  </li>
+              
+       
+      </ul>
+		</nav>
+	</aside>
+
+    <script>setLoadingBarProgress(40);</script>
+    <div class="l_body">
+    <div class='container clearfix'>
+        <div class='l_main'>
+            <article id="post-Java Calendar类解析" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    <section class='meta'>
+        
+            <h1 class="title">Java Calendar类解析</h1>
+        
+        <time class="time">
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+            2019-04-04
+        </time>
+        <div class="browse"><i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+        </div>
+        
+    
+    <div class='cats'>
+        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+        <a class="categories" href="/categories/日常查阅/">日常查阅</a>
+    </div>
+
+
+    </section>
+
+    <section class="article typo">
+
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在处理关于时间格式化的问题时，用到了Calendar类，踩了一些比较低级的坑，感慨虽然是一个Calendar类，也有很多要留意的地方，而以前一直没有比较规范的了解过这个类，这次刚好对它深入了解一番</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90-Calendar%E7%B1%BB%E8%AF%B4%E6%98%8E.png?raw=true" alt=""></p>
+<p>是一个抽象类，可以派生出各种日历，除了使用默认的GregorianCalendar（格里高利历），还可以自己实现各种其他历法</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Calendar iso8601 = new Calendar.Builder().setCalendarType(<span class="string">"iso8601"</span>).build();</span><br><span class="line">Calendar.getAvailableCalendarTypes()</span><br><span class="line"><span class="comment">// return [gregory]</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90-AndroidSDK%E4%B8%AD%E7%9A%84%E6%97%A5%E5%8E%86%E7%B1%BB%E5%9E%8B.png" alt=""></p>
+<p>gregory 和 iso8601:</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90-%E6%A0%B9%E6%8D%AE%E6%97%A5%E5%8E%86type%E5%88%9B%E5%BB%BA.png" alt=""></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *设置GregorianCalendar更改日期。 这是从朱利安日期到格里高利日期的转换发生的时刻。 默认值是1582年10月15日（格里高利）。在此之前，日期将在儒略历中。 </span></span><br><span class="line"><span class="comment"> *要获取纯Julian日历，请将更改日期设置为Date（Long.MAX_VALUE）。 要获得纯公历，请将更改日期设置为日期（Long.MIN_VALUE）。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> void setGregorianChange(Date date) &#123;</span><br><span class="line">  long cutoverTime = date.getTime();</span><br><span class="line">  <span class="keyword">if</span> (cutoverTime == gregorianCutover) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// Before changing the cutover date, make sure to have the</span></span><br><span class="line"><span class="comment">// time of this calendar.</span></span><br><span class="line">  complete();</span><br><span class="line">  setGregorianChange(cutoverTime);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设定一年中第一周所需的最小天数; 例如，如果第一周定义为包含一年中第一个月的第一天的那一周，则使用值1调用此方法。如果它必须是整周，则使用值7。</span></span><br><span class="line">calendar.setMinimalDaysInFirstWeek(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p><a href="https://zh.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a></p>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过getInstance()获取实例，并不是单例，而是每次都new一个新的GregorianCalendar对象，可以把这个对象存起来，避免每次都新建</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> calendar = Calendar.getInstance() <span class="comment">// 获得默认的时区和语言地区，即从系统中取</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> calendar = Calendar.getInstance(TimeZone zone, Locale aLocale)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Gets a calendar with the specified time zone and locale.</span></span><br><span class="line"><span class="comment"> * The &lt;code&gt;Calendar&lt;/code&gt; returned is based on the current time</span></span><br><span class="line"><span class="comment"> * in the given time zone with the given locale.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> zone the time zone to use</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> aLocale the locale for the week data</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a Calendar.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">public</span> static Calendar getInstance(TimeZone zone, Locale aLocale) &#123;</span><br><span class="line">   <span class="keyword">return</span> createCalendar(zone, aLocale);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span> static Calendar createCalendar(TimeZone zone, Locale aLocale) &#123;</span><br><span class="line">   <span class="comment">// BEGIN Android-changed: only support GregorianCalendar here</span></span><br><span class="line">   <span class="keyword">return</span> new GregorianCalendar(zone, aLocale);</span><br><span class="line">   <span class="comment">// END Android-changed: only support GregorianCalendar here</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Constructs a &lt;code&gt;GregorianCalendar&lt;/code&gt; based on the current time</span></span><br><span class="line"><span class="comment">  * in the given time zone with the given locale.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> zone the given time zone.</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> aLocale the given locale.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> GregorianCalendar(TimeZone zone, Locale aLocale) &#123;</span><br><span class="line">    <span class="keyword">super</span>(zone, aLocale);</span><br><span class="line">    gdate = (BaseCalendar.Date) gcal.newCalendarDate(zone);</span><br><span class="line">    setTimeInMillis(System.currentTimeMillis());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个Date</span></span><br><span class="line"><span class="keyword">val</span> date = Date(<span class="number">1554362004</span>L)</span><br></pre></td></tr></table></figure>
+<p>这里的Date类还有其他构造方法，不过已经被弃用了，现在通常都是用Date(long: Long)这个构造方法，直接传入时间戳，方便相互转化</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90-%E8%A2%AB%E5%BC%83%E7%94%A8%E7%9A%84Date%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95.png" alt=""></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入一个Date类型</span></span><br><span class="line">calendar.time = date</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sets the values for the fields &lt;code&gt;YEAR&lt;/code&gt;, &lt;code&gt;MONTH&lt;/code&gt;,</span></span><br><span class="line"><span class="comment"> * &lt;code&gt;DAY_OF_MONTH&lt;/code&gt;, &lt;code&gt;HOUR_OF_DAY&lt;/code&gt;, &lt;code&gt;MINUTE&lt;/code&gt;, and</span></span><br><span class="line"><span class="comment"> * &lt;code&gt;SECOND&lt;/code&gt;.</span></span><br><span class="line"><span class="comment"> * Previous values of other fields are retained.  If this is not desired,</span></span><br><span class="line"><span class="comment"> * call &#123;<span class="doctag">@link</span> #clear()&#125; first.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> year the value used to set the &lt;code&gt;YEAR&lt;/code&gt; calendar field.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> month the value used to set the &lt;code&gt;MONTH&lt;/code&gt; calendar field.</span></span><br><span class="line"><span class="comment"> * Month value is 0-based. e.g., 0 for January.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> date the value used to set the &lt;code&gt;DAY_OF_MONTH&lt;/code&gt; calendar field.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> hourOfDay the value used to set the &lt;code&gt;HOUR_OF_DAY&lt;/code&gt; calendar field.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> minute the value used to set the &lt;code&gt;MINUTE&lt;/code&gt; calendar field.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> second the value used to set the &lt;code&gt;SECOND&lt;/code&gt; calendar field.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #set(int,int)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #set(int,int,int)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #set(int,int,int,int,int)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">final</span> void <span class="keyword">set</span>(int year, int month, int date, int hourOfDay, int minute, int second) &#123;</span><br><span class="line">   <span class="keyword">set</span>(YEAR, year);</span><br><span class="line">   <span class="keyword">set</span>(MONTH, month);</span><br><span class="line">   <span class="keyword">set</span>(DATE, date);</span><br><span class="line">   <span class="keyword">set</span>(HOUR_OF_DAY, hourOfDay);</span><br><span class="line">   <span class="keyword">set</span>(MINUTE, minute);</span><br><span class="line">   <span class="keyword">set</span>(SECOND, second);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">calendar.<span class="keyword">set</span>(<span class="number">2019</span>,<span class="number">4</span>,<span class="number">8</span>);</span><br></pre></td></tr></table></figure>
+<p>set(f,value)方法日历的某个字段修改为value值，此外它还设置了一个内部成员变量，以指示日历字段f已经被更改。尽管日历字段f是立即更改的，但该Calendar所代表的时间却不会立即修改，直到下次调用get()、getTime()、getTimeInMillis()、add()或roll()时才会重新计算日历的时间。这被称为set()方法的延迟修改，采用延迟修改的优势是多次调用set()不会触发多次不必要的运算</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> void <span class="keyword">set</span>(int field, int value) &#123;</span><br><span class="line">  <span class="comment">// If the fields are partially normalized, calculate all the</span></span><br><span class="line">  <span class="comment">// fields before changing any fields.</span></span><br><span class="line">  <span class="keyword">if</span> (areFieldsSet &amp;&amp; !areAllFieldsSet) &#123;</span><br><span class="line">    computeFields();</span><br><span class="line">  &#125;</span><br><span class="line">  internalSet(field, value);</span><br><span class="line">  isTimeSet = <span class="literal">false</span>;</span><br><span class="line">  areFieisSet[field] = <span class="literal">true</span>;</span><br><span class="line">  ldsSet = <span class="literal">false</span>;</span><br><span class="line">  stamp[field] = nextStamp++;</span><br><span class="line">  <span class="keyword">if</span> (nextStamp == Integer.MAX_VALUE) &#123;</span><br><span class="line">    adjustStamp();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SimpleDateFormat simpleDateFormat = new SimpleDateFormat(<span class="string">"yyyy-MM-dd:hh:mm:ss"</span>);</span><br><span class="line">Calendar calendar2 = Calendar.getInstance();</span><br><span class="line">calendar2.<span class="keyword">set</span>(<span class="number">2003</span>, <span class="number">7</span>, <span class="number">31</span>);</span><br><span class="line">Log.d(<span class="string">"textqqq"</span>, simpleDateFormat.format(calendar2.getTime()));</span><br><span class="line">calendar2.<span class="keyword">set</span>(Calendar.MONTH, <span class="number">8</span>);</span><br><span class="line"><span class="comment">//Log.d("textqqq", simpleDateFormat.format(calendar2.getTime()));</span></span><br><span class="line">calendar2.<span class="keyword">set</span>(Calendar.DATE, <span class="number">5</span>);</span><br><span class="line">Log.d(<span class="string">"textqqq"</span>, simpleDateFormat.format(calendar2.getTime()));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注释掉的Log是</span></span><br><span class="line"><span class="comment">// 2019-04-08 15:39:16.484 24647-24647/com.example.calendartest D/textqqq: 2003-08-31:03:39:16</span></span><br><span class="line"><span class="comment">// 2019-04-08 15:39:16.485 24647-24647/com.example.calendartest D/textqqq: 2003-09-05:03:39:16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 去掉注释后的Log是</span></span><br><span class="line"><span class="comment">// 2019-04-08 15:46:03.286 25362-25362/com.example.calendartest D/textqqq: 2003-08-31:03:46:03</span></span><br><span class="line"><span class="comment">// 2019-04-08 15:46:03.287 25362-25362/com.example.calendartest D/textqqq: 2003-10-01:03:46:03</span></span><br><span class="line"><span class="comment">// 2019-04-08 15:46:03.287 25362-25362/com.example.calendartest D/textqqq: 2003-10-05:03:46:03</span></span><br></pre></td></tr></table></figure>
+<h3 id="获取不同的日期值"><a href="#获取不同的日期值" class="headerlink" title="获取不同的日期值"></a>获取不同的日期值</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取得不同字段对应的的值</span></span><br><span class="line"><span class="keyword">val</span> month = calendar.<span class="keyword">get</span>(Calendar.MONTH)</span><br></pre></td></tr></table></figure>
+<h4 id="常用字段值"><a href="#常用字段值" class="headerlink" title="常用字段值"></a>常用字段值</h4><table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Minimum</th>
+<th>Greatest  Minimum</th>
+<th>Least Maximum</th>
+<th>Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ERA</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>1</td>
+<td>1</td>
+<td>292269054</td>
+<td>292278994</td>
+</tr>
+<tr>
+<td>MONTH</td>
+<td>0</td>
+<td>0</td>
+<td>11</td>
+<td>11</td>
+</tr>
+<tr>
+<td>WEEK_OF_YEAR</td>
+<td>1</td>
+<td>1</td>
+<td>52*</td>
+<td>53</td>
+</tr>
+<tr>
+<td>WEEK_OF_MONTH</td>
+<td>0</td>
+<td>0</td>
+<td>4*</td>
+<td>6</td>
+</tr>
+<tr>
+<td>DAY_OF_MONTH</td>
+<td>1</td>
+<td>1</td>
+<td>28*</td>
+<td>31</td>
+</tr>
+<tr>
+<td>DAY_OF_YEAR</td>
+<td>1</td>
+<td>1</td>
+<td>365*</td>
+<td>366</td>
+</tr>
+<tr>
+<td>DAY_OF_WEEK</td>
+<td>1</td>
+<td>1</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr>
+<td>DAY_OF_WEEK_IN_MONTH</td>
+<td>-1</td>
+<td>-1</td>
+<td>4*</td>
+<td>6</td>
+</tr>
+<tr>
+<td>AM_PM</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>HOUR</td>
+<td>0</td>
+<td>0</td>
+<td>11</td>
+<td>11</td>
+</tr>
+<tr>
+<td>HOUR_OF_DAY</td>
+<td>0</td>
+<td>0</td>
+<td>23</td>
+<td>23</td>
+</tr>
+<tr>
+<td>MINUTE</td>
+<td>0</td>
+<td>0</td>
+<td>59</td>
+<td>59</td>
+</tr>
+<tr>
+<td>SECOND</td>
+<td>0</td>
+<td>0</td>
+<td>59</td>
+<td>59</td>
+</tr>
+<tr>
+<td>MILLISECOND</td>
+<td>0</td>
+<td>0</td>
+<td>999</td>
+<td>999</td>
+</tr>
+<tr>
+<td>ZONE_OFFSET</td>
+<td>-13:00</td>
+<td>-13:00</td>
+<td>14:00</td>
+<td>14:00</td>
+</tr>
+<tr>
+<td>DST_OFFSET</td>
+<td>0:00</td>
+<td>0:00</td>
+<td>0:20</td>
+<td>2:00</td>
+</tr>
+</tbody>
+</table>
+<p>* 根据格里高利历而变化</p>
+<h4 id="比较特殊的字段值"><a href="#比较特殊的字段值" class="headerlink" title="比较特殊的字段值"></a>比较特殊的字段值</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int ERA = <span class="number">0</span>; <span class="comment">// 时代</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int AD = <span class="number">1</span>;  <span class="comment">// 公元</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int BC = <span class="number">0</span>;  <span class="comment">// 公元前</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int AM_PM = <span class="number">9</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int AM = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int PM = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int DAY_OF_MONTH = <span class="number">5</span>; <span class="comment">// 这两个是一样的</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int DATE = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int WEEK_OF_MONTH = <span class="number">4</span>; <span class="comment">// 这周在当月里是第几周，以星期为标准</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int DAY_OF_WEEK_IN_MONTH = <span class="number">8</span>; <span class="comment">// 这周在当月里是第几周，以日期为标准</span></span><br></pre></td></tr></table></figure>
+<p>DAY_OF_WEEK_IN_MONTH: 指示当前月中的第几个星期。与 DAY_OF_WEEK 字段一起使用时，就可以唯一地指定某月中的某一天。与 WEEK_OF_MONTH 和 WEEK_OF_YEAR 不同，该字段的值并 不 取决于 getFirstDayOfWeek() 或 getMinimalDaysInFirstWeek()。 DAY_OF_MONTH 1 到 7 总是对应于 DAY_OF_WEEK_IN_MONTH 1； 8 到 14 总是对应于 DAY_OF_WEEK_IN_MONTH 2，依此类推。 DAY_OF_WEEK_IN_MONTH 0 表示 DAY_OF_WEEK_IN_MONTH 1 之前的那个星期。负值是从一个月的末尾开始逆向计数，因此，一个月的最后一个星期天被指定为 DAY_OF_WEEK = SUNDAY, DAY_OF_WEEK_IN_MONTH = -1。因为负值是逆向计数的，所以它们在月份中的对齐方式通常与正值的不同。例如，如果一个月有 31 天，那么 DAY_OF_WEEK_IN_MONTH -1 将与 DAY_OF_WEEK_IN_MONTH 5 和 DAY_OF_WEEK_IN_MONTH 4 的末尾相重叠。</p>
+<p>拿2019年一月来测试一下</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90-2019%E5%B9%B4%E4%B8%80%E6%9C%88.png?raw=true" alt=""></p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90-2019%E5%B9%B4%E5%85%83%E6%97%A6.png?raw=true" alt=""></p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90-2019%E5%B9%B41%E6%9C%886%E6%97%A5.png?raw=true" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90-2019%E5%B9%B41%E6%9C%8827%E6%97%A5.png" alt=""></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int ZONE_OFFSET = <span class="number">15</span>; <span class="comment">//获取时区，正为东，负为西</span></span><br><span class="line">calendar.<span class="keyword">get</span>(Calendar.ZONE_OFFSET) = <span class="number">28800000</span> <span class="comment">// 比世界协调时间（UTC）/格林尼治时间（GMT）快8小时的时区</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int DST_OFFSET = <span class="number">16</span>; <span class="comment">//以毫秒为单位指示夏令时的偏移量，地区相关</span></span><br><span class="line">Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(<span class="string">"America/Los_Angeles"</span>),Locale.US);</span><br><span class="line">Date newYears = new Date(<span class="number">1546272000000</span>L);</span><br><span class="line">calendar.setTime(newYears);</span><br><span class="line"><span class="keyword">for</span> (;;calendar.add(Calendar.DATE, <span class="number">1</span>)) &#123;</span><br><span class="line">  <span class="keyword">if</span> (calendar.<span class="keyword">get</span>(Calendar.DST_OFFSET) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    tvContent4.setText(<span class="string">""</span> + FULL_FORMAT.format(calendar.getTime()));</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">calendar.<span class="keyword">get</span>(Calendar.DST_OFFSET) = <span class="number">3600000</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90/Java%20Calendar%E7%B1%BB%E8%A7%A3%E6%9E%90-%E7%BE%8E%E5%9B%BD%E5%A4%8F%E4%BB%A4%E6%97%B6.jpg?raw=true" width="460" height="800" alt="图片名称" align="center"></p>
+<p><a href="http://www.timeofdate.com/country/United%20States" target="_blank" rel="noopener">美国夏时制</a></p>
+<p><a href="http://www.weather.gov.hk/gts/time/Summertimec.htm" target="_blank" rel="noopener">香港夏时制</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%A4%8F%E6%97%B6%E5%88%B6" target="_blank" rel="noopener">夏时制</a></p>
+<p>中国也曾在1986-1991年间实行夏令时，后废除</p>
+<h4 id="一些细微的不同"><a href="#一些细微的不同" class="headerlink" title="一些细微的不同"></a>一些细微的不同</h4><p>可以留意到，一些字段取得的值是0开始的，比如<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int WEEK_OF_MONTH = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int MONTH = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// JANUARY     0</span></span><br><span class="line"><span class="comment">// FEBRUARY</span></span><br><span class="line"><span class="comment">// MARCH</span></span><br><span class="line"><span class="comment">// APRIL</span></span><br><span class="line"><span class="comment">// MAY</span></span><br><span class="line"><span class="comment">// JUNE</span></span><br><span class="line"><span class="comment">// JULY</span></span><br><span class="line"><span class="comment">// AUGUST</span></span><br><span class="line"><span class="comment">// SEPTEMBER</span></span><br><span class="line"><span class="comment">// OCTOBER</span></span><br><span class="line"><span class="comment">// NOVEMBER</span></span><br><span class="line"><span class="comment">// DECEMBER   11</span></span><br><span class="line"><span class="comment">// UNDECIMBER 12  第十三个月</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="https://en.wikipedia.org/wiki/Undecimber" target="_blank" rel="noopener">第十三个月</a></p>
+<p>但是有些却是以1开始的，比如以下这些，使用时要加以区分</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int YEAR = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int WEEK_OF_YEAR = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int DAY_OF_MONTH = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int DAY_OF_YEAR = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> static int DAY_OF_WEEK = <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SUNDAY     1</span></span><br><span class="line"><span class="comment">// MONDAY</span></span><br><span class="line"><span class="comment">// TUESDAY</span></span><br><span class="line"><span class="comment">// WEDNESDAY</span></span><br><span class="line"><span class="comment">// THURSDAY</span></span><br><span class="line"><span class="comment">// FRIDAY</span></span><br><span class="line"><span class="comment">// SATURDAY   7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// SUNDAY in the U.S, MONDAY in France.</span></span><br><span class="line">calendar.setFirstDayOfWeek(Calendar.MONDAY);</span><br></pre></td></tr></table></figure>
+<h4 id="add-和-roll-的区别"><a href="#add-和-roll-的区别" class="headerlink" title="add 和 roll 的区别"></a>add 和 roll 的区别</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Adds or subtracts the specified amount of time to the given calendar field,</span></span><br><span class="line"><span class="comment"> * based on the calendar's rules. For example, to subtract 5 days from</span></span><br><span class="line"><span class="comment"> * the current time of the calendar, you can achieve it by calling:</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;&lt;code&gt;add(Calendar.DAY_OF_MONTH, -5)&lt;/code&gt;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> field the calendar field.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> amount the amount of date or time to be added to the field.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #roll(int,int)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #set(int,int)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">public</span> void add(int field, int amount);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Adds or subtracts (up/down) a single unit of time on the given time</span></span><br><span class="line"><span class="comment"> * field without changing larger fields. For example, to roll the current</span></span><br><span class="line"><span class="comment"> * date up by one day, you can achieve it by calling:</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;roll(Calendar.DATE, true).</span></span><br><span class="line"><span class="comment"> * When rolling on the year or Calendar.YEAR field, it will roll the year</span></span><br><span class="line"><span class="comment"> * value in the range between 1 and the value returned by calling</span></span><br><span class="line"><span class="comment"> * &lt;code&gt;getMaximum(Calendar.YEAR)&lt;/code&gt;.</span></span><br><span class="line"><span class="comment"> * When rolling on the month or Calendar.MONTH field, other fields like</span></span><br><span class="line"><span class="comment"> * date might conflict and, need to be changed. For instance,</span></span><br><span class="line"><span class="comment"> * rolling the month on the date 01/31/96 will result in 02/29/96.</span></span><br><span class="line"><span class="comment"> * When rolling on the hour-in-day or Calendar.HOUR_OF_DAY field, it will</span></span><br><span class="line"><span class="comment"> * roll the hour value in the range between 0 and 23, which is zero-based.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> field the time field.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> up indicates if the value of the specified time field is to be</span></span><br><span class="line"><span class="comment"> * rolled up or rolled down. Use true if rolling up, false otherwise.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Calendar#add(int,int)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Calendar#set(int,int)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">public</span> void roll(int field, boolean up);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Date newYears = new Date(<span class="number">1545408000000</span>L);</span><br><span class="line"></span><br><span class="line">calendar.setTime(newYears);</span><br><span class="line">calendar.roll(Calendar.MONTH,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">calendar.setTime(newYears);</span><br><span class="line">calendar.add(Calendar.MONTH,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">03.103</span> <span class="number">31697</span><span class="number">-31697</span>/com.example.calendartest D/textqqq: <span class="number">2018</span><span class="number">-12</span><span class="number">-22</span>:<span class="number">12</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">03.103</span> <span class="number">31697</span><span class="number">-31697</span>/com.example.calendartest D/textqqq: <span class="number">2018</span><span class="number">-01</span><span class="number">-22</span>:<span class="number">12</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">03.104</span> <span class="number">31697</span><span class="number">-31697</span>/com.example.calendartest D/textqqq: <span class="number">2018</span><span class="number">-12</span><span class="number">-22</span>:<span class="number">12</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">03.104</span> <span class="number">31697</span><span class="number">-31697</span>/com.example.calendartest D/textqqq: <span class="number">2019</span><span class="number">-01</span><span class="number">-22</span>:<span class="number">12</span>:<span class="number">00</span>:<span class="number">00</span></span><br></pre></td></tr></table></figure>
+<h4 id="calendar-setLenient-容错性"><a href="#calendar-setLenient-容错性" class="headerlink" title="calendar.setLenient 容错性"></a>calendar.setLenient 容错性</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">calendar.set(Calendar.MONTH, <span class="number">13</span>);</span><br><span class="line">System.out.println(simpleDateFormat.format(calendar.getTime()));</span><br><span class="line"><span class="comment">// 关闭容错性</span></span><br><span class="line"><span class="comment">// calendar.setLenient(false);</span></span><br><span class="line"></span><br><span class="line">calendar.set(Calendar.MONTH, <span class="number">13</span>);</span><br><span class="line">System.out.println(simpleDateFormat.format(calendar.getTime()));</span><br></pre></td></tr></table></figure>
+<p>当打开calendar.setLenient(false)时，①处代码可以正常运行，因为将MONTH字段设置为13，将会导致YEAR字段加1；②处将会导致运行异常，因为设置的MONTH字段超出了所允许的范围。关键在于程序中粗体字代码行，Calendar提供一个setLenient用于设置它的容错性，Calendar默认支持比较好的容错性，通过setLenient(false)了一关闭Calendar的容错性，让它进行严格的参数检查。<br>Calendar有两种解释日历字段的模式：lenient模式和non-lenient模式。当处于lenient模式时，每个字段都可接受超出范围的值。当处于non-lenient模式时，每个字段都进行严格的参数检查，不接收超出字段的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Calendar calendar2 = Calendar.getInstance();</span><br><span class="line">calendar2.setLenient(<span class="keyword">false</span>);</span><br><span class="line">calendar2.set(<span class="number">2003</span>, <span class="number">7</span>, <span class="number">31</span>);</span><br><span class="line">calendar2.set(Calendar.MONTH, <span class="number">8</span>);</span><br><span class="line">calendar2.set(Calendar.DATE, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">java.lang.RuntimeException: Unable to start activity ComponentInfo&#123;com.example.calendartest/com.example.calendartest.MainActivity&#125;java.lang.IllegalArgumentException: MONTH: <span class="number">8</span> -&gt; <span class="number">9</span></span><br><span class="line">  at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:<span class="number">2778</span>)</span><br><span class="line">  at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:<span class="number">2856</span>)</span><br><span class="line">  at android.app.ActivityThread.-wrap11(Unknown Source:<span class="number">0</span>)</span><br><span class="line">  at android.app.ActivityThread$H.handleMessage(ActivityThread.java:<span class="number">1589</span>)</span><br><span class="line">  at android.os.Handler.dispatchMessage(Handler.java:<span class="number">106</span>)</span><br><span class="line">  at android.os.Looper.loop(Looper.java:<span class="number">164</span>)</span><br><span class="line">  at android.app.ActivityThread.main(ActivityThread.java:<span class="number">6494</span>)</span><br><span class="line">  at java.lang.reflect.Method.invoke(Native Method)</span><br><span class="line">  at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:<span class="number">438</span>)</span><br><span class="line">  at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:<span class="number">807</span>)</span><br><span class="line">Caused by: java.lang.IllegalArgumentException: MONTH: <span class="number">8</span> -&gt; <span class="number">9</span></span><br><span class="line">  at java.util.GregorianCalendar.computeTime(GregorianCalendar.java:<span class="number">2824</span>)</span><br><span class="line">  at java.util.Calendar.updateTime(Calendar.java:<span class="number">3397</span>)</span><br><span class="line">  at java.util.Calendar.getTimeInMillis(Calendar.java:<span class="number">1761</span>)</span><br><span class="line">  at java.util.Calendar.getTime(Calendar.java:<span class="number">1734</span>)</span><br><span class="line">  at com.example.calendartest.MainActivity.onCreate(MainActivity.java:<span class="number">67</span>)</span><br><span class="line">  at android.app.Activity.performCreate(Activity.java:<span class="number">7009</span>)</span><br><span class="line">  at android.app.Activity.performCreate(Activity.java:<span class="number">7000</span>)</span><br><span class="line">  at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:<span class="number">1214</span>)</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <section class='meta'>
+            <time class="time" itemprop="dateUpdated" datetime="2019-04-08T22:17:57+08:00" content="2019-04-08">
+                <i class="fas fa-pen fa-fw" aria-hidden="true"></i>
+                本文最后更新于：2019-04-08
+            </time>
+            
+                
+                <div class="tags">
+                    <i class="fas fa-tags fa-fw" aria-hidden="true"></i>
+                    <a class="tag" href="/tags/Android/">Android</a>, <a class="tag" href="/tags/Java/">Java</a>
+                </div>
+            
+        </section>
+
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一篇</h6>
+                            <h4>
+                                <a href="/2019/05/05/Kotlin REPL 使用/" rel="prev" title="Kotlin REPL 使用">
+                                  
+                                      Kotlin REPL 使用
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <i class="fas fa-tags fa-fw" aria-hidden="true"></i>
+                                    <a class="tag" href="/tags/Kotlin/">Kotlin</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一篇&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2019/02/13/Android状态栏与主题探究/" rel="prev" title="Android状态栏与主题探究">
+                                    
+                                        Android状态栏与主题探究
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <i class="fas fa-tags fa-fw" aria-hidden="true"></i>
+                                    <a class="tag" href="/tags/Android/">Android</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+
+    </section>
+
+</article>
+
+<br>
+
+<!-- 显示推荐文章和评论 -->
+
+    <article class="post white-box comments">
+        <section class="article typo">
+
+            
+                
+
+    <div class="recommended_posts">
+        <h4><i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>&nbsp;你可能感兴趣的文章</h4>
+        <ul>
+            
+                <li><a href="http://yoursite.com/2019/08/01/两周小记-vol.1/">两周小记-vol.1</a></li>
+            
+                <li><a href="http://yoursite.com/2019/05/05/Kotlin REPL 使用/">Kotlin REPL 使用</a></li>
+            
+                <li><a href="http://yoursite.com/2019/02/13/Android状态栏与主题探究/">Android状态栏与主题探究</a></li>
+            
+                <li><a href="http://yoursite.com/2018/12/12/WebView加载链接跳转快应用问题/">WebView加载链接跳转快应用问题</a></li>
+            
+                <li><a href="http://yoursite.com/2018/12/05/Nexus6p刷机指北/">Nexus6p刷机指北</a></li>
+            
+        </ul>
+    </div>
+
+
+            
+
+            
+
+                
+
+                
+
+                
+            
+
+        </section>
+    </article>
+
+
+<script>
+    window.subData = {
+        title: 'Java Calendar类解析',
+        tools: true
+    }
+</script>
+
+
+        </div>
+        <aside class='l_side'>
+            
+    
+        
+    <section class='m_widget author'>
+        
+            <div class='header'>
+                <img class='avatar' src='https://github.com/EndeRHoshI/Photo/blob/master/blog/blog-avatar.jpg?raw=true' />
+            </div>
+        
+        
+            <div class='content'>
+                
+                    <h2>EndeRHoshI</h2>
+                
+                
+            </div>
+        
+        
+            <div class="social-wrapper">
+              
+                
+                    <a href="mailto:me@enderhoshi@gmail.com" class="social flat-box" target="_blank" rel="external"><i class="social fas fa-envelope" aria-hidden="true"></i></a>
+                
+              
+                
+                    <a href="https://github.com/EndeRHoshI" class="social flat-box" target="_blank" rel="external"><i class="social fab fa-github-alt" aria-hidden="true"></i></a>
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                    <a href="https://music.163.com/#/user/home?id=129985924" class="social flat-box" target="_blank" rel="external"><i class="social fas fa-music" aria-hidden="true"></i></a>
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                    <a href="https://steamcommunity.com/profiles/76561198051845680/" class="social flat-box" target="_blank" rel="external"><i class="social fab fa-steam-symbol" aria-hidden="true"></i></a>
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+        
+    </section>
+
+
+    
+    
+        <section class='m_widget categories'>
+    <div class='header'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;分类</div>
+    <div class='content'>
+        
+            <ul class="entry">
+                
+                    <li><a class="flat-box" href="/categories/开发记录/"><div class='name'>开发记录</div><div class='badge'>4</div></a></li>
+                
+                    <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>6</div></a></li>
+                
+                    <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>10</div></a></li>
+                
+            </ul>
+        
+    </div>
+</section>
+
+    
+    
+        
+    <section class='m_widget tagcloud'>
+        <div class="header"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;标签</div>
+        <div class='content'>
+            <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Glide/" style="font-size: 14px; color: #999">Glide</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/Kotlin/" style="font-size: 14px; color: #999">Kotlin</a> <a href="/tags/Mac/" style="font-size: 19px; color: #777">Mac</a> <a href="/tags/Markdown/" style="font-size: 14px; color: #999">Markdown</a> <a href="/tags/Nexus-6p/" style="font-size: 14px; color: #999">Nexus 6p</a> <a href="/tags/RSS/" style="font-size: 14px; color: #999">RSS</a> <a href="/tags/WebView/" style="font-size: 14px; color: #999">WebView</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/博客部署/" style="font-size: 16.5px; color: #888">博客部署</a> <a href="/tags/快应用/" style="font-size: 14px; color: #999">快应用</a> <a href="/tags/手机/" style="font-size: 14px; color: #999">手机</a> <a href="/tags/踩坑/" style="font-size: 21.5px; color: #666">踩坑</a>
+        </div>
+    </section>
+
+
+    
+    
+        <section class='m_widget music'>
+    <div class='header'><i class="fas fa-headphones-alt fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;音乐</div>
+    <div class='content'>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=450 src="//music.163.com/outchain/player?type=0&id=172697558&auto=0&height=450"></iframe>
+    </div>
+</section>
+
+    
+    
+        <section class='m_widget links'>
+    <div class='header'><div><i class="fas fa-handshake fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;友链</div>
+    
+    </div>
+    <div class='content'>
+        <ul class="entry" id="links">
+            
+                <li><a class="flat-box" target="_blank" rel="external nofollow noopener noreferrer" href="https://uzpeng.github.io/">
+                    <div class='name'>
+                        
+                            <i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>
+                        
+                        &nbsp;&nbsp;uzhipeng 后端大牛
+                    </div>
+                </a></li>
+            
+                <li><a class="flat-box" target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.xaoxuu.com/">
+                    <div class='name'>
+                        
+                            <i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>
+                        
+                        &nbsp;&nbsp;xaoxuu 本博客皮肤作者
+                    </div>
+                </a></li>
+            
+        </ul>
+
+    </div>
+</section>
+
+    
+    
+        
+
+    
+
+
+        </aside>
+        <script>setLoadingBarProgress(60);</script>
+    </div>
+    </div>
+    <footer id="footer" class="clearfix">
+    
+        <div class="social-wrapper">
+          
+              
+                  <a href="mailto:me@enderhoshi@gmail.com" class="social fas fa-envelope flat-box" target="_blank" rel="external"></a>
+              
+          
+              
+                  <a href="https://github.com/EndeRHoshI" class="social fab fa-github-alt flat-box" target="_blank" rel="external"></a>
+              
+          
+              
+          
+              
+          
+              
+          
+              
+                  <a href="https://music.163.com/#/user/home?id=129985924" class="social fas fa-music flat-box" target="_blank" rel="external"></a>
+              
+          
+              
+          
+              
+          
+              
+          
+              
+          
+              
+          
+              
+                  <a href="https://steamcommunity.com/profiles/76561198051845680/" class="social fab fa-steam-symbol flat-box" target="_blank" rel="external"></a>
+              
+          
+              
+          
+              
+          
+              
+          
+              
+          
+              
+          
+              
+          
+        </div>
+    
+    <br>
+    <div>博客内容遵循 <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="licenses">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></div>
+    <div>本站使用 <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a> 作为主题，
+		总访问量为 <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span> 次。
+    </div>
+</footer>
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+    <script>setLoadingBarProgress(80);</script>
+    <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
+<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
+<!-- 访问统计 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/jquery.fitvids.js"></script>
+
+    <script>
+        var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+        var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+        var ALGOLIA_API_KEY = "";
+        var ALGOLIA_APP_ID = "";
+        var ALGOLIA_INDEX_NAME = "";
+        var AZURE_SERVICE_NAME = "";
+        var AZURE_INDEX_NAME = "";
+        var AZURE_QUERY_KEY = "";
+        var BAIDU_API_ID = "";
+        var SEARCH_SERVICE = "hexo" || "hexo";
+        var ROOT = "/"||"/";
+        if(!ROOT.endsWith('/'))ROOT += '/';
+    </script>
+
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+
+
+    
+    
+    
+
+
+    <script>setLoadingBarProgress(100);</script>
+</body>
