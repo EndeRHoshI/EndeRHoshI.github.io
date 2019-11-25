@@ -312,9 +312,9 @@
       <category term="开发记录" scheme="http://yoursite.com/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/"/>
     
     
-      <category term="博客部署" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"/>
-    
       <category term="RSS" scheme="http://yoursite.com/tags/RSS/"/>
+    
+      <category term="博客部署" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"/>
     
   </entry>
   
@@ -359,9 +359,9 @@
       <category term="日常查阅" scheme="http://yoursite.com/categories/%E6%97%A5%E5%B8%B8%E6%9F%A5%E9%98%85/"/>
     
     
-      <category term="Mac" scheme="http://yoursite.com/tags/Mac/"/>
-    
       <category term="git" scheme="http://yoursite.com/tags/git/"/>
+    
+      <category term="Mac" scheme="http://yoursite.com/tags/Mac/"/>
     
   </entry>
   
