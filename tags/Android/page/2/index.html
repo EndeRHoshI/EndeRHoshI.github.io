@@ -131,6 +131,61 @@
             <article class="post reveal ">
     <section class="meta">
         <h2 class="title">
+            <a href="/2018/11/08/Glide无法加载细长图片解决方法/">
+                
+                    Glide无法加载细长图片解决方法
+                
+            </a>
+        </h2>
+        <time class="time">
+            <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;2018-11-08
+        </time>
+        
+    
+    <div class='cats'>
+        <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+        <a class="categories" href="/categories/问题集锦/">问题集锦</a>
+    </div>
+
+
+    </section>
+
+    <section class="article typo">
+        <p>今天在开发过程中，看到测试的bug反馈中有一条挺有趣的，就是当用户发出很细很长的图片时，无法加载出那个细长图片，为什么说细长图片，而不直接说长图呢，接下来就慢慢分享下这个bug的解决流程</p>
+<p>以下就是今天看到的诡异bug</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-bug%E5%8F%8D%E9%A6%88.png" alt=""></p>
+<p>可以看到，这个用户发了一条很长很长的图片，在安卓端显示的时候是空白的，但是在iOS端则是正常的，由此可以推断，后台返回给我们的数据应该是正常的，我验证了一下，在postman中发起请求，得到缩略图和原图后保存了下来，可以看到两个图片的信息如下：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E5%8E%9F%E5%9B%BE.jpg" alt=""></p>
+<p>明明就是实实在在存在的图像，怎么显示空白呢，同事之前遇到过一个无法显示长图的情况，那是因为图片的宽或者高超过了手机的限制，所以导致无法正常显示图片，解决的方案是载入图像时分段载入，就不会出现不显示图片的情况。但是我这里的两张图，一张顶多也就5000，而缩略图更加诡异，明明只有408的高度，却显示不出来了，这就奇怪得很了，继续看看是什么原因</p>
+        
+            <div class="readmore">
+                <a href="/2018/11/08/Glide无法加载细长图片解决方法/" class="flat-box">
+                    <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+                    阅读全文
+                </a>
+            </div>
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/Android/"><i class="fas fa-tag fa-fw"></i>&nbsp;Android</a>
+                
+                    <a href="/tags/踩坑/"><i class="fas fa-tag fa-fw"></i>&nbsp;踩坑</a>
+                
+                    <a href="/tags/Glide/"><i class="fas fa-tag fa-fw"></i>&nbsp;Glide</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+        </div>
+    
+        <div class='post-wrapper'>
+            <article class="post reveal ">
+    <section class="meta">
+        <h2 class="title">
             <a href="/2018/10/08/AS下载插件和Parcelable接口/">
                 
                     AS下载插件|使用Parcelable接口
@@ -586,7 +641,7 @@
                 
                     <li><a class="flat-box" href="/categories/开发记录/"><div class='name'>开发记录</div><div class='badge'>4</div></a></li>
                 
-                    <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>7</div></a></li>
+                    <li><a class="flat-box" href="/categories/日常查阅/"><div class='name'>日常查阅</div><div class='badge'>8</div></a></li>
                 
                     <li><a class="flat-box" href="/categories/问题集锦/"><div class='name'>问题集锦</div><div class='badge'>10</div></a></li>
                 
