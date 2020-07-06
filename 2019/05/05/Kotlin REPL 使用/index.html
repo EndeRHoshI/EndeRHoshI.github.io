@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content>
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content>
+  <title>Kotlin REPL 使用 - HoshI-blog</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>HoShI's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-05-05 16:54">
+      2019年5月5日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      746 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有时候我们在编程时，想要跑一小段代码验证计算结果，写单元测试比较麻烦，这个时候就希望可以在命令行中单独写一小段，跑出来看看结果，这其实就是 Kotlin 自带的交互式编程命令行，即 REPL（Read-Eval-Print Loop 的简写，直译为 “读取-求值-输出”循环），尤其适合快速实验一些东西，具体的实现步骤如下</p>
+<h2 id="IDE中使用"><a href="#IDE中使用" class="headerlink" title="IDE中使用"></a>IDE中使用</h2><p>首先我们需要一个已经装好 Kotlin 插件的 IDE ，无论是 Android Studio 还是 IntelliJ IDEA 都可以，点击 Tools 菜单，打开Kotlin-&gt;Kotlin REPL，即可在控制台书写代码运行<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Kotlin%20REPL%20%E4%BD%BF%E7%94%A8/Kotlin%20REPL%20%E4%BD%BF%E7%94%A8-Android%20Studio%E4%B8%AD%E4%BD%8D%E7%BD%AE.png" srcset="/img/loading.gif" alt></p>
+<p>需要注意的是，Enter是换行，运行代码是 command + Enter 或者左边的运行键<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Kotlin%20REPL%20%E4%BD%BF%E7%94%A8/Kotlin%20REPL%20%E4%BD%BF%E7%94%A8-Android%20Studio%E4%B8%AD%E4%BD%BF%E7%94%A8.png" srcset="/img/loading.gif" alt></p>
+<h2 id="命令行中使用"><a href="#命令行中使用" class="headerlink" title="命令行中使用"></a>命令行中使用</h2><p>如果我已经有一个已经装好 Kotlin 插件的 IDE ，但是我又不想打开 IDE 再运行 REPL ，那么就可以直接用命令行打开 Kotlin 的 REPL</p>
+<p>去到 IDE 的 plugins 目录下，比如我是 Android Studio ，目录是 <code>[用户目录]/[Android Studio 配置文件]/config/plugins/</code> ，找到 <code>Kotlin/kotlinc</code> ，把这个 <code>kotlinc</code> 目录完整拷贝到一个你想要放的地方</p>
+<p>这个 <code>kotlinc</code> 目录下大概有这些东西</p>
+<p>kotlinc:</p>
+<ul>
+<li>bin:<ul>
+<li>kotlin.bat</li>
+<li>kotlin</li>
+<li>kotlinc.bat</li>
+<li>kotlinc</li>
+<li>kotlinc-js.bat</li>
+<li>kotlinc-js</li>
+<li>kotlinc-jvm.bat</li>
+<li>kotlinc-jvm</li>
+</ul>
+</li>
+<li>lib:<ul>
+<li>一堆 jar</li>
+</ul>
+</li>
+<li>license:<ul>
+<li>一堆 txt</li>
+</ul>
+</li>
+<li>build.txt</li>
+</ul>
+<p>然后就去配环境变量，打开终端，输入<br><pre><code class="hljs bash">nano ~/.bash_profile    //使用 nano 命令打开 .bash_profile 修改环境变量</code></pre></p>
+<p>添加如下两行代码<br><pre><code class="hljs bash"><span class="hljs-built_in">export</span> KOTLIN_HOME=/Users/lvqx/Desktop/kotlinc
+<span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$KOTLIN_HOME</span>/bin</code></pre></p>
+<p>其中的<code>lvqx/Desktop</code>可以替换为你想要的位置，我这里直接放在桌面了</p>
+<p>之后 control + O 保存 或者 control + X 退出并保存，再在终端输入以下命令使配置生效<br><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/.bash_profile</code></pre></p>
+<p>然后就可以在命令行输入<code>kotlinc</code>打开 REPL 编写一小段程序跑起来了</p>
+<p>不过我这里会出现如下提示<br><pre><code class="hljs bash">-bash: /Users/lvqx/Desktop/kotlinc/bin/kotlin: Permission denied</code></pre></p>
+<p>所以需要去到目录下给相应的文件相应的权限，如下所示：<br><pre><code class="hljs bash">chmod a+x [文件名或者通配符]</code></pre></p>
+<p>之后就可以在命令行输入<code>kotlinc</code>打开 REPL 了，如下所示：<br><pre><code class="hljs bash">lvqx-Mac-work:bin lvqx$ kotlinc
+Welcome to Kotlin version 1.3.20 (JRE 1.8.0_192-b12)
+Type :<span class="hljs-built_in">help</span> <span class="hljs-keyword">for</span> <span class="hljs-built_in">help</span>, :quit <span class="hljs-keyword">for</span> quit
+&gt;&gt;&gt; val kotlin = <span class="hljs-string">"Kotlin is awesome!"</span>
+&gt;&gt;&gt; println(<span class="hljs-string">"Hey boy, <span class="hljs-variable">$kotlin</span>"</span>)
+Hey boy, Kotlin is awesome!
+&gt;&gt;&gt; val a = 1
+&gt;&gt;&gt; val b = 232
+&gt;&gt;&gt; val c = 123
+&gt;&gt;&gt; println(a + b + c)
+356
+&gt;&gt;&gt; :quit</code></pre></p>
+<p>需要注意的是，输入print相关语法时，会自动运行代码并输出</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在 IDE 中使用 REPL 可以使用 IDE 的语法高亮和补全功能，更方便地指定运行时机也可以更方便地查看结果，但是需要打开 IDE 再进行操作</p>
+<p>而使用命令行打开，简单快捷，但是不及IDE简洁优雅，查看结果有一点点麻烦和不可控</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/日常查阅/">日常查阅</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Kotlin/">Kotlin</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/08/01/两周小记-vol.1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">两周小记-vol.1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/04/04/Java Calendar类解析/">
+                        <span class="hidden-mobile">Java Calendar类解析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Kotlin REPL 使用&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
