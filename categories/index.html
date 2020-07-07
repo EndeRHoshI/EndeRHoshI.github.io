@@ -170,7 +170,7 @@
     <div class="category row">
       <a
         class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckcb9hotp0003svgpurx9256a" role="tab" data-toggle="collapse" href="#collapse-ckcb9hotp0003svgpurx9256a"
+        id="heading-ckcbrv3kb0003uugpetry0h8h" role="tab" data-toggle="collapse" href="#collapse-ckcbrv3kb0003uugpetry0h8h"
         aria-expanded="false"
       >
         问题集锦
@@ -183,8 +183,8 @@
       <div class="category-collapse">
         
           
-  <div id="collapse-ckcb9hotp0003svgpurx9256a" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckcb9hotp0003svgpurx9256a">
+  <div id="collapse-ckcbrv3kb0003uugpetry0h8h" class="collapse in" role="tabpanel"
+       aria-labelledby="heading-ckcbrv3kb0003uugpetry0h8h">
     
     
     
@@ -275,7 +275,7 @@
     <div class="category row">
       <a
         class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckcb9hoty000fsvgp5rmnllpa" role="tab" data-toggle="collapse" href="#collapse-ckcb9hoty000fsvgp5rmnllpa"
+        id="heading-ckcbrv3kh0008uugp31sicsj0" role="tab" data-toggle="collapse" href="#collapse-ckcbrv3kh0008uugp31sicsj0"
         aria-expanded="false"
       >
         日常查阅
@@ -288,8 +288,8 @@
       <div class="category-collapse">
         
           
-  <div id="collapse-ckcb9hoty000fsvgp5rmnllpa" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckcb9hoty000fsvgp5rmnllpa">
+  <div id="collapse-ckcbrv3kh0008uugp31sicsj0" class="collapse in" role="tabpanel"
+       aria-labelledby="heading-ckcbrv3kh0008uugp31sicsj0">
     
     
     
@@ -360,7 +360,7 @@
     <div class="category row">
       <a
         class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckcb9hou70012svgp3q2z3wed" role="tab" data-toggle="collapse" href="#collapse-ckcb9hou70012svgp3q2z3wed"
+        id="heading-ckcbrv3ku0013uugphv1iro9e" role="tab" data-toggle="collapse" href="#collapse-ckcbrv3ku0013uugphv1iro9e"
         aria-expanded="false"
       >
         开发记录
@@ -373,8 +373,8 @@
       <div class="category-collapse">
         
           
-  <div id="collapse-ckcb9hou70012svgp3q2z3wed" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckcb9hou70012svgp3q2z3wed">
+  <div id="collapse-ckcbrv3ku0013uugphv1iro9e" class="collapse in" role="tabpanel"
+       aria-labelledby="heading-ckcbrv3ku0013uugphv1iro9e">
     
     
     
@@ -552,4 +552,15 @@
 
 
 </body>
+<div id="dark" onclick="switchDarkMode()"></div>
+<script>
+  var isNight = new Date().getHours() >= 22 || new Date().getHours() < 7; // 指定时间
+  // 依次判断 系统暗黑模式 指定时间 缓存 dark
+  if( matchMedia('(prefers-color-scheme: dark)').matches || isNight || localStorage.getItem('dark') === '1') {
+    if(!(isNight&&localStorage.getItem('noDark') === '1')) {
+      document.body.classList.add('dark');
+    }
+  }
+  document.getElementById('dark').innerHTML = document.querySelector("body").classList.contains("dark")?"🌙":"🌞";
+</script>
 </html>
