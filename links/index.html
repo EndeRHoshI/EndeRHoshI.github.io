@@ -113,6 +113,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
@@ -158,16 +170,16 @@
   
     
     <div class="card col-lg-4 col-md-6 col-sm-12">
-      <a href="https://hexo.fluid-dev.com/docs/" class="card-body hover-with-bg" target="_blank" rel="noopener">
+      <a href="https://hexo.fluid-dev.com/" class="card-body hover-with-bg" target="_blank" rel="noopener">
         <div class="card-content">
           
             <div class="link-avatar my-auto">
-              <img src="/img/favicon.png" srcset="/img/loading.gif" alt="Fluid Docs" />
+              <img src="/img/favicon.png" srcset="/img/loading.gif" alt="Fluid Dev" />
             </div>
           
           <div class="link-text">
-            <div class="link-title">Fluid Docs</div>
-            <div class="link-intro">主题使用指南</div>
+            <div class="link-title">Fluid Dev</div>
+            <div class="link-intro">Fluid 主题 Demo</div>
           </div>
         </div>
       </a>
@@ -175,16 +187,16 @@
   
     
     <div class="card col-lg-4 col-md-6 col-sm-12">
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" class="card-body hover-with-bg" target="_blank" rel="noopener">
+      <a href="https://uzpeng.github.io/" class="card-body hover-with-bg" target="_blank" rel="noopener">
         <div class="card-content">
           
             <div class="link-avatar my-auto">
-              <img src="/img/favicon.png" srcset="/img/loading.gif" alt="Fluid Repo" />
+              <img src="/img/favicon.png" srcset="/img/loading.gif" alt="uzhipeng" />
             </div>
           
           <div class="link-text">
-            <div class="link-title">Fluid Repo</div>
-            <div class="link-intro">主题 GitHub 仓库</div>
+            <div class="link-title">uzhipeng</div>
+            <div class="link-intro">后端大牛</div>
           </div>
         </div>
       </a>
@@ -192,16 +204,16 @@
   
     
     <div class="card col-lg-4 col-md-6 col-sm-12">
-      <a href="https://hexo.fluid-dev.com/docs/example/" class="card-body hover-with-bg" target="_blank" rel="noopener">
+      <a href="https://blog.xaoxuu.com/" class="card-body hover-with-bg" target="_blank" rel="noopener">
         <div class="card-content">
           
             <div class="link-avatar my-auto">
-              <img src="/img/favicon.png" srcset="/img/loading.gif" alt="Fluid Example" />
+              <img src="/img/favicon.png" srcset="/img/loading.gif" alt="xaoxuu" />
             </div>
           
           <div class="link-text">
-            <div class="link-title">Fluid Example</div>
-            <div class="link-intro">主题操作示例</div>
+            <div class="link-title">xaoxuu</div>
+            <div class="link-intro"> Volantis 皮肤作者</div>
           </div>
         </div>
       </a>
@@ -347,15 +359,4 @@
 
 
 </body>
-<div id="dark" onclick="switchDarkMode()"></div>
-<script>
-  var isNight = new Date().getHours() >= 22 || new Date().getHours() < 7; // 指定时间
-  // 依次判断 系统暗黑模式 指定时间 缓存 dark
-  if( matchMedia('(prefers-color-scheme: dark)').matches || isNight || localStorage.getItem('dark') === '1') {
-    if(!(isNight&&localStorage.getItem('noDark') === '1')) {
-      document.body.classList.add('dark');
-    }
-  }
-  document.getElementById('dark').innerHTML = document.querySelector("body").classList.contains("dark")?"🌙":"🌞";
-</script>
 </html>

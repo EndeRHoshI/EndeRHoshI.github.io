@@ -113,6 +113,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
@@ -125,7 +137,7 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/bg/sea.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -237,9 +249,9 @@ RSSRSS（Really Simple Syndication，简易信息聚合）是一种消息来源�
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/博客部署/">博客部署</a>
-            
               <a href="/tags/RSS/">RSS</a>
+            
+              <a href="/tags/博客部署/">博客部署</a>
             
           </div>
         
@@ -784,15 +796,4 @@ Cmd + Shift + Enter
 
 
 </body>
-<div id="dark" onclick="switchDarkMode()"></div>
-<script>
-  var isNight = new Date().getHours() >= 22 || new Date().getHours() < 7; // 指定时间
-  // 依次判断 系统暗黑模式 指定时间 缓存 dark
-  if( matchMedia('(prefers-color-scheme: dark)').matches || isNight || localStorage.getItem('dark') === '1') {
-    if(!(isNight&&localStorage.getItem('noDark') === '1')) {
-      document.body.classList.add('dark');
-    }
-  }
-  document.getElementById('dark').innerHTML = document.querySelector("body").classList.contains("dark")?"🌙":"🌞";
-</script>
 </html>
