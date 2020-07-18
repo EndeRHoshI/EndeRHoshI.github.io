@@ -379,9 +379,9 @@ Calendar.getAvailableCalendarTypes()
       <category term="开发记录" scheme="http://yoursite.com/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/"/>
     
     
-      <category term="RSS" scheme="http://yoursite.com/tags/RSS/"/>
-    
       <category term="博客部署" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"/>
+    
+      <category term="RSS" scheme="http://yoursite.com/tags/RSS/"/>
     
   </entry>
   
