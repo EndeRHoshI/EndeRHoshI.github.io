@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content>
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content>
+  <title>两周小记-vol.4 - HoshI-blog</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>HoShI's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-23 17:00">
+      2020年7月23日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>这个小记主要是记录从开发到发版的两周里遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅<br><a id="more"></a></p>
+<h2 id="No-1-TextView-添加-SpannableString-点击事件，并添加点击色"><a href="#No-1-TextView-添加-SpannableString-点击事件，并添加点击色" class="headerlink" title="No.1 TextView 添加 SpannableString 点击事件，并添加点击色"></a>No.1 TextView 添加 SpannableString 点击事件，并添加点击色</h2><pre><code class="hljs Kotlin">tv.movementMethod = LinkMovementMethod.getInstance() <span class="hljs-comment">// 必须设置否则无法点击</span>
+tv.highlightColor = SkinManager.resourcesTool.getColor(android.R.color.transparent) <span class="hljs-comment">// 设置点击后的高亮颜色，这里设置为透明，即点击后无反应</span></code></pre>
+<h2 id="No-2-Fragment-not-attached-to-a-context"><a href="#No-2-Fragment-not-attached-to-a-context" class="headerlink" title="No.2 Fragment not attached to a context"></a>No.2 Fragment not attached to a context</h2><p>可以检查以下是否是下面的情况产生的<br><pre><code class="hljs Kotlin"><span class="hljs-keyword">val</span> dialog = SquareConfirmDialog().apply &#123;
+
+  <span class="hljs-comment">// 以下代码会报错 not attached to a context，因为调用的是 Dialog 的 Fragment.getString() 方法，而此时 dialog 并未 attached to a context</span>
+  positive = getString(R.string.ai_base_policy_agree_and_continue)
+
+  <span class="hljs-comment">// 以下代码是正确用法，调用当前 Activity 的 Context.getString() 方法</span>
+  negative = <span class="hljs-keyword">this</span><span class="hljs-symbol">@CurrentActivity</span>.getString(R.string.somt_string)
+  contentView = view
+  onPositiveListener = &#123; &#125;
+  onNegativeListener = &#123; finish() &#125;
+&#125;</code></pre></p>
+<h2 id="No-3-Hexo-使用了-Fluid-皮肤后，hexo-g-关于高亮报错"><a href="#No-3-Hexo-使用了-Fluid-皮肤后，hexo-g-关于高亮报错" class="headerlink" title="No.3 Hexo 使用了 Fluid 皮肤后，hexo g 关于高亮报错"></a>No.3 Hexo 使用了 Fluid 皮肤后，hexo g 关于高亮报错</h2><pre><code class="hljs Bash">TypeError: Cannot <span class="hljs-built_in">set</span> property <span class="hljs-string">'lastIndex'</span> of undefined
+    at highlight (/home/xxxx/Blog/xxxxx/highlight.js/lib/highlight.js:514:35)</code></pre>
+<p>这是因为在你的博客中，在用代码段 <pre><code class="hljs 时没有指明语言，可以把部分文章移出文件夹，逐渐找出是哪一篇的代码段没有指明语言，处理后再移回来">
+[相关链接](https://github.com/hexojs/hexo/issues/2380)
+
+## No.4 BottomSheetDialog 输入框输入文字时上下跳动
+开发中遇到一个问题，一个 BottomSheetDialog 里面有上下两个输入框，上方的输入框在软键盘弹出时，并没有被软键盘顶着，所以输入时，BottomSheetDialog 表现正常，但是下方的输入框，是被软键盘顶的，在输入时，BottomSheetDialog 中的 TextView 要根据输入的内容作出变化，这时，一旦 TextView 的属性为 wrap_parent ，他的的文字发生变化时，高度宽度随之发生变化，BottomSheetDialog 就会上下跃动，体验比较差，后来发现只要给定 TextView 的高度和宽度，就可以避免这个问题，比较低版本的 Android 系统中似乎不会出现，后续有待排查
+
+## No.5 showSoftInput 不起作用
+有的时候需要在界面一显示时就让输入框处于焦点状态，并且需要键盘弹出，方便用户输入，需要以下代码
+
+``` XML
+android:focusable=&quot;true&quot;
+android:focusableInTouchMode=&quot;true&quot;</code></pre></p>
+<pre><code class="hljs Kotlin">editText.requestFocus()
+<span class="hljs-keyword">val</span> inputManager = editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) <span class="hljs-keyword">as</span> InputMethodManager
+inputManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)</code></pre>
+<p>有时当该 EditText 还未被绘制出来，InputMethodManager 还不能获取到该控件的焦点，软键盘不会弹出，manager.showSoftInput() 函数返回 false，告诉你键盘并未显示，而当 EditText 完全被绘制出来了，就可以去获取焦点了，所以需要添加绘制完毕监听，当 EditText 被绘制完毕时，调用 onGlobalLayoutListener.onGlobalLayout，正确展示键盘<br><pre><code class="hljs Kotlin">editText?.viewTreeObserver?.addOnGlobalLayoutListener &#123;
+  showKeyboard(editText)
+&#125;</code></pre></p>
+<p><a href="https://blog.csdn.net/lintcgirl/article/details/49796763" target="_blank" rel="noopener">相关链接</a></p>
+<h2 id="No-6-Node快速切换版本、版本回退-降级-、版本更新-升级"><a href="#No-6-Node快速切换版本、版本回退-降级-、版本更新-升级" class="headerlink" title="No.6 Node快速切换版本、版本回退(降级)、版本更新(升级)"></a>No.6 Node快速切换版本、版本回退(降级)、版本更新(升级)</h2><p>最近遇到一些 node 的坑，对旧版博客皮肤不太满意，所以更换了现在的 fluid，之后发布的时候报错，一查发现是 node 版本过高了，需要回退到比较稳定的版本，这时可以借助 node 版本管理模块 n 来解决这个问题<br><pre><code class="hljs Bash"><span class="hljs-comment"># 安装</span>
+sudo npm install n -g
+
+<span class="hljs-comment"># 下边步骤请根据自己需要选择</span>
+
+<span class="hljs-comment"># 安装稳定版</span>
+sudo n stable
+
+<span class="hljs-comment"># 安装最新版</span>
+sudo n latest
+
+<span class="hljs-comment"># 版本降级/升级</span>
+sudo n 版本号
+
+<span class="hljs-comment"># 检测目前安装了哪些版本的node</span>
+n
+
+<span class="hljs-comment"># 切换版本（不会删除已经安装的其他版本）</span>
+n 版本号
+
+<span class="hljs-comment"># 删除版本</span>
+sudo n rm 版本号</code></pre></p>
+<p><a href="https://blog.csdn.net/Fabulous1111/article/details/84983869" target="_blank" rel="noopener">相关链接</a></p>
+<h2 id="No-7-听云集成报错-No-virtual-method-isVisible"><a href="#No-7-听云集成报错-No-virtual-method-isVisible" class="headerlink" title="No.7 听云集成报错 No virtual method isVisible()"></a>No.7 听云集成报错 No virtual method isVisible()</h2><pre><code class="hljs Bash">java.lang.NoSuchMethodError: No virtual method isVisible()Z <span class="hljs-keyword">in</span> class Lcom/xxxx/xxxxxx/containers/xxxxxx; or its super classes (declaration of <span class="hljs-string">'com.xxxxxx.xxxxxxx.containers.xxxxxx'</span> appears <span class="hljs-keyword">in</span> /data/app/com.myapp.app-JUxpxJQv7z6s5jkYdS3yHw==/base.apk!classes3.dex)</code></pre>
+<p>报错信息如上图，初步推断为听云嵌码插桩逻辑有些问题，部分类应该跳过插桩的过程，搜索相关内容寥寥无几，且不相关，听云客服疑似空号，添加失败，客服群也加不进去，最后从非常旧和凌乱的文档中看到一个不太起眼的描述：<br><pre><code class="hljs Bash"><span class="hljs-comment"># 等号“=”后替换为需要过滤听云嵌码的类的路径，如有多个路径，使用英文逗号隔开</span>
+noInstrumentedClasses=com/xxxxxx/xxxxxxx/containers/xxxxxxx</code></pre></p>
+<p>把报错中指出的类填入这个 noInstrumentedClasses 中，再次编译，还是不行，后来发现是他的配置内容有缓存在本地，clean project 再重新跑就可以了，记录这个不是为了下次接入再查阅，而是提醒自己需要提升信息搜集能力和文档查阅能力，同时多从报错中推断；处理类似的第三方接入问题时，更改配置要 clean project，避免部分配置缓存在本地造成误判，认为自己的写法有误；另外，接入第三方库时尽量选取维护比较积极，售后比较靠谱的</p>
+<p><a href="https://github.com/alibaba/flutter_boost/issues/646" target="_blank" rel="noopener">相关链接</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/问题集锦/">问题集锦</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/踩坑/">踩坑</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/01/15/两周小记-vol.3/">
+                        <span class="hidden-mobile">两周小记-vol.3</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "两周小记-vol.4&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
