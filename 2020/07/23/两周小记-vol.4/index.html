@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.3k 字
     </span>
   
 
@@ -227,18 +227,12 @@ tv.highlightColor = SkinManager.resourcesTool.getColor(android.R.color.transpare
 &#125;</code></pre></p>
 <h2 id="No-3-Hexo-使用了-Fluid-皮肤后，hexo-g-关于高亮报错"><a href="#No-3-Hexo-使用了-Fluid-皮肤后，hexo-g-关于高亮报错" class="headerlink" title="No.3 Hexo 使用了 Fluid 皮肤后，hexo g 关于高亮报错"></a>No.3 Hexo 使用了 Fluid 皮肤后，hexo g 关于高亮报错</h2><pre><code class="hljs Bash">TypeError: Cannot <span class="hljs-built_in">set</span> property <span class="hljs-string">'lastIndex'</span> of undefined
     at highlight (/home/xxxx/Blog/xxxxx/highlight.js/lib/highlight.js:514:35)</code></pre>
-<p>这是因为在你的博客中，在用代码段 <pre><code class="hljs 时没有指明语言，可以把部分文章移出文件夹，逐渐找出是哪一篇的代码段没有指明语言，处理后再移回来">
-[相关链接](https://github.com/hexojs/hexo/issues/2380)
-
-## No.4 BottomSheetDialog 输入框输入文字时上下跳动
-开发中遇到一个问题，一个 BottomSheetDialog 里面有上下两个输入框，上方的输入框在软键盘弹出时，并没有被软键盘顶着，所以输入时，BottomSheetDialog 表现正常，但是下方的输入框，是被软键盘顶的，在输入时，BottomSheetDialog 中的 TextView 要根据输入的内容作出变化，这时，一旦 TextView 的属性为 wrap_parent ，他的的文字发生变化时，高度宽度随之发生变化，BottomSheetDialog 就会上下跃动，体验比较差，后来发现只要给定 TextView 的高度和宽度，就可以避免这个问题，比较低版本的 Android 系统中似乎不会出现，后续有待排查
-
-## No.5 showSoftInput 不起作用
-有的时候需要在界面一显示时就让输入框处于焦点状态，并且需要键盘弹出，方便用户输入，需要以下代码
-
-``` XML
-android:focusable=&quot;true&quot;
-android:focusableInTouchMode=&quot;true&quot;</code></pre></p>
+<p>这是因为在你的博客中，在用代码段时没有指明语言，可以把部分文章移出文件夹，逐渐找出是哪一篇的代码段没有指明语言，处理后再移回来</p>
+<p><a href="https://github.com/hexojs/hexo/issues/2380" target="_blank" rel="noopener">相关链接</a></p>
+<h2 id="No-4-BottomSheetDialog-输入框输入文字时上下跳动"><a href="#No-4-BottomSheetDialog-输入框输入文字时上下跳动" class="headerlink" title="No.4 BottomSheetDialog 输入框输入文字时上下跳动"></a>No.4 BottomSheetDialog 输入框输入文字时上下跳动</h2><p>开发中遇到一个问题，一个 BottomSheetDialog 里面有上下两个输入框，上方的输入框在软键盘弹出时，并没有被软键盘顶着，所以输入时，BottomSheetDialog 表现正常，但是下方的输入框，是被软键盘顶的，在输入时，BottomSheetDialog 中的 TextView 要根据输入的内容作出变化，这时，一旦 TextView 的属性为 wrap_parent ，他的的文字发生变化时，高度宽度随之发生变化，BottomSheetDialog 就会上下跃动，体验比较差，后来发现只要给定 TextView 的高度和宽度，就可以避免这个问题，比较低版本的 Android 系统中似乎不会出现，后续有待排查</p>
+<h2 id="No-5-showSoftInput-不起作用"><a href="#No-5-showSoftInput-不起作用" class="headerlink" title="No.5 showSoftInput 不起作用"></a>No.5 showSoftInput 不起作用</h2><p>有的时候需要在界面一显示时就让输入框处于焦点状态，并且需要键盘弹出，方便用户输入，需要以下代码</p>
+<pre><code class="hljs XML">android:focusable="true"
+android:focusableInTouchMode="true"</code></pre>
 <pre><code class="hljs Kotlin">editText.requestFocus()
 <span class="hljs-keyword">val</span> inputManager = editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) <span class="hljs-keyword">as</span> InputMethodManager
 inputManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)</code></pre>
