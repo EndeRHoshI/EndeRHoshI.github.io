@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>两周小记-vol.5</title>
+      <link href="/2020/09/12/%E4%B8%A4%E5%91%A8%E5%B0%8F%E8%AE%B0-vol.5/"/>
+      <url>/2020/09/12/%E4%B8%A4%E5%91%A8%E5%B0%8F%E8%AE%B0-vol.5/</url>
+      
+        <content type="html"><![CDATA[<p>这个小记主要是记录从开发到发版的两周里遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅<br><a id="more"></a></p><h2 id="No-1-相邻的-Fragment-中使用-webview，出现加载异常的问题"><a href="#No-1-相邻的-Fragment-中使用-webview，出现加载异常的问题" class="headerlink" title="No.1 相邻的 Fragment 中使用 webview，出现加载异常的问题"></a>No.1 相邻的 Fragment 中使用 webview，出现加载异常的问题</h2><p>在项目中，一个页面中同时使用多个不同的 Fragment，比如 ViewPager 中有几个 Fragment 的场景，这几个 Fragment 同时加载，且其中有几个是有 WebView 的，这个时候就会出现当中的某一个或者几个出现异常的情况，原因是使用 Webview 加载不同的 url 时，会存在 js 及 css 动画执行异常的问题，当时使用的布局，Viewpager 中存在两个不同的 Fragment，在这两个 Fragment 中分别使用 Webview 加载了不同的页面（页面中使用了比较接近的js及样式），这个问题最后的解决办法是，当需要加载 Viewpager 时，只加载一个 Fragment 或者一个 Webview，切换 tab 标签时，再去动态更换加载其他的 URL，也就是懒加载</p><h2 id="No-2-Mac-处理-Adobe-Genuine-Software-Integrity-Service"><a href="#No-2-Mac-处理-Adobe-Genuine-Software-Integrity-Service" class="headerlink" title="No.2 Mac 处理 Adobe Genuine Software Integrity Service"></a>No.2 Mac 处理 Adobe Genuine Software Integrity Service</h2><p>使用”不明来路”的 ps, 某一天突然弹出个窗，必须点一下才能关掉，而且过一会又弹出来，无法彻底关闭</p><p>解决方法:</p><ol><li>关闭所有 Adobe 软件</li><li>$ sudo rm /Library/Application\ Support/Adobe/AdobeGCClient/AdobeGCClient.app/Contents/MacOS/AdobeGCClient</li><li>启动 ps，就正常了</li></ol><h2 id="No-3-Android-SSL-验证服务器证书-Hostname-不匹配错误"><a href="#No-3-Android-SSL-验证服务器证书-Hostname-不匹配错误" class="headerlink" title="No.3 Android SSL 验证服务器证书 Hostname 不匹配错误"></a>No.3 Android SSL 验证服务器证书 Hostname 不匹配错误</h2><p>有时候开发需要改动 host，然后会报 host name 不匹配的错误，<br><pre><code class="hljs java"><span class="hljs-number">12</span>-<span class="hljs-number">24</span> <span class="hljs-number">16</span>:<span class="hljs-number">37</span>:<span class="hljs-number">04.801</span>: W/System.err(<span class="hljs-number">26380</span>):   java.io.IOException: Hostname <span class="hljs-string">'74.208.145.100'</span> was not verified</code></pre></p><p>错误原因是验证证书时发现真正请求和服务器的证书域名不一致，这时就可以在客户端代码中增加如下代码，忽略hostname 的验证<br><pre><code class="hljs java">HttpsURLConnection.setDefaultHostnameVerifier( <span class="hljs-keyword">new</span> HostnameVerifier()&#123;  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">verify</span><span class="hljs-params">(String string,SSLSession ssls)</span> </span>&#123;  <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;&#125;&#125;);</code></pre></p><h2 id="No-4-在约束布局中使用-include-标签报错"><a href="#No-4-在约束布局中使用-include-标签报错" class="headerlink" title="No.4 在约束布局中使用 include 标签报错"></a>No.4 在约束布局中使用 include 标签报错</h2><p>在约束布局 ConstraintLayout 中引入了一个布局，然后给引入布局添加了底部约束，让它距离底部 8dp，但是引入布局仍然出现在顶部，并报错如下：<br><pre><code class="hljs java">Layout parameter layout_marginBottom ignored unless both layout_width and layout_height are also specified on &lt;include&gt; tag</code></pre></p><p>在约束布局中引入新的控件或者布局时，若不重新指定一下控件或者布局的宽高，那么给它添加的约束便会失效，给 include 标签中添加上 layout_width 和 layout_height 属性即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 问题集锦 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 踩坑 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>两周小记-vol.4</title>
       <link href="/2020/07/23/%E4%B8%A4%E5%91%A8%E5%B0%8F%E8%AE%B0-vol.4/"/>
       <url>/2020/07/23/%E4%B8%A4%E5%91%A8%E5%B0%8F%E8%AE%B0-vol.4/</url>
