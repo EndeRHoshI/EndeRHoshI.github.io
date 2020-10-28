@@ -221,10 +221,10 @@
 <li>启动 ps，就正常了</li>
 </ol>
 <h2 id="No-3-Android-SSL-验证服务器证书-Hostname-不匹配错误"><a href="#No-3-Android-SSL-验证服务器证书-Hostname-不匹配错误" class="headerlink" title="No.3 Android SSL 验证服务器证书 Hostname 不匹配错误"></a>No.3 Android SSL 验证服务器证书 Hostname 不匹配错误</h2><p>有时候开发需要改动 host，然后会报 host name 不匹配的错误，<br><pre><code class="hljs java"><span class="hljs-number">12</span>-<span class="hljs-number">24</span> <span class="hljs-number">16</span>:<span class="hljs-number">37</span>:<span class="hljs-number">04.801</span>: W/System.err(<span class="hljs-number">26380</span>):   java.io.IOException: Hostname <span class="hljs-string">'74.208.145.100'</span> was not verified</code></pre></p>
-<p>错误原因是验证证书时发现真正请求和服务器的证书域名不一致，这时就可以在客户端代码中增加如下代码，忽略hostname 的验证<br><pre><code class="hljs java">HttpsURLConnection.setDefaultHostnameVerifier( <span class="hljs-keyword">new</span> HostnameVerifier()&#123;
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">verify</span><span class="hljs-params">(String string,SSLSession ssls)</span> </span>&#123;
-	  <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-	&#125;
+<p>错误原因是验证证书时发现真正请求和服务器的证书域名不一致，这时就可以在客户端代码中增加如下代码，忽略hostname 的验证<br><pre><code class="hljs Java">HttpsURLConnection.setDefaultHostnameVerifier( <span class="hljs-keyword">new</span> HostnameVerifier()&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">verify</span><span class="hljs-params">(String string,SSLSession ssls)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    &#125;
 &#125;);</code></pre></p>
 <h2 id="No-4-在约束布局中使用-include-标签报错"><a href="#No-4-在约束布局中使用-include-标签报错" class="headerlink" title="No.4 在约束布局中使用 include 标签报错"></a>No.4 在约束布局中使用 include 标签报错</h2><p>在约束布局 ConstraintLayout 中引入了一个布局，然后给引入布局添加了底部约束，让它距离底部 8dp，但是引入布局仍然出现在顶部，并报错如下：<br><pre><code class="hljs java">Layout parameter layout_marginBottom ignored unless both layout_width and layout_height are also specified on &lt;include&gt; tag</code></pre></p>
 <p>在约束布局中引入新的控件或者布局时，若不重新指定一下控件或者布局的宽高，那么给它添加的约束便会失效，给 include 标签中添加上 layout_width 和 layout_height 属性即可</p>

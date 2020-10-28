@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      941 字
+      931 字
     </span>
   
 
@@ -211,7 +211,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>这个小记主要是记录从开发到发版的两周里遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
+              <p>这个小记主要是记录遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
 <h2 id="No-1-EditText输入中文时出现下划线拼音处理"><a href="#No-1-EditText输入中文时出现下划线拼音处理" class="headerlink" title="No.1 EditText输入中文时出现下划线拼音处理"></a>No.1 EditText输入中文时出现下划线拼音处理</h2><p>在开发过程中，有时候会需要监听 EditText 输入内容长度做出反应的操作，但是像某些手机如小米的输入机制，会在输入中文的时候出现带下划线的拼音，这种情况影响了 EditText 输入长度监听</p>
 <p>处理方法：<br><pre><code class="hljs kotlin"><span class="hljs-comment">// 首先新建一个 自定义 InputFilter 继承 InputFilter</span>
 <span class="hljs-comment">// 重写 filter() 方法，在filter 中过滤带下划线的字符</span>

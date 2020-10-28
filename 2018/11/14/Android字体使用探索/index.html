@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      27
        分钟
     </span>
   
@@ -211,7 +211,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前开发时有使用到TextView或者绘图画文字的时候，并不会太在意文字的字体，因为设计给出的设计图都是比较普通的字体，今天在做一个新页面的时候，看到设计图中有部分地方的字体是不一样的，所以开始摸索下要怎样使用Android里的字体</p>
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前开发时有使用到 TextView 或者绘图画文字的时候，并不会太在意文字的字体，因为设计给出的设计图都是比较普通的字体，今天在做一个新页面的时候，看到设计图中有部分地方的字体是不一样的，所以开始摸索下要怎样使用Android里的字体</p>
 <h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><p>查阅<a href="https://developer.android.com/guide/topics/ui/look-and-feel/fonts-in-xml" target="_blank" rel="noopener">官方的文档</a>可以看到下面的信息</p>
 <blockquote>
 <p>XML中的字体</p>
@@ -220,27 +220,21 @@
 </blockquote>
 <p>以上是文档开头的简介，接着往下看，可以看到，在API level 26或者以上时，只需简单的几步就可以使用字体资源:</p>
 <h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><ol>
-<li>首先要创建一个字体资源文件夹：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%88%9B%E5%BB%BA%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9.png" srcset="/img/loading.gif" alt></li>
+<li><p>首先要创建一个字体资源文件夹：</p>
+<p> <img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%88%9B%E5%BB%BA%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9.png" srcset="/img/loading.gif" alt></p>
+</li>
 </ol>
 <a id="more"></a>
 <ol start="2">
-<li>然后创建好的目录如图：</li>
+<li><p>然后创建好的目录如图：</p>
+<p> <img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9B%AE%E5%BD%95.png" srcset="/img/loading.gif" alt></p>
+</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9B%AE%E5%BD%95.png" srcset="/img/loading.gif" alt></p>
-<p>而公司项目里的字体资源文件放置在assets目录下：</p>
-<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9B%AE%E5%BD%95.png" srcset="/img/loading.gif" alt></p>
-<p>然后调用<br><pre><code class="hljs kotlin"><span class="hljs-comment">/**
-* Typeface.
-*/</span>
-<span class="hljs-keyword">val</span> typeface: Typeface? = <span class="hljs-keyword">if</span> (context != <span class="hljs-literal">null</span> &amp;&amp; !TextUtils.isEmpty(fontPath)) &#123;
-  Typeface.createFromAsset(context.assets, fontPath)
-&#125; <span class="hljs-keyword">else</span> &#123;
-  <span class="hljs-literal">null</span>
-&#125;
+<p>而项目里的字体资源文件放置在assets目录下：</p>
+<p>" srcset="/img/loading.gif<img src alt><br>图片需要替换<br><!--https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9B%AE%E5%BD%95.png--></p>
+<p>然后调用<br><pre><code class="hljs kotlin">TypefaceManager 初始化...
 
-TypefaceManager.getInstance(context, TypefaceManager.PRICE_TEXT_BOLD).initPaints(paint)
-
-<span class="hljs-comment">//TypefaceManager中</span>
+<span class="hljs-comment">// TypefaceManager 中</span>
 const <span class="hljs-keyword">val</span> PRICE_TEXT_THIN = <span class="hljs-string">"fonts/DIN-Regular.otf"</span>
 const <span class="hljs-keyword">val</span> PRICE_TEXT_BOLD = <span class="hljs-string">"fonts/DIN-Bold.otf"</span>
 const <span class="hljs-keyword">val</span> PRICE_TEXT_MEDIUM = <span class="hljs-string">"fonts/DIN-Medium.otf"</span></code></pre></p>

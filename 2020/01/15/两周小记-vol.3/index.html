@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.6k 字
+      2.5k 字
     </span>
   
 
@@ -211,7 +211,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>这个小记主要是记录从开发到发版的两周里遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
+              <p>这个小记主要是记录遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
 <h2 id="No-1-OkHttp-踩坑，java-lang-IllegalStateException-closed"><a href="#No-1-OkHttp-踩坑，java-lang-IllegalStateException-closed" class="headerlink" title="No.1 OkHttp 踩坑，java.lang.IllegalStateException: closed"></a>No.1 OkHttp 踩坑，java.lang.IllegalStateException: closed</h2><p>在使用 OkHttp 框架处理请求时，容易会有如下写法：<br><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> responseBody = response.body() ?: <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
 Log.d(<span class="hljs-string">"responseBody = "</span> + response.body())</code></pre></p>
 <p>有时候，我们会直接写 response.body()，而不会再创建一个 String 对象，如果能确保只调用一次，这个是没什么问题的，但是如果向上面那样，在 Log 中又调用了一次，或者这个方法被多次调用，而且 response 是同一个，那么就会报如下错误：<br><pre><code class="hljs bash">java.lang.IllegalStateException: closed</code></pre></p>
@@ -280,7 +280,7 @@ Log.d(<span class="hljs-string">"responseBody = "</span> + response.body())</cod
 &#125;</code></pre></p>
 <p>所以就抛出了上面所说的异常了，为什么要这么设计呢？因为在实际开发中，响应主体 RessponseBody 持有的资源可能会很大，所以 OkHttp 并不会将其直接保存到内存中，只是持有数据流连接，只有当我们需要时，才会从服务器获取数据并返回。同时，考虑到应用重复读取数据的可能性很小，所以将其设计为一次性流(one-shot)，读取后即“关闭并释放资源”。</p>
 <p>原文：<a href="https://segmentfault.com/a/1190000012740215" target="_blank" rel="noopener">OkHttp踩坑记：为何 response.body().string() 只能调用一次？</a></p>
-<h2 id="No-2-Android-Q-反射失效导致K线图缩放异常"><a href="#No-2-Android-Q-反射失效导致K线图缩放异常" class="headerlink" title="No.2 Android Q 反射失效导致K线图缩放异常"></a>No.2 Android Q 反射失效导致K线图缩放异常</h2><p>我们在处理缩放事件时，可以用如下做法：<br><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> <span class="hljs-keyword">val</span> scaleGestureDetector = ScaleGestureDetector(context, ScaleListener())
+<h2 id="No-2-Android-Q-反射失效导致K线图缩放异常"><a href="#No-2-Android-Q-反射失效导致K线图缩放异常" class="headerlink" title="No.2 Android Q 反射失效导致K线图缩放异常"></a>No.2 Android Q 反射失效导致K线图缩放异常</h2><p>在处理一些手势缩放事件时，可以用如下做法：<br><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> <span class="hljs-keyword">val</span> scaleGestureDetector = ScaleGestureDetector(context, ScaleListener())
 <span class="hljs-keyword">private</span> inner <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ScaleListener</span> : <span class="hljs-type">ScaleGestureDetector.SimpleOnScaleGestureListener</span></span>() &#123;
 
   <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onScaleBegin</span><span class="hljs-params">(detector: <span class="hljs-type">ScaleGestureModifyDetector</span>?)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;

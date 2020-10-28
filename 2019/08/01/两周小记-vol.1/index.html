@@ -211,7 +211,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>这个小记主要是记录从开发到发版的两周里遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
+              <p>这个小记主要是记录遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
 <h2 id="No-1-如何在右侧显示android复选框"><a href="#No-1-如何在右侧显示android复选框" class="headerlink" title="No.1 如何在右侧显示android复选框"></a>No.1 如何在右侧显示android复选框</h2><p>如下设置即可，其中 drawable 方向就是复选框显示选中框的方向<br><pre><code class="hljs xml">android:button="@null"
 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"</code></pre></p>
 <h2 id="No-2-RecyclerView隐藏item-多布局-的所在区域显示空白"><a href="#No-2-RecyclerView隐藏item-多布局-的所在区域显示空白" class="headerlink" title="No.2 RecyclerView隐藏item(多布局)的所在区域显示空白"></a>No.2 RecyclerView隐藏item(多布局)的所在区域显示空白</h2><p>在 RecyclerView 是多种布局的情况下，需要把 RecyclerView 的其中一个条目 GONE 掉，若只是把内容隐藏，这样就会出现一片空白区域，高度不会改变，解决方法是，隐藏时把 item 的高度宽度设置为 0，需要显示的时候再设置回来</p>
@@ -289,7 +289,7 @@ $ git reset --soft HEAD@&#123;2&#125;</code></pre></p>
 <blockquote>
 <p>许多Android用户有不同的能力（限制），这要求他们以不同的方式使用他们的Android设备。这些限制包括视力，肢体或与年龄有关，这些限制阻碍了他们看到或充分使用触摸屏，而用户的听力丧失，让他们可能无法感知声音信息和警报，Android提供了辅助功能的特性和服务帮助这些用户更容易的使用他们的设备，这些功能包括语音合成、触觉反馈、手势导航、轨迹球和方向键导航。Android应用程序开发人员可以利用这些服务，使他们的应用程序更贴近用户</p>
 </blockquote>
-<h2 id="No-5-android-ems具体意义"><a href="#No-5-android-ems具体意义" class="headerlink" title="No.5 android ems具体意义"></a>No.5 android ems具体意义</h2><p>在android里setEms() 作用是设置TextView的字符宽度，em是一个印刷排版的单位，表示字宽的单位，em字面意思为：equal M（和M字符一致的宽度为一个单位）简称em，而ems是em的复数表达，所以ems和字节什么的都是没关系的，只是和字宽度有关系，而且由于各个手机版本自定义字体等问题，所以设置ems意义不大，只能作为参考，当设置该属性后，控件显示的长度就为10个字符的长度，超出的部分将不显示，而且 EditText的属性 ，只有在<br><pre><code class="hljs xml">android:layout_width=“wrap_content”</code></pre></p>
+<h2 id="No-5-android-ems具体意义"><a href="#No-5-android-ems具体意义" class="headerlink" title="No.5 android ems具体意义"></a>No.5 android ems具体意义</h2><p>在 android 里setEms() 作用是设置 TextView 的字符宽度，em 是一个印刷排版的单位，表示字宽的单位，em 字面意思为：equal M（和M字符一致的宽度为一个单位）简称 em，而 ems 是 em 的复数表达，所以 ems 和字节什么的都是没关系的，只是和字宽度有关系，而且由于各个手机版本自定义字体等问题，所以设置 ems 意义不大，只能作为参考，当设置该属性后，控件显示的长度就为10个字符的长度，超出的部分将不显示，而且 EditText 的属性 ，只有在<br><pre><code class="hljs xml">android:layout_width=“wrap_content”</code></pre></p>
 <p>时，才会显示，如果是<br><pre><code class="hljs xml">android:layout_width=“match_parent”</code></pre></p>
 <p>时，则不会有变化</p>
 <h2 id="No-6-图片显示上下有空白的解决办法"><a href="#No-6-图片显示上下有空白的解决办法" class="headerlink" title="No.6 图片显示上下有空白的解决办法"></a>No.6 图片显示上下有空白的解决办法</h2><p>在使用 ImageView 时，采用不同的 scaleType 属性可以调整图片的缩放类型，但是有时会导致图片上下方出现空白，这时就要<br><pre><code class="hljs xml">android:adjustViewBounds=”true”</code></pre></p>
