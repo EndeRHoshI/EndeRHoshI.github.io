@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      485 字
+      358 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      5
        分钟
     </span>
   
@@ -211,19 +211,23 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>今天回顾上周的一些开发任务，结合主管审查代码之后提出的一些建议，对代码进行一些整理，看到一条这样的：</p>
+              <!--
+今天回顾上周的一些开发任务，结合主管审查代码之后提出的一些建议，对代码进行一些整理，看到一条这样的：
+
 <pre><code class="hljs kotlin"><span class="hljs-keyword">import</span> com.google.gson.annotations.SerializedName
 <span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CurrencReviewEntity</span></span>(
   
 <span class="hljs-comment">//可以考虑替换为实现Parcelable接口</span>
 <span class="hljs-comment">//新写的实体类，如果不是工具生成，可以直接用kotlin写，然后用Option + T快捷键自动实现Parcelable接口</span></code></pre>
-<p>原来的代码中使用了<code>SerializedName</code>注解来对JSON数据实体类进行映射，主管给出的建议中要求使用Parcelable接口来实现</p>
+<p>–&gt;<br>原来的代码中使用了<code>SerializedName</code>注解来对JSON数据实体类进行映射，<!--主管-->给出的建议中要求使用Parcelable接口来实现<p></p>
 <p>我打开实体类点了几次<code>Option + T</code>没有任何反应，原来是要再下载一个插件<code>Android Parcelable code generator</code>，遂打开AS的preferences，然后查找插件进行下载：</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-parcelable%E6%8F%92%E4%BB%B6.png" srcset="/img/loading.gif" alt></p>
-<p>却弹出了如下错误：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%87%BA%E9%94%99.png" srcset="/img/loading.gif" alt></p>
+<p>却弹出了如下错误：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%87%BA%E9%94%99.png" srcset="/img/loading.gif" alt></p>
 <p>懒得去设置代理地址了，所以直接去<a href="https://plugins.jetbrains.com/" target="_blank" rel="noopener">jetbrains的插件官网</a> 搜索下载好，然后解压到AS/Contents/plugins目录下</p>
-<p>然后再重启AS，大功告成，我们可以点击实体类名右侧的空白，用快捷键自动补全试试：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%AE%9E%E7%8E%B0Parcelable%E6%8E%A5%E5%8F%A3.png" srcset="/img/loading.gif" alt></p>
-<p>然后代码如下：</p>
+<p>然后再重启AS，大功告成，我们可以点击实体类名右侧的空白，用快捷键自动补全试试：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3/AS%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8CParcelable%E6%8E%A5%E5%8F%A3-%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%AE%9E%E7%8E%B0Parcelable%E6%8E%A5%E5%8F%A3.png" srcset="/img/loading.gif" alt></p>
+<p>代码如下：<br>&lt;!–</p>
 <pre><code class="hljs java"><span class="hljs-meta">@Keep</span>
 <span class="hljs-function">data class <span class="hljs-title">TickerCommentResponse</span> <span class="hljs-params">(
   @SerializedName(<span class="hljs-string">"success"</span>)</span> var success: Boolean,
@@ -258,6 +262,7 @@
     &#125;
   &#125;
 &#125;</code></pre>
+<p>–&gt;</p>
 <p>因为这里的TickerCommentBean是另一个实体类，所以我们再把constructor处修改好就可以了：</p>
 <pre><code class="hljs java">constructor(parcel: Parcel) : <span class="hljs-keyword">this</span>(
   parcel.readByte() != <span class="hljs-number">0</span>.toByte(),

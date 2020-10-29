@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      446 字
+      453 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      5
        分钟
     </span>
   
@@ -211,7 +211,10 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是公司的LG测试机却提示缺少WelcomeAcitivity，如下图所示：<img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/APK%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/APK%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-%E7%BC%BA%E5%B0%91WelcomeActivity%E9%94%99%E8%AF%AF.png" srcset="/img/loading.gif" alt><br>就连去官网下载正式版的app也提示安装包可能已经损坏，所以询问同事，告知有可能是卸载不完全，可以看看是否卸载完全，或者用adb去彻底删除它，程序在手机上已经用常规的删除方法卸载了，无法确认是否卸载完全，所以决定动用adb，使用adb的过程如下：</p>
+              <p>昨天遇到一个很奇怪的问题，在运行程序时，我的小米手机可以正常跑起来，但是某一台LG测试机却提示缺少 WelcomeAcitivity，如下图所示：</p>
+<!-- ![](https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/APK%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/APK%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-%E7%BC%BA%E5%B0%91WelcomeActivity%E9%94%99%E8%AF%AF.png) -->
+<p>图片需要更换</p>
+<p>就连去官网下载正式版的app也提示安装包可能已经损坏，所以询问同事，告知有可能是卸载不完全，可以看看是否卸载完全，或者用adb去彻底删除它，程序在手机上已经用常规的删除方法卸载了，无法确认是否卸载完全，所以决定动用adb，使用adb的过程如下：</p>
 <ol>
 <li><p>首先确认已经配置好adb，并且你的Android设备可以被你的电脑识别，可以通过输入命令<code>adb devices</code>来进行测试是否安装好了adb，如果没有，则可以通过Homebrew安装：</p>
  <pre><code class="hljs bash">brew cask install android-platform-tools</code></pre>
