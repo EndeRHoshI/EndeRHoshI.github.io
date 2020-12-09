@@ -485,9 +485,9 @@ rebel.xml&lt;/code&gt;&lt;/pre&gt;
       <category term="日常查阅" scheme="http://yoursite.com/categories/%E6%97%A5%E5%B8%B8%E6%9F%A5%E9%98%85/"/>
     
     
-      <category term="git" scheme="http://yoursite.com/tags/git/"/>
-    
       <category term="Mac" scheme="http://yoursite.com/tags/Mac/"/>
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
     
   </entry>
   
