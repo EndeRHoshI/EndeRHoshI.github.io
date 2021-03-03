@@ -1,47 +1,66 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content>
+  
+    <meta name="description" content="今天在开发过程中，看到测试的bug反馈中有一条挺有趣的，就是当用户发出很细很长的图片时，无法加载出那个细长图片，为什么说细长图片，而不直接说长图呢，接下来分享下这个bug的解决流程
+以下就是今天看到的诡异bug
+
+图片需要替换
+可以看到，这个用户发了一条很长很长的图片，在安卓端显示的时候是空白的，但是在iOS端则是正常的，由此可以推断，后台返回给我们的数据应该是正常的，我验证了一下，在postma">
+  
   <meta name="author" content="HoshIlIlI">
   <meta name="keywords" content>
+  
   <title>Glide无法加载细长图片解决方法 - HoshI-blog</title>
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
   <link rel="stylesheet" href="/lib/hint/hint.min.css">
 
   
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css">
+    
   
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null},"tajs":null}};
+  </script>
   <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -136,8 +155,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +170,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Glide无法加载细长图片解决方法">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2018-11-08 22:01">
-      2018年11月8日 晚上
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-11-08 22:01" pubdate>
+        2018年11月8日 晚上
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -202,15 +230,17 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Glide无法加载细长图片解决方法</h1>
             
-            <article class="markdown-body">
+            <div class="markdown-body">
               <p>今天在开发过程中，看到测试的bug反馈中有一条挺有趣的，就是当用户发出很细很长的图片时，无法加载出那个细长图片，为什么说细长图片，而不直接说长图呢，接下来分享下这个bug的解决流程</p>
 <p>以下就是今天看到的诡异bug</p>
 <!--![](https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-bug%E5%8F%8D%E9%A6%88.png)-->
@@ -220,39 +250,7 @@
 <p>明明就是实实在在存在的图像，怎么显示空白呢，同事之前遇到过一个无法显示长图的情况，那是因为图片的宽或者高超过了手机的限制，所以导致无法正常显示图片，解决的方案是载入图像时分段载入，就不会出现不显示图片的情况。但是我这里的两张图，一张顶多也就5000，而缩略图更加诡异，明明只有408的高度，却显示不出来了，这就奇怪得很了，继续看看是什么原因</p>
 <a id="more"></a>
 <p>我依稀记得这个不是普通的写死宽高的ImageView，也不是普通的match_parent，wrap_content之类的，于是去看了一下，果然，用的是一个重写的自适应高宽高比的自定义View，逻辑如下：</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AdaptiveImageView</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> </span>&#123;
-  <span class="hljs-keyword">super</span>(context, attrs);
-  maxSize = (<span class="hljs-keyword">int</span>) context.obtainStyledAttributes(attrs, R.styleable.AdaptiveImageView).
-  getDimension(R.styleable.AdaptiveImageView_maxSize, <span class="hljs-number">720</span>);
-&#125;
-
-<span class="hljs-comment">/**
-* 通过maxSize 的最大宽高，自动适应高宽高
-* <span class="hljs-doctag">@param</span> uri 图片的uri
-*/</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">loadUri</span><span class="hljs-params">(String uri, LoadOptions loadOptions)</span> </span>&#123;
-  ImageLoaderManager.INSTANCE.loadUri(<span class="hljs-keyword">this</span>, uri, loadOptions, <span class="hljs-keyword">new</span> ImageInfoCallback() &#123;
-  <span class="hljs-meta">@Override</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onFailed</span><span class="hljs-params">()</span> </span>&#123;&#125;
-
-  <span class="hljs-meta">@Override</span>
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSuccess</span><span class="hljs-params">(ImageSize imageSize)</span> </span>&#123;
-    <span class="hljs-keyword">float</span> originHeight = imageSize.getHeight();
-    <span class="hljs-keyword">float</span> originWidth = imageSize.getWidth();
-    <span class="hljs-keyword">float</span> adaptiveHeight, adaptiveWidth;
-    <span class="hljs-keyword">if</span> (originWidth &gt; originHeight) &#123;
-      adaptiveWidth = maxSize;
-      adaptiveHeight = originHeight * ((<span class="hljs-keyword">float</span>) maxSize / originWidth);
-
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      adaptiveHeight = maxSize;
-      adaptiveWidth = originWidth * ((<span class="hljs-keyword">float</span>) maxSize / originHeight);
-    &#125;
-
-    ImageTools.INSTANCE.resizeView(AdaptiveImageView.<span class="hljs-keyword">this</span>, (<span class="hljs-keyword">int</span>)adaptiveWidth, (<span class="hljs-keyword">int</span>)adaptiveHeight);
-    &#125;
-  &#125;);
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AdaptiveImageView</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> </span>&#123;<br>  <span class="hljs-keyword">super</span>(context, attrs);<br>  maxSize = (<span class="hljs-keyword">int</span>) context.obtainStyledAttributes(attrs, R.styleable.AdaptiveImageView).<br>  getDimension(R.styleable.AdaptiveImageView_maxSize, <span class="hljs-number">720</span>);<br>&#125;<br><br><span class="hljs-comment">/**<br>* 通过maxSize 的最大宽高，自动适应高宽高<br>* <span class="hljs-doctag">@param</span> uri 图片的uri<br>*/</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">loadUri</span><span class="hljs-params">(String uri, LoadOptions loadOptions)</span> </span>&#123;<br>  ImageLoaderManager.INSTANCE.loadUri(<span class="hljs-keyword">this</span>, uri, loadOptions, <span class="hljs-keyword">new</span> ImageInfoCallback() &#123;<br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onFailed</span><span class="hljs-params">()</span> </span>&#123;&#125;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSuccess</span><span class="hljs-params">(ImageSize imageSize)</span> </span>&#123;<br>    <span class="hljs-keyword">float</span> originHeight = imageSize.getHeight();<br>    <span class="hljs-keyword">float</span> originWidth = imageSize.getWidth();<br>    <span class="hljs-keyword">float</span> adaptiveHeight, adaptiveWidth;<br>    <span class="hljs-keyword">if</span> (originWidth &gt; originHeight) &#123;<br>      adaptiveWidth = maxSize;<br>      adaptiveHeight = originHeight * ((<span class="hljs-keyword">float</span>) maxSize / originWidth);<br><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      adaptiveHeight = maxSize;<br>      adaptiveWidth = originWidth * ((<span class="hljs-keyword">float</span>) maxSize / originHeight);<br>    &#125;<br><br>    ImageTools.INSTANCE.resizeView(AdaptiveImageView.<span class="hljs-keyword">this</span>, (<span class="hljs-keyword">int</span>)adaptiveWidth, (<span class="hljs-keyword">int</span>)adaptiveHeight);<br>    &#125;<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>那么可以看到，这个View是经过resizeView，按照赋予它的最大宽高计算过后，再重新设定宽高的，我把这个控件重新设置后的宽高输出如下：</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E9%87%8D%E6%96%B0%E8%AE%BE%E7%BD%AE%E5%AE%BD%E9%AB%98%E7%9A%84ImageView.png" srcset="/img/loading.gif" alt></p>
 <p>明明Width就是7.35，应该可以正常显示才是，我打开手机的开发者选项中的显示布局和边距模式，也可以看到确实是存在一个很细的ImageView的，但是图片却不显示出来，所以说问题也不出现在这个自适应高宽高的View上</p>
@@ -281,70 +279,12 @@
 <p>所以我的大致理解如下：给这个Target设置一个泛型，然后它会返回给你这个泛型的对象，你就可以拿这个返回的对象去处理一些事情了，而项目中返回的是ImageView，返回的resource是Drawable，我们就可以将Drawable给set到ImageView中了</p>
 <p>然而就是在这里，使用细长图片的时候，调用的回调并不是onResourceLoading，而是onLoadFailed，说明图片加载出了错误，而onLoadFailed中并不会取得抛出的错误，那么就在Glide的builder中再加一条.listener()方法，去获取它的详细的报错信息</p>
 <p>整个完整的小demo如下所示</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppCompatActivity</span> </span>&#123;
-
-  <span class="hljs-meta">@Override</span>
-  <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>&#123;
-    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-
-    ImageView imageView = findViewById(R.id.iv_test);
-    RequestOptions requestOptions = <span class="hljs-keyword">new</span> RequestOptions();
-
-    <span class="hljs-comment">//requestOptions.override(80, 80);//设置width和height后可以正常显示</span>
-
-    <span class="hljs-comment">//requestOptions.signature(new ObjectKey(System.currentTimeMillis())); //网上说的缓存问题解决方案，并没有作用</span>
-
-    <span class="hljs-comment">//自己制作的细长图片https://github.com/EndeRHoshI/Photo/blob/master/blog/Glide/%E7%BB%86%E9%95%BF%E5%9B%BE%E6%A1%88.png?raw=true</span>
-    <span class="hljs-comment">//原图 https://static.aicoinstorge.com/talk/18-11-07/100518-cdc-166.jpeg</span>
-    <span class="hljs-comment">//缩略图 https://static.aicoinstorge.com/talk/18-11-07/100518-cdc-166.jpeg?x-oss-process=image/resize,m_mfit,h_408,w_4</span>
-    <span class="hljs-comment">//平时的普通图片 https://static.aicoinstorge.com/talk/18-11-08/082142-569-179.jpeg?x-oss-process=image/resize,m_mfit,h_408,w_176</span>
-    <span class="hljs-comment">//平时的普通图片 http://oz5ak1kvp.bkt.clouddn.com/cms_liuhua/user/img1516646371.jpg</span>
-
-    <span class="hljs-comment">//into的参数使用imageView可以正常使用，问题出在不设置宽高的 target —— CustomViewTarget 上</span>
-    Glide.with(imageView)
-        .load(<span class="hljs-string">"https://static.aicoinstorge.com/talk/18-11-07/100518-cdc-166.jpeg"</span>)
-        .apply(requestOptions)
-        .listener(<span class="hljs-keyword">new</span> RequestListener&lt;Drawable&gt;() &#123;
-          <span class="hljs-meta">@Override</span>
-          <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onLoadFailed</span><span class="hljs-params">(@Nullable GlideException e, Object model, Target&lt;Drawable&gt; target, <span class="hljs-keyword">boolean</span> isFirstResource)</span> </span>&#123;
-            <span class="hljs-keyword">if</span> (e != <span class="hljs-keyword">null</span>) &#123;
-              e.printStackTrace();
-              e.logRootCauses(<span class="hljs-string">"root-lvqx"</span>);
-              Log.d(<span class="hljs-string">"lvqx-causes"</span>,<span class="hljs-string">"\nMessage----&gt;"</span> + e.getMessage() + <span class="hljs-string">"\nCauses----&gt;"</span> + e.getCauses());
-            &#125;
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-          &#125;
-
-          <span class="hljs-meta">@Override</span>
-          <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onResourceReady</span><span class="hljs-params">(Drawable resource, Object model, 
-              Target&lt;Drawable&gt; target, DataSource dataSource, <span class="hljs-keyword">boolean</span> isFirstResource)</span> </span>&#123;
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-          &#125;
-        &#125;)
-        .into(<span class="hljs-keyword">new</span> CustomViewTarget&lt;ImageView, Drawable&gt;(imageView) &#123;
-      <span class="hljs-meta">@Override</span>
-      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onLoadFailed</span><span class="hljs-params">(@Nullable Drawable errorDrawable)</span> </span>&#123;
-        Log.d(<span class="hljs-string">"glide-test"</span>, <span class="hljs-string">"fail"</span>);<span class="hljs-comment">//Options不设置宽高，设置CustomViewTarget，且图片过于细长的时候，会加载失败回调该方法</span>
-      &#125;
-
-      <span class="hljs-meta">@Override</span>
-      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResourceReady</span><span class="hljs-params">(@NonNull Drawable resource, @Nullable Transition&lt;? <span class="hljs-keyword">super</span> Drawable&gt; transition)</span> </span>&#123;
-        view.setImageDrawable(resource);
-      &#125;
-
-      <span class="hljs-meta">@Override</span>
-      <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResourceCleared</span><span class="hljs-params">(@Nullable Drawable placeholder)</span> </span>&#123;
-        Log.d(<span class="hljs-string">"glide-test"</span>, <span class="hljs-string">"cleared"</span>);
-      &#125;
-    &#125;);
-  &#125;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppCompatActivity</span> </span>&#123;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>&#123;<br>    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);<br>    setContentView(R.layout.activity_main);<br><br>    ImageView imageView = findViewById(R.id.iv_test);<br>    RequestOptions requestOptions = <span class="hljs-keyword">new</span> RequestOptions();<br><br>    <span class="hljs-comment">//requestOptions.override(80, 80);//设置width和height后可以正常显示</span><br><br>    <span class="hljs-comment">//requestOptions.signature(new ObjectKey(System.currentTimeMillis())); //网上说的缓存问题解决方案，并没有作用</span><br><br>    <span class="hljs-comment">//自己制作的细长图片https://github.com/EndeRHoshI/Photo/blob/master/blog/Glide/%E7%BB%86%E9%95%BF%E5%9B%BE%E6%A1%88.png?raw=true</span><br>    <span class="hljs-comment">//原图 https://static.aicoinstorge.com/talk/18-11-07/100518-cdc-166.jpeg</span><br>    <span class="hljs-comment">//缩略图 https://static.aicoinstorge.com/talk/18-11-07/100518-cdc-166.jpeg?x-oss-process=image/resize,m_mfit,h_408,w_4</span><br>    <span class="hljs-comment">//平时的普通图片 https://static.aicoinstorge.com/talk/18-11-08/082142-569-179.jpeg?x-oss-process=image/resize,m_mfit,h_408,w_176</span><br>    <span class="hljs-comment">//平时的普通图片 http://oz5ak1kvp.bkt.clouddn.com/cms_liuhua/user/img1516646371.jpg</span><br><br>    <span class="hljs-comment">//into的参数使用imageView可以正常使用，问题出在不设置宽高的 target —— CustomViewTarget 上</span><br>    Glide.with(imageView)<br>        .load(<span class="hljs-string">"https://static.aicoinstorge.com/talk/18-11-07/100518-cdc-166.jpeg"</span>)<br>        .apply(requestOptions)<br>        .listener(<span class="hljs-keyword">new</span> RequestListener&lt;Drawable&gt;() &#123;<br>          <span class="hljs-meta">@Override</span><br>          <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onLoadFailed</span><span class="hljs-params">(@Nullable GlideException e, Object model, Target&lt;Drawable&gt; target, <span class="hljs-keyword">boolean</span> isFirstResource)</span> </span>&#123;<br>            <span class="hljs-keyword">if</span> (e != <span class="hljs-keyword">null</span>) &#123;<br>              e.printStackTrace();<br>              e.logRootCauses(<span class="hljs-string">"root-lvqx"</span>);<br>              Log.d(<span class="hljs-string">"lvqx-causes"</span>,<span class="hljs-string">"\nMessage----&gt;"</span> + e.getMessage() + <span class="hljs-string">"\nCauses----&gt;"</span> + e.getCauses());<br>            &#125;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>          &#125;<br><br>          <span class="hljs-meta">@Override</span><br>          <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onResourceReady</span><span class="hljs-params">(Drawable resource, Object model, <br>              Target&lt;Drawable&gt; target, DataSource dataSource, <span class="hljs-keyword">boolean</span> isFirstResource)</span> </span>&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>          &#125;<br>        &#125;)<br>        .into(<span class="hljs-keyword">new</span> CustomViewTarget&lt;ImageView, Drawable&gt;(imageView) &#123;<br>      <span class="hljs-meta">@Override</span><br>      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onLoadFailed</span><span class="hljs-params">(@Nullable Drawable errorDrawable)</span> </span>&#123;<br>        Log.d(<span class="hljs-string">"glide-test"</span>, <span class="hljs-string">"fail"</span>);<span class="hljs-comment">//Options不设置宽高，设置CustomViewTarget，且图片过于细长的时候，会加载失败回调该方法</span><br>      &#125;<br><br>      <span class="hljs-meta">@Override</span><br>      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResourceReady</span><span class="hljs-params">(@NonNull Drawable resource, @Nullable Transition&lt;? <span class="hljs-keyword">super</span> Drawable&gt; transition)</span> </span>&#123;<br>        view.setImageDrawable(resource);<br>      &#125;<br><br>      <span class="hljs-meta">@Override</span><br>      <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResourceCleared</span><span class="hljs-params">(@Nullable Drawable placeholder)</span> </span>&#123;<br>        Log.d(<span class="hljs-string">"glide-test"</span>, <span class="hljs-string">"cleared"</span>);<br>      &#125;<br>    &#125;);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>获得的完整报错信息如下：<img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E5%AE%8C%E6%95%B4%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF.png" srcset="/img/loading.gif" alt></p>
 <p>接下来我在e.logRootCauses方法输出的信息中找到了抛出这个GlideException的地方，就是setDataSource方法，这个setDataSource方法在Glide的VideoDecoder类中的decode方法中调用，具体抛出异常的地方如下：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-VideoDecoder%E7%B1%BB.png" srcset="/img/loading.gif" alt></p>
 <p>在其中的296行中的setDataSource方法抛出</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-setDataSource.png" srcset="/img/loading.gif" alt></p>
-<p>错误的描述是<br><pre><code class="hljs bash">Caused by: java.lang.RuntimeException: setDataSource failed: status = 0x80000000</code></pre></p>
+<p>错误的描述是<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Caused by: java.lang.RuntimeException: setDataSource failed: status = 0x80000000<br></code></pre></td></tr></table></figure></p>
 <p>查到的结果是说，这个错误的意思是因为文件不完整，已损坏等等原因而读取错误</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide加载细长图片异常/Glide加载细长图片异常-stackoverflow解释.png" srcset="/img/loading.gif" alt></p>
 <p>好了，那现在项目框架选择了使用Glide来加载图片，又封装好了特定的库去调用Glide，无法修改其中内容，每当加载到这种奇葩细长图片的时候就无法显示，而且也不是之前同事遇到的超长图片的问题（图片的宽高远远没有达到手机限制的最大宽高，所以这个根本不是尺寸长短的问题，而是宽高比的问题，不能称之为长图加载失败，而是细长图加载失败….），那么到底要怎样解决呢</p>
@@ -363,7 +303,7 @@
 </ol>
 <p>如果以后技术深入到了这个程度，也有这样的闲情逸致再去研究，再接着更新</p>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -389,11 +329,15 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/2018/11/14/Android字体使用探索/">
@@ -402,8 +346,8 @@
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/2018/10/08/AS下载插件和Parcelable接口/">
@@ -412,13 +356,13 @@
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -430,16 +374,15 @@
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -460,33 +403,41 @@
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
 
     
+  </main>
 
-    
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
@@ -497,78 +448,51 @@
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
 
 
 
 
 
 
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "Glide无法加载细长图片解决方法&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
   </script>
 
 
@@ -585,8 +509,8 @@
 
 
 
-
-
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

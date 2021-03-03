@@ -1,47 +1,66 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content>
+  
+    <meta name="description" content="前言之前开发时有使用到 TextView 或者绘图画文字的时候，并不会太在意文字的字体，因为设计给出的设计图都是比较普通的字体，今天在做一个新页面的时候，看到设计图中有部分地方的字体是不一样的，所以开始摸索下要怎样使用Android里的字体
+官方文档查阅官方的文档可以看到下面的信息
+
+XML中的字体
+Android 8.0（API级别26）引入了一项新功能，即XML中的字体，它允许您将字体用作资源">
+  
   <meta name="author" content="HoshIlIlI">
   <meta name="keywords" content>
+  
   <title>Android字体使用探索 - HoshI-blog</title>
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
   <link rel="stylesheet" href="/lib/hint/hint.min.css">
 
   
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css">
+    
   
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null},"tajs":null}};
+  </script>
   <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -136,8 +155,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +170,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Android字体使用探索">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2018-11-14 21:16">
-      2018年11月14日 晚上
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-11-14 21:16" pubdate>
+        2018年11月14日 晚上
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -202,15 +230,17 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Android字体使用探索</h1>
             
-            <article class="markdown-body">
+            <div class="markdown-body">
               <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前开发时有使用到 TextView 或者绘图画文字的时候，并不会太在意文字的字体，因为设计给出的设计图都是比较普通的字体，今天在做一个新页面的时候，看到设计图中有部分地方的字体是不一样的，所以开始摸索下要怎样使用Android里的字体</p>
 <h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><p>查阅<a href="https://developer.android.com/guide/topics/ui/look-and-feel/fonts-in-xml" target="_blank" rel="noopener">官方的文档</a>可以看到下面的信息</p>
 <blockquote>
@@ -232,107 +262,26 @@
 </ol>
 <p>而项目里的字体资源文件放置在assets目录下：</p>
 <p>" srcset="/img/loading.gif<img src alt><br>图片需要替换<br><!--https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9B%AE%E5%BD%95.png--></p>
-<p>然后调用<br><pre><code class="hljs kotlin">TypefaceManager 初始化...
-
-<span class="hljs-comment">// TypefaceManager 中</span>
-const <span class="hljs-keyword">val</span> PRICE_TEXT_THIN = <span class="hljs-string">"fonts/DIN-Regular.otf"</span>
-const <span class="hljs-keyword">val</span> PRICE_TEXT_BOLD = <span class="hljs-string">"fonts/DIN-Bold.otf"</span>
-const <span class="hljs-keyword">val</span> PRICE_TEXT_MEDIUM = <span class="hljs-string">"fonts/DIN-Medium.otf"</span></code></pre></p>
+<p>然后调用<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">TypefaceManager 初始化...<br><br><span class="hljs-comment">// TypefaceManager 中</span><br>const <span class="hljs-keyword">val</span> PRICE_TEXT_THIN = <span class="hljs-string">"fonts/DIN-Regular.otf"</span><br>const <span class="hljs-keyword">val</span> PRICE_TEXT_BOLD = <span class="hljs-string">"fonts/DIN-Bold.otf"</span><br>const <span class="hljs-keyword">val</span> PRICE_TEXT_MEDIUM = <span class="hljs-string">"fonts/DIN-Medium.otf"</span><br></code></pre></td></tr></table></figure></p>
 <p>来进行使用，估计是版本兼容会更好，暂时还没深究原因</p>
 <p>双击放进去的字体资源文件就可以查看字体的预览：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%AD%97%E4%BD%93%E9%A2%84%E8%A7%881.png" srcset="/img/loading.gif" alt></p>
 <ol start="3">
-<li>然后就可以通过xml或者Java去设置字体<pre><code class="hljs java"><span class="hljs-comment">//xml</span>
-android:fontFamily=<span class="hljs-string">"@font/merriweather_regular"</span>
-
-<span class="hljs-comment">//java</span>
-Typeface typefaceLato = getResources().getFont(R.font.lato_regular);
-mTextIntro.setTypeface(typefaceLato);</code></pre>
+<li>然后就可以通过xml或者Java去设置字体<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//xml</span><br>android:fontFamily=<span class="hljs-string">"@font/merriweather_regular"</span><br><br><span class="hljs-comment">//java</span><br>Typeface typefaceLato = getResources().getFont(R.font.lato_regular);<br>mTextIntro.setTypeface(typefaceLato);<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>画文字的时候使用paint来设置字体，会有一些差别，暂时我还没怎么遇到，可以查看附在文末的相关文章</p>
-<p>也可以指定一个基本的字体样式，如粗体，斜体或两者的组合<br><pre><code class="hljs java">mTextIntro.setTypeface(typefaceLato，Typeface.BOLD_ITALIC);</code></pre></p>
+<p>也可以指定一个基本的字体样式，如粗体，斜体或两者的组合<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">mTextIntro.setTypeface(typefaceLato，Typeface.BOLD_ITALIC);<br></code></pre></td></tr></table></figure></p>
 <p>如果使用的是字体系列，则会有相同的字体，权重不同有不同的效果</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%AD%97%E4%BD%93%E6%9D%83%E9%87%8D.png" srcset="/img/loading.gif" alt></p>
 <p>这里的权重可以去<a href="https://fonts.google.com/" target="_blank" rel="noopener">谷歌字体官方网站</a>去查看，当你在官网选中了想要的字体之后，从下方的Your Selection中可以选择你要下载的字体，而旁边就有字体的权重，选择了相应权重后，右边会提示载入时间，当你选择过多的时候就会变成Slow而不是Fast</p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E8%B0%B7%E6%AD%8C%E5%AD%97%E4%BD%93%E6%9D%83%E9%87%8D.png" srcset="/img/loading.gif" alt></p>
 <p>值得注意的是，假设我正在使用Merriweather-Regular。如果将字体样式设为粗体Bold，Android将从我的字体系列中选择Merriweather-Bold，并显示出来</p>
 <p>然后我也找到些stackoverflow上关于字体的问答，是关于预定义的，即系统中本来就有的一些字体的内容，如下：</p>
-<p>From android 4.1 / 4.2 / 5.0, the following Roboto font families are available:<br><pre><code class="hljs kotlin">android:fontFamily=<span class="hljs-string">"sans-serif"</span>           <span class="hljs-comment">// roboto regular</span>
-android:fontFamily=<span class="hljs-string">"sans-serif-light"</span>     <span class="hljs-comment">// roboto light</span>
-android:fontFamily=<span class="hljs-string">"sans-serif-condensed"</span> <span class="hljs-comment">// roboto condensed</span>
-android:fontFamily=<span class="hljs-string">"sans-serif-black"</span>     <span class="hljs-comment">// roboto black</span>
-android:fontFamily=<span class="hljs-string">"sans-serif-thin"</span>      <span class="hljs-comment">// roboto thin (android 4.2)</span>
-android:fontFamily=<span class="hljs-string">"sans-serif-medium"</span>    <span class="hljs-comment">// roboto medium (android 5.0)</span></code></pre></p>
+<p>From android 4.1 / 4.2 / 5.0, the following Roboto font families are available:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">android:fontFamily=<span class="hljs-string">"sans-serif"</span>           <span class="hljs-comment">// roboto regular</span><br>android:fontFamily=<span class="hljs-string">"sans-serif-light"</span>     <span class="hljs-comment">// roboto light</span><br>android:fontFamily=<span class="hljs-string">"sans-serif-condensed"</span> <span class="hljs-comment">// roboto condensed</span><br>android:fontFamily=<span class="hljs-string">"sans-serif-black"</span>     <span class="hljs-comment">// roboto black</span><br>android:fontFamily=<span class="hljs-string">"sans-serif-thin"</span>      <span class="hljs-comment">// roboto thin (android 4.2)</span><br>android:fontFamily=<span class="hljs-string">"sans-serif-medium"</span>    <span class="hljs-comment">// roboto medium (android 5.0)</span><br></code></pre></td></tr></table></figure></p>
 <p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/Android%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2-%E5%AD%97%E4%BD%93%E9%A2%84%E8%A7%882.png" srcset="/img/loading.gif" alt></p>
-<p>配合使用<br><pre><code class="hljs kotlin">android:textStyle=<span class="hljs-string">"normal|bold|italic"</span></code></pre></p>
+<p>配合使用<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">android:textStyle=<span class="hljs-string">"normal|bold|italic"</span><br></code></pre></td></tr></table></figure></p>
 <p>this 16 variants are possible:（有16种可用的变体）</p>
-<pre><code class="hljs xml">Added in Android Jelly Bean (4.1) - API 16 :
-Regular (default):
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span> 
-
-Italic:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Bold:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>bold<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Bold-italic:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>bold|italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Light:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-light<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Light-italic:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-light<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Thin :
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-thin<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Thin-italic :
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-thin<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Condensed regular:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Condensed italic:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Condensed bold:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>bold<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Condensed bold-italic:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>bold|italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Added in Android Lollipop (v5.0) - API 21 :
-Medium:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-medium<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Medium-italic:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-medium<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-Black:
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-black<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-
-<span class="hljs-comment">&lt;!-- 将字体封进style中 --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"customfontstyle"</span> <span class="hljs-attr">parent</span>=<span class="hljs-string">"@android:style/TextAppearance.Small"</span>&gt;</span><span class="xml">
-    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>@font/lobster<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs xml">Added in Android Jelly Bean (4.1) - API 16 :<br>Regular (default):<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span> <br><br>Italic:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Bold:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>bold<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Bold-italic:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>bold|italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Light:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-light<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Light-italic:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-light<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Thin :<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-thin<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Thin-italic :<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-thin<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Condensed regular:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Condensed italic:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Condensed bold:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>bold<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Condensed bold-italic:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>bold|italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Added in Android Lollipop (v5.0) - API 21 :<br>Medium:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-medium<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Medium-italic:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-medium<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br>Black:<br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>sans-serif-black<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>italic<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 将字体封进style中 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"customfontstyle"</span> <span class="hljs-attr">parent</span>=<span class="hljs-string">"@android:style/TextAppearance.Small"</span>&gt;</span><span class="xml"><br>    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:fontFamily"</span>&gt;</span>@font/lobster<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:textStyle"</span>&gt;</span>normal<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>除此之外，还可以创建自己的字体系列，步骤如下：</p>
 <ul>
 <li><p>右键单击字体文件夹，然后转到“ 新建”&gt;“字体资源文件”。将出现“新建资源文件”窗口。</p>
@@ -340,38 +289,13 @@ Black:
 <li><p>输入文件名，然后单击“ 确定”。新的字体资源XML在编辑器中打开。</p>
 </li>
 </ul>
-<p>然后编写自己的字体系列，那么这里就用到权重了<br><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">font-family</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">font</span>
-        <span class="hljs-attr">android:fontStyle</span>=<span class="hljs-string">"normal"</span>
-        <span class="hljs-attr">android:fontWeight</span>=<span class="hljs-string">"400"</span>
-        <span class="hljs-attr">android:font</span>=<span class="hljs-string">"@font/lobster_regular"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">font</span>
-        <span class="hljs-attr">android:fontStyle</span>=<span class="hljs-string">"italic"</span>
-        <span class="hljs-attr">android:fontWeight</span>=<span class="hljs-string">"400"</span>
-        <span class="hljs-attr">android:font</span>=<span class="hljs-string">"@font/lobster_italic"</span> /&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">font-family</span>&gt;</span></code></pre></p>
+<p>然后编写自己的字体系列，那么这里就用到权重了<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">font-family</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">font</span><br>        <span class="hljs-attr">android:fontStyle</span>=<span class="hljs-string">"normal"</span><br>        <span class="hljs-attr">android:fontWeight</span>=<span class="hljs-string">"400"</span><br>        <span class="hljs-attr">android:font</span>=<span class="hljs-string">"@font/lobster_regular"</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">font</span><br>        <span class="hljs-attr">android:fontStyle</span>=<span class="hljs-string">"italic"</span><br>        <span class="hljs-attr">android:fontWeight</span>=<span class="hljs-string">"400"</span><br>        <span class="hljs-attr">android:font</span>=<span class="hljs-string">"@font/lobster_italic"</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">font-family</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
 <p>这只是将特定fontStyle和fontWeight映射到将用于呈现该特定变体的字体资源。fontStyle的有效值是normal、italic或bold， 而fontWeight需要符合<a href="https://www.w3.org/TR/css-fonts-3/#font-weight-numeric-values" target="_blank" rel="noopener">CSS font-weight规范</a></p>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>注意：通过支持库在XML布局中声明字体系列时，请使用app命名空间来确保加载字体。（谷歌官方文档）</p>
 <p>注意：从Android Support Library 26.0开始，您必须声明两组属性（android:和app:)，以确保在运行Api 26或更低版本的设备上加载字体。如下所示（stackoverflow）</p>
-<pre><code class="hljs xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-  <span class="hljs-tag">&lt;<span class="hljs-name">font-family</span> 
-  <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>
-  <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">android:fontStyle</span>=<span class="hljs-string">"normal"</span> <span class="hljs-attr">android:fontWeight</span>=<span class="hljs-string">"400"</span> <span class="hljs-attr">android:font</span>=<span class="hljs-string">"@font/myfont-Regular"</span>
-          <span class="hljs-attr">app:fontStyle</span>=<span class="hljs-string">"normal"</span> <span class="hljs-attr">app:fontWeight</span>=<span class="hljs-string">"400"</span> <span class="hljs-attr">app:font</span>=<span class="hljs-string">"@font/myfont-Regular"</span>/&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">android:fontStyle</span>=<span class="hljs-string">"italic"</span> <span class="hljs-attr">android:fontWeight</span>=<span class="hljs-string">"400"</span> <span class="hljs-attr">android:font</span>=<span class="hljs-string">"@font/myfont-Italic"</span>
-          <span class="hljs-attr">app:fontStyle</span>=<span class="hljs-string">"italic"</span> <span class="hljs-attr">app:fontWeight</span>=<span class="hljs-string">"400"</span> <span class="hljs-attr">app:font</span>=<span class="hljs-string">"@font/myfont-Italic"</span> /&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">font-family</span>&gt;</span></code></pre>
-<h4 id="系统字体的位置"><a href="#系统字体的位置" class="headerlink" title="系统字体的位置"></a>系统字体的位置</h4><pre><code class="hljs undefined">D:<span class="hljs-symbol">\A</span>ndroid<span class="hljs-symbol">\s</span>dk<span class="hljs-symbol">\p</span>latforms<span class="hljs-symbol">\a</span>ndroid-N<span class="hljs-symbol">\d</span>ata<span class="hljs-symbol">\f</span>onts</code></pre>
-<p>fonts.xml里还可以配置字体的别名<br><pre><code class="hljs xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"utf-8"</span><span class="hljs-meta">?&gt;</span></span>
-<span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_light"</span>&gt;</span>sans-serif-light<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_medium"</span>&gt;</span>sans-serif-medium<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_regular"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_condensed"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_black"</span>&gt;</span>sans-serif-black<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_thin"</span>&gt;</span>sans-serif-thin<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span></code></pre></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;<br>  <span class="hljs-tag">&lt;<span class="hljs-name">font-family</span> <br>  <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span><br>  <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">android:fontStyle</span>=<span class="hljs-string">"normal"</span> <span class="hljs-attr">android:fontWeight</span>=<span class="hljs-string">"400"</span> <span class="hljs-attr">android:font</span>=<span class="hljs-string">"@font/myfont-Regular"</span><br>          <span class="hljs-attr">app:fontStyle</span>=<span class="hljs-string">"normal"</span> <span class="hljs-attr">app:fontWeight</span>=<span class="hljs-string">"400"</span> <span class="hljs-attr">app:font</span>=<span class="hljs-string">"@font/myfont-Regular"</span>/&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">android:fontStyle</span>=<span class="hljs-string">"italic"</span> <span class="hljs-attr">android:fontWeight</span>=<span class="hljs-string">"400"</span> <span class="hljs-attr">android:font</span>=<span class="hljs-string">"@font/myfont-Italic"</span><br>          <span class="hljs-attr">app:fontStyle</span>=<span class="hljs-string">"italic"</span> <span class="hljs-attr">app:fontWeight</span>=<span class="hljs-string">"400"</span> <span class="hljs-attr">app:font</span>=<span class="hljs-string">"@font/myfont-Italic"</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">font-family</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h4 id="系统字体的位置"><a href="#系统字体的位置" class="headerlink" title="系统字体的位置"></a>系统字体的位置</h4><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined">D:<span class="hljs-symbol">\A</span>ndroid<span class="hljs-symbol">\s</span>dk<span class="hljs-symbol">\p</span>latforms<span class="hljs-symbol">\a</span>ndroid-N<span class="hljs-symbol">\d</span>ata<span class="hljs-symbol">\f</span>onts<br></code></pre></td></tr></table></figure>
+<p>fonts.xml里还可以配置字体的别名<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"utf-8"</span><span class="hljs-meta">?&gt;</span></span><br><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_light"</span>&gt;</span>sans-serif-light<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_medium"</span>&gt;</span>sans-serif-medium<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_regular"</span>&gt;</span>sans-serif<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_condensed"</span>&gt;</span>sans-serif-condensed<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_black"</span>&gt;</span>sans-serif-black<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"font_family_thin"</span>&gt;</span>sans-serif-thin<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
 <h3 id="可下载的字体"><a href="#可下载的字体" class="headerlink" title="可下载的字体"></a>可下载的字体</h3><p>Android 8.0（API级别26）和Android支持库26引入了对API的支持，以便从应用程序请求字体，而不是将文件捆绑到APK或让APK下载字体。该功能可通过支持库26在运行Android API 14及更高版本的设备上使用</p>
 <p>可下载字体功能具有以下优点：</p>
 <ul>
@@ -388,7 +312,7 @@ Black:
 </a></li>
 </ul>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -410,11 +334,15 @@ Black:
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/2018/11/21/自定义View闪退和JvmOverloads注解/">
@@ -423,8 +351,8 @@ Black:
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/2018/11/08/Glide无法加载细长图片解决方法/">
@@ -433,13 +361,13 @@ Black:
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -447,7 +375,7 @@ Black:
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -459,16 +387,15 @@ Black:
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -489,33 +416,41 @@ Black:
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
 
     
+  </main>
 
-    
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
@@ -526,103 +461,53 @@ Black:
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
 
 
 
 
 
 
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: 'article.markdown-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "Android字体使用探索&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
   </script>
 
 
@@ -639,8 +524,8 @@ Black:
 
 
 
-
-
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,47 +1,62 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content>
+  
+    <meta name="description" content>
+  
   <meta name="author" content="HoshIlIlI">
   <meta name="keywords" content>
+  
   <title>两周小记-vol.3 - HoshI-blog</title>
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
   <link rel="stylesheet" href="/lib/hint/hint.min.css">
 
   
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css">
+    
   
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null},"tajs":null}};
+  </script>
   <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -136,8 +151,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +166,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="两周小记-vol.3">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-01-15 10:09">
-      2020年1月15日 上午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-01-15 10:09" pubdate>
+        2020年1月15日 上午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -202,207 +226,52 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">两周小记-vol.3</h1>
             
-            <article class="markdown-body">
+            <div class="markdown-body">
               <p>这个小记主要是记录遇到的一些问题和解决方案，不会太深入地记录问题，尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
-<h2 id="No-1-OkHttp-踩坑，java-lang-IllegalStateException-closed"><a href="#No-1-OkHttp-踩坑，java-lang-IllegalStateException-closed" class="headerlink" title="No.1 OkHttp 踩坑，java.lang.IllegalStateException: closed"></a>No.1 OkHttp 踩坑，java.lang.IllegalStateException: closed</h2><p>在使用 OkHttp 框架处理请求时，容易会有如下写法：<br><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> responseBody = response.body() ?: <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
-Log.d(<span class="hljs-string">"responseBody = "</span> + response.body())</code></pre></p>
-<p>有时候，我们会直接写 response.body()，而不会再创建一个 String 对象，如果能确保只调用一次，这个是没什么问题的，但是如果向上面那样，在 Log 中又调用了一次，或者这个方法被多次调用，而且 response 是同一个，那么就会报如下错误：<br><pre><code class="hljs bash">java.lang.IllegalStateException: closed</code></pre></p>
+<h2 id="No-1-OkHttp-踩坑，java-lang-IllegalStateException-closed"><a href="#No-1-OkHttp-踩坑，java-lang-IllegalStateException-closed" class="headerlink" title="No.1 OkHttp 踩坑，java.lang.IllegalStateException: closed"></a>No.1 OkHttp 踩坑，java.lang.IllegalStateException: closed</h2><p>在使用 OkHttp 框架处理请求时，容易会有如下写法：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> responseBody = response.body() ?: <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span><br>Log.d(<span class="hljs-string">"responseBody = "</span> + response.body())<br></code></pre></td></tr></table></figure></p>
+<p>有时候，我们会直接写 response.body()，而不会再创建一个 String 对象，如果能确保只调用一次，这个是没什么问题的，但是如果向上面那样，在 Log 中又调用了一次，或者这个方法被多次调用，而且 response 是同一个，那么就会报如下错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">java.lang.IllegalStateException: closed<br></code></pre></td></tr></table></figure></p>
 <p>那么为何 response.body().string() 只能调用一次？</p>
 <p>拆解来看，先通过 response.body() 得到 ResponseBody 对象（是一个抽象类，在此我们不需要关心具体的实现类），然后调用 ResponseBody 的 string() 方法得到响应体的内容</p>
 <p>分析后 body() 方法没有问题，我们往下看 string() 方法：</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> String <span class="hljs-title">string</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(bytes(), charset().name());
-&#125;</code></pre>
-<p>很简单，通过指定字符集（charset）将 byte() 方法返回的 byte[] 数组转为 String 对象，构造没有问题，继续往下看 byte() 方法：<br><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">byte</span>[] bytes() <span class="hljs-keyword">throws</span> IOException &#123;
-  <span class="hljs-comment">//...</span>
-  BufferedSource source = source();
-  <span class="hljs-keyword">byte</span>[] bytes;
-  <span class="hljs-keyword">try</span> &#123;
-    bytes = source.readByteArray();
-  &#125; <span class="hljs-keyword">finally</span> &#123;
-    Util.closeQuietly(source);
-  &#125;
-  <span class="hljs-comment">//...</span>
-  <span class="hljs-keyword">return</span> bytes;
-&#125;</code></pre></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> String <span class="hljs-title">string</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String(bytes(), charset().name());<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>很简单，通过指定字符集（charset）将 byte() 方法返回的 byte[] 数组转为 String 对象，构造没有问题，继续往下看 byte() 方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">byte</span>[] bytes() <span class="hljs-keyword">throws</span> IOException &#123;<br>  <span class="hljs-comment">//...</span><br>  BufferedSource source = source();<br>  <span class="hljs-keyword">byte</span>[] bytes;<br>  <span class="hljs-keyword">try</span> &#123;<br>    bytes = source.readByteArray();<br>  &#125; <span class="hljs-keyword">finally</span> &#123;<br>    Util.closeQuietly(source);<br>  &#125;<br>  <span class="hljs-comment">//...</span><br>  <span class="hljs-keyword">return</span> bytes;<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>在 byte() 方法中，通过 BufferedSource 接口对象读取 byte[] 数组并返回，结合上面提到的异常信息 closed，可以注意到 finally 代码块中的 Util.closeQuietly() 方法，就是在执行完后，他会默默地关闭</p>
-<p>再来看看这个方法<br><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">closeQuietly</span><span class="hljs-params">(Closeable closeable)</span> </span>&#123;
-  <span class="hljs-keyword">if</span> (closeable != <span class="hljs-keyword">null</span>) &#123;
-    <span class="hljs-keyword">try</span> &#123;
-      closeable.close();
-    &#125; <span class="hljs-keyword">catch</span> (RuntimeException rethrown) &#123;
-      <span class="hljs-keyword">throw</span> rethrown;
-    &#125; <span class="hljs-keyword">catch</span> (Exception ignored) &#123;
-    &#125;
-  &#125;
-&#125;</code></pre></p>
+<p>再来看看这个方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">closeQuietly</span><span class="hljs-params">(Closeable closeable)</span> </span>&#123;<br>  <span class="hljs-keyword">if</span> (closeable != <span class="hljs-keyword">null</span>) &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      closeable.close();<br>    &#125; <span class="hljs-keyword">catch</span> (RuntimeException rethrown) &#123;<br>      <span class="hljs-keyword">throw</span> rethrown;<br>    &#125; <span class="hljs-keyword">catch</span> (Exception ignored) &#123;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>原来，上面提到的 BufferedSource 接口，根据代码文档注释，可以理解为资源缓冲区，其实现了 Closeable 接口，通过复写 close() 方法来 关闭并释放资源，接着往下看 close() 方法做了什么（在当前场景下，BufferedSource 实现类为 RealBufferedSource）：</p>
-<pre><code class="hljs java"><span class="hljs-comment">//持有的 Source 对象</span>
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> Source source;
-
-<span class="hljs-meta">@Override</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
-  <span class="hljs-keyword">if</span> (closed) <span class="hljs-keyword">return</span>;
-  closed = <span class="hljs-keyword">true</span>;
-  source.close();
-  buffer.clear();
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//持有的 Source 对象</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> Source source;<br><br><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>  <span class="hljs-keyword">if</span> (closed) <span class="hljs-keyword">return</span>;<br>  closed = <span class="hljs-keyword">true</span>;<br>  source.close();<br>  buffer.clear();<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>很明显，通过 source.close() 关闭并释放资源，说到这儿， closeQuietly() 方法的作用就不言而喻了，就是关闭 ResponseBody 子类所持有的 BufferedSource 接口对象</p>
 <p>分析至此，我们恍然大悟：当我们第一次调用 response.body().string() 时，OkHttp 将响应体的缓冲资源返回的同时，调用 closeQuietly() 方法默默释放了资源。</p>
-<p>如此一来，当我们再次调用 string() 方法时，依然回到上面的 byte() 方法，这一次问题就出在了 bytes = source.readByteArray() 这行代码，继续看看 RealBufferedSource 的 readByteArray() 方法：<br><pre><code class="hljs java"><span class="hljs-meta">@Override</span>
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">byte</span>[] readByteArray() <span class="hljs-keyword">throws</span> IOException &#123;
-  buffer.writeAll(source);
-  <span class="hljs-keyword">return</span> buffer.readByteArray();
-&#125;</code></pre></p>
-<p>继续往下看 writeAll() 方法：<br><pre><code class="hljs java"><span class="hljs-meta">@Override</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">writeAll</span><span class="hljs-params">(Source source)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
-    <span class="hljs-comment">//...</span>
-    <span class="hljs-keyword">long</span> totalBytesRead = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">long</span> readCount; (readCount = source.read(<span class="hljs-keyword">this</span>, Segment.SIZE)) != -<span class="hljs-number">1</span>; ) &#123;
-      totalBytesRead += readCount;
-    &#125;
-    <span class="hljs-keyword">return</span> totalBytesRead;
-&#125;</code></pre></p>
-<p>问题出在 for 循环的 source.read() 这儿。还记得在上面分析 close() 方法时，其调用了 source.close() 来关闭并释放资源，那么，再次调用 read() 方法会发生什么呢：<br><pre><code class="hljs java"><span class="hljs-meta">@Override</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">read</span><span class="hljs-params">(Buffer sink, <span class="hljs-keyword">long</span> byteCount)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
-    <span class="hljs-comment">//...</span>
-    <span class="hljs-keyword">if</span> (closed) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"closed"</span>);
-    <span class="hljs-comment">//...</span>
-    <span class="hljs-keyword">return</span> buffer.read(sink, toRead);
-&#125;</code></pre></p>
+<p>如此一来，当我们再次调用 string() 方法时，依然回到上面的 byte() 方法，这一次问题就出在了 bytes = source.readByteArray() 这行代码，继续看看 RealBufferedSource 的 readByteArray() 方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">byte</span>[] readByteArray() <span class="hljs-keyword">throws</span> IOException &#123;<br>  buffer.writeAll(source);<br>  <span class="hljs-keyword">return</span> buffer.readByteArray();<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>继续往下看 writeAll() 方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">writeAll</span><span class="hljs-params">(Source source)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>    <span class="hljs-comment">//...</span><br>    <span class="hljs-keyword">long</span> totalBytesRead = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">long</span> readCount; (readCount = source.read(<span class="hljs-keyword">this</span>, Segment.SIZE)) != -<span class="hljs-number">1</span>; ) &#123;<br>      totalBytesRead += readCount;<br>    &#125;<br>    <span class="hljs-keyword">return</span> totalBytesRead;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>问题出在 for 循环的 source.read() 这儿。还记得在上面分析 close() 方法时，其调用了 source.close() 来关闭并释放资源，那么，再次调用 read() 方法会发生什么呢：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">read</span><span class="hljs-params">(Buffer sink, <span class="hljs-keyword">long</span> byteCount)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>    <span class="hljs-comment">//...</span><br>    <span class="hljs-keyword">if</span> (closed) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"closed"</span>);<br>    <span class="hljs-comment">//...</span><br>    <span class="hljs-keyword">return</span> buffer.read(sink, toRead);<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>所以就抛出了上面所说的异常了，为什么要这么设计呢？因为在实际开发中，响应主体 RessponseBody 持有的资源可能会很大，所以 OkHttp 并不会将其直接保存到内存中，只是持有数据流连接，只有当我们需要时，才会从服务器获取数据并返回。同时，考虑到应用重复读取数据的可能性很小，所以将其设计为一次性流(one-shot)，读取后即“关闭并释放资源”。</p>
 <p>原文：<a href="https://segmentfault.com/a/1190000012740215" target="_blank" rel="noopener">OkHttp踩坑记：为何 response.body().string() 只能调用一次？</a></p>
-<h2 id="No-2-Android-Q-反射失效导致K线图缩放异常"><a href="#No-2-Android-Q-反射失效导致K线图缩放异常" class="headerlink" title="No.2 Android Q 反射失效导致K线图缩放异常"></a>No.2 Android Q 反射失效导致K线图缩放异常</h2><p>在处理一些手势缩放事件时，可以用如下做法：<br><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> <span class="hljs-keyword">val</span> scaleGestureDetector = ScaleGestureDetector(context, ScaleListener())
-<span class="hljs-keyword">private</span> inner <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ScaleListener</span> : <span class="hljs-type">ScaleGestureDetector.SimpleOnScaleGestureListener</span></span>() &#123;
-
-  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onScaleBegin</span><span class="hljs-params">(detector: <span class="hljs-type">ScaleGestureModifyDetector</span>?)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.onScaleBegin(detector)
-    <span class="hljs-comment">// 开始缩放</span>
-  &#125;
-
-  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onScale</span><span class="hljs-params">(detector: <span class="hljs-type">ScaleGestureModifyDetector</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.onScale(detector)
-    <span class="hljs-comment">// 缩放中的处理</span>
-  &#125;
-
-  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onScaleEnd</span><span class="hljs-params">(detector: <span class="hljs-type">ScaleGestureModifyDetector</span>?)</span></span> &#123;
-    <span class="hljs-comment">// 缩放完毕</span>
-  &#125;
-&#125;</code></pre></p>
+<h2 id="No-2-Android-Q-反射失效导致K线图缩放异常"><a href="#No-2-Android-Q-反射失效导致K线图缩放异常" class="headerlink" title="No.2 Android Q 反射失效导致K线图缩放异常"></a>No.2 Android Q 反射失效导致K线图缩放异常</h2><p>在处理一些手势缩放事件时，可以用如下做法：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> <span class="hljs-keyword">val</span> scaleGestureDetector = ScaleGestureDetector(context, ScaleListener())<br><span class="hljs-keyword">private</span> inner <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ScaleListener</span> : <span class="hljs-type">ScaleGestureDetector.SimpleOnScaleGestureListener</span></span>() &#123;<br><br>  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onScaleBegin</span><span class="hljs-params">(detector: <span class="hljs-type">ScaleGestureModifyDetector</span>?)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.onScaleBegin(detector)<br>    <span class="hljs-comment">// 开始缩放</span><br>  &#125;<br><br>  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onScale</span><span class="hljs-params">(detector: <span class="hljs-type">ScaleGestureModifyDetector</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.onScale(detector)<br>    <span class="hljs-comment">// 缩放中的处理</span><br>  &#125;<br><br>  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onScaleEnd</span><span class="hljs-params">(detector: <span class="hljs-type">ScaleGestureModifyDetector</span>?)</span></span> &#123;<br>    <span class="hljs-comment">// 缩放完毕</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>只需要在 ScaleListener 中实现想要的逻辑就可以了</p>
-<p>但是，在 中有一个属性 mMinSpan，在执行构造函数初始化时，会赋予一个从 viewConfiguration 对象获得的 mMinScalingSpan 值，又从 onTouchEvent() 方法中可以看到，当 span &lt; mMinSpan 时，会调用 mListener.onScaleEnd(this)，意思就是，当双指缩小到这个尺寸时，就不会再缩小了，所以造成了缩放不顺畅的效果，那么这个尺寸是多少呢，要怎么修改呢<br><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ScaleGestureDetector</span><span class="hljs-params">(Context context, OnScaleGestureListener listener, Handler handler)</span> </span>&#123;
-  ···
-  mMinSpan = viewConfiguration.getScaledMinimumScalingSpan();
-  ···
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getScaledMinimumScalingSpan</span><span class="hljs-params">()</span> </span>&#123;
-  <span class="hljs-keyword">if</span> (!mConstructedWithContext) &#123;
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"Min scaling span cannot be determined when this "</span>
-          + <span class="hljs-string">"method is called on a ViewConfiguration that was instantiated using a "</span>
-          + <span class="hljs-string">"constructor with no Context parameter"</span>);
-  &#125;
-  <span class="hljs-keyword">return</span> mMinScalingSpan;
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onTouchEvent</span><span class="hljs-params">(MotionEvent event)</span> </span>&#123;
-  ···
-  <span class="hljs-keyword">if</span> (!inAnchoredScaleMode() &amp;&amp; mInProgress &amp;&amp; (span &lt; mMinSpan || configChanged)) &#123;
-      mListener.onScaleEnd(<span class="hljs-keyword">this</span>);
-      mInProgress = <span class="hljs-keyword">false</span>;
-      mInitialSpan = span;
-  &#125;
-  ···
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-&#125;</code></pre></p>
-<p>跟踪进去看到，ViewConfiguration 类中的 get() 方法中，会用 ViewConfiguration 的私有构造函数创建一个 ViewConfiguration 对象<br><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ViewConfiguration <span class="hljs-title">get</span><span class="hljs-params">(Context context)</span> </span>&#123;
-  ···
-  ViewConfiguration configuration = sConfigurations.get(density);
-  <span class="hljs-keyword">if</span> (configuration == <span class="hljs-keyword">null</span>) &#123;
-    configuration = <span class="hljs-keyword">new</span> ViewConfiguration(context);
-    sConfigurations.put(density, configuration);
-  &#125;
-  <span class="hljs-keyword">return</span> configuration;
-&#125;</code></pre></p>
-<p>而 ViewConfiguration 的私有构造函数中，会取到一个系统中写死的值<br><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">ViewConfiguration</span><span class="hljs-params">(Context context)</span> </span>&#123;
-  mMinScalingSpan = res.getDimensionPixelSize(com.android.internal.R.dimen.config_minScalingSpan);
-&#125;</code></pre></p>
-<p>这个 mm 是指屏幕的物理毫米尺寸，换算成 dp 大概是三四百像素左右，这么大，难怪卡顿了，必须要改掉<br><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dimen</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"config_minScalingSpan"</span>&gt;</span>27mm<span class="hljs-tag">&lt;/<span class="hljs-name">dimen</span>&gt;</span></code></pre></p>
-<p>首先用了反射的方法，将这个值直接给他改成 50 像素<br><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> declaredFields = ScaleGestureDetector::<span class="hljs-class"><span class="hljs-keyword">class</span>.<span class="hljs-title">java</span>.<span class="hljs-title">declaredFields</span></span>
-declaredFields.first &#123; it.name == <span class="hljs-string">"mMinSpan"</span> &#125;?.apply &#123;
-  isAccessible = <span class="hljs-literal">true</span>
-  <span class="hljs-keyword">set</span>(scaleGestureDetector, <span class="hljs-number">50</span>)
-&#125;</code></pre></p>
+<p>但是，在 中有一个属性 mMinSpan，在执行构造函数初始化时，会赋予一个从 viewConfiguration 对象获得的 mMinScalingSpan 值，又从 onTouchEvent() 方法中可以看到，当 span &lt; mMinSpan 时，会调用 mListener.onScaleEnd(this)，意思就是，当双指缩小到这个尺寸时，就不会再缩小了，所以造成了缩放不顺畅的效果，那么这个尺寸是多少呢，要怎么修改呢<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ScaleGestureDetector</span><span class="hljs-params">(Context context, OnScaleGestureListener listener, Handler handler)</span> </span>&#123;<br>  ···<br>  mMinSpan = viewConfiguration.getScaledMinimumScalingSpan();<br>  ···<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getScaledMinimumScalingSpan</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-keyword">if</span> (!mConstructedWithContext) &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"Min scaling span cannot be determined when this "</span><br>          + <span class="hljs-string">"method is called on a ViewConfiguration that was instantiated using a "</span><br>          + <span class="hljs-string">"constructor with no Context parameter"</span>);<br>  &#125;<br>  <span class="hljs-keyword">return</span> mMinScalingSpan;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onTouchEvent</span><span class="hljs-params">(MotionEvent event)</span> </span>&#123;<br>  ···<br>  <span class="hljs-keyword">if</span> (!inAnchoredScaleMode() &amp;&amp; mInProgress &amp;&amp; (span &lt; mMinSpan || configChanged)) &#123;<br>      mListener.onScaleEnd(<span class="hljs-keyword">this</span>);<br>      mInProgress = <span class="hljs-keyword">false</span>;<br>      mInitialSpan = span;<br>  &#125;<br>  ···<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>跟踪进去看到，ViewConfiguration 类中的 get() 方法中，会用 ViewConfiguration 的私有构造函数创建一个 ViewConfiguration 对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ViewConfiguration <span class="hljs-title">get</span><span class="hljs-params">(Context context)</span> </span>&#123;<br>  ···<br>  ViewConfiguration configuration = sConfigurations.get(density);<br>  <span class="hljs-keyword">if</span> (configuration == <span class="hljs-keyword">null</span>) &#123;<br>    configuration = <span class="hljs-keyword">new</span> ViewConfiguration(context);<br>    sConfigurations.put(density, configuration);<br>  &#125;<br>  <span class="hljs-keyword">return</span> configuration;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>而 ViewConfiguration 的私有构造函数中，会取到一个系统中写死的值<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">ViewConfiguration</span><span class="hljs-params">(Context context)</span> </span>&#123;<br>  mMinScalingSpan = res.getDimensionPixelSize(com.android.internal.R.dimen.config_minScalingSpan);<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>这个 mm 是指屏幕的物理毫米尺寸，换算成 dp 大概是三四百像素左右，这么大，难怪卡顿了，必须要改掉<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dimen</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"config_minScalingSpan"</span>&gt;</span>27mm<span class="hljs-tag">&lt;/<span class="hljs-name">dimen</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<p>首先用了反射的方法，将这个值直接给他改成 50 像素<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> declaredFields = ScaleGestureDetector::<span class="hljs-class"><span class="hljs-keyword">class</span>.<span class="hljs-title">java</span>.<span class="hljs-title">declaredFields</span></span><br>declaredFields.first &#123; it.name == <span class="hljs-string">"mMinSpan"</span> &#125;?.apply &#123;<br>  isAccessible = <span class="hljs-literal">true</span><br>  <span class="hljs-keyword">set</span>(scaleGestureDetector, <span class="hljs-number">50</span>)<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>在 Android Q 之前的版本，运行完美，但是一但用户更新了 Android Q，就又会出现缩放不灵敏的感觉，就是说，我们的反射失效了</p>
-<p>查阅文档，可以在 Android Q 中受限的灰名单中的非 SDK 接口列表中看到下面这一条：<br><pre><code class="hljs bash">Landroid/view/ScaleGestureDetector;-&gt;mMinSpan:I   <span class="hljs-comment"># To retrieve the min scaling span value in pixels, you can now use ViewConfiguration.get([context]).getScaledMinScalingSpan().</span>
-<span class="hljs-comment"># 翻译：要检索最小缩放范围值（以像素为单位），现在可以使用 ViewConfiguration.get([context]).getScaledMinScalingSpan()</span></code></pre></p>
-<p>也就是说，在 Android 9 中还是不建议使用的这个变量，现在直接受限了，使用反射是取不到改不了的了，其实不单只是这个变量，类里的其他变量都多多少少无法使用了，说明通过反射来修改一些私有变量在 Android Q 中其实并不是太可靠了，那没办法了，只能用最后一步了，直接复制整个类，然后改掉想要改掉的部分，然后替换掉原来的 ScaleGestureDetector<br><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ScaleGestureModifyDetector</span><span class="hljs-params">(Context context, OnScaleGestureListener listener, Handler handler)</span> </span>&#123;
-  ···
-  <span class="hljs-comment">// mMinSpan = viewConfiguration.getScaledMinimumScalingSpan();</span>
-  mMinSpan = <span class="hljs-number">50</span>; <span class="hljs-comment">// 直接赋予为 50，单位为像素</span>
-  ···
-&#125;</code></pre></p>
-<h2 id="No-3-Android-commit-和-commitAllowingStateLoss-区别及应用场景"><a href="#No-3-Android-commit-和-commitAllowingStateLoss-区别及应用场景" class="headerlink" title="No.3 Android commit 和 commitAllowingStateLoss 区别及应用场景"></a>No.3 Android commit 和 commitAllowingStateLoss 区别及应用场景</h2><p>做 Android 开发，Fragment 是我们经常用的，我们在使用 Fragment 时，会像如下这样写：<br><pre><code class="hljs java">FragmentManager fm = getFragmentManager();
-testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);
-
-<span class="hljs-keyword">if</span> (testFragment == <span class="hljs-keyword">null</span>) &#123;
-  testFragment = <span class="hljs-keyword">new</span> TestFragment();
-  fm.beginTransaction().add(R.id.fragment_container, testFragment).commit();
-&#125;</code></pre></p>
-<p>我们偶尔会碰到这样一个异常：<br><pre><code class="hljs bash">Caused by: java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState</code></pre></p>
-<p>大意是在 activity 的 onSaveInstanceState 调用过后，再 commit 的 Transaction 导致的异常，看到网上一些建议用 commitAllowingStateLoss 来代替 commit，那么 commit 和 commitAllowingStateLoss 有什么区别呢？查看下相关的代码：<br><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">commit</span><span class="hljs-params">()</span> </span>&#123;
-  <span class="hljs-keyword">return</span> commitInternal(<span class="hljs-keyword">false</span>);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">commitAllowingStateLoss</span><span class="hljs-params">()</span> </span>&#123;
-  <span class="hljs-keyword">return</span> commitInternal(<span class="hljs-keyword">true</span>);
-&#125;</code></pre></p>
-<p>发现他们都是调用了commitInternal()方法，只是一个传了false，一个传了true，接着往下看：<br><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">commitInternal</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> allowStateLoss)</span> </span>&#123;
-  <span class="hljs-keyword">if</span> (mCommitted) &#123;
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"commit already called"</span>);
-  &#125;
-  ......
-  mCommitted = <span class="hljs-keyword">true</span>;
-  <span class="hljs-keyword">if</span> (mAddToBackStack) &#123;
-    mIndex = mManager.allocBackStackIndex(<span class="hljs-keyword">this</span>);
-  &#125; <span class="hljs-keyword">else</span> &#123;
-    mIndex = -<span class="hljs-number">1</span>;
-  &#125;
-  mManager.enqueueAction(<span class="hljs-keyword">this</span>, allowStateLoss);
-  <span class="hljs-keyword">return</span> mIndex;
-&#125;</code></pre></p>
-<p>主要是 mManager.enqueueAction(this, allowStateLoss) 来执行这个任务，根据传入的参数继续往下走，可以看到：<br><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">enqueueAction</span><span class="hljs-params">(Runnable action, <span class="hljs-keyword">boolean</span> allowStateLoss)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (!allowStateLoss) &#123;
-        checkStateLoss();
-    &#125;
-    <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;
-        <span class="hljs-keyword">if</span> (mDestroyed || mHost == <span class="hljs-keyword">null</span>) &#123;
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"Activity has been destroyed"</span>);
-        &#125;
-        <span class="hljs-keyword">if</span> (mPendingActions == <span class="hljs-keyword">null</span>) &#123;
-            mPendingActions = <span class="hljs-keyword">new</span> ArrayList&lt;Runnable&gt;();
-        &#125;
-        mPendingActions.add(action);
-        <span class="hljs-keyword">if</span> (mPendingActions.size() == <span class="hljs-number">1</span>) &#123;
-            mHost.getHandler().removeCallbacks(mExecCommit);
-            mHost.getHandler().post(mExecCommit);
-        &#125;
-    &#125;
-&#125;</code></pre></p>
-<p>这里就是最后了，可以看到最开始传进来的 allowStateLoss 在这里只做了检查状态的操作<br><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkStateLoss</span><span class="hljs-params">()</span> </span>&#123;
-  <span class="hljs-keyword">if</span> (mStateSaved) &#123;
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"Can not perform this action after onSaveInstanceState"</span>);
-  &#125;
-  <span class="hljs-keyword">if</span> (mNoTransactionsBecause != <span class="hljs-keyword">null</span>) &#123;
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"Can not perform this action inside of "</span> + mNoTransactionsBecause);
-  &#125;
-&#125;</code></pre></p>
+<p>查阅文档，可以在 Android Q 中受限的灰名单中的非 SDK 接口列表中看到下面这一条：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Landroid/view/ScaleGestureDetector;-&gt;mMinSpan:I   <span class="hljs-comment"># To retrieve the min scaling span value in pixels, you can now use ViewConfiguration.get([context]).getScaledMinScalingSpan().</span><br><span class="hljs-comment"># 翻译：要检索最小缩放范围值（以像素为单位），现在可以使用 ViewConfiguration.get([context]).getScaledMinScalingSpan()</span><br></code></pre></td></tr></table></figure></p>
+<p>也就是说，在 Android 9 中还是不建议使用的这个变量，现在直接受限了，使用反射是取不到改不了的了，其实不单只是这个变量，类里的其他变量都多多少少无法使用了，说明通过反射来修改一些私有变量在 Android Q 中其实并不是太可靠了，那没办法了，只能用最后一步了，直接复制整个类，然后改掉想要改掉的部分，然后替换掉原来的 ScaleGestureDetector<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ScaleGestureModifyDetector</span><span class="hljs-params">(Context context, OnScaleGestureListener listener, Handler handler)</span> </span>&#123;<br>  ···<br>  <span class="hljs-comment">// mMinSpan = viewConfiguration.getScaledMinimumScalingSpan();</span><br>  mMinSpan = <span class="hljs-number">50</span>; <span class="hljs-comment">// 直接赋予为 50，单位为像素</span><br>  ···<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h2 id="No-3-Android-commit-和-commitAllowingStateLoss-区别及应用场景"><a href="#No-3-Android-commit-和-commitAllowingStateLoss-区别及应用场景" class="headerlink" title="No.3 Android commit 和 commitAllowingStateLoss 区别及应用场景"></a>No.3 Android commit 和 commitAllowingStateLoss 区别及应用场景</h2><p>做 Android 开发，Fragment 是我们经常用的，我们在使用 Fragment 时，会像如下这样写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">FragmentManager fm = getFragmentManager();<br>testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);<br><br><span class="hljs-keyword">if</span> (testFragment == <span class="hljs-keyword">null</span>) &#123;<br>  testFragment = <span class="hljs-keyword">new</span> TestFragment();<br>  fm.beginTransaction().add(R.id.fragment_container, testFragment).commit();<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>我们偶尔会碰到这样一个异常：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Caused by: java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState<br></code></pre></td></tr></table></figure></p>
+<p>大意是在 activity 的 onSaveInstanceState 调用过后，再 commit 的 Transaction 导致的异常，看到网上一些建议用 commitAllowingStateLoss 来代替 commit，那么 commit 和 commitAllowingStateLoss 有什么区别呢？查看下相关的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">commit</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-keyword">return</span> commitInternal(<span class="hljs-keyword">false</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">commitAllowingStateLoss</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-keyword">return</span> commitInternal(<span class="hljs-keyword">true</span>);<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>发现他们都是调用了commitInternal()方法，只是一个传了false，一个传了true，接着往下看：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">commitInternal</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> allowStateLoss)</span> </span>&#123;<br>  <span class="hljs-keyword">if</span> (mCommitted) &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"commit already called"</span>);<br>  &#125;<br>  ......<br>  mCommitted = <span class="hljs-keyword">true</span>;<br>  <span class="hljs-keyword">if</span> (mAddToBackStack) &#123;<br>    mIndex = mManager.allocBackStackIndex(<span class="hljs-keyword">this</span>);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    mIndex = -<span class="hljs-number">1</span>;<br>  &#125;<br>  mManager.enqueueAction(<span class="hljs-keyword">this</span>, allowStateLoss);<br>  <span class="hljs-keyword">return</span> mIndex;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>主要是 mManager.enqueueAction(this, allowStateLoss) 来执行这个任务，根据传入的参数继续往下走，可以看到：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">enqueueAction</span><span class="hljs-params">(Runnable action, <span class="hljs-keyword">boolean</span> allowStateLoss)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (!allowStateLoss) &#123;<br>        checkStateLoss();<br>    &#125;<br>    <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;<br>        <span class="hljs-keyword">if</span> (mDestroyed || mHost == <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"Activity has been destroyed"</span>);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (mPendingActions == <span class="hljs-keyword">null</span>) &#123;<br>            mPendingActions = <span class="hljs-keyword">new</span> ArrayList&lt;Runnable&gt;();<br>        &#125;<br>        mPendingActions.add(action);<br>        <span class="hljs-keyword">if</span> (mPendingActions.size() == <span class="hljs-number">1</span>) &#123;<br>            mHost.getHandler().removeCallbacks(mExecCommit);<br>            mHost.getHandler().post(mExecCommit);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>这里就是最后了，可以看到最开始传进来的 allowStateLoss 在这里只做了检查状态的操作<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkStateLoss</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-keyword">if</span> (mStateSaved) &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"Can not perform this action after onSaveInstanceState"</span>);<br>  &#125;<br>  <span class="hljs-keyword">if</span> (mNoTransactionsBecause != <span class="hljs-keyword">null</span>) &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">"Can not perform this action inside of "</span> + mNoTransactionsBecause);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>如果activity的状态被保存了，这里再提交就会检查这个状态，符合条件就抛出一个异常来终止应用进程，也就是说在 activity 调用了 onSaveInstanceState()之后，再 commit 一个事务就会出现该异常，那如果不想抛出异常，也可以很简单调用 commitAllowingStateLoss() 方法来略过这个检查就可以了，但是 Google 说这是危险的，在官方文档上有如下描述：</p>
 <blockquote>
 <p>Like {@link #commit} but allows the commit to be executed after an activity’s state is saved. This is dangerous because the commit can be lost if the activity needs to later be restored from its state, so this should only be used for cases where it is okay for the UI state to change unexpectedly on the user.</p>
@@ -416,7 +285,7 @@ testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);
 </ul>
 <p>原文：<a href="https://huxian99.github.io/2016/08/28/cj3qymo360000owxk9zp17alo/" target="_blank" rel="noopener">Android commit和commitAllowingStateLoss区别及应用场景</a></p>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -440,11 +309,15 @@ testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/2020/07/23/两周小记-vol.4/">
@@ -453,8 +326,8 @@ testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/2019/11/25/Android TextToSpeech 使用指南/">
@@ -463,13 +336,13 @@ testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -481,16 +354,15 @@ testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -511,33 +383,41 @@ testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
 
     
+  </main>
 
-    
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
@@ -548,78 +428,51 @@ testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
 
 
 
 
 
 
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "两周小记-vol.3&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
   </script>
 
 
@@ -636,8 +489,8 @@ testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);
 
 
 
-
-
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,47 +1,67 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content>
+  
+    <meta name="description" content="前不久在写一个功能的时候，遇到一个添加引导页的需求，直接照搬了之前的引导页的实现方式，使用了 NewbieGuide 来实现，发现在Activity中引导页弹出时无法遮盖状态栏，除了状态栏外的部分才能正常被遮盖，所以探究下这个是什么原因导致的
+
+
+
+
+项目中其他地方的遮罩可以完整的盖住整个手机屏幕，连同状态栏一起，所以先去看看这些地方是如何实现的，一共有两种：">
+  
   <meta name="author" content="HoshIlIlI">
   <meta name="keywords" content>
+  
   <title>Android状态栏与主题探究 - HoshI-blog</title>
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
   <link rel="stylesheet" href="/lib/hint/hint.min.css">
 
   
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css">
+    
   
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null},"tajs":null}};
+  </script>
   <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -136,8 +156,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +171,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Android状态栏与主题探究">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-02-13 21:16">
-      2019年2月13日 晚上
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-02-13 21:16" pubdate>
+        2019年2月13日 晚上
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -202,15 +231,17 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Android状态栏与主题探究</h1>
             
-            <article class="markdown-body">
+            <div class="markdown-body">
               <p>前不久在写一个功能的时候，遇到一个添加引导页的需求，直接照搬了之前的引导页的实现方式，使用了 <a href="https://github.com/huburt-Hu/NewbieGuide" target="_blank" rel="noopener">NewbieGuide</a> 来实现，发现在Activity中引导页弹出时无法遮盖状态栏，除了状态栏外的部分才能正常被遮盖，所以探究下这个是什么原因导致的</p>
 <!-- <img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E9%97%AE%E9%A2%98%E5%A4%8D%E7%8E%B0%E5%9B%BE.jpg?raw=true" srcset="/img/loading.gif" width = "460" height = "800" alt="图片名称" align=center /> -->
 <p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F.jpg?raw=true" srcset="/img/loading.gif" width="460" height="800" alt="图片名称" align="center"></p>
@@ -224,26 +255,8 @@
 </ul>
 </li>
 <li><p>某些Activity的Theme中加上windowTranslucentStatus=true属性，或者在活动的onCreate代码中设置</p>
- <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:windowTranslucentStatus"</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></code></pre>
- <pre><code class="hljs kotlin"><span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;
-  window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-&#125;
-
-setContentView(R.layout.ai_kline_act_kline_master)
-
-<span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;
-  <span class="hljs-keyword">val</span> titleBar = findViewById&lt;ConstraintLayout&gt;(R.id.ai_kline_master_title_bar)
-  <span class="hljs-keyword">var</span> statusBarHeight = <span class="hljs-number">60</span>
-  <span class="hljs-keyword">if</span> (ScreenUtil.getStatusBarHeight(<span class="hljs-keyword">this</span>) != <span class="hljs-number">0</span>) &#123;
-    statusBarHeight = ScreenUtil.getStatusBarHeight(<span class="hljs-keyword">this</span>)
-  &#125;
-
-  titleBar.setPadding(titleBar.paddingLeft, titleBar.paddingTop + statusBarHeight, titleBar.paddingRight, titleBar.paddingBottom)
-
-  <span class="hljs-keyword">val</span> titleBarLayoutParams = titleBar.layoutParams
-  titleBarLayoutParams.height = titleBarLayoutParams.height + statusBarHeight
-  titleBar.layoutParams = titleBarLayoutParams
-&#125;</code></pre>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:windowTranslucentStatus"</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br></code></pre></td></tr></table></figure>
+ <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;<br>  window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)<br>&#125;<br><br>setContentView(R.layout.ai_kline_act_kline_master)<br><br><span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;<br>  <span class="hljs-keyword">val</span> titleBar = findViewById&lt;ConstraintLayout&gt;(R.id.ai_kline_master_title_bar)<br>  <span class="hljs-keyword">var</span> statusBarHeight = <span class="hljs-number">60</span><br>  <span class="hljs-keyword">if</span> (ScreenUtil.getStatusBarHeight(<span class="hljs-keyword">this</span>) != <span class="hljs-number">0</span>) &#123;<br>    statusBarHeight = ScreenUtil.getStatusBarHeight(<span class="hljs-keyword">this</span>)<br>  &#125;<br><br>  titleBar.setPadding(titleBar.paddingLeft, titleBar.paddingTop + statusBarHeight, titleBar.paddingRight, titleBar.paddingBottom)<br><br>  <span class="hljs-keyword">val</span> titleBarLayoutParams = titleBar.layoutParams<br>  titleBarLayoutParams.height = titleBarLayoutParams.height + statusBarHeight<br>  titleBar.layoutParams = titleBarLayoutParams<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>至此明白了需要怎样去实现，解决了问题，但是从这里可以看出我对主题，状态栏相关的知识不够扎实，故对相关内容重新整理归纳一下</p>
@@ -268,10 +281,7 @@ setContentView(R.layout.ai_kline_act_kline_master)
 <li>textColorPrimaryDisableOnly RadioButton checkbox等控件的文字</li>
 <li>colorSwitchThumbNormal switch thumbs 默认状态的颜色. (switch off)</li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"windowNoTitle"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"windowActionBar"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:windowNoTitle"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:windowActionBar"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></code></pre>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"windowNoTitle"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"windowActionBar"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:windowNoTitle"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"android:windowActionBar"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>又发现到AppCompatActivity中出现了windowNoTitle属性，前边不需要加”android:”，那这两个有什么区别吗？</p>
 <p>其实带android的是系统的，不带android是兼容样式的，就是Theme.AppCompat样式的，因为是 support 包里重新定义了这个属性，即windowNoTitle是appcompat-v7中的属性，在appcompat-v7\res\values\values.xml中定义了，可以打开appcompat-v7\res\values\values.xml搜索AppCompatTheme，可以找到定义的”windowNoTitle”、”windowActionBar”等属性。</p>
 <p>“windowNoTitle”属性在代码中可以使用R.attr.windowNoTitle访问，<br>“android:windowNoTitle”则需要使用android.R.attr.windowNoTitle访问。</p>
@@ -289,13 +299,12 @@ setContentView(R.layout.ai_kline_act_kline_master)
 </li>
 <li>Android 5.0（API 21）以上版本： 在Android 5.0的时候，加入了一个重要的属性和方法 android:statusBarColor （对应方法为 setStatusBarColor），通过这个方法我们就可以轻松实现沉浸式</li>
 <li><p>Android 6.0（API 23）以上版本：Android6.0以上的实现方式和Android 5.0 +是一样，但是从Android 6.0（API 23）开始，我们可以改状态栏的绘制模式，可以显示白色或浅黑色的内容和图标（除了魅族手机，魅族自家有做源码更改，6.0以下就能实现）<a href="https://blog.csdn.net/geekqian/article/details/60468734" target="_blank" rel="noopener">示例</a></p>
-<pre><code class="hljs kotlin"><span class="hljs-comment">//6.0 以上可以设置状态栏的字体为黑色，使用下面代码可以打开亮色状态栏模式，实现黑色字体，白底的需求用这句setStatusBarColor(Color.WHITE)</span>
-window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">//6.0 以上可以设置状态栏的字体为黑色，使用下面代码可以打开亮色状态栏模式，实现黑色字体，白底的需求用这句setStatusBarColor(Color.WHITE)</span><br>window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR<br></code></pre></td></tr></table></figure>
 <h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>同样的操作，在 Android 8.0 以上似乎并不能很好地实现，而是更符合 flag 原本的定义，FLAG_TRANSLUCENT_STATUS 其中的 TRANSLUCENT 的意思是半透明的意思，所以在 8.0 以上的时候，设置这个 FLAG 会让状态栏半透明，同时 SYSTEM_UI_FLAG_LAYOUT_STABLE（让应用的主体内容占用系统状态栏的空间）和SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN（全屏）也会生效，造成顶部和状态栏重叠的情况，同时有一条半透明的状态栏在上面，这样子的话，在 Android7.0 中可以完美实现的沉浸式，在 8.0 的时候还是会显示一条半透明状态栏，所以如果要实现沉浸式，设置 FLAG_TRANSLUCENT_STATUS 和 android:windowTranslucentStatus = true 其实并不是太可取，应该要动态改变状态栏的颜色来实现真正的沉浸式，可以设置状态栏颜色与下方控件颜色一致，或者在没有设置 FLAG_TRANSLUCENT_STATUS 而设置了 FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS 的同时，设置状态栏颜色为透明，因为设置 FLAG_TRANSLUCENT_STATUS 会使得状态栏默认为半透明颜色</p>
 </li>
 </ol>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -317,11 +326,15 @@ window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</code
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/2019/04/04/Java Calendar类解析/">
@@ -330,8 +343,8 @@ window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</code
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/2018/12/12/WebView加载链接跳转快应用问题/">
@@ -340,13 +353,13 @@ window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</code
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -358,16 +371,15 @@ window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</code
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -388,33 +400,41 @@ window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</code
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
 
     
+  </main>
 
-    
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
@@ -425,78 +445,51 @@ window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</code
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
 
 
 
 
 
 
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "Android状态栏与主题探究&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
   </script>
 
 
@@ -513,8 +506,8 @@ window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</code
 
 
 
-
-
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

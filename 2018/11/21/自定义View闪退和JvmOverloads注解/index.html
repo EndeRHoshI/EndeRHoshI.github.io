@@ -1,47 +1,63 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content>
+  
+    <meta name="description" content="前言前不久项目中要求实现一些小控件，用来展示图表或者显示正反双方的人数对比，于是就自定义了一些View，用于绘图
+把View写好后，放到程序里跑起来，却闪退了，报错提示1234567java.lang.IllegalStateException: itemView.sev_safety_score_bar must not be null或者android.view.InflateExceptio">
+  
   <meta name="author" content="HoshIlIlI">
   <meta name="keywords" content>
+  
   <title>加载自定义View应用闪退|@JvmOverloads详解 - HoshI-blog</title>
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
   <link rel="stylesheet" href="/lib/hint/hint.min.css">
 
   
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css">
+    
   
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null},"tajs":null}};
+  </script>
   <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -136,8 +152,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +167,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="加载自定义View应用闪退|@JvmOverloads详解">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2018-11-21 21:29">
-      2018年11月21日 晚上
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-11-21 21:29" pubdate>
+        2018年11月21日 晚上
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -202,23 +227,19 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">加载自定义View应用闪退|@JvmOverloads详解</h1>
             
-            <article class="markdown-body">
+            <div class="markdown-body">
               <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前不久项目中要求实现一些小控件，用来展示图表或者显示正反双方的人数对比，于是就自定义了一些View，用于绘图</p>
-<p>把View写好后，放到程序里跑起来，却闪退了，报错提示<br><pre><code class="hljs bash">java.lang.IllegalStateException: itemView.sev_safety_score_bar must not be null
-
-或者
-
-android.view.InflateException: Binary XML file line <span class="hljs-comment">#77: Binary XML file line #77: Error inflating class </span>
-Caused by: android.view.InflateException: Binary XML file line <span class="hljs-comment">#77: Error inflating class </span>
-Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.Context, interface android.util.AttributeSet]</code></pre></p>
+<p>把View写好后，放到程序里跑起来，却闪退了，报错提示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">java.lang.IllegalStateException: itemView.sev_safety_score_bar must not be null<br><br>或者<br><br>android.view.InflateException: Binary XML file line <span class="hljs-comment">#77: Binary XML file line #77: Error inflating class </span><br>Caused by: android.view.InflateException: Binary XML file line <span class="hljs-comment">#77: Error inflating class </span><br>Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.Context, interface android.util.AttributeSet]<br></code></pre></td></tr></table></figure></p>
 <h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>一般这种情况，会有几种原因：</p>
 <ol>
 <li><p>引用类名问题：自定义一个View之后，将他用于布局文件中，必须使用完整路径名来引用，不能只使用类名，检查了一下，不是这个原因导致的</p>
@@ -228,13 +249,7 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
 <li><p>找不到drawable的资源文件，对应的drawable的hdpi或xhdpi等文件夹的图片资源有缺失，但是我显然不是因为这个</p>
 </li>
 <li><p>构造函数问题：自定义View，派生实现基类View的构造函数不全</p>
-<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SafetyExamView</span> : <span class="hljs-type">View &#123;</span></span>
-  <span class="hljs-keyword">constructor</span>(context: Context) : <span class="hljs-keyword">super</span>(context)
-  <span class="hljs-keyword">constructor</span>(context: Context, attrs: AttributeSet) : <span class="hljs-keyword">super</span>(context, attrs)
-  <span class="hljs-keyword">constructor</span>(context: Context, attrs: AttributeSet?, defStyle: <span class="hljs-built_in">Int</span>) : <span class="hljs-keyword">super</span>(context, attrs, defStyle)
-&#125;
-<span class="hljs-comment">//可以简化为以下这样</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SafetyExamView</span> <span class="hljs-meta">@JvmOverloads</span> <span class="hljs-keyword">constructor</span></span>(context: Context, attributeSet: AttributeSet? = <span class="hljs-literal">null</span>, defStyle: <span class="hljs-built_in">Int</span> = <span class="hljs-number">0</span>) : View(context, attributeSet, defStyle) &#123;&#125;</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SafetyExamView</span> : <span class="hljs-type">View &#123;</span></span><br>  <span class="hljs-keyword">constructor</span>(context: Context) : <span class="hljs-keyword">super</span>(context)<br>  <span class="hljs-keyword">constructor</span>(context: Context, attrs: AttributeSet) : <span class="hljs-keyword">super</span>(context, attrs)<br>  <span class="hljs-keyword">constructor</span>(context: Context, attrs: AttributeSet?, defStyle: <span class="hljs-built_in">Int</span>) : <span class="hljs-keyword">super</span>(context, attrs, defStyle)<br>&#125;<br><span class="hljs-comment">//可以简化为以下这样</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SafetyExamView</span> <span class="hljs-meta">@JvmOverloads</span> <span class="hljs-keyword">constructor</span></span>(context: Context, attributeSet: AttributeSet? = <span class="hljs-literal">null</span>, defStyle: <span class="hljs-built_in">Int</span> = <span class="hljs-number">0</span>) : View(context, attributeSet, defStyle) &#123;&#125;<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>从网上的一些说法来看，第二个和第三个构造函数对于XML这种引用方式是必须实现的，这三个构造函数是在不同的应用场合来实例化一个View对象的，但是事实是不是这样的呢，我发现了一些不同的看法<br><a id="more"></a><br>不过在当前这里看来，我在新建这个View编写构造函数的时候，有些构造函数的参数没写全，比如上面的第二条constructor，后面我写成了: super(context)，所以根本没有调用到父类的第二个构造函数，所以看来问题是出在这里了，当时看到提示后面的Parameter ‘attrs’ is never used还觉得无所谓，原来是不可以的，于是补上构造函数的参数，再次运行，果然没问题了</p>
@@ -248,27 +263,17 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
 <p>通常，如果你写一个有默认参数值的 Kotlin 函数，在 Java 中只会有一个所有参数都存在的完整参数签名的方法可见，如果希望向 Java 调用者暴露多个重载，可以使用 @JvmOverloads 注解。</p>
 <p>该注解也适用于构造函数、静态方法等。它不能用于抽象方法，包括在接口中定义的方法。</p>
 </blockquote>
-<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> <span class="hljs-meta">@JvmOverloads</span> <span class="hljs-keyword">constructor</span></span>(x: <span class="hljs-built_in">Int</span>, y: <span class="hljs-built_in">Double</span> = <span class="hljs-number">0.0</span>) &#123;
-   <span class="hljs-meta">@JvmOverloads</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">f</span><span class="hljs-params">(a: <span class="hljs-type">String</span>, b: <span class="hljs-type">Int</span> = <span class="hljs-number">0</span>, c: <span class="hljs-type">String</span> = <span class="hljs-string">"abc"</span>)</span></span> &#123; …… &#125;
-&#125;</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> <span class="hljs-meta">@JvmOverloads</span> <span class="hljs-keyword">constructor</span></span>(x: <span class="hljs-built_in">Int</span>, y: <span class="hljs-built_in">Double</span> = <span class="hljs-number">0.0</span>) &#123;<br>   <span class="hljs-meta">@JvmOverloads</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">f</span><span class="hljs-params">(a: <span class="hljs-type">String</span>, b: <span class="hljs-type">Int</span> = <span class="hljs-number">0</span>, c: <span class="hljs-type">String</span> = <span class="hljs-string">"abc"</span>)</span></span> &#123; …… &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>对于每一个有默认值的参数，都会生成一个额外的重载，这个重载会把这个参数和它右边的所有参数都移除掉。在上例中，会生成以下代码 ：</p>
 </blockquote>
-<pre><code class="hljs kotlin"><span class="hljs-comment">// 构造函数：</span>
-Foo(int x, double y)
-Foo(int x)
-<span class="hljs-comment">// 方法</span>
-void f(String a, int b, String c) &#123; &#125;
-void f(String a, int b) &#123; &#125;
-void f(String a) &#123; &#125;</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">// 构造函数：</span><br>Foo(int x, double y)<br>Foo(int x)<br><span class="hljs-comment">// 方法</span><br>void f(String a, int b, String c) &#123; &#125;<br>void f(String a, int b) &#123; &#125;<br>void f(String a) &#123; &#125;<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>请注意，如次构造函数中所述，如果一个类的所有构造函数参数都有默认值，那么会为其生成一个公有的无参构造函数。这就算没有 @JvmOverloads 注解也有效。</p>
 </blockquote>
-<p>官方文档如是说，然而这次踩坑引出来的可不只是这个注解的问题，在我删除一些构造函数，复现报错然后把报错信息粘贴上来的时候，我记得好像并不是这个错误，这就奇怪了，难道还跟不同的构造方法有关？一查，果然，上文提到的报错信息里，当中的第一条，也就是：<br><pre><code class="hljs bash">java.lang.IllegalStateException: itemView.sev_safety_score_bar must not be null</code></pre></p>
+<p>官方文档如是说，然而这次踩坑引出来的可不只是这个注解的问题，在我删除一些构造函数，复现报错然后把报错信息粘贴上来的时候，我记得好像并不是这个错误，这就奇怪了，难道还跟不同的构造方法有关？一查，果然，上文提到的报错信息里，当中的第一条，也就是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">java.lang.IllegalStateException: itemView.sev_safety_score_bar must not be null<br></code></pre></td></tr></table></figure></p>
 <p>是我在有@JvmOverloads注解的前提下，直接从: View(context, attributeSet, defStyle)中把后两个参数删除，从而复现出来的，这就是说，重载三个构造函数的时候，调用的父类方法都是View(context)这个，这时就会报上面这条错误，说我的View为空</p>
-<p>而第二条报错信息，也就是：<br><pre><code class="hljs bash">android.view.InflateException: Binary XML file line <span class="hljs-comment">#77: Binary XML file line #77: Error inflating class </span>
-Caused by: android.view.InflateException: Binary XML file line <span class="hljs-comment">#77: Error inflating class </span>
-Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.Context, interface android.util.AttributeSet]</code></pre></p>
+<p>而第二条报错信息，也就是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">android.view.InflateException: Binary XML file line <span class="hljs-comment">#77: Binary XML file line #77: Error inflating class </span><br>Caused by: android.view.InflateException: Binary XML file line <span class="hljs-comment">#77: Error inflating class </span><br>Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.Context, interface android.util.AttributeSet]<br></code></pre></td></tr></table></figure></p>
 <p>则是我直接把@JvmOverloads注解删除，也就是只声明了第三个构造函数时，所复现出来的，也就是说，在不写第一第二条构造函数的时候，就会找不到XML中声明的对应的类，而这时，我把defStyle: Int参数移除，就是变成第二种构造函数的时候，发现又可以正常运行了，而当我只写第一条构造函数时，又发生了这个报错，那就意味着，在缺少第二条构造函数时，就会报这个错误，而在存在第二条函数，但是函数参数不全时，就会报上一条错误</p>
 <p>由此可以看出，第二个构造函数是必须的，在网上查阅了相关文章，发现确实是如此，得出以下结论：</p>
 <ul>
@@ -299,7 +304,7 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
 <p>这里接近文档所说：“对于每一个有默认值的参数，都会生成一个额外的重载，这个重载会把这个参数和它右边的所有参数都移除掉”，但是好像应该作些修改，并不是把右边所有”参数“都移除，而是把右边所有”有默认值的参数移除“，这样似乎更加正确，不过还有待考证</p>
 <p>参考文章：<a href="https://blog.csdn.net/zhao123h/article/details/52210732" target="_blank" rel="noopener">Android View 四个构造函数详解</a></p>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -323,11 +328,15 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/2018/11/28/Git忽略文件和操作系统尾部换行符问题/">
@@ -336,8 +345,8 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/2018/11/14/Android字体使用探索/">
@@ -346,13 +355,13 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -360,7 +369,7 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -372,16 +381,15 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -402,33 +410,41 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
 
     
+  </main>
 
-    
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
@@ -439,103 +455,53 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
 
 
 
 
 
 
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: 'article.markdown-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "加载自定义View应用闪退|@JvmOverloads详解&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
   </script>
 
 
@@ -552,8 +518,8 @@ Caused by: java.lang.NoSuchMethodException: &lt;init&gt; [class android.content.
 
 
 
-
-
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 
