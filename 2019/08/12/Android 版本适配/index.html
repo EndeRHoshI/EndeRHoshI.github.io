@@ -1,0 +1,796 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言前阵子适配 Android 9.0 时，遇到一些坑，感觉适配准备得不够充分就上线，会遇到非常多的问题，而现在再过几周，Android Q 正式版就要发布了，今天 Google 宣布发布最后一个 Beta 测试版 Android Q Beta 6 了，所以适配 Android Q 的工作也要尽早完成，Android Q Beta 6 发布文章 适配 Android 9.0 的坑 Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 版本适配">
+<meta property="og:url" content="https://enderhoshi.github.io/2019/08/12/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="前言前阵子适配 Android 9.0 时，遇到一些坑，感觉适配准备得不够充分就上线，会遇到非常多的问题，而现在再过几周，Android Q 正式版就要发布了，今天 Google 宣布发布最后一个 Beta 测试版 Android Q Beta 6 了，所以适配 Android Q 的工作也要尽早完成，Android Q Beta 6 发布文章 适配 Android 9.0 的坑 Android">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E5%9F%BA%E5%B8%A6%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-Packages%20Unavailable.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-Android%20SDK%20Manager.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E9%9D%9ESDK%E8%B0%83%E7%94%A8%E8%AD%A6%E5%91%8A.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-veridex%E8%A7%A3%E5%8E%8B%E5%90%8E%E7%9B%AE%E5%BD%95.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E9%9D%9ESDK%E6%8E%A5%E5%8F%A3%E5%BA%94%E7%94%A8%E5%86%85%E8%AD%A6%E5%91%8A.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E4%BD%BF%E7%94%A8%E9%9D%9E%E5%AE%98%E6%96%B9API%E7%9A%84%E5%90%8E%E6%9E%9C.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E5%A4%9C%E9%97%B4%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E6%9C%AA%E9%80%82%E9%85%8D%E5%85%A8%E9%9D%A2%E5%B1%8F%E5%AF%B9%E6%AF%94.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E6%89%8B%E5%8A%BF%E5%88%87%E6%8D%A2.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E5%AE%89%E5%85%A8%E8%8C%83%E5%9B%B4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E5%85%A8%E9%9D%A2%E5%B1%8F%E5%AF%BC%E8%88%AA%E6%A0%8F.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BA%95%E9%83%A8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E5%BA%95%E9%83%A8.png">
+<meta property="article:published_time" content="2019-08-12T09:16:28.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.144Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Android 版本适配 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Android 版本适配"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2019-08-12 17:16" pubdate>
+          2019年8月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Android 版本适配</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前阵子适配 Android 9.0 时，遇到一些坑，感觉适配准备得不够充分就上线，会遇到非常多的问题，而现在再过几周，Android Q 正式版就要发布了，今天 Google 宣布发布最后一个 Beta 测试版 Android Q Beta 6 了，所以适配 Android Q 的工作也要尽早完成，<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652050165&idx=1&sn=7280b6f3d056eab106aeef8c97324dfc&chksm=808cb2b0b7fb3ba601927ccccaacd814f14dfdc306cc377bdb07b72659ddf8190cbcc0797bae&mpshare=1&scene=23&srcid=&sharer_sharetime=1565589898193&sharer_shareid=72a963f2ffe6f59cb6e70b8e4f2dbe01#rd">Android Q Beta 6 发布文章</a></p>
+<h2 id="适配-Android-9-0-的坑"><a href="#适配-Android-9-0-的坑" class="headerlink" title="适配 Android 9.0 的坑"></a>适配 Android 9.0 的坑</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/about/versions/pie/android-9.0">Android 9 功能和 API</a></li>
+</ul>
+<h2 id="适配-Android-10-0-应当注意的事项"><a href="#适配-Android-10-0-应当注意的事项" class="headerlink" title="适配 Android 10.0 应当注意的事项"></a>适配 Android 10.0 应当注意的事项</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.android.google.cn/preview/">Android Q 测试版</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/preview/features">Android 10 功能和 API</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5cad5b7ce51d456e5a0728b0">Android Q 适配指南 让你少走一堆弯路</a></li>
+</ul>
+<h2 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h2><p>总之，先搞到 Android Q 的手机或者模拟器先，可以查看<a target="_blank" rel="noopener" href="https://developer.android.google.cn/preview/get?hl=zh_cn">获取 Android Q 测试版</a></p>
+<p>成功打开 Android Q 版本的模拟器之后，先打开设置看一看，可以看到当前的系统版本号</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/preview/release-notes">支持与版本说明</a></p>
+<p><a target="_blank" rel="noopener" href="https://source.android.com/setup/start/build-numbers">代号、标记和细分版本号</a></p>
+<p><a target="_blank" rel="noopener" href="https://source.android.com/setup/build/running">关于代号官方文档</a></p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E5%9F%BA%E5%B8%A6%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true" srcset="/img/loading.gif" lazyload></p>
+<p>然后直接在 Android Q 上运行应用，查看应用的运行情况，是否存在打不开，卡顿，闪退等比较明显的现象</p>
+<p>上面的操作没问题了，于是直接把 targetSdkVersion 改为 29</p>
+<p><a target="_blank" rel="noopener" href="https://chinagdg.org/2016/01/picking-your-compilesdkversion-minsdkversion-targetsdkversion/">如何选择 compileSdkVersion, minSdkVersion 和 targetSdkVersion</a></p>
+<p>编译运行，发现出现了非常多的报错，都是类型错误，原本没有说明是可为空的对象，现在变成了可为空的，比如 Parcel 的 readString() 方法，Class 的 cast() 方法等</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-Packages%20Unavailable.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-Android%20SDK%20Manager.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/kotlin">使用 Kotlin 开发 Android 应用</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/reference/kotlin/android/os/Parcel?hl=en#readString(">Parcel readString 可为空</a></p>
+<p>所以要对这些可为空的对象进行处理，让代码可以正常编译运行，最后可以正常运行在 Android Q 的模拟器上</p>
+<h2 id="扫描非-SDK-接口"><a href="#扫描非-SDK-接口" class="headerlink" title="扫描非 SDK 接口"></a>扫描非 SDK 接口</h2><p>所谓非 SDK 接口，在 iOS 开发中类似于“私有 API”，通俗的说，两者都是官方提供的接口，但前者明文包含在 SDK 中，允许开发者调用；后者出于各方面原因（比如还在测试中或是这个接口仅供系统内部调用），不鼓励甚至禁止开发者调用</p>
+<p>当你调用了非 SDK 接口时，会有类似 Accessing hidden XXX 的日志，还指示了访问方式：直接，通过反射或通过 JNI</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E9%9D%9ESDK%E8%B0%83%E7%94%A8%E8%AD%A6%E5%91%8A.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Accessing hidden field Landroid/os/Message;-&gt;flags:I (light greylist, JNI)<br>Accessing hidden method Landroid/app/ActivityThread;-&gt;currentActivityThread()Landroid/app/ActivityThread; (dark greylist, reflection)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>light greylisted ：包含方法和字段，它们继续在 Android P 预览版中运行，但 Google 无法保证在未来版本的平台上访问这些方法和字段</li>
+<li>dark greylist：开发人员预览版本中无法访问的方法，这些日志消息可以使用 adb logcat 访问，并且会显示在正在运行的应用程序的 PID 下</li>
+</ul>
+<p>但是一个大项目到底哪里使用了这些方法，靠自己 review 代码和看日志是不现实的，谷歌官方提供了官方检查器 veridex 来检测一个 apk 中哪里使用了非 SDK 接口，<a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/prebuilts/runtime/+/master/appcompat">veridex下载</a></p>
+<p>下载完毕后解压，解压后目录结构如下：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-veridex%E8%A7%A3%E5%8E%8B%E5%90%8E%E7%9B%AE%E5%BD%95.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到它里面包含了各名单的 txt 文件，其中 appcompat.sh 就是运行脚本</p>
+<p>把需要扫描的 apk 放到同一目录下，使用终端 cd 到该目录，运行以下命令：(test.apk 为目标 apk，imprecise：不精确)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">./appcompat.sh --dex-file=test.apk<br><br>./appcompat.sh --dex-file=test.apk &gt;&gt; happy.txt<br><br>./appcompat.sh --dex-file=test.apk --imprecise &gt;&gt; happy2.txt<br></code></pre></td></tr></table></figure>
+
+<p>对项目中的条目分类了一下，得到如下列表，观察详细内容，发现 veridex 把 Android 自己调用的也检测出来了</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><code class="hljs txt">Rxjava:<br><br>#2: Linking greylist Lsun/misc/Unsafe;-&gt;arrayBaseOffset(Ljava/lang/Class;)I use(s): (io.reactivex:rxjava:1.2.1@jar)<br>       Lcom/google/common/hash/LittleEndianByteArray$UnsafeByteArray;-&gt;&lt;clinit&gt;()V<br>       Lcom/google/common/primitives/UnsignedBytes$LexicographicalComparatorHolder$UnsafeComparator;-&gt;&lt;clinit&gt;()V<br>       Lrx/internal/util/unsafe/ConcurrentCircularArrayQueue;-&gt;&lt;clinit&gt;()V<br>       Lrx/internal/util/unsafe/ConcurrentSequencedCircularArrayQueue;-&gt;&lt;clinit&gt;()V<br>       Lrx/internal/util/unsafe/SpscUnboundedArrayQueue;-&gt;&lt;clinit&gt;()V<br><br>#3: Linking greylist Lsun/misc/Unsafe;-&gt;arrayIndexScale(Ljava/lang/Class;)I use(s): (io.reactivex:rxjava:1.2.1@jar)<br>       Lcom/google/common/hash/LittleEndianByteArray$UnsafeByteArray;-&gt;&lt;clinit&gt;()V<br>       Lcom/google/common/primitives/UnsignedBytes$LexicographicalComparatorHolder$UnsafeComparator;-&gt;&lt;clinit&gt;()V<br>       Lrx/internal/util/unsafe/ConcurrentCircularArrayQueue;-&gt;&lt;clinit&gt;()V<br>       Lrx/internal/util/unsafe/ConcurrentSequencedCircularArrayQueue;-&gt;&lt;clinit&gt;()V<br>       Lrx/internal/util/unsafe/SpscUnboundedArrayQueue;-&gt;&lt;clinit&gt;()V<br><br>#5: Linking greylist Lsun/misc/Unsafe;-&gt;compareAndSwapLong(Ljava/lang/Object;JJJ)Z use(s):<br>       Lcom/google/common/cache/Striped64$Cell;-&gt;a(JJ)Z<br>       Lcom/google/common/cache/Striped64;-&gt;b(JJ)Z<br>       Lrx/internal/util/unsafe/MpmcArrayQueueConsumerField;-&gt;b(JJ)Z<br>       Lrx/internal/util/unsafe/MpmcArrayQueueProducerField;-&gt;c(JJ)Z<br>       Lrx/internal/util/unsafe/SpmcArrayQueueConsumerField;-&gt;b(JJ)Z<br><br>#6: Linking greylist Lsun/misc/Unsafe;-&gt;compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z use(s):<br>       Lcom/google/common/util/concurrent/AbstractFuture$UnsafeAtomicHelper;-&gt;a(Lcom/google/common/util/concurrent/AbstractFuture;Lcom/google/common/util/concurrent/AbstractFuture$Listener;Lcom/google/common/util/concurrent/AbstractFuture$Listener;)Z<br>       Lcom/google/common/util/concurrent/AbstractFuture$UnsafeAtomicHelper;-&gt;a(Lcom/google/common/util/concurrent/AbstractFuture;Lcom/google/common/util/concurrent/AbstractFuture$Waiter;Lcom/google/common/util/concurrent/AbstractFuture$Waiter;)Z<br>       Lcom/google/common/util/concurrent/AbstractFuture$UnsafeAtomicHelper;-&gt;a(Lcom/google/common/util/concurrent/AbstractFuture;Ljava/lang/Object;Ljava/lang/Object;)Z<br>       Lrx/internal/util/unsafe/MpscLinkedQueue;-&gt;c(Lrx/internal/util/atomic/LinkedQueueNode;)Lrx/internal/util/atomic/LinkedQueueNode;<br><br>#8: Linking greylist Lsun/misc/Unsafe;-&gt;getLongVolatile(Ljava/lang/Object;J)J use(s):<br>       Lrx/internal/util/unsafe/ConcurrentSequencedCircularArrayQueue;-&gt;a([JJ)J<br>       Lrx/internal/util/unsafe/SpscArrayQueue;-&gt;a()J<br>       Lrx/internal/util/unsafe/SpscArrayQueue;-&gt;b()J<br>       Lrx/internal/util/unsafe/SpscUnboundedArrayQueue;-&gt;a()J<br>       Lrx/internal/util/unsafe/SpscUnboundedArrayQueue;-&gt;b()J<br><br>#9: Linking greylist Lsun/misc/Unsafe;-&gt;getObject(Ljava/lang/Object;J)Ljava/lang/Object; use(s):<br>       Lrx/internal/util/unsafe/ConcurrentCircularArrayQueue;-&gt;a([Ljava/lang/Object;J)Ljava/lang/Object;<br><br>#10: Linking greylist Lsun/misc/Unsafe;-&gt;getObjectVolatile(Ljava/lang/Object;J)Ljava/lang/Object; use(s):<br>       Lrx/internal/util/unsafe/BaseLinkedQueueConsumerNodeRef;-&gt;a()Lrx/internal/util/atomic/LinkedQueueNode;<br>       Lrx/internal/util/unsafe/BaseLinkedQueueProducerNodeRef;-&gt;c()Lrx/internal/util/atomic/LinkedQueueNode;<br>       Lrx/internal/util/unsafe/ConcurrentCircularArrayQueue;-&gt;b([Ljava/lang/Object;J)Ljava/lang/Object;<br>       Lrx/internal/util/unsafe/SpscUnboundedArrayQueue;-&gt;a([Ljava/lang/Object;J)Ljava/lang/Object;<br><br>#12: Linking greylist Lsun/misc/Unsafe;-&gt;objectFieldOffset(Ljava/lang/reflect/Field;)J use(s):<br>       Lcom/google/common/cache/Striped64$Cell;-&gt;&lt;clinit&gt;()V<br>       Lcom/google/common/cache/Striped64;-&gt;&lt;clinit&gt;()V (2 occurrences)<br>       Lcom/google/common/hash/Striped64$Cell;-&gt;&lt;clinit&gt;()V<br>       Lcom/google/common/hash/Striped64;-&gt;&lt;clinit&gt;()V (2 occurrences)<br>       Lcom/google/common/util/concurrent/AbstractFuture$UnsafeAtomicHelper;-&gt;&lt;clinit&gt;()V (5 occurrences)<br>       Lrx/internal/util/unsafe/SpscUnboundedArrayQueue;-&gt;&lt;clinit&gt;()V (2 occurrences)<br>       Lrx/internal/util/unsafe/UnsafeAccess;-&gt;a(Ljava/lang/Class;Ljava/lang/String;)J<br><br>#13: Linking greylist Lsun/misc/Unsafe;-&gt;putObject(Ljava/lang/Object;JLjava/lang/Object;)V use(s):<br>       Lcom/google/common/util/concurrent/AbstractFuture$UnsafeAtomicHelper;-&gt;a(Lcom/google/common/util/concurrent/AbstractFuture$Waiter;Lcom/google/common/util/concurrent/AbstractFuture$Waiter;)V<br>       Lcom/google/common/util/concurrent/AbstractFuture$UnsafeAtomicHelper;-&gt;a(Lcom/google/common/util/concurrent/AbstractFuture$Waiter;Ljava/lang/Thread;)V<br>       Lrx/internal/util/unsafe/ConcurrentCircularArrayQueue;-&gt;a([Ljava/lang/Object;JLjava/lang/Object;)V<br><br>#14: Linking greylist Lsun/misc/Unsafe;-&gt;putOrderedLong(Ljava/lang/Object;JJ)V use(s):<br>       Lrx/internal/util/unsafe/ConcurrentSequencedCircularArrayQueue;-&gt;a([JJJ)V<br>       Lrx/internal/util/unsafe/SpmcArrayQueueProducerField;-&gt;d(J)V<br>       Lrx/internal/util/unsafe/SpscArrayQueue;-&gt;d(J)V<br>       Lrx/internal/util/unsafe/SpscArrayQueue;-&gt;e(J)V<br>       Lrx/internal/util/unsafe/SpscUnboundedArrayQueue;-&gt;a(J)V<br>       Lrx/internal/util/unsafe/SpscUnboundedArrayQueue;-&gt;b(J)V<br><br>#15: Linking greylist Lsun/misc/Unsafe;-&gt;putOrderedObject(Ljava/lang/Object;JLjava/lang/Object;)V use(s):<br>       Lrx/internal/util/unsafe/ConcurrentCircularArrayQueue;-&gt;b([Ljava/lang/Object;JLjava/lang/Object;)V<br>       Lrx/internal/util/unsafe/SpscUnboundedArrayQueue;-&gt;a([Ljava/lang/Object;JLjava/lang/Object;)V<br><br>Google:<br><br>#4: Linking greylist Lsun/misc/Unsafe;-&gt;compareAndSwapInt(Ljava/lang/Object;JII)Z use(s):<br>       Lcom/google/common/cache/Striped64;-&gt;c()Z<br><br>#7: Linking greylist Lsun/misc/Unsafe;-&gt;getLong(Ljava/lang/Object;J)J use(s):<br>       Lcom/google/common/hash/LittleEndianByteArray$UnsafeByteArray$1;-&gt;a([BI)J<br>       Lcom/google/common/hash/LittleEndianByteArray$UnsafeByteArray$2;-&gt;a([BI)J<br>       Lcom/google/common/primitives/UnsignedBytes$LexicographicalComparatorHolder$UnsafeComparator;-&gt;a([B[B)I (2 occurrences)<br><br>#11: Linking greylist Lsun/misc/Unsafe;-&gt;getUnsafe()Lsun/misc/Unsafe; use(s):<br>       Lcom/google/common/cache/Striped64;-&gt;a()Lsun/misc/Unsafe;<br>       Lcom/google/common/hash/LittleEndianByteArray$UnsafeByteArray;-&gt;c()Lsun/misc/Unsafe;<br>       Lcom/google/common/hash/Striped64;-&gt;a()Lsun/misc/Unsafe;<br>       Lcom/google/common/primitives/UnsignedBytes$LexicographicalComparatorHolder$UnsafeComparator;-&gt;a()Lsun/misc/Unsafe;<br>       Lcom/google/common/util/concurrent/AbstractFuture$UnsafeAtomicHelper;-&gt;&lt;clinit&gt;()V<br><br>AndroidX<br><br>#16: Reflection greylist-max-p Landroid/animation/LayoutTransition;-&gt;cancel use(s):<br>       Landroidx/transition/ViewGroupUtilsApi14;-&gt;a(Landroid/animation/LayoutTransition;)V<br><br>#21: Reflection greylist Landroid/app/Dialog;-&gt;mOnKeyListener use(s):<br>       Landroidx/core/view/KeyEventDispatcher;-&gt;a(Landroid/app/Dialog;)Landroid/content/DialogInterface$OnKeyListener;<br><br>#29: Reflection greylist Landroid/content/res/Resources;-&gt;mResourcesImpl use(s):<br>       Landroidx/appcompat/app/ResourcesFlusher;-&gt;d(Landroid/content/res/Resources;)V<br><br>#30: Reflection greylist Landroid/graphics/Typeface;-&gt;createFromFamiliesWithDefault use(s):<br>       Landroidx/core/graphics/TypefaceCompatApi24Impl;-&gt;&lt;clinit&gt;()V<br>       Landroidx/core/graphics/TypefaceCompatApi26Impl;-&gt;f(Ljava/lang/Class;)Ljava/lang/reflect/Method;<br>       Landroidx/core/graphics/TypefaceCompatApi28Impl;-&gt;f(Ljava/lang/Class;)Ljava/lang/reflect/Method;<br><br>#31: Reflection greylist Landroid/media/session/MediaSession;-&gt;getCallingPackage use(s):<br>       Landroid/support/v4/media/session/MediaSessionCompatApi24;-&gt;a(Ljava/lang/Object;)Ljava/lang/String;<br><br>#33: Reflection greylist Landroid/os/Bundle;-&gt;getIBinder use(s):<br>       Landroidx/core/app/BundleCompat$BundleCompatBaseImpl;-&gt;a(Landroid/os/Bundle;Ljava/lang/String;)Landroid/os/IBinder;<br><br>#34: Reflection greylist Landroid/os/Bundle;-&gt;putIBinder use(s):<br>       Landroidx/core/app/BundleCompat$BundleCompatBaseImpl;-&gt;a(Landroid/os/Bundle;Ljava/lang/String;Landroid/os/IBinder;)V<br><br>#35: Reflection greylist Landroid/service/media/MediaBrowserService$Result;-&gt;mFlags use(s):<br>       Landroidx/media/MediaBrowserServiceCompatApi26;-&gt;&lt;clinit&gt;()V<br><br>#45: Reflection greylist Landroid/view/LayoutInflater;-&gt;mFactory2 use(s):<br>       Landroidx/core/view/LayoutInflaterCompat;-&gt;b(Landroid/view/LayoutInflater;Landroid/view/LayoutInflater$Factory2;)V<br><br>#46: Reflection greylist Landroid/view/View;-&gt;computeFitSystemWindows use(s):<br>       Landroidx/appcompat/widget/ViewUtils;-&gt;&lt;clinit&gt;()V<br><br>#47: Reflection greylist Landroid/view/View;-&gt;mAccessibilityDelegate use(s):<br>       Landroidx/core/view/ViewCompat;-&gt;b(Landroid/view/View;)Z<br><br>#49: Reflection greylist-max-p Landroid/view/View;-&gt;mViewFlags use(s):<br>       Landroidx/transition/ViewUtils;-&gt;a()V<br><br>#50: Reflection greylist-max-p Landroid/view/animation/Animation;-&gt;mListener use(s):<br>       Landroidx/fragment/app/FragmentManagerImpl;-&gt;a(Landroid/view/animation/Animation;)Landroid/view/animation/Animation$AnimationListener;<br><br>#51: Reflection greylist Landroid/widget/AbsListView;-&gt;mIsChildViewEnabled use(s):<br>       Landroidx/appcompat/widget/DropDownListView;-&gt;&lt;init&gt;(Landroid/content/Context;Z)V<br><br>#52: Reflection greylist-max-p Landroid/widget/AutoCompleteTextView;-&gt;doAfterTextChanged use(s):<br>       Landroidx/appcompat/widget/SearchView$AutoCompleteTextViewReflector;-&gt;&lt;init&gt;()V<br><br>#53: Reflection greylist-max-p Landroid/widget/AutoCompleteTextView;-&gt;doBeforeTextChanged use(s):<br>       Landroidx/appcompat/widget/SearchView$AutoCompleteTextViewReflector;-&gt;&lt;init&gt;()V<br><br>#54: Reflection greylist-max-p Landroid/widget/AutoCompleteTextView;-&gt;ensureImeVisible use(s):<br>       Landroidx/appcompat/widget/SearchView$AutoCompleteTextViewReflector;-&gt;&lt;init&gt;()V<br><br>#65: Reflection greylist Ljava/lang/Thread;-&gt;inheritableThreadLocals use(s):<br>       Lcom/google/common/base/internal/Finalizer;-&gt;b()Ljava/lang/reflect/Field;<br><br>#66: Reflection greylist Llibcore/icu/ICU;-&gt;addLikelySubtags use(s):<br>       Landroidx/core/text/ICUCompat;-&gt;&lt;clinit&gt;()V<br><br>#67: Reflection greylist Lsun/misc/Unsafe;-&gt;allocateInstance use(s):<br>       Lcom/google/gson/internal/UnsafeAllocator;-&gt;create()Lcom/google/gson/internal/UnsafeAllocator;<br><br>#68: Reflection greylist Lsun/misc/Unsafe;-&gt;theUnsafe use(s):<br>       Lcom/google/gson/internal/UnsafeAllocator;-&gt;create()Lcom/google/gson/internal/UnsafeAllocator;<br>       Lrx/internal/util/unsafe/UnsafeAccess;-&gt;&lt;clinit&gt;()V<br><br>68 hidden API(s) used: 15 linked against, 53 through reflection<br>       60 in greylist<br>       0 in blacklist<br>       0 in greylist-max-o<br>       8 in greylist-max-p<br>To run an analysis that can give more reflection accesses, <br>but could include false positives, pass the --imprecise flag. <br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>greylist: 灰名单，即当前版本仍能使用的非 SDK 接口，但在下一版本中可能变成被限制的非 SDK 接口</li>
+<li>blacklist：黑名单，使用了就会报错。也是我们项目中必须解决的非 SDK 接口</li>
+<li>greylist-max-o： 在 targetSDK&lt;&#x3D;O 中能使用，但是在 targetSDK&gt;&#x3D;P 中被限制的非 SDK 接口</li>
+<li>greylist-max-p： 在 targetSDK&lt;&#x3D;P 中能使用，但是在 targetSDK&gt;&#x3D;Q 中被限制的非 SDK 接口</li>
+</ul>
+<h3 id="使用非官方-API-的后果"><a href="#使用非官方-API-的后果" class="headerlink" title="使用非官方 API 的后果"></a>使用非官方 API 的后果</h3><p>在 Developer Preview 的后续版本中，访问非 SDK 接口的各种方法都会产生错误或其他不良结果，下面列出了几种示例：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E9%9D%9ESDK%E6%8E%A5%E5%8F%A3%E5%BA%94%E7%94%A8%E5%86%85%E8%AD%A6%E5%91%8A.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E4%BD%BF%E7%94%A8%E9%9D%9E%E5%AE%98%E6%96%B9API%E7%9A%84%E5%90%8E%E6%9E%9C.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Android-Q-暗黑模式适配"><a href="#Android-Q-暗黑模式适配" class="headerlink" title="Android Q 暗黑模式适配"></a>Android Q 暗黑模式适配</h2><p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E5%A4%9C%E9%97%B4%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2.gif" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 检查当前系统是否已开启暗黑模式</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getDarkModeStatus</span><span class="hljs-params">(context: <span class="hljs-type">Context</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;<br>  <span class="hljs-keyword">val</span> mode = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK<br>  <span class="hljs-keyword">return</span> mode == Configuration.UI_MODE_NIGHT_YES<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在需要跟随夜间模式的 Activity 中添加 <code>android:configChanges=&quot;uiMode&quot;</code> 选项，并重写 onConfigurationChanged() 方法</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">&lt;activity<br>    android:name=<span class="hljs-string">&quot;.TestActivity&quot;</span><br>    android:configChanges=<span class="hljs-string">&quot;uiMode&quot;</span> /&gt;<br><br><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onConfigurationChanged</span><span class="hljs-params">(newConfig: <span class="hljs-type">Configuration</span>)</span></span> &#123;<br>  <span class="hljs-keyword">super</span>.onConfigurationChanged(newConfig)<br>  <span class="hljs-keyword">when</span> (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) &#123;<br>    Configuration.UI_MODE_NIGHT_YES -&gt; &#123;<br>        <span class="hljs-comment">// 暗黑模式开启</span><br>    &#125;<br>    Configuration.UI_MODE_NIGHT_NO -&gt; &#123;<br>        <span class="hljs-comment">// 暗黑模已关闭</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/resources/runtime-changes?hl=zh-cn">关于 configChanges</a></p>
+<h2 id="Android-Q-全面屏及手势适配"><a href="#Android-Q-全面屏及手势适配" class="headerlink" title="Android Q 全面屏及手势适配"></a>Android Q 全面屏及手势适配</h2><p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E6%9C%AA%E9%80%82%E9%85%8D%E5%85%A8%E9%9D%A2%E5%B1%8F%E5%AF%B9%E6%AF%94.png" srcset="/img/loading.gif" lazyload></p>
+<p>左图 18.5:9 设备上最大纵横比设置为 16:9 的应用</p>
+<p>右图 18.5:9 设备上最大纵横比设置为 18.5:9 的应用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 适配全面屏 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta-data</span></span><br><span class="hljs-tag">  <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.max_aspect&quot;</span></span><br><span class="hljs-tag">  <span class="hljs-attr">android:value</span>=<span class="hljs-string">&quot;2.22&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>建议将应用设计为支持 2.1 或更高的纵横比，如果未设置任何值，并且 <code>android:resizeableActivity</code> 不为 true，则最大纵横比默认为 1.86（大约相当于 16:9），应用将无法充分利用额外的屏幕空间</p>
+<p>打开全面屏：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E6%89%8B%E5%8A%BF%E5%88%87%E6%8D%A2.gif" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E5%AE%89%E5%85%A8%E8%8C%83%E5%9B%B4.png" srcset="/img/loading.gif" lazyload></p>
+<p>这张图片基本上指的是过去这么长时间，一般应用可以利用的在屏幕上的一个所谓的“安全范围”，在 Android Q 上，我们首先建议大家去考虑使用最下面的导航栏区域</p>
+<p>在没有适配全面屏的应用中，会看到如下效果：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E5%85%A8%E9%9D%A2%E5%B1%8F%E5%AF%BC%E8%88%AA%E6%A0%8F.png" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.com/preview/features/gesturalnav#conflicting-gestures">官方文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://sspai.com/post/55638">手势操作再添新机制，Android Q Beta 5 更新详解 | 剧透</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5ce8e413f265da1b9253b680#heading-11">Android Q Labs | Android Q 手势导航</a></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BA%95%E9%83%A8.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D-%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E5%BA%95%E9%83%A8.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="category-chain-item">开发记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Android 版本适配</div>
+      <div>https://enderhoshi.github.io/2019/08/12/Android 版本适配/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2019年8月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/11/14/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2%20forEach%20Kotlin%20%E6%93%8D%E4%BD%9C%E7%AC%A6(run%E3%80%81with%E3%80%81let%E3%80%81also%E3%80%81apply)%E7%9A%84%E5%B7%AE%E5%BC%82%E4%B8%8E%E9%80%89%E6%8B%A9/" title="如何正确终止 forEach | Kotlin操作符（run、with、let、also、apply）的差异">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">如何正确终止 forEach | Kotlin操作符（run、with、let、also、apply）的差异</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/05/05/Kotlin%20REPL%20%E4%BD%BF%E7%94%A8/" title="Kotlin REPL 使用">
+                        <span class="hidden-mobile">Kotlin REPL 使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

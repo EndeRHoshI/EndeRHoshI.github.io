@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="今天尝试部署 Hexo 博客，发现确实是十分的简明快捷，以后要多加使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 博客部署指北">
+<meta property="og:url" content="https://enderhoshi.github.io/2018/08/30/Hexo%20%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8C%97/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="今天尝试部署 Hexo 博客，发现确实是十分的简明快捷，以后要多加使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/raw/master/blog/Hexo%20%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8C%97/Hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png">
+<meta property="article:published_time" content="2018-08-30T07:19:35.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.145Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="博客部署">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/EndeRHoshI/Photo/raw/master/blog/Hexo%20%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8C%97/Hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Hexo 博客部署指北 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Hexo 博客部署指北"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2018-08-30 15:19" pubdate>
+          2018年8月30日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Hexo 博客部署指北</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>今天尝试部署 Hexo 博客，发现确实是十分的简明快捷，以后要多加使用</p>
+<span id="more"></span>
+
+<p>这次的部署过程中遇到了以下几个问题：</p>
+<h2 id="1-无法上传到-Github"><a href="#1-无法上传到-Github" class="headerlink" title="1. 无法上传到 Github"></a>1. 无法上传到 Github</h2><p>  部署 Hexo 时，使用教程中说的 repository:<br>  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/andybroker/</span>andybroker.github.io.git<br></code></pre></td></tr></table></figure><br>  无法正确上传，后来用了<br>  <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">git@github<span class="hljs-selector-class">.com</span>:andybroker/andybroker<span class="hljs-selector-class">.github</span><span class="hljs-selector-class">.io</span>.git<br></code></pre></td></tr></table></figure><br>  才正确，应该是直接使用 ssh 进行上传，故没有写账号密码的过程</p>
+<h2 id="2-配置文件时语言选项"><a href="#2-配置文件时语言选项" class="headerlink" title="2. 配置文件时语言选项"></a>2. 配置文件时语言选项</h2><p>  中文的选项不是 <code>zh-Hans</code>，而应该是 <code>zh-CN</code>，关于其他的一些语言可以在 themes 中看到，其他的一些配置也可以在 themes 里对应的主题的配置文件 <code>_config.yml</code> 中进行配置，languages 文件夹内容如下所示：<img src="https://github.com/EndeRHoshI/Photo/raw/master/blog/Hexo%20%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8C%97/Hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8C%97-themes%E5%86%85%E7%9A%84language.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-Hexo-修改主题"><a href="#3-Hexo-修改主题" class="headerlink" title="3. Hexo 修改主题"></a>3. Hexo 修改主题</h2><p>  需要把主题先下载下来再进行配置使用</p>
+<h2 id="4-Hexo-的配置文件"><a href="#4-Hexo-的配置文件" class="headerlink" title="4. Hexo 的配置文件"></a>4. Hexo 的配置文件</h2><p>  其中的参数需要在冒号后空一格，不能直接连接冒号</p>
+<h2 id="5-更换电脑时的操作（现在已经使用-Github-进行版本控制，外加使用-Github-Action-进行自动发布，所以这个可以忽略了）"><a href="#5-更换电脑时的操作（现在已经使用-Github-进行版本控制，外加使用-Github-Action-进行自动发布，所以这个可以忽略了）" class="headerlink" title="5. 更换电脑时的操作（现在已经使用 Github 进行版本控制，外加使用 Github Action 进行自动发布，所以这个可以忽略了）"></a>5. <del>更换电脑时的操作</del>（现在已经使用 Github 进行版本控制，外加使用 Github Action 进行自动发布，所以这个可以忽略了）</h2><ol>
+<li><p>安装 Node.js</p>
+<p> 检查是否安装 brew</p>
+ <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">brew -v</span><br></code></pre></td></tr></table></figure>
+<p> 安装 homebrew：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ruby -e <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<p> 安装 node：(如果之前已经手动安装过 node，再次通过 homebrew 安装往往产生冲突，可以先删除，如果是通过 homebrew 安装的，下发命令 <code>brew uninstall node</code> 即可，如果是通过安装包安装的，手动删除 node 的安装文件即可)</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew <span class="hljs-built_in">link</span> node<br>brew uninstall node<br>brew install node<br></code></pre></td></tr></table></figure>
+<p> 检查是否安装 node：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">node -v<br>npm -v<br></code></pre></td></tr></table></figure>
+<p> 注意：安装 cnpm（npm 由于源服务器在国外，下载 node 包速度较慢，cnpm 使用国内镜像，下载速度较快）：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g cnpm --registry=https://registry.npm.taobao.org<br></code></pre></td></tr></table></figure></li>
+<li><p>安装 hexo:</p>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">npm <span class="hljs-selector-tag">i</span> -<span class="hljs-selector-tag">g</span> hexo<br></code></pre></td></tr></table></figure></li>
+<li><p>把博客文件从 git 上拉下来，或者用 iCloud 中的，基本上只要在 Mac 上更新博客，都可以直接用 iCloud 文稿中的文件，但是如果要更新 git 上的文件，就要先拉到本地，用 iCloud 的将其覆盖，再推到远端</p>
+</li>
+</ol>
+<h2 id="遇到的一些问题"><a href="#遇到的一些问题" class="headerlink" title="遇到的一些问题"></a>遇到的一些问题</h2><h3 id="Hexo-使用了-Fluid-皮肤后，hexo-g-关于高亮报错"><a href="#Hexo-使用了-Fluid-皮肤后，hexo-g-关于高亮报错" class="headerlink" title="Hexo 使用了 Fluid 皮肤后，hexo g 关于高亮报错"></a>Hexo 使用了 Fluid 皮肤后，hexo g 关于高亮报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash">TypeError: Cannot <span class="hljs-built_in">set</span> property <span class="hljs-string">&#x27;lastIndex&#x27;</span> of undefined<br>    at highlight (/home/xxxx/Blog/xxxxx/highlight.js/lib/highlight.js:514:35)   <br></code></pre></td></tr></table></figure>
+<p>这是因为在你的博客中，在用代码段时没有指明语言，可以把部分文章移出文件夹，逐渐找出是哪一篇的代码段没有指明语言，处理后再移回来</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/2380">相关链接</a></p>
+<h3 id="Hexo-升级问题"><a href="#Hexo-升级问题" class="headerlink" title="Hexo 升级问题"></a>Hexo 升级问题</h3><p>最近在整理自己的博客，看到 Hexo 版本是 3.9.0，最新已经去到 6.0.0 了，而我所使用的主题 Fluid 的相关配置在新版本 Hexo 上将会更加方便简洁，所以决定升级一波</p>
+<p>按照 Google 得来的升级步骤，先执行如下指令</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">npm install -g hexo-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure>
+<p>运行完毕，再输入 <code>hexo version</code> 查看版本，哦豁，还是 3.9.0，看来应该是只升级了 hexo-cli，并没有正确升级 Hexo，于是再次进行搜索，得到如下的步骤</p>
+<p>先安装 <code>npm-check</code> 和 <code>npm-upgrade</code></p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> install -g <span class="hljs-built_in">npm</span>-check <span class="hljs-built_in">npm</span>-upgrade<br></code></pre></td></tr></table></figure>
+<p>安装完后，执行 <code>npm-check</code> 即可检查本地各插件版本情况</p>
+<p>执行 <code>npm-upgrade</code> 可根据当前版本和最新版本比较，让用户确认和选择是否升级</p>
+<p>若用户确认升级，则会自动把 package-lock.json 和 package.json 文件内容进行更新后保存，然后执行：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">npm update -<span class="hljs-selector-tag">g</span> <span class="hljs-attr">--save</span> <br></code></pre></td></tr></table></figure>
+<p>上述命令执行完毕，则所有通过 <code>npm-upgrade</code> 确认的插件全部都升级到最新（包括 Hexo）</p>
+<p>稍等片刻后，出现了一堆日志，诸如改变了多少个 package 之类的，应该是报告出错了，同时贴心地附上处理的指令 <code>npm audit fix</code>，这时查看一下 Hexo 版本，仍然没有变化，还是 3.9.0，看来的确是出现问题了，那就输入 <code>npm audit fix</code> 试试看，又稍等片刻后通过 <code>hexo version</code> 验证 Hexo 版本，已经更新到最新的 6.0.0 了</p>
+<p>如果还遇到另外的问题，可以参考<a target="_blank" rel="noopener" href="https://ephen.me/2022/blog-updates-plus/">原文</a>，另附查看 Node.js 版本的指令： <code>node -v</code></p>
+<h3 id="Node-快速切换版本、版本回退-降级-、版本更新-升级"><a href="#Node-快速切换版本、版本回退-降级-、版本更新-升级" class="headerlink" title="Node 快速切换版本、版本回退(降级)、版本更新(升级)"></a>Node 快速切换版本、版本回退(降级)、版本更新(升级)</h3><p>最近遇到一些 node 的坑，对旧版博客皮肤不太满意，所以更换了现在的 fluid，之后发布的时候报错，一查发现是 node 版本过高了，需要回退到比较稳定的版本，这时可以借助 node 版本管理模块 n 来解决这个问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-comment"># 安装</span><br><span class="hljs-built_in">sudo</span> npm install n -g<br><br><span class="hljs-comment"># 下边步骤请根据自己需要选择</span><br><br><span class="hljs-comment"># 安装稳定版</span><br><span class="hljs-built_in">sudo</span> n stable<br><br><span class="hljs-comment"># 安装最新版</span><br><span class="hljs-built_in">sudo</span> n latest<br><br><span class="hljs-comment"># 版本降级/升级</span><br><span class="hljs-built_in">sudo</span> n 版本号<br><br><span class="hljs-comment"># 检测目前安装了哪些版本的node</span><br>n<br><br><span class="hljs-comment"># 切换版本（不会删除已经安装的其他版本）</span><br>n 版本号<br><br><span class="hljs-comment"># 删除版本</span><br><span class="hljs-built_in">sudo</span> n <span class="hljs-built_in">rm</span> 版本号<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Fabulous1111/article/details/84983869">相关链接</a> </p>
+<h3 id="npm-在-Mac-上的权限问题"><a href="#npm-在-Mac-上的权限问题" class="headerlink" title="npm 在 Mac 上的权限问题"></a>npm 在 Mac 上的权限问题</h3><p>最近又在升级 Hexo 和 Fluid 主题，发现用 Fluid 官方推荐的指令 <code>npm install --save hexo-theme-fluid </code>，会报类似如下错误（下面的结果是我在 <code>npm install -g npm-check npm-upgrade</code> 尝试安装 <code>npm-check</code> 和 <code>npm-upgrade</code> 时报的，借来展示下）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs Bash">lvqixing@lvqixingdeMac-mini HoshiBlog % npm install -g npm-check npm-upgrade<br>npm error code EACCES<br>npm error syscall <span class="hljs-built_in">mkdir</span><br>npm error path /usr/local/lib/node_modules/npm-check<br>npm error errno -13<br>npm error Error: EACCES: permission denied, <span class="hljs-built_in">mkdir</span> <span class="hljs-string">&#x27;/usr/local/lib/node_modules/npm-check&#x27;</span><br>npm error     at async <span class="hljs-built_in">mkdir</span> (node:internal/fs/promises:852:10)<br>npm error     at async /usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:624:20<br>npm error     at async Promise.allSettled (index 0)<br>npm error     at async [reifyPackages] (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:325:11)<br>npm error     at async Arborist.reify (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:142:5)<br>npm error     at async Install.<span class="hljs-built_in">exec</span> (/usr/local/lib/node_modules/npm/lib/commands/install.js:150:5)<br>npm error     at async Npm.<span class="hljs-built_in">exec</span> (/usr/local/lib/node_modules/npm/lib/npm.js:207:9)<br>npm error     at async module.exports (/usr/local/lib/node_modules/npm/lib/cli/entry.js:74:5) &#123;<br>npm error   errno: -13,<br>npm error   code: <span class="hljs-string">&#x27;EACCES&#x27;</span>,<br>npm error   syscall: <span class="hljs-string">&#x27;mkdir&#x27;</span>,<br>npm error   path: <span class="hljs-string">&#x27;/usr/local/lib/node_modules/npm-check&#x27;</span><br>npm error &#125;<br>npm error<br>npm error The operation was rejected by your operating system.<br>npm error It is likely you <span class="hljs-keyword">do</span> not have the permissions to access this file as the current user<br>npm error<br>npm error If you believe this might be a permissions issue, please double-check the<br>npm error permissions of the file and its containing directories, or try running<br>npm error the <span class="hljs-built_in">command</span> again as root/Administrator.<br>npm error A complete <span class="hljs-built_in">log</span> of this run can be found <span class="hljs-keyword">in</span>: /Users/lvqixing/.npm/_logs/2025-11-28T04_14_13_814Z-debug-0.log<br></code></pre></td></tr></table></figure>
+
+<p>错误信息显示没有足够的权限在 &#x2F;usr&#x2F;local&#x2F;lib&#x2F;node_modules&#x2F; 目录下创建文件夹，我直接下载了 Fluid 的 release 包，解压复制粘贴到指定目录完成了更新。但是后续我更新 Hexo 时，还是遇到了权限问题，我直接在指令前方加了 sudo，临时解决了，又觉得很不优雅，于是我问了下 DeepSeek，展开了一些探索</p>
+<p>首先我再梳理了一下 npm 和 Node.js 之间的关系，Node.js 是 JavaScript 的运行时环境，没有 Node.js，npm 无法运行，因为 npm 本身就是一个用 JavaScript 编写的、需要 Node.js 环境来运行的工具。而 npm 是包管理器，用于管理 Node.js 生态下的成千上万个开源代码库。只要你下载了 Node.js，就会有对应的 npm</p>
+<p>而现在我的问题在于，直接从官网下载 Node.js 安装包时，Node.js 和 npm 会被安装在系统目录（比如 &#x2F;usr&#x2F;local&#x2F;bin&#x2F;node 和 &#x2F;usr&#x2F;local&#x2F;bin&#x2F;npm），全局包默认也安装在系统目录（比如 &#x2F;usr&#x2F;local&#x2F;lib&#x2F;node_modules&#x2F;），而这些目录需要管理员权限（sudo）才能写入</p>
+<p>所以 DeepSeek 推荐我使用 nvm（<a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm">Node Version Manager</a>）安装的方式，nvm 把一切都安装在我自己的用户目录下，所以没有了权限问题。而且 nvm 还可以很方便地管理不同的版本，官方给出的例子如下：</p>
+<p>nvm allows you to quickly install and use different versions of node via the command line.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Bash">$ nvm use 16<br>Now using node v16.9.1 (npm v7.21.1)<br>$ node -v<br>v16.9.1<br>$ nvm use 14<br>Now using node v14.18.0 (npm v6.14.15)<br>$ node -v<br>v14.18.0<br>$ nvm install 12<br>Now using node v12.22.6 (npm v6.14.5)<br>$ node -v<br>v12.22.6<br></code></pre></td></tr></table></figure>
+<p>Simple as that! </p>
+<p>确实是很 Simple 了</p>
+<p>同理，使用上面说的 node 版本管理模块 n 可能也可以处理权限问题</p>
+<h3 id="Github-Action-Node-版本过低导致构建失败问题"><a href="#Github-Action-Node-版本过低导致构建失败问题" class="headerlink" title="Github Action Node 版本过低导致构建失败问题"></a>Github Action Node 版本过低导致构建失败问题</h3><p>我更新完 Node.js 之后，把代码推上去，发现构建失败了，报错如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Bash">Run hexo clean<br>ERROR Cannot find module <span class="hljs-string">&#x27;fs/promises&#x27;</span><br>Require stack:<br>- /home/runner/work/HoshiBlog/HoshiBlog/node_modules/hexo-fs/node_modules/chokidar/index.js<br>- /home/runner/work/HoshiBlog/HoshiBlog/node_modules/hexo-fs/dist/fs.js<br>- /home/runner/work/HoshiBlog/HoshiBlog/node_modules/hexo/dist/hexo/index.js<br>- /opt/hostedtoolcache/node/12.22.12/x64/lib/node_modules/hexo-cli/dist/hexo.js<br>- /opt/hostedtoolcache/node/12.22.12/x64/lib/node_modules/hexo-cli/bin/hexo<br>ERROR Local hexo loading failed <span class="hljs-keyword">in</span> ~/work/HoshiBlog/HoshiBlog<br>ERROR Try running: <span class="hljs-string">&#x27;rm -rf node_modules &amp;&amp; npm install --force&#x27;</span><br>Error: Process completed with <span class="hljs-built_in">exit</span> code 2.<br></code></pre></td></tr></table></figure>
+
+<p><code>fs/promises</code> 这个模块是在 Node.js v14.0.0 中才正式稳定下来的。从错误堆栈中可以看到，当前 Actions 环境使用的 Node.js 版本是 12.22.12。在这个版本中，fs 模块没有 promises 这个子模块，因此在加载 hexo-fs 和 chokidar 等依赖时就失败了，所以我需要在 GitHub Actions 配置文件中，将 Node.js 版本指定为 v14.0.0 或更高</p>
+<p>看了一下我本地的 Node 版本，更新到 24.x 了，于是去 HoshiBlog&#x2F;.github&#x2F;workflows&#x2F;main.yml 里面，把 <code>node_version: [12.x]</code> 改为 <code>node_version: [24.x]</code>，再推一次代码触发 Action 的构建，果然成功了</p>
+<h2 id="不断使用和尝试中，如果有新的坑会继续补充"><a href="#不断使用和尝试中，如果有新的坑会继续补充" class="headerlink" title="不断使用和尝试中，如果有新的坑会继续补充"></a>不断使用和尝试中，如果有新的坑会继续补充</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/">从零搭建 hexo 参考文章</a>，这个博主也是使用 hexo 的，可以多多参考</li>
+<li><a target="_blank" rel="noopener" href="https://hexo.io/themes/">Hexo 主题网站</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="category-chain-item">开发记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Hexo/" class="print-no-link">#Hexo</a>
+      
+        <a href="/tags/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/" class="print-no-link">#博客部署</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Hexo 博客部署指北</div>
+      <div>https://enderhoshi.github.io/2018/08/30/Hexo 博客部署指北/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2018年8月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/09/08/Apk%20%E6%97%A0%E6%B3%95%E5%9C%A8%E6%9F%90%E6%AC%BE%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="Apk 无法在某款手机上运行解决方案">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Apk 无法在某款手机上运行解决方案</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

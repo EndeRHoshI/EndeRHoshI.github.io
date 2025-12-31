@@ -1,0 +1,754 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="这两天把毕设拉到 Mac 上想解决一下闪退的问题，修改完提交的时候发现出现了一个 .DS_Store 文件，这个 .DS_Store 是 Mac OS 保存文件夹的自定义属性的隐藏文件，如文件的图标位置或背景色，相当于 Windows 的 desktop.ini，而我并不想把这个多余的东西提交上去，上网看了下，附上两条命令便于查阅：  禁止 .DS_store 生成：打开“终端” ，复制黏贴下面的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于 Git 忽略文件">
+<meta property="og:url" content="https://enderhoshi.github.io/2018/11/28/%E5%85%B3%E4%BA%8E%20Git%20%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="这两天把毕设拉到 Mac 上想解决一下闪退的问题，修改完提交的时候发现出现了一个 .DS_Store 文件，这个 .DS_Store 是 Mac OS 保存文件夹的自定义属性的隐藏文件，如文件的图标位置或背景色，相当于 Windows 的 desktop.ini，而我并不想把这个多余的东西提交上去，上网看了下，附上两条命令便于查阅：  禁止 .DS_store 生成：打开“终端” ，复制黏贴下面的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-28T13:36:28.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.147Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>关于 Git 忽略文件 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="关于 Git 忽略文件"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2018-11-28 21:36" pubdate>
+          2018年11月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">关于 Git 忽略文件</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>这两天把毕设拉到 Mac 上想解决一下闪退的问题，修改完提交的时候发现出现了一个 .DS_Store 文件，这个 .DS_Store 是 Mac OS 保存文件夹的自定义属性的隐藏文件，如文件的图标位置或背景色，相当于 Windows 的 desktop.ini，而我并不想把这个多余的东西提交上去，上网看了下，附上两条命令便于查阅：</p>
+<ol>
+<li>禁止 .DS_store 生成：打开“终端” ，复制黏贴下面的命令，回车执行，重启 Mac 即可生效</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE<br></code></pre></td></tr></table></figure>
+<ol>
+<li>恢复 .DS_store 生成：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">defaults delete com.apple.desktopservices DSDontWriteNetworkStores<br></code></pre></td></tr></table></figure>
+
+<p>但是我只是不想把它传上去而已，不至于禁止它生成，所以按往常一样写一个 .gitignore 文件就好，操作如下：</p>
+<ol>
+<li>创建 .gitignore 文件： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> .gitignore<br></code></pre></td></tr></table></figure></li>
+<li>编辑 .gitignore 文件： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim .gitignore<br></code></pre></td></tr></table></figure></li>
+<li>补充 .gitignore 的内容，按规则填写想要忽略的文件： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin<br>.idea/<br>*.iml<br>*.classes<br>*.jar<br>*.war<br>*.ear<br>target<br>.settings<br>.classpath<br>.project<br>.metadata/<br>classes/<br>logs/<br>*.<span class="hljs-built_in">log</span><br>rebel.xml<br></code></pre></td></tr></table></figure></li>
+<li>保存 .gitignore 并退出编辑： 按 ESC 键，并输入以下命令，完成操作 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">：wq<br></code></pre></td></tr></table></figure>
+要忽略的文件少的时候，还可以自己来填写 .gitignore 的内容，但是当项目复杂了大了的时候，总不能每次都自己去想要忽略些什么，于是 github 官方整理了一些 .gitignore 对应不同开发场景的范例，可以<a target="_blank" rel="noopener" href="https://github.com/github/gitignore">点击这里</a>跳转查看，找到想要的，直接 copy 下来改个名字扔进工作空间里就可以了</li>
+</ol>
+<p>点开一个 Android 的来看看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Built application files</span><br>*.apk<br>*.ap_<br>*.aab<br><br><span class="hljs-comment"># Files for the ART/Dalvik VM</span><br>*.dex<br><br><span class="hljs-comment"># Java class files</span><br>*.class<br><br><span class="hljs-comment"># Generated files</span><br>bin/<br>gen/<br>out/<br><br><span class="hljs-comment"># Gradle files</span><br>.gradle/<br>build/<br><br><span class="hljs-comment"># Local configuration file (sdk path, etc)</span><br>local.properties<br><br><span class="hljs-comment"># Proguard folder generated by Eclipse</span><br>proguard/<br><br><span class="hljs-comment"># Log Files</span><br>*.<span class="hljs-built_in">log</span><br><br><span class="hljs-comment"># Android Studio Navigation editor temp files</span><br>.navigation/<br><br><span class="hljs-comment"># Android Studio captures folder</span><br>captures/<br><br><span class="hljs-comment"># IntelliJ</span><br>*.iml<br>.idea/workspace.xml<br>.idea/tasks.xml<br>.idea/gradle.xml<br>.idea/assetWizardSettings.xml<br>.idea/dictionaries<br>.idea/libraries<br>.idea/caches<br><br><span class="hljs-comment"># Keystore files</span><br><span class="hljs-comment"># Uncomment the following lines if you do not want to check your keystore files in.</span><br><span class="hljs-comment">#*.jks</span><br><span class="hljs-comment">#*.keystore</span><br><br><span class="hljs-comment"># External native build folder generated in Android Studio 2.2 and later</span><br>.externalNativeBuild<br><br><span class="hljs-comment"># Google Services (e.g. APIs or Firebase)</span><br>google-services.json<br><br><span class="hljs-comment"># Freeline</span><br>freeline.py<br>freeline/<br>freeline_project_description.json<br><br><span class="hljs-comment"># fastlane</span><br>fastlane/report.xml<br>fastlane/Preview.html<br>fastlane/screenshots<br>fastlane/test_output<br>fastlane/readme.md<br></code></pre></td></tr></table></figure>
+<p>可以看到，按照官方的建议，忽略了一些编译生成的文件，一些本地的配置，还有日志等等，那么如果真的要我们自己编写 .gitignore，我们应该遵循什么样的规则呢，想把忽略掉的文件强行add又要怎么做呢，更加详尽的说明如下，<a target="_blank" rel="noopener" href="https://github.com/onlynight/ReadmeDemo/tree/master/Readmes/GitIgnore">原文地址</a></p>
+<h2 id="Git-Ignore"><a href="#Git-Ignore" class="headerlink" title="Git Ignore"></a>Git Ignore</h2><h3 id="1-WHY"><a href="#1-WHY" class="headerlink" title="1.WHY?"></a>1.WHY?</h3><p>当你使用 git add . 的时候有没有遇到把你不想提交的文件也添加到了缓存中去？比如项目的本地配置信息，如果你上传到 Git 中去其他人 pull 下来的时候就会和他本地的配置有冲突，所以这样的个性化配置文件我们一般不把它推送到 git 服务器中，但是又为了偷懒每次添加缓存的时候都想用 git add . 而不是手动一个一个文件添加，该怎么办呢？很简单，git 为我们提供了一个 .gitignore 文件只要在这个文件中申明那些文件你不希望添加到 git 中去，这样当你使用 git add . 的时候这些文件就会被自动忽略掉。</p>
+<h3 id="2-忽略文件的原则"><a href="#2-忽略文件的原则" class="headerlink" title="2.忽略文件的原则"></a>2.忽略文件的原则</h3><ul>
+<li>忽略操作系统自动生成的文件，比如缩略图等；</li>
+<li>忽略编译生成的中间文件、可执行文件等，也就是如果一个文件是通过另一个文件自动生成的，那自动生成的文件就没必要放进版本库，比如 Java 编译产生的 .class 文件；</li>
+<li>忽略你自己的带有敏感信息的配置文件，比如存放口令的配置文件。</li>
+</ul>
+<h3 id="3-使用方法"><a href="#3-使用方法" class="headerlink" title="3.使用方法"></a>3.使用方法</h3><p>首先，在你的工作区新建一个名称为 .gitignore 的文件。<br>然后，把要忽略的文件名填进去，Git 就会自动忽略这些文件。<br>不需要从头写 .gitignore 文件，GitHub 已经为我们准备了各种配置文件，只需要组合一下就可以使用了。所有配置文件可以直接在线浏览，上面已经附上链接直接跳转</p>
+<h3 id="4-栗子"><a href="#4-栗子" class="headerlink" title="4.栗子"></a>4.栗子</h3><p>比如你的项目是 java 项目，.java 文件编译后会生成 .class 文件，这些文件多数情况下是不想被传到仓库中的文件。这时候你可以直接使用 github 的 <a target="_blank" rel="noopener" href="https://github.com/github/gitignore/blob/master/Java.gitignore">Java .gitignore 文件模板</a>将这些忽略文件信息复制到你的 .gitignore 文件中去：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">*.class<br><br><span class="hljs-comment"># Mobile Tools for Java (J2ME)</span><br>.mtj.tmp/<br><br><span class="hljs-comment"># Package Files #</span><br>*.jar<br>*.war<br>*.ear<br><br><span class="hljs-comment"># virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml</span><br>hs_err_pid*<br></code></pre></td></tr></table></figure>
+<p>可以看到 github 为我们提供了最流行的 .gitignore 文件配置，保存 .ignore 文件后我们查看下 git status，检查下是否还有我们不需要的文件会被添加到 git 中去：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git status<br>On branch master<br><br>Initial commit<br><br>Changes to be committed:<br>  (use <span class="hljs-string">&quot;git rm --cached &lt;file&gt;...&quot;</span> to unstage)<br><br>        new file:   .gitignore<br>        new file:   HelloWorld.java<br><br>Untracked files:<br>  (use <span class="hljs-string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="hljs-keyword">in</span> what will be committed)<br><br>        Config.ini<br></code></pre></td></tr></table></figure>
+<p>比如我的项目目录下有一个 Config.ini 文件，这个是个本地配置文件我不希望上传到 git 中去，我们可以在 gitignore 文件中添加这样的配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Config.ini<br></code></pre></td></tr></table></figure>
+<p>或者你想忽略所有的 .ini 文件你可以这样写：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">*.ini<br></code></pre></td></tr></table></figure>
+
+<p>如果有些文件已经被你忽略了，当你使用 git add 时是无法添加的，比如我忽略了 *.class，现在我想把 HelloWorld.class 添加到 git 中去：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git add HelloWorld.class<br>The following paths are ignored by one of your .gitignore files:<br>HelloWorld.class<br>Use -f <span class="hljs-keyword">if</span> you really want to add them.<br></code></pre></td></tr></table></figure>
+<p>git 会提示我们这个文件已经被我们忽略了，需要加上 -f 参数才能强制添加到 git 中去：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git status<br>On branch master<br><br>Initial commit<br><br>Changes to be committed:<br>  (use <span class="hljs-string">&quot;git rm --cached &lt;file&gt;...&quot;</span> to unstage)<br><br>        new file:   .gitignore<br>        new file:   HelloWorld.class<br>        new file:   HelloWorld.java<br></code></pre></td></tr></table></figure>
+<p>这样就能强制添加到缓存中去了。<br>如果我们意外的将想要忽略的文件添加到缓存中去了，我们可以使用 rm 命令将其从中移除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git <span class="hljs-built_in">rm</span> HelloWorld.class --cached<br><span class="hljs-built_in">rm</span> <span class="hljs-string">&#x27;HelloWorld.class&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>如果你已经把不想上传的文件上传到了 git 仓库，那么你必须先从远程仓库删了它，我们可以从远程仓库直接删除然后 pull 代码到本地仓库这些文件就会被删除，或者从本地删除这些文件并且在 .gitignore 文件中添加这些你想忽略的文件，然后再 push 到远程仓库。</p>
+<h3 id="5-查看-gitignore-规则"><a href="#5-查看-gitignore-规则" class="headerlink" title="5.查看 gitignore 规则"></a>5.查看 gitignore 规则</h3><p>如果你发现 .gitignore 写得有问题，需要找出来到底哪个规则写错了，可以用 git check-ignore 命令检查：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git check-ignore -v HelloWorld.class<br>.gitignore:1:*.class    HelloWorld.class<br></code></pre></td></tr></table></figure>
+<p>可以看到 HelloWorld.class 匹配到了我们的第一条 *.class 的忽略规则所以文件被忽略了</p>
+<h3 id="6-忽略规则文件语法"><a href="#6-忽略规则文件语法" class="headerlink" title="6.忽略规则文件语法"></a>6.忽略规则文件语法</h3><h4 id="a-忽略指定文件-目录"><a href="#a-忽略指定文件-目录" class="headerlink" title="a.忽略指定文件&#x2F;目录"></a>a.忽略指定文件&#x2F;目录</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 忽略指定文件</span><br>HelloWrold.class<br><br><span class="hljs-comment"># 忽略指定文件夹</span><br>bin/<br>bin/gen/<br></code></pre></td></tr></table></figure>
+<h4 id="b-通配符忽略规则"><a href="#b-通配符忽略规则" class="headerlink" title="b.通配符忽略规则"></a>b.通配符忽略规则</h4><p>通配符规则如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 忽略.class的所有文件</span><br>*.class<br><br><span class="hljs-comment"># 忽略名称中末尾为ignore的文件夹</span><br>*ignore/<br><br><span class="hljs-comment"># 忽略名称中间包含ignore的文件夹</span><br>*ignore*/<br></code></pre></td></tr></table></figure>
+<h3 id="7-不生效问题"><a href="#7-不生效问题" class="headerlink" title="7.不生效问题"></a>7.不生效问题</h3><p>先把本地缓存删除（改变成未track状态），然后再提交</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">rm</span> -r --cached .<br>git add .<br><span class="hljs-comment"># 然后再提交</span><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%97%A5%E5%B8%B8%E6%9F%A5%E9%98%85/" class="category-chain-item">日常查阅</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/git/" class="print-no-link">#git</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>关于 Git 忽略文件</div>
+      <div>https://enderhoshi.github.io/2018/11/28/关于 Git 忽略文件/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2018年11月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/11/29/%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84%20RSS%20%E6%BA%90/" title="打造自己的 RSS 源">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">打造自己的 RSS 源</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/11/28/%E5%85%B3%E4%BA%8E%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B0%BE%E9%83%A8%E6%8D%A2%E8%A1%8C%E7%AC%A6/" title="关于操作系统尾部换行符">
+                        <span class="hidden-mobile">关于操作系统尾部换行符</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

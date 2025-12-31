@@ -1,0 +1,732 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录一次尝试使用 Antigravity 进行项目改造的过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Antigravity 牛刀小试 —— 改造项目多渠道打包和模块化">
+<meta property="og:url" content="https://enderhoshi.github.io/2025/12/18/Antigravity%20%E7%89%9B%E5%88%80%E5%B0%8F%E8%AF%95%E2%80%94%E2%80%94%E6%94%B9%E9%80%A0%E9%A1%B9%E7%9B%AE%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%92%8C%E6%A8%A1%E5%9D%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="记录一次尝试使用 Antigravity 进行项目改造的过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://enderhoshi.github.io/img/blog/Antigravity%20%E7%89%9B%E5%88%80%E5%B0%8F%E8%AF%95%E2%80%94%E2%80%94%E6%94%B9%E9%80%A0%E9%A1%B9%E7%9B%AE%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%92%8C%E6%A8%A1%E5%9D%97%E5%8C%96/image.png">
+<meta property="og:image" content="https://enderhoshi.github.io/img/blog/Antigravity%20%E7%89%9B%E5%88%80%E5%B0%8F%E8%AF%95%E2%80%94%E2%80%94%E6%94%B9%E9%80%A0%E9%A1%B9%E7%9B%AE%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%92%8C%E6%A8%A1%E5%9D%97%E5%8C%96/image-1.png">
+<meta property="article:published_time" content="2025-12-18T02:02:38.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.144Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://enderhoshi.github.io/img/blog/Antigravity%20%E7%89%9B%E5%88%80%E5%B0%8F%E8%AF%95%E2%80%94%E2%80%94%E6%94%B9%E9%80%A0%E9%A1%B9%E7%9B%AE%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%92%8C%E6%A8%A1%E5%9D%97%E5%8C%96/image.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Antigravity 牛刀小试 —— 改造项目多渠道打包和模块化 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Antigravity 牛刀小试 —— 改造项目多渠道打包和模块化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-18 10:02" pubdate>
+          2025年12月18日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Antigravity 牛刀小试 —— 改造项目多渠道打包和模块化</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>公司项目代码结构一直比较老旧，最近有一个汽车厂商提出了更新 SDK 的需求，遂趁此机会，对项目进行一下优化改造，遇到不懂的就尝试用下 AI</p>
+<h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>首先说一下目前的项目现状，我司有一个主要的 App，负责自己的业务。有一些车厂或商家需要在我们的业务基础上面进行魔改，套上他们的外壳。之前的开发人员采用了一个比较简单粗暴的办法，就是直接拉分支去实现不同的 App。这样能够很快解决燃眉之急，但是长久下来分支非常多，而且所有代码各跑各的，主线 App 修复一个 Bug、做了 Android 版本适配，又要在不同的 App 分支上面进行同样的修改。另外这个主线 App 的代码非常老旧，采用一坨式的结构，象征性的划分了 app 模块（UI、表层业务）和 sdk 模块（底层代码、第三方库），实则里面的代码非常混杂，无法很好地区分</p>
+<p>然后再说下第三方的需求，上面有提到，我们本来就需要根据不同厂商进行打包，最近还多出了一个 SDK 相关的需求。这个所谓的 SDK 需求就是，要提供给他们一个 AAR 包，他们引入这个 AAR 包后，调用一行代码就可以跳转到我们的界面里面。有点像市面上的套壳 App，初打开时是第三方自己实现的简单界面，点击一个按钮后，就进行我们的业务初始化，然后进入到我们的相关界面进行交互</p>
+<p>我们现在就要根据这些背景，进行 App 的改造</p>
+<p>我先简单构思了一下，要把 App 分为三层：app、common、platform，然后再多增加一个 sdk 层用来打包 AAR，用 Flavor 多渠道打包满足多产物的需求。在我们的另一个项目里面，已经有实际使用这三层结构和 Flavor，说干就干，切换一下项目，多搞了个 sdk 层，一看，哦豁无法运行，因为 app 层是 com.android.application，sdk 层是无法依赖 app 层的</p>
+<p>那怎么搞好，这下触及知识盲区了，想起之前组内成员推荐的 Antigravity，交给它试试</p>
+<h2 id="使用-Antigravity-进行整改"><a href="#使用-Antigravity-进行整改" class="headerlink" title="使用 Antigravity 进行整改"></a>使用 Antigravity 进行整改</h2><p>我提交给 AI 的提问内容如下：</p>
+<blockquote>
+<p>我有一个 android app，它分为三层，app（业务层，根据 Tab 内容再分模块）、common（共用层，放 UI、共用工具类）、platform（平台层，底层，引入基本库，基本 .so、aar、jar）。然后它采用 flavor 进行多渠道打包，现在我有一个新的需求，我需要在这个基础上，让它具备一个能力：能够打包出一个 aar 包，交给客户，客户依赖我这个 aar 后，调用一行代码跳转进入特定页面，此后页面内都是我的 app 的代码，他可以使用我们 app 的各种逻辑（当然 UI 风格会和我们 app 本来的风格不一样），他也可以退出返回自己的 app 中。这个要如何实现比较优雅，用中文给我回答</p>
+</blockquote>
+<p>Antigravity 对整个项目的代码进行了分析，给出了新的代码结构示意图，并且很快就给出了实施方案和流程攻略（它也把这个叫做架构重构演练文档），这两个文件都是 markdown 格式，并且带版本管理，你继续提问的话它会不断修改这两个 markdown 的文本</p>
+<p><img src="/../img/blog/Antigravity%20%E7%89%9B%E5%88%80%E5%B0%8F%E8%AF%95%E2%80%94%E2%80%94%E6%94%B9%E9%80%A0%E9%A1%B9%E7%9B%AE%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%92%8C%E6%A8%A1%E5%9D%97%E5%8C%96/image.png" srcset="/img/loading.gif" lazyload alt="代码结构示意图"></p>
+<p><img src="/../img/blog/Antigravity%20%E7%89%9B%E5%88%80%E5%B0%8F%E8%AF%95%E2%80%94%E2%80%94%E6%94%B9%E9%80%A0%E9%A1%B9%E7%9B%AE%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%92%8C%E6%A8%A1%E5%9D%97%E5%8C%96/image-1.png" srcset="/img/loading.gif" lazyload alt="实施方案和流程攻略"></p>
+<p>实施方案解释了如何对项目进行改造，而流程攻略就是教你改造后如何验证已经起效了。出于隐私考虑，我就不放出这两个文档的实际内容了</p>
+<p>总的来说，它建议我把原来的 app 层改成一个 core 层，然后上面再分两个模块，其中一个是新的 app 层，用于打包原来的 APK，另一个 sdk 层，用于打包 AAR</p>
+<p>新的 app 层，Manifest 文件里面直接声明了core 层（原 app 层）中的 Application 和欢迎页面作为入口，保留了一些 Flavor 和 google-services 的配置，就作为一个壳，基本没有其他内容了，这时候在新 app 层直接运行，就能得到和以前旧 app 层一模一样的 apk</p>
+<p>sdk 层写了个 Kotlin object 类，用于进行以前 Application 的初始化（把 Application 里面的初始化抽出一个方法，这样 Application 里面可以调用，sdk 层也可以单独调用），初始化完成后再跳转页面。如果要打包 AAR，根据提供的流程攻略，运行 assembleRelease 就可以了，虽然实际上存在依赖传递的问题，无法打包 core 层、common 层和 platform 层</p>
+<p>根据实施方案对代码进行整改，然后根据流程攻略进行验证，理论上整个事情就算做完了</p>
+<p>如果你允许它进行操作，它还能帮你直接修改项目里的代码，你只需要同步一下并且运行就可以了</p>
+<p>实际运行后，会遇到很多问题，比如 Manifest 合并错误、JDK 版本不一致、Compose 依赖错误和 google-services 插件错误等问题，直接提供报错代码给它，就能够得到相应的解答，并且是有效的。不过到最后依赖传递的问题还是没有办法解决，因为 fat-aar 已经不再维护了。Antigravity 给出了一个打包成文件夹的方案，我觉得不够优雅，所以暂时搁置不管了</p>
+<h2 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h2><p>之前我对使用 AI 一直都比较存疑，觉得：一来不知道它从哪里信手拈来的方案，不知道是不是切实可行的；二来你只要一直点 Accept 允许它进行操作，它都帮你干完了，也学不到啥东西了</p>
+<p>但是今天用下来还是比较改观的，因为是不是可行你可以自己检视一下，运行一下，而你想学到什么东西的话，也是可以直接看它给你做了什么改动，给了你什么解释，然后可以从中去学习的</p>
+<p>所以这次使用 Antigravity，更多的应该说是一种感叹，就是它已经可以把你上网 Google 各种方案这个步骤给省略了，还能直接根据你的项目代码作出各种分析，并且直接改你的代码。这种编码方式或许真的会给程序员带来挺大的冲击，学习新技术的门槛和成本似乎又降低了不少，可能以后真的要从面向 Google 编程变为面向 AI 编程了</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="category-chain-item">开发记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+        <a href="/tags/AI/" class="print-no-link">#AI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Antigravity 牛刀小试 —— 改造项目多渠道打包和模块化</div>
+      <div>https://enderhoshi.github.io/2025/12/18/Antigravity 牛刀小试——改造项目多渠道打包和模块化/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年12月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/12/31/2025/" title="2025 年度总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2025 年度总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/09/02/Mac%20%E6%9E%B6%E6%9E%84%E5%B0%8F%E8%AE%B0/" title="Mac 架构小记">
+                        <span class="hidden-mobile">Mac 架构小记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

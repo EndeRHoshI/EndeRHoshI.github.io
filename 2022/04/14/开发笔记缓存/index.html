@@ -1,0 +1,734 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="近期遇到的暂时没有分类的问题记录的缓存，hide 设置为 true，不显示，达到一定量后进行归纳分类，再放到合适的开发笔记里面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记汇总缓存">
+<meta property="og:url" content="https://enderhoshi.github.io/2022/04/14/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%E7%BC%93%E5%AD%98/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="近期遇到的暂时没有分类的问题记录的缓存，hide 设置为 true，不显示，达到一定量后进行归纳分类，再放到合适的开发笔记里面">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://enderhoshi.github.io/img/cover/coding_note.png">
+<meta property="article:published_time" content="2022-04-14T02:35:28.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.148Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://enderhoshi.github.io/img/cover/coding_note.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>笔记汇总缓存 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="笔记汇总缓存"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-04-14 10:35" pubdate>
+          2022年4月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">笔记汇总缓存</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="No-1-SurfaceView-重叠问题（已经归档到-《开发笔记-UI》，留作模板样式而已）"><a href="#No-1-SurfaceView-重叠问题（已经归档到-《开发笔记-UI》，留作模板样式而已）" class="headerlink" title="No.1 SurfaceView 重叠问题（已经归档到 《开发笔记-UI》，留作模板样式而已）"></a>No.1 SurfaceView 重叠问题（已经归档到 《开发笔记-UI》，留作模板样式而已）</h2><p>有时候我们会遇到页面内有两个 SurfaceView 的场景，比如有一个视频播放器在上方，下方是一个地图控件。正常使用时问题不大，一旦涉及到一些要设置显隐（View.VISIBLE、View.GONE）以及离开页面又回来的情形时，在某些 Android 高版本手机（测试时用的是）就会有一些异常出现，地图控件的内容会显示在视频播放器上，即使这两个控件本来的位置并不重合，这时候如果再设置一下控件的显隐或者位置（总之就是让它再发生一些布局变化刷新一下），又会恢复正常</p>
+<p>初步猜测，经过离开页面又返回的这个过程后，控件位置会产生一些未知变化，然后两个 SurfaceView 显示会出现异常，页面内有这种情况，要注意规避，有以下的一些方案：</p>
+<ol>
+<li>不能用 GONE 和 VISIBLE 控制显隐，需要使用 alpha 来控制（xml 中设置为 gone 都不行）；原理就是让空间不存在 GONE 或者 INVISIBLE 这种可能导致异常的状态。但是这样之后，点击事件不好处理，因为以前用了 GONE 和 INVISIBLE 之后，控件就点击不到了，用 alpha 控制的话，还要另外处理</li>
+<li>想办法设置 SurfaceView 的背景色，遮盖掉底部地图不让其透出来；要注意等视频播放器出图像后又把背景色移除掉，否则背景色会一直存在导致视频内容被遮盖，这个方案缺点在于你要控制好设置背景色和移除背景色的时机，否则会有一瞬间出现底部的控件，看起来还是有些怪</li>
+<li>用弹窗尝试改造页面；如果你的地图控件是弹出来的或者是点击后再显示的，这种方案其实是最佳的，可以把它写在另一个弹窗页面内，一方面和页面解耦，另一方面可以避免重叠问题</li>
+<li>还有一种方案是设置 <code>surfaceView.setZOrderOnTop(true)</code>；这样可以让你想要放在顶层的 SurfaceView 始终位于顶层，但是要注意这样之后它就是最顶层的，没有其他控件能遮盖它了，看到有<a target="_blank" rel="noopener" href="https://blog.51cto.com/marller/1762028">文章</a>说再调用一下 <code>surfaceView.setZOrderMediaOverlay(true)</code> 可以解决，然而实际并没有用</li>
+</ol>
+<h2 id="No-2-补间动画重置问题（已经归档到-《开发笔记-UI》，留作模板样式而已）"><a href="#No-2-补间动画重置问题（已经归档到-《开发笔记-UI》，留作模板样式而已）" class="headerlink" title="No.2 补间动画重置问题（已经归档到 《开发笔记-UI》，留作模板样式而已）"></a>No.2 补间动画重置问题（已经归档到 《开发笔记-UI》，留作模板样式而已）</h2><p>因为公司代码框架的问题，切换 Tab 时，补间动画（也可以叫做 View 动画）没有保留在最后一帧，而是重置到第一帧了，一般情况下好像不会这样，但是现在出现了这个问题又不好改公司代码，所以换属性动画来实现，就解决了问题，这是因为属性动画是基于对象的实际属性进行修改，从而体现出动画，而补间动画只是 View 的一些动画体现，实际上 View 没有变化，所以不知道怎么就被重置了。这里简单记录一下，加深对两种动画之间的区别的认识。</p>
+<p>下面是以前的笔记临时副本，合并到这个缓存汇总里面，统一管理，注意另外还有一张图片（D:\hoshi-blog\source\img\blog\开发笔记\StartUp_mergr_problem_fix.png），用于 《StartUp 踩坑》 的</p>
+<h3 id="Hilt-版本"><a href="#Hilt-版本" class="headerlink" title="Hilt 版本"></a>Hilt 版本</h3><p>按照 <a target="_blank" rel="noopener" href="https://developer.android.google.cn/training/dependency-injection?hl=zh-cn">Android 开发者官网</a>上的步骤，使用的版本是 2.28-alpha，与现有的 Kotlin 版本不匹配，会报错无法编译，解决方法为去到 <a target="_blank" rel="noopener" href="https://dagger.dev/hilt/gradle-setup">Hilt 的官网</a>，引入最新的版本，相似问题见<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/67744002/hilt-unsupported-metadata-version-in-kotlin">这里</a></p>
+<h3 id="类注解"><a href="#类注解" class="headerlink" title="类注解"></a>类注解</h3><ol>
+<li>首先你需要使用 <code>@HiltAndroidApp</code> 注解一个 Application，可以是你本身的那个，也可以是另一个完全空的，总之必须要定义一个，并注册到 AndroidManifest.xml</li>
+<li>其次是其他类注解，需要用 <code>@AndroidEntryPoint</code>，且如果一个 Activity 中的 Fragment 被标注了，那么这个 Activity 也要标注</li>
+<li>Hilt 注入的字段是不可以声明成 private 的，但是 protected 却可以，要知道在一个不 open 的类中，protected 基本相当于 private 的，这个可以深入了解一下是为什么<ul>
+<li>延申：一个 internal 的类 A，在一个 public 且 open 的类 B 中被实例化为 a 并被声明为 protected 的，代码会标红，个人判断是因为类 B 是可以被另一个模块的类 C 继承的，这样的话，类 C 的实例化对象 c 就可以拿到父类 B 中的 a 了，这样其实就跨模块拿到了本来是 internal 的类 A 了，所以不允许这样声明（个人觉得这里的重点在于 internal 的特殊性，它是 Kotlin 特有的模块可见，和另外三个可见性修饰符有一些差别）</li>
+</ul>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/guolin_blog/article/details/109787732">参考文章</a></p>
+<h2 id="StartUp-踩坑"><a href="#StartUp-踩坑" class="headerlink" title="StartUp 踩坑"></a>StartUp 踩坑</h2><h3 id="AndroidManifest-xml-合并冲突"><a href="#AndroidManifest-xml-合并冲突" class="headerlink" title="AndroidManifest.xml 合并冲突"></a>AndroidManifest.xml 合并冲突</h3><p>具体报错如下</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vim">D:\LearnSpace\HoShIToolkit\app\src\main\AndroidManifest.<span class="hljs-keyword">xm</span><span class="hljs-variable">l:43</span>:<span class="hljs-number">13</span>-<span class="hljs-number">68</span> Error:<br>    Attribute provider#androidx.startup.InitializationProvider@authorities value=(<span class="hljs-keyword">com</span>.hoshi.toolkit.androidx-startup) from [<span class="hljs-keyword">com</span>.guolindev.glance:glance:<span class="hljs-number">1.1</span>.<span class="hljs-number">0</span>] AndroidManifest.<span class="hljs-keyword">xm</span><span class="hljs-variable">l:43</span>:<span class="hljs-number">13</span>-<span class="hljs-number">68</span><br>    <span class="hljs-keyword">is</span> also present at [<span class="hljs-keyword">com</span>.hoshi.li<span class="hljs-variable">b:hoshi</span>-armor:<span class="hljs-number">1.2</span>.<span class="hljs-number">0</span>] AndroidManifest.<span class="hljs-keyword">xm</span><span class="hljs-variable">l:27</span>:<span class="hljs-number">13</span>-<span class="hljs-number">73</span> value=(<span class="hljs-keyword">com</span>.hoshi.lib.startup.androidx-startup).<br>    Suggestion: <span class="hljs-built_in">add</span> <span class="hljs-string">&#x27;tools:replace=&quot;android:authorities&quot;&#x27;</span> <span class="hljs-keyword">to</span> <span class="hljs-symbol">&lt;provider&gt;</span> element at AndroidManifest.<span class="hljs-keyword">xm</span><span class="hljs-variable">l:41</span>:<span class="hljs-number">9</span>-<span class="hljs-number">49</span>:<span class="hljs-number">20</span> <span class="hljs-keyword">to</span> override.<br></code></pre></td></tr></table></figure>
+<p>出现这样的错误的原因是因为我在注册 provider 的时候，使用了一个写死的用了当前 applicationId 的值，这样的话，在当前 App 可能没有问题，如果把这个 lib 打包后发布，给其它项目引用的时候，如果其它项目又引用了其它使用了 StartUp 的第三方库，那么就会引起冲突</p>
+<p>这是因为：authorities 的值没有固定要求，但要保证该值在整个手机上是唯一的，所以通常会使用 ${applicationId} 作为前缀，以防止和其他应用程序冲突</p>
+<p>具体的修改如下：<img src="/./StartUp_mergr_problem_fix.png" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/guolin_blog/article/details/108026357">参考文章</a></p>
+<h2 id="TransitionDrawable-使用踩坑"><a href="#TransitionDrawable-使用踩坑" class="headerlink" title="TransitionDrawable 使用踩坑"></a>TransitionDrawable 使用踩坑</h2><p>最近使用 TransitionDrawable 来实现两个 drawable 的渐变处理，其中一个是有阴影的 .9 图，另一个是纯色 ColorDrawable，使用过程中发现几个问题（这个 TransitionDrawable 就是两个 Drawable 叠放而已，先声明的在下，后声明的在上）</p>
+<h3 id="startTransition-与-reverseTransition"><a href="#startTransition-与-reverseTransition" class="headerlink" title="startTransition 与 reverseTransition"></a>startTransition 与 reverseTransition</h3><p>startTransition 意为开始过渡，从第一张图转到第二张图，reverseTransition 意为反向过渡，如果当前在第一张，则过渡到第二张，如果在第二张，则过渡到第一张，并不必须要调用 startTransition</p>
+<p>但是仍然可以通过 startTransition 来确保当前是从第一张转到第二张的状态，避免一直不断只调用 reverseTransition 导致自己搞糊涂到底是哪个状态了，所以建议还是两种都分别在合适的时机使用</p>
+<h3 id="9-与普通-Drawable-混用问题"><a href="#9-与普通-Drawable-混用问题" class="headerlink" title=".9 与普通 Drawable 混用问题"></a>.9 与普通 Drawable 混用问题</h3><p>.9 图有一个内容区域，除了内容区域之外的，暂且称为额外区域，如果你的控件是 WRAP_CONTENT 的，你的控件在设置了这个 .9 Drawable 后，内容区域就对应你的控件的实际空间大小，除此之外还会多出一块额外区域的大小</p>
+<p>举个例子，如果你的 .9 图额外有 20dp 高度，那么最后控件除了 WRAP_CONTENT 装下内容物的高度，还会多出 20dp 的高度，一般来说也没什么问题，但是如果你使用了 TransitionDrawable，因为它是叠放的，那么第二个 Drawable 就只会填充内容区域，而不会影响到额外区域那一块</p>
+<p>在我踩坑的这个例子里，我本意是想做一个阴影消失&#x2F;显示的过渡，但是因为阴影 .9 图把我的控件撑大了，纯色 Drawable 在显示时无法把 .9 Drawable 盖住，所以表现为切换无效果，要想解决，只需要把 .9 图的拉伸区域拉满就可以了</p>
+<h2 id="RecyclerView-使用踩坑"><a href="#RecyclerView-使用踩坑" class="headerlink" title="RecyclerView 使用踩坑"></a>RecyclerView 使用踩坑</h2><p>今天工作时发现，某个 RecyclerView 中，如果有控件是动态 addView 并动态控制显隐的话，会出现一些异常，比如列表中都是动态 addView 的，然后有些控件是 VISIBLE 和 GONE 之间切换的，有的 View 在 GONE 之后，宽高归零，再 VISIBLE 时，宽高不会再变化，所以给人错觉设置 VISIBLE 无效，其实它是 VISIBLE 的，还有另一种情况是，如果控件没有初值，比如 TextView 没有文本，那它的宽度一开始是 0，后续再赋予文本，这个 TextView 不会被撑开，造成没有 setText 成功的假象</p>
+<p>如何证实呢，我们可以把 TextView 赋予一个很长的初值，然后运行程序，这时发现因为初值一开始是很长的一串，TextView 被拉到很长，后续赋予正常的短一些的字符串时，设置了 WRAP_CONTENT 的 TextView 并没有自动缩到合适的宽度了</p>
+<p>由此得出初步的结论：如果 RecyclerView item 中有一个父控件，它内部的子控件是通过动态 addView 来添加的，那它可能会表现出一些异常，解决方案是：不要用 GONE，而是用 INVISIBLE 来隐藏，同时赋予初值让它一开始就是一个比较合理的宽高，具体原因未知，初步推断和 RecyclerView 复用机制有关，因为我把复用关掉，就没有这种异常了，暂时作个记录</p>
+<h2 id="密封类类型擦除问题"><a href="#密封类类型擦除问题" class="headerlink" title="密封类类型擦除问题"></a>密封类类型擦除问题</h2><p>使用密封类时，debug 包能够正常运行，但是 release 包就无法通过 PermissionInfo::class.nestedClasses 获取子类了，遇到这种情况一定要敏感是否跟代码混淆有关。经过查询，发现 1. Release 构建默认启用 R8&#x2F;ProGuard 优化，未直接引用的类会被视为无用代码而移除。2. 反射调用的类（如 nestedClasses）不会被混淆工具自动识别为 “被使用”，导致子类被删除。可以尝试在混淆规则文件中添加规则：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-comment"># 保留密封类 PermissionInfo 及其所有嵌套子类</span><br>-keep <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">com</span>.<span class="hljs-title">yourpackage</span>.<span class="hljs-title">PermissionInfo</span> </span>&#123; *; &#125;<br>-keep <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">com</span>.<span class="hljs-title">yourpackage</span>.<span class="hljs-title">PermissionInfo</span>$* </span>&#123; *; &#125; <span class="hljs-comment"># 保留所有嵌套类</span><br><br><span class="hljs-comment"># 或使用 Kotlin 反射元数据保留（推荐）</span><br>-keepclassmembers <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">com</span>.<span class="hljs-title">yourpackage</span>.<span class="hljs-title">PermissionInfo</span> </span>&#123;<br>    public ***[] getEntries();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>或者确保子类被直接引用，尝试在代码里面硬编码引用子类，帮助混淆工具识别其重要性：</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs fsharp"><span class="hljs-comment">// 在某个初始化代码中直接引用子类</span><br><span class="hljs-keyword">val</span> forceReference <span class="hljs-operator">=</span> listOf(<br>    PermissionInfo.Location<span class="hljs-operator">::</span><span class="hljs-keyword">class</span>,<br>    PermissionInfo.Camera<span class="hljs-operator">::</span><span class="hljs-keyword">class</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p>做了如上步骤后，可以使用 APK Analyzer，解压 Release APK 后检查 classes.dex，确认子类（如 PermissionInfo$Location）是否仍然存在</p>
+<h2 id="构建问题"><a href="#构建问题" class="headerlink" title="构建问题"></a>构建问题</h2><p>使用 flavor 构建项目，提示 Could not determine the dependencies of task ‘:Ddpai_app:mergeOverseasDebugResources’.<br>&gt; Task with path ‘resolveDebugPlaceholders’ not found in project ‘:Ddpai_app’. </p>
+<p>发现 gradle 配置代码里面加了一些处理</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Groovy">tasks.configureEach &#123; task -&gt;<br>    <span class="hljs-keyword">if</span> (task.name.matches(<span class="hljs-string">&quot;\\w*DebugSourceSetPaths&quot;</span>)) &#123;<br>        task.dependsOn(<span class="hljs-string">&#x27;resolveDebugPlaceholders&#x27;</span>)<br>    &#125;<br>    <span class="hljs-keyword">if</span> (task.name.matches(<span class="hljs-string">&quot;\\w*DebugResources&quot;</span>)) &#123;<br>        task.dependsOn(<span class="hljs-string">&#x27;resolveDebugPlaceholders&#x27;</span>)<br>    &#125;<br>    <span class="hljs-keyword">if</span> (task.name.matches(<span class="hljs-string">&quot;\\w*ReleaseSourceSetPaths&quot;</span>)) &#123;<br>        task.dependsOn(<span class="hljs-string">&#x27;resolveReleasePlaceholders&#x27;</span>)<br>    &#125;<br>    <span class="hljs-keyword">if</span> (task.name.matches(<span class="hljs-string">&quot;\\w*ReleaseResources&quot;</span>)) &#123;<br>        task.dependsOn(<span class="hljs-string">&#x27;resolveReleasePlaceholders&#x27;</span>)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>加入这些代码，这是因为 Gradle 任务之间的依赖关系未正确声明导致的。项目中存在两个任务（mapDomesticDebugSourceSetPaths 和 generateDomesticDebugResources）隐式依赖了 resolveDomesticDebugPlaceholders 任务的输出，但没有显式声明依赖关系。</p>
+<p>所以之前加上了一些声明依赖关系的代码，而现在采用 flavor 之后，这些依赖关系不能写死，要根据风味来进行动态变化，所以可以做以下处理，显式声明任务依赖：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Groovy"><span class="hljs-comment">// 动态处理所有变体的任务依赖</span><br>applicationVariants.configureEach &#123; variant -&gt;<br>    <span class="hljs-keyword">def</span> variantName = variant.name.capitalize()<br><br>    <span class="hljs-keyword">def</span> resolveTask = tasks.findByName(<span class="hljs-string">&quot;resolve$&#123;variantName&#125;Placeholders&quot;</span>)<br>    <span class="hljs-keyword">def</span> mapTask = tasks.findByName(<span class="hljs-string">&quot;map$&#123;variantName&#125;SourceSetPaths&quot;</span>)<br>    <span class="hljs-keyword">def</span> generateResTask = tasks.findByName(<span class="hljs-string">&quot;generate$&#123;variantName&#125;Resources&quot;</span>)<br><br>    <span class="hljs-keyword">if</span> (resolveTask &amp;&amp; mapTask) &#123;<br>        mapTask.dependsOn(resolveTask)<br>        println <span class="hljs-string">&quot;已声明依赖关系：$&#123;mapTask.name&#125; -&gt; $&#123;resolveTask.name&#125;&quot;</span><br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (resolveTask &amp;&amp; generateResTask) &#123;<br>        generateResTask.dependsOn(resolveTask)<br>        println <span class="hljs-string">&quot;已声明依赖关系：$&#123;generateResTask.name&#125; -&gt; $&#123;resolveTask.name&#125;&quot;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>至于这些任务为什么有的项目有，有的项目没有，可能是引入的库不同导致，也可能不同项目间的配置不一样，这个需要继续深入 Gradle 的任务相关内容才知道了</p>
+<p>&#x2F;&#x2F; &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;<br>将来的一些构思：HoshiToolkit 作为工具包使用，其直接集成 HoshiArmor，HoshiArmor 的模块有几个，大概是网络块、基础开发块、花里胡哨块，这几个模块都依赖于核心 HoshiCore，后续的开发里，可以选择自行组合模块，或者直接使用 HoshiArmor，又或者只使用 HoshiCore</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0%E6%B1%87%E6%80%BB/" class="category-chain-item">笔记汇总</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>笔记汇总缓存</div>
+      <div>https://enderhoshi.github.io/2022/04/14/开发笔记缓存/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年4月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

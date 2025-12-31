@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="最近要做一个资讯朗读功能，当用户点击播放按钮时，把文章中的文字转化成声音播报出来 搜索了一番，类似的功能实现有如下几种：  科大讯飞 百度语音 云知声 ROKID Google Cloud  以上的产品，要么就是收费，要么就是接入和维护相对这样的一个小功能来说，比较困难，性价比低，所以最后决定动用 Android 原生提供的 TextToSpeech 来处理文字转语音的功能 Android 原生的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android TextToSpeech 使用指南">
+<meta property="og:url" content="https://enderhoshi.github.io/2019/11/25/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="最近要做一个资讯朗读功能，当用户点击播放按钮时，把文章中的文字转化成声音播报出来 搜索了一番，类似的功能实现有如下几种：  科大讯飞 百度语音 云知声 ROKID Google Cloud  以上的产品，要么就是收费，要么就是接入和维护相对这样的一个小功能来说，比较困难，性价比低，所以最后决定动用 Android 原生提供的 TextToSpeech 来处理文字转语音的功能 Android 原生的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-Google%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%B0%8F%E7%B1%B3%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%8D%8E%E4%B8%BA%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E9%80%89%E9%A1%B9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E8%AF%AD%E8%B0%83%E9%80%89%E9%A1%B9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E8%AF%AD%E8%A8%80%E6%A3%80%E6%B5%8B%E9%80%89%E9%A1%B9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E8%AF%AD%E9%9F%B3%E5%8C%85%E6%95%B0%E6%8D%AE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E8%AF%AD%E9%9F%B3%E5%8C%85%E5%A4%A7%E5%B0%8F.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%B0%8F%E7%B1%B3%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AF%A6%E7%BB%86%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%8D%8E%E4%B8%BA%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AF%A6%E7%BB%86%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%8D%8E%E4%B8%BA%E5%8F%91%E9%9F%B3%E4%BA%BA%E4%B8%8B%E8%BD%BD.png">
+<meta property="article:published_time" content="2019-11-25T12:06:28.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.144Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-Google%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AE%BE%E7%BD%AE.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Android TextToSpeech 使用指南 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Android TextToSpeech 使用指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2019-11-25 20:06" pubdate>
+          2019年11月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          914 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Android TextToSpeech 使用指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>最近要做一个资讯朗读功能，当用户点击播放按钮时，把文章中的文字转化成声音播报出来</p>
+<p>搜索了一番，类似的功能实现有如下几种：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.xfyun.cn/services/offline_tts">科大讯飞</a></li>
+<li><a target="_blank" rel="noopener" href="https://ai.baidu.com/docs#/TTS-Pricing/top">百度语音</a></li>
+<li><a target="_blank" rel="noopener" href="http://dev.hivoice.cn/sdk_download/offline_sdk.jsp">云知声</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.rokid.com/docs/3-ApiReference/openvoice-speech-api.html">ROKID</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.google.com/text-to-speech/docs/quickstart-client-libraries?hl=zh-cn#client-libraries-install-java">Google Cloud</a></li>
+</ol>
+<p>以上的产品，要么就是收费，要么就是接入和维护相对这样的一个小功能来说，比较困难，性价比低，所以最后决定动用 Android 原生提供的 TextToSpeech 来处理文字转语音的功能</p>
+<p>Android 原生的 TextToSpeech 目前已经支持中文播放，而在一些国产测试机如小米、华为、vivo上跑了 TextToSpeech 的测试 demo，也是可以播报中文的，不过只是语音引擎不一样而已</p>
+<p>查看小米手机的系统设置，发现其默认的 tts 是小爱同学引擎，那么其实只要使用不同的引擎搭配不同的语音包，一样可以实现文字转语音功能，但是考虑到安装包大小的问题，还是老老实实使用原生的 TextToSpeech 了</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-Google%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload><br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%B0%8F%E7%B1%B3%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload><br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%8D%8E%E4%B8%BA%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload></p>
+<p>谷歌的详细设置</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E9%80%89%E9%A1%B9.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E8%AF%AD%E8%B0%83%E9%80%89%E9%A1%B9.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E8%AF%AD%E8%A8%80%E6%A3%80%E6%B5%8B%E9%80%89%E9%A1%B9.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E8%AF%AD%E9%9F%B3%E5%8C%85%E6%95%B0%E6%8D%AE.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E8%AF%AD%E9%9F%B3%E5%8C%85%E5%A4%A7%E5%B0%8F.png" srcset="/img/loading.gif" lazyload></p>
+<p>小米的详细设置</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%B0%8F%E7%B1%B3%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AF%A6%E7%BB%86%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload></p>
+<p>华为的详细设置</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%8D%8E%E4%B8%BA%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%E8%AF%A6%E7%BB%86%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E5%8D%8E%E4%B8%BA%E5%8F%91%E9%9F%B3%E4%BA%BA%E4%B8%8B%E8%BD%BD.png" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yingchengyou/article/details/79591954">Android文字转语音引擎（TTS）简单比较及下载</a></p>
+<p>工具类代码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><code class="hljs Kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 文本阅读（TTS） 管理器</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> lv.qx on 2019/11/25</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TextToSpeechManager</span>(context: Context) &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> ttsErrorStatus: <span class="hljs-built_in">Int</span> = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> tts: TextToSpeech? = <span class="hljs-literal">null</span><br><br>    <span class="hljs-keyword">init</span> &#123;<br>        tts = TextToSpeech(context) &#123; status -&gt;<br>            ttsErrorStatus = <span class="hljs-keyword">if</span> (status == TextToSpeech.SUCCESS) &#123;<br>                TextToSpeech.SUCCESS<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                TextToSpeech.ERROR<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">val</span> tts = tts<br><br>        <span class="hljs-keyword">if</span> (ttsErrorStatus == TextToSpeech.SUCCESS &amp;&amp; tts != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-comment">// 默认设定语言为中文，原生的 android 貌似不支持中文。</span><br>            ttsErrorStatus = <span class="hljs-keyword">when</span> &#123;<br>                tts.availableLanguages == <span class="hljs-literal">null</span> -&gt; TextToSpeech.LANG_NOT_SUPPORTED<br>                tts.availableLanguages.contains(Locale.CHINESE) -&gt; tts.setLanguage(Locale.CHINESE)<br>                tts.availableLanguages.contains(Locale.SIMPLIFIED_CHINESE) -&gt; tts.setLanguage(Locale.SIMPLIFIED_CHINESE)<br>                tts.availableLanguages.contains(Locale.TRADITIONAL_CHINESE) -&gt; tts.setLanguage(Locale.TRADITIONAL_CHINESE)<br>                <span class="hljs-keyword">else</span> -&gt; TextToSpeech.LANG_NOT_SUPPORTED<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置音调，值越大声音越尖（女生），值越小则变成男声，默认值为 1.0</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">setPitch</span><span class="hljs-params">(pitch: <span class="hljs-type">Float</span>)</span></span> &#123;<br>        <span class="hljs-keyword">val</span> tts = tts ?: <span class="hljs-keyword">return</span><br>        tts.setPitch(pitch)<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置语速，默认值为 1</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">setSpeechRate</span><span class="hljs-params">(rate: <span class="hljs-type">Float</span>)</span></span> &#123;<br>        <span class="hljs-keyword">val</span> tts = tts ?: <span class="hljs-keyword">return</span><br>        tts.setSpeechRate(rate)<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读文本</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 文本内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> utteranceProgressListener 阅读进度监听</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">speak</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">        content: <span class="hljs-type">String</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">        utteranceProgressListener: <span class="hljs-type">GetLastSegUtteranceProgressListener</span></span></span><br><span class="hljs-params"><span class="hljs-function">    )</span></span> &#123;<br>        <span class="hljs-keyword">val</span> tts = tts ?: <span class="hljs-keyword">return</span><br>        tts.setOnUtteranceProgressListener(utteranceProgressListener)<br><br>        <span class="hljs-keyword">when</span> (ttsErrorStatus) &#123;<br>            TextToSpeech.LANG_MISSING_DATA -&gt; showToast(R.string.voice_missing_data)<br>            TextToSpeech.LANG_NOT_SUPPORTED -&gt; showToast(R.string.voice_lang_not_supported)<br>            ANDROID_VERSION_NOT_SUPPORT -&gt; showToast(R.string.voice_android_version_not_supported)<br>            <span class="hljs-keyword">else</span> -&gt; &#123;<br>                <span class="hljs-keyword">if</span> (tts.isSpeaking) &#123;<br>                    tts.stop()<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">val</span> textSeg = genSegment(content, <span class="hljs-number">10</span>)<br>                    utteranceProgressListener.setLastSegId(SEG_PREFIX + (textSeg.size - <span class="hljs-number">1</span>))<br>                    <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> textSeg.indices) &#123;<br>                        <span class="hljs-comment">// QUEUE_ADD：播放完之前的语音任务后才播报本次内容，QUEUE_FLUSH：丢弃之前的播报任务，立即播报本次内容</span><br>                        tts.speak(textSeg[i], TextToSpeech.QUEUE_ADD, <span class="hljs-literal">null</span>, SEG_PREFIX + i)<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 将源文本分段</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> segmentLength 每一段的长度，最大设置 3999，大于 3999 将阅读出错</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> originStr     源文本</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 分成的文本段</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">genSegment</span><span class="hljs-params">(originStr: <span class="hljs-type">String</span>, segmentLength: <span class="hljs-type">Int</span> = <span class="hljs-number">3999</span>)</span></span>: Array&lt;String?&gt; &#123;<br>        <span class="hljs-keyword">val</span> originLength = originStr.length<br>        <span class="hljs-keyword">val</span> arraySize = originLength / segmentLength + <span class="hljs-number">1</span><br>        <span class="hljs-keyword">val</span> result = arrayOfNulls&lt;String&gt;(arraySize)<br>        <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">0</span> until arraySize) &#123;<br>            result[i] = originStr.substring(i * segmentLength, min((i + <span class="hljs-number">1</span>) * segmentLength, originLength))<br>        &#125;<br>        <span class="hljs-keyword">return</span> result<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 取得文本内容大约分钟长度</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getSpeechLength</span><span class="hljs-params">(content: <span class="hljs-type">String</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>        <span class="hljs-keyword">val</span> totalSecond = (content.length / <span class="hljs-number">3.7</span>).toInt()<br>        <span class="hljs-keyword">return</span> totalSecond / <span class="hljs-number">60</span><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 扩展 onDone 方法的进度监听</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@SuppressLint(<span class="hljs-string">&quot;NewApi&quot;</span>)</span><br>    <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GetLastSegUtteranceProgressListener</span> : <span class="hljs-type">UtteranceProgressListener</span>() &#123;<br><br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> lastSegId = <span class="hljs-string">&quot;&quot;</span><br><br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 设置最后一段的 id</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">setLastSegId</span><span class="hljs-params">(lastSegId: <span class="hljs-type">String</span>)</span></span> &#123;<br>            <span class="hljs-keyword">this</span>.lastSegId = lastSegId<br>        &#125;<br><br>        <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onDone</span><span class="hljs-params">(utteranceId: <span class="hljs-type">String</span>?)</span></span> &#123;<br>            onDone(utteranceId, lastSegId == utteranceId)<br>        &#125;<br><br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@param</span> isLastSeg 是否是最后一段</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-keyword">abstract</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onDone</span><span class="hljs-params">(utteranceId: <span class="hljs-type">String</span>?, isLastSeg: <span class="hljs-type">Boolean</span>)</span></span><br>    &#125;<br><br>    <span class="hljs-keyword">companion</span> <span class="hljs-keyword">object</span> &#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">val</span> SEG_PREFIX = <span class="hljs-string">&quot;seg&quot;</span> <span class="hljs-comment">// 段落前缀</span><br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">val</span> ANDROID_VERSION_NOT_SUPPORT = -<span class="hljs-number">3</span> <span class="hljs-comment">// 版本不支持</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>简单使用如下</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs Kotlin"><span class="hljs-keyword">val</span> ttsManager = TextToSpeechManager(<span class="hljs-keyword">this</span>)<br>···<br>ttsManager.speak(<br>    binding.voiceText.text.toString(),<br>    <span class="hljs-keyword">object</span> : TextToSpeechManager.GetLastSegUtteranceProgressListener() &#123;<br><br>        <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onStart</span><span class="hljs-params">(utteranceId: <span class="hljs-type">String</span>?)</span></span> &#123;<br>            <span class="hljs-comment">// 开始阅读</span><br>        &#125;<br><br>        <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onStop</span><span class="hljs-params">(utteranceId: <span class="hljs-type">String</span>?, interrupted: <span class="hljs-type">Boolean</span>)</span></span> &#123;<br>            <span class="hljs-comment">// 停止阅读</span><br>        &#125;<br><br>        <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onDone</span><span class="hljs-params">(utteranceId: <span class="hljs-type">String</span>?, isLastSeg: <span class="hljs-type">Boolean</span>)</span></span> &#123;<br>            <span class="hljs-comment">// 每一段结束时调用，通过 stop() 停止则不会调用这里</span><br>            <span class="hljs-keyword">if</span> (isLastSeg) &#123;<br>                <span class="hljs-comment">// 这里是最后一段</span><br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onError</span><span class="hljs-params">(utteranceId: <span class="hljs-type">String</span>?)</span></span> &#123;<br>            <span class="hljs-comment">// 阅读出错</span><br>        &#125;<br>    &#125;<br>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5d54caa3e51d453c2577b776">Android TTS TextToSpeek 的使用记录</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/hfut_why/article/details/80587630">Android 原生 TTS 的基本使用以及配合中文语音包实现中文 TTS</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%97%A5%E5%B8%B8%E6%9F%A5%E9%98%85/" class="category-chain-item">日常查阅</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Android TextToSpeech 使用指南</div>
+      <div>https://enderhoshi.github.io/2019/11/25/Android TextToSpeech 使用指南/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2019年11月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/15/OkHttp%20%E7%9A%84%E4%B8%80%E4%B8%AA%20IllegalStateException%20%E6%8E%A2%E7%B4%A2/" title="OkHttp 的一个 IllegalStateException 探索">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OkHttp 的一个 IllegalStateException 探索</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/11/14/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2%20forEach%20Kotlin%20%E6%93%8D%E4%BD%9C%E7%AC%A6(run%E3%80%81with%E3%80%81let%E3%80%81also%E3%80%81apply)%E7%9A%84%E5%B7%AE%E5%BC%82%E4%B8%8E%E9%80%89%E6%8B%A9/" title="如何正确终止 forEach | Kotlin操作符（run、with、let、also、apply）的差异">
+                        <span class="hidden-mobile">如何正确终止 forEach | Kotlin操作符（run、with、let、also、apply）的差异</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

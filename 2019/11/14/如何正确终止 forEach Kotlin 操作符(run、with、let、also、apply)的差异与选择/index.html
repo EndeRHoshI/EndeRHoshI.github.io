@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="如何正确终止 forEach在一次编码中，我发现我的 forEach 函数使用 return@forEach 无法跳出遍历，而是会把所有元素都遍历完，使用 return 的话会直接跳出整个函数体，自然是不符合的，于是我做了些试验，想要得出真正跳出 forEach 遍历的方法 假设我们需要输出一个列表的一部分内容，可以用到 for 循环加个 break 来处理，如下： 12345val list &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何正确终止 forEach | Kotlin操作符（run、with、let、also、apply）的差异">
+<meta property="og:url" content="https://enderhoshi.github.io/2019/11/14/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2%20forEach%20Kotlin%20%E6%93%8D%E4%BD%9C%E7%AC%A6(run%E3%80%81with%E3%80%81let%E3%80%81also%E3%80%81apply)%E7%9A%84%E5%B7%AE%E5%BC%82%E4%B8%8E%E9%80%89%E6%8B%A9/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="如何正确终止 forEach在一次编码中，我发现我的 forEach 函数使用 return@forEach 无法跳出遍历，而是会把所有元素都遍历完，使用 return 的话会直接跳出整个函数体，自然是不符合的，于是我做了些试验，想要得出真正跳出 forEach 遍历的方法 假设我们需要输出一个列表的一部分内容，可以用到 for 循环加个 break 来处理，如下： 12345val list &#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-for%E4%B8%AD%E6%96%AD%E7%A4%BA%E4%BE%8B.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-forEach%E4%B8%AD%E6%96%AD%E7%A4%BA%E4%BE%8B.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-forEach%E4%B8%AD%E6%96%AD%E7%A4%BA%E4%BE%8B%E5%8F%98%E4%BD%93.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-takeWhile%E7%94%A8%E6%B3%95.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-any%E7%94%A8%E6%B3%95.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-any%E7%94%A8%E6%B3%95%E7%AE%80%E5%8C%96%E7%89%88.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-run%E7%94%A8%E6%B3%95.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6-%E9%80%89%E6%8B%A9%E8%A1%A8.png?raw=true">
+<meta property="article:published_time" content="2019-11-14T13:16:28.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.147Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-for%E4%B8%AD%E6%96%AD%E7%A4%BA%E4%BE%8B.png?raw=true">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>如何正确终止 forEach | Kotlin操作符（run、with、let、also、apply）的差异 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="如何正确终止 forEach | Kotlin操作符（run、with、let、also、apply）的差异"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2019-11-14 21:16" pubdate>
+          2019年11月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">如何正确终止 forEach | Kotlin操作符（run、with、let、also、apply）的差异</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="如何正确终止-forEach"><a href="#如何正确终止-forEach" class="headerlink" title="如何正确终止 forEach"></a>如何正确终止 forEach</h2><p>在一次编码中，我发现我的 forEach 函数使用 return@forEach 无法跳出遍历，而是会把所有元素都遍历完，使用 return 的话会直接跳出整个函数体，自然是不符合的，于是我做了些试验，想要得出真正跳出 forEach 遍历的方法</p>
+<p>假设我们需要输出一个列表的一部分内容，可以用到 for 循环加个 break 来处理，如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> list = listOf(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>)<br><span class="hljs-keyword">for</span> (e <span class="hljs-keyword">in</span> list) &#123;<br>  <span class="hljs-keyword">if</span> (e &gt; <span class="hljs-number">3</span>) <span class="hljs-keyword">break</span><br>  println(e)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>很简单，当 e 大于 3 时，就会跳出 for 循环，也就是说，会输出 1 和 3 两个数字：</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-for%E4%B8%AD%E6%96%AD%E7%A4%BA%E4%BE%8B.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+<p>如果改成用 forEach 呢，就会是下面这样：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> list = listOf(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>)<br>list.forEach &#123;<br>  <span class="hljs-keyword">if</span> (it &gt; <span class="hljs-number">3</span>) ???<br>  println(it)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这里的 ??? 应当填写什么呢，我第一反应就写了个 return@forEach，跑起来之后发现，确实达到了我们的效果</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-forEach%E4%B8%AD%E6%96%AD%E7%A4%BA%E4%BE%8B.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+<p>那么为什么我在程序中就不行呢？观察之后，我做了下面的变化：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> list = listOf(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>)<br>list.forEach &#123;<br>  println(it)<br>  <span class="hljs-keyword">if</span> (it &gt; <span class="hljs-number">3</span>) <span class="hljs-keyword">return</span><span class="hljs-symbol">@forEach</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这样之后呢，有一些细微的不同，就是会多输出一个 5 而已，因为输出了 5 才执行到 return@forEach 语句，这个也是很简单的</p>
+<p>但是跑起来之后就不一样了，居然是下面这样的</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-forEach%E4%B8%AD%E6%96%AD%E7%A4%BA%E4%BE%8B%E5%8F%98%E4%BD%93.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+<p>原来，上面的例子只是每次大于 3 的时候都跳过了，最多相当于一个 continue，而没有达到 break 的效果，也就是说，在 Lambda 表达式中，return 返回的是所在函数，return@xxx 返回的是 xxx 标签对应的代码块，由于 forEach 后面的这个 Lambda 实际上被调用了多次，因此我们没有办法像 for 循环那样直接 break</p>
+<p>实际上我们在 Kotlin 当中用到的 forEach、map、flatMap 等等这样的高阶函数调用，都是流式数据处理的典型例子，重新理一下需求，遇到某一个大于 3 的数，我们就终止遍历，这样的代码用流式 api 写出来应该是这样的：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> list = listOf(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>)<br>list.takeWhile &#123; it &lt;= <span class="hljs-number">3</span> &#125;.forEach(::println)<br>println(<span class="hljs-string">&quot;Hello&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>首先通过 takeWhile 来筛选出前面连续不大于 3 的元素，也就是说一旦遇到一个大于 3 的元素我们就丢弃从这个开始所有后面的元素；接着，我们把取到的这些不大于 3 的元素通过 forEach 打印出来，这样的话，程序的效果与最开头的 for 循环 break 的实现就完全一致了</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-takeWhile%E7%94%A8%E6%B3%95.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+<p>但是在 filter 的时候就调用了一次完整的 for-loop，而后面的 forEach 同样再来一遍，也就是说用传统的 for-loop 一遍搞定的事，用流式 api 写了两遍，如果条件比较复杂，出现两遍三遍的情况也是比较正常的，这样就导致了流式 api 性能会比一般 loop 差</p>
+<p>除了性能问题，这个实现其实还不是最终的通用的实现，这里只能针对这一个数组做到类似 break 的效果，试想一下，如果我这个数组是无序的，我需要输出数字 3 之前的所有数字，比如：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> list = listOf(<span class="hljs-number">13</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">4</span>)<br></code></pre></td></tr></table></figure>
+<p>那肯定不能用上面的写法了，下面这个应该才是最终的解决方案</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-any%E7%94%A8%E6%B3%95.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+<p>或者简化为</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-any%E7%94%A8%E6%B3%95%E7%AE%80%E5%8C%96%E7%89%88.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+<p>可能语义不够清晰，一下子比较难看懂，所以也可以用 run 函数写，如下：</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach-run%E7%94%A8%E6%B3%95.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Kotlin操作符-run、with、let、also、apply等-的差异"><a href="#Kotlin操作符-run、with、let、also、apply等-的差异" class="headerlink" title="Kotlin操作符(run、with、let、also、apply等)的差异"></a>Kotlin操作符(run、with、let、also、apply等)的差异</h2><p>上面提到了几个不同的操作符 run、apply、any、takeWhile，其中 any、takeWhile 是 Kotlin 的 _Collections 扩展中的，源码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Returns `true` if at least one element matches the given [predicate].</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@sample</span> samples.collections.Collections.Aggregates.anyWithPredicate</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> Iterable<span class="hljs-type">&lt;T&gt;</span>.<span class="hljs-title">any</span><span class="hljs-params">(predicate: (<span class="hljs-type">T</span>) -&gt; <span class="hljs-type">Boolean</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> Collection &amp;&amp; isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    <span class="hljs-keyword">for</span> (element <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>) <span class="hljs-keyword">if</span> (predicate(element)) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Returns a list containing first elements satisfying the given [predicate].</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@sample</span> samples.collections.Collections.Transformations.take</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> Iterable<span class="hljs-type">&lt;T&gt;</span>.<span class="hljs-title">takeWhile</span><span class="hljs-params">(predicate: (<span class="hljs-type">T</span>) -&gt; <span class="hljs-type">Boolean</span>)</span></span>: List&lt;T&gt; &#123;<br>    <span class="hljs-keyword">val</span> list = ArrayList&lt;T&gt;()<br>    <span class="hljs-keyword">for</span> (item <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>) &#123;<br>        <span class="hljs-keyword">if</span> (!predicate(item))<br>            <span class="hljs-keyword">break</span><br>        list.add(item)<br>    &#125;<br>    <span class="hljs-keyword">return</span> list<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>而 run、apply 等函数则位于 Kotlin 标准库 StandardKt.kt 中，源码位于 kotlin-stdlib-common&#x2F;kotlin 包下，基本都由内联函数 inline 修饰</p>
+<ul>
+<li><p>run</p>
+<p>run 函数在标准库有两个，两个逻辑一样，但是第二个是 T 的扩展函数，入参是一个 block 函数，类型是一个 T 的扩展函数 T.()-&gt;R，无参，返回值是 R 类型 ，也可以传入 lambda 表达式</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Calls the specified function [block] and returns its result.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * For detailed usage information see the documentation for [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html#run).</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@kotlin</span>.<span class="hljs-keyword">internal</span>.InlineOnly<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;R&gt;</span> <span class="hljs-title">run</span><span class="hljs-params">(block: () -&gt; <span class="hljs-type">R</span>)</span></span>: R &#123;<br>    <span class="hljs-comment">// Kotlin 契约的写法，告诉编译器：</span><br>    <span class="hljs-comment">// “这个函数会在此时此处调用‘block’，并且刚好只调用一次”</span><br>    <span class="hljs-comment">// 这里不用管这一段，主要看 return 的部分</span><br>    contract &#123;<br>        callsInPlace(block, InvocationKind.EXACTLY_ONCE)<br>    &#125;<br>    <span class="hljs-keyword">return</span> block()<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Calls the specified function [block] with `this` value as its receiver and returns its result.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * For detailed usage information see the documentation for [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html#run).</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@kotlin</span>.<span class="hljs-keyword">internal</span>.InlineOnly<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T, R&gt;</span> T.<span class="hljs-title">run</span><span class="hljs-params">(block: <span class="hljs-type">T</span>.() -&gt; <span class="hljs-type">R</span>)</span></span>: R &#123;<br>    contract &#123;<br>        callsInPlace(block, InvocationKind.EXACTLY_ONCE)<br>    &#125;<br>    <span class="hljs-keyword">return</span> block()<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>let</p>
+<p>仔细观察，let 函数和 run 函数的区别在于 T.let 入参传入的 block 函数，其参数是虽然是 T，返回值依旧是 R，block 在内部调用时传入 T.this，调用时用 it 调用</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Calls the specified function [block] with `this` value as its argument and returns its result.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * For detailed usage information see the documentation for [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html#let).</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@kotlin</span>.<span class="hljs-keyword">internal</span>.InlineOnly<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T, R&gt;</span> T.<span class="hljs-title">let</span><span class="hljs-params">(block: (<span class="hljs-type">T</span>) -&gt; <span class="hljs-type">R</span>)</span></span>: R &#123;<br>    contract &#123;<br>        callsInPlace(block, InvocationKind.EXACTLY_ONCE)<br>    &#125;<br>    <span class="hljs-keyword">return</span> block(<span class="hljs-keyword">this</span>)<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>with</p>
+<p>with 函数有两个入参 receiver:T，block 函数，关于 T 的扩展函数，返回 R，return receiver 运行 block 函数后的返回值</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Calls the specified function [block] with the given [receiver] as its receiver and returns its result.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * For detailed usage information see the documentation for [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html#with).</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@kotlin</span>.<span class="hljs-keyword">internal</span>.InlineOnly<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T, R&gt;</span> <span class="hljs-title">with</span><span class="hljs-params">(receiver: <span class="hljs-type">T</span>, block: <span class="hljs-type">T</span>.() -&gt; <span class="hljs-type">R</span>)</span></span>: R &#123;<br>    contract &#123;<br>        allsInPlace(block, InvocationKind.EXACTLY_ONCE)<br>    &#125;<br>    <span class="hljs-keyword">return</span> receiver.block()<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>also</p>
+<p>also 函数和 let 函数的区别在于，also 返回的是自身，且入参 block 函数无返回值，和 let 一样，block 在内部调用时传入 T.this，调用时用 it 调用</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Calls the specified function [block] with `this` value as its argument and returns `this` value.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * For detailed usage information see the documentation for [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html#also).</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@kotlin</span>.<span class="hljs-keyword">internal</span>.InlineOnly<br><span class="hljs-meta">@SinceKotlin(<span class="hljs-string">&quot;1.1&quot;</span>)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> T.<span class="hljs-title">also</span><span class="hljs-params">(block: (<span class="hljs-type">T</span>) -&gt; <span class="hljs-type">Unit</span>)</span></span>: T &#123;<br>    contract &#123;<br>        callsInPlace(block, InvocationKind.EXACTLY_ONCE)<br>    &#125;<br>    block(<span class="hljs-keyword">this</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>apply</p>
+<p>apply 函数十分常用，它可以轻松实现 java 的链式调用，在一些比较简单的应用场景就不用很麻烦地写 build 模式了，apply 函数和 also 函数很相似，不同的是，对于 lambda 内部，apply 函数中直接持有 T 的引用，this 可以省略，所以可以直接调用关于 T 的所有 api，而 also 持有的是外部传入的 T 的引用，用 it 表示，所以需要用 it 来调用关于 T 的所有 api</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Calls the specified function [block] with `this` value as its receiver and returns `this` value.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * For detailed usage information see the documentation for [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html#apply).</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@kotlin</span>.<span class="hljs-keyword">internal</span>.InlineOnly<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> T.<span class="hljs-title">apply</span><span class="hljs-params">(block: <span class="hljs-type">T</span>.() -&gt; <span class="hljs-type">Unit</span>)</span></span>: T &#123;<br>    contract &#123;<br>        callsInPlace(block, InvocationKind.EXACTLY_ONCE)<br>    &#125;<br>    block()<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>takeIf、takeUnless</p>
+<p>takeIf 和 takeUnless 只是断言相反，takeIf 也是十分实用的标准函数，传入的 predicate 断言函数，返回值 Boolean，对于 takeIf 而言，符合条件则返回 T，否则返回 null</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Returns `this` value if it satisfies the given [predicate] or `null`, if it doesn&#x27;t.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@kotlin</span>.<span class="hljs-keyword">internal</span>.InlineOnly<br><span class="hljs-meta">@SinceKotlin(<span class="hljs-string">&quot;1.1&quot;</span>)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> T.<span class="hljs-title">takeIf</span><span class="hljs-params">(predicate: (<span class="hljs-type">T</span>) -&gt; <span class="hljs-type">Boolean</span>)</span></span>: T? &#123;<br>    contract &#123;<br>        callsInPlace(predicate, InvocationKind.EXACTLY_ONCE)<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> (predicate(<span class="hljs-keyword">this</span>)) <span class="hljs-keyword">this</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span><br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Returns `this` value if it _does not_ satisfy the given [predicate] or `null`, if it does.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@kotlin</span>.<span class="hljs-keyword">internal</span>.InlineOnly<br><span class="hljs-meta">@SinceKotlin(<span class="hljs-string">&quot;1.1&quot;</span>)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> T.<span class="hljs-title">takeUnless</span><span class="hljs-params">(predicate: (<span class="hljs-type">T</span>) -&gt; <span class="hljs-type">Boolean</span>)</span></span>: T? &#123;<br>    contract &#123;<br>        callsInPlace(predicate, InvocationKind.EXACTLY_ONCE)<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> (!predicate(<span class="hljs-keyword">this</span>)) <span class="hljs-keyword">this</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>repeat</p>
+<p>repeat 标准函数可以轻松实现循环任务，time是循环的次数，action 函数指定具体循环的动作</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Executes the given function [action] specified number of [times].</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * A zero-based index of current iteration is passed as a parameter to [action].</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@sample</span> samples.misc.ControlFlow.repeat</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@kotlin</span>.<span class="hljs-keyword">internal</span>.InlineOnly<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">inline</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">repeat</span><span class="hljs-params">(times: <span class="hljs-type">Int</span>, action: (<span class="hljs-type">Int</span>) -&gt; <span class="hljs-type">Unit</span>)</span></span> &#123;<br>    contract &#123; callsInPlace(action) &#125;<br><br>    <span class="hljs-keyword">for</span> (index <span class="hljs-keyword">in</span> <span class="hljs-number">0</span> until times) &#123;<br>        action(index)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>用一张流传甚广的图来简单说明，就是如下这样：<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%BB%88%E6%AD%A2forEach&Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%B7%AE%E5%BC%82/Kotlin%E6%93%8D%E4%BD%9C%E7%AC%A6-%E9%80%89%E6%8B%A9%E8%A1%A8.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5c873ad0e51d454170785649">Kotlin StandardKt 标准库源码走一波</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5a1be4cc51882512a86108f8">Kotlin 操作符：run、with、let、also、apply 的差异与选择</a></li>
+<li><a target="_blank" rel="noopener" href="https://code-examples.net/zh-CN/q/2109bb4">loops foreachindexed 在Kotlin的功能循环中,如何“中断”或“继续”?</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%97%A5%E5%B8%B8%E6%9F%A5%E9%98%85/" class="category-chain-item">日常查阅</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Kotlin/" class="print-no-link">#Kotlin</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>如何正确终止 forEach | Kotlin操作符（run、with、let、also、apply）的差异</div>
+      <div>https://enderhoshi.github.io/2019/11/14/如何正确终止 forEach Kotlin 操作符(run、with、let、also、apply)的差异与选择/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2019年11月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/11/25/Android%20TextToSpeech%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="Android TextToSpeech 使用指南">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Android TextToSpeech 使用指南</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/08/12/Android%20%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/" title="Android 版本适配">
+                        <span class="hidden-mobile">Android 版本适配</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

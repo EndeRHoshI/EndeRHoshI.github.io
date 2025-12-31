@@ -1,0 +1,737 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="应用签名杂记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发笔记-应用签名">
+<meta property="og:url" content="https://enderhoshi.github.io/2025/01/17/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0-%E5%BA%94%E7%94%A8%E7%AD%BE%E5%90%8D/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="应用签名杂记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://enderhoshi.github.io/img/cover/coding_note.png">
+<meta property="article:published_time" content="2025-01-17T04:18:56.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.147Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="应用签名">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://enderhoshi.github.io/img/cover/coding_note.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>开发笔记-应用签名 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="开发笔记-应用签名"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-17 12:18" pubdate>
+          2025年1月17日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">开发笔记-应用签名</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>开发笔记主要是记录开发中遇到的一些问题和解决方案，以及引发的一些思考，不会太深入地记录问题，但是会尽可能广泛地记录涉及到的内容，方便之后整理归纳和查阅</p>
+<!-- more -->
+
+<h2 id="No-1-一些细碎的问题"><a href="#No-1-一些细碎的问题" class="headerlink" title="No.1 一些细碎的问题"></a>No.1 一些细碎的问题</h2><ol>
+<li>build.gradle 里面的 signingConfigs 里的 keyAlias 要与你新建 Key Store 时填写的 Alias 保持一致，否则会报错：No key with alias ‘xxxx’ found in keystore E:\workspace\xxxx\xxxx，如果不小心忘记了，可以用指令：<code>keytool -changealias -keystore test.keystore -alias key_name -destalias new_key_name</code> 来处理，参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jack22001/article/details/85319308">修改 alias 方法</a></li>
+<li>发现未签名的 apk 打包出来后，文件名里面带有 unsigned，签了名的就没有了，这个应该是可以配置的</li>
+<li>生成签名文件和查看签名文件 <figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">如何生成 .keystore<br>keytool -genkey -v -keystore myApp.keystore -alias myApp.keystore -keyalg RSA -validity 30000<br><br>如何查看 .keystore<br>keytool -list -v -keystore keystore文件路径 -storepass keystore密码<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="No-2-关于系统签名"><a href="#No-2-关于系统签名" class="headerlink" title="No.2 关于系统签名"></a>No.2 关于系统签名</h2><p>近来接触了一下车机项目，因为需要系统级权限，探索了一下系统签名，这里简单记录一下，后续如果还有进行更多关于系统签名的学习的话，可以再继续完善</p>
+<p>首先我们手上的是一个普通 apk，能够直接 adb install 到手机、车机等 Android 设备上，这时候我们想要打包一个系统级别的 apk，我做了如下步骤：</p>
+<ol>
+<li>AndroidManifest.xml 里面 Application 层级声明了 <code>android:sharedUserId=&quot;android.uid.system&quot;</code><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">manifest</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">package</span>=<span class="hljs-string">&quot;com.hoshi.test&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:sharedUserId</span>=<span class="hljs-string">&quot;android.uid.system&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:versionCode</span>=<span class="hljs-string">&quot;1&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:versionName</span>=<span class="hljs-string">&quot;1.0.0&quot;</span>&gt;</span><br>    ...<br><span class="hljs-tag">&lt;/<span class="hljs-name">manifest</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>然后将客户提供的 platform.jks 文件放到项目根目录下</li>
+<li>修改 build.gradle 里面的 signingConfigs <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs gradle">signingConfigs &#123;<br>    systemKey &#123;<br>        keyAlias <span class="hljs-string">&quot;e02&quot;</span><br>        keyPassword <span class="hljs-string">&quot;123456&quot;</span><br>        storeFile <span class="hljs-keyword">file</span>(<span class="hljs-string">&quot;../platform.jks&quot;</span>)<br>        storePassword <span class="hljs-string">&quot;123456&quot;</span><br>    &#125;<br>    ...<br>&#125;<br>buildTypes &#123;<br>    release &#123;<br>        minifyEnabled <span class="hljs-keyword">true</span><br>        shrinkResources <span class="hljs-keyword">true</span><br>        proguardFiles getDefaultProguardFile(<span class="hljs-string">&#x27;proguard-android.txt&#x27;</span>), <span class="hljs-string">&#x27;proguard-project.txt&#x27;</span><br><br>        signingConfig signingConfigs.systemKey<br>    &#125;<br>    debug &#123;<br>        minifyEnabled <span class="hljs-keyword">false</span><br>        signingConfig signingConfigs.debugkey<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>然后把代码提交，Jenkins 进行打包，得到 apk</li>
+<li>使用 <code>keytool -list -v -keystore</code> 指令查看 jks 的 SHA1 码，然后把 apk 上传到客户的应用市场</li>
+</ol>
+<p>上面步骤走完，整个处理就结束了，大体流程非常简单，但是里面的细节可以讲很多，下面稍微展开讲讲</p>
+<h4 id="第-1-步中"><a href="#第-1-步中" class="headerlink" title="第 1 步中"></a>第 1 步中</h4><p>我们声明了一个 <code>android:sharedUserId=&quot;android.uid.system&quot;</code>，声明之后，就无法通过 AS 直接运行我们的 apk 了，如果要本地运行，调试应用，还需要把这个注释掉</p>
+<p>默认情况下，Android 会为每个应用分配其唯一用户 ID。如果两个或多个应用将此属性设置为相同的值，则这些应用都将共享相同的 ID，前提是这些应用的签名完全相同。具有相同用户 ID 的应用可以访问彼此的数据，如果需要的话，还可以在同一进程中运行。所以我们设置了这个 sharedUserId 后，又签了同一个应用的签名，除了都获得了系统级权限之外，彼此之间应该也都可以共享数据了</p>
+<p>要注意，android:sharedUserId 在 Android 29 上已经被弃用了，所以高版本还需要找下替代，同时，由于现有应用无法移除此值，这类应用应添加 <code>android:sharedUserMaxSdkVersion=&quot;32&quot;</code> ，以免在新用户安装时使用共享用户 ID。因为我这次开发针对的车机 Android 版本比较老，所以不怎么需要管这个</p>
+<h4 id="第-2-步中"><a href="#第-2-步中" class="headerlink" title="第 2 步中"></a>第 2 步中</h4><p>第 2 步这个 platform.jks 文件，应该是客户进入到 AOSP 的 build 目录（或者什么别的目录）下，运行 keytool 相关指令生成的，因为用户有车机系统的源码，所以他可以生成一个车机系统的签名文件出来，具体细节我不太了解，这里简单提一下大概原理即可</p>
+<h4 id="第-5-步中"><a href="#第-5-步中" class="headerlink" title="第 5 步中"></a>第 5 步中</h4><p>因为上传到用户的应用市场需要填入 SHA1 码，所以调用 keytool 指令去获取，这里记录一下方便以后有类似场景时查阅，如果不需要的话就不要管这个了</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>我们得到的这个 apk，是无法正常 adb install 的，只能获得 root 权限后，通过 adb push 到 system&#x2F;app&#x2F; 这种目录下，然后重启系统让其自行安装，具体的执行方法视乎具体系统而定。安装好后，这个应用拥有系统级权限，且无法通过常规手段卸载</p>
+<h2 id="No-3-APK-迁移-AAB"><a href="#No-3-APK-迁移-AAB" class="headerlink" title="No.3 APK 迁移 AAB"></a>No.3 APK 迁移 AAB</h2><p>首先用我自己的理解简单说说什么是 AAB，AAB 全称是 Android App Bundle，在用户进行下载时，它会根据用户所在地区、语言、手机分辨率等差异进行分发，以达到精简应用大小的效果，更正式的说明可以自行搜索文档或其他文章</p>
+<p>从 2021 年 8 月起，新应用上架 Google 市场就需要以 AAB 的格式上传，老应用可以继续用 APK。公司的应用逐渐臃肿，已经超过 APK 的大小限制 —— 100 MB 了。因为之前已经进行过精简，所以再压缩会比较困难，而 AAB 的大小限制是 150 MB，所以刚好趁这次机会直接将 APK 升级为 AAB 格式</p>
+<p>需要做的非常简单，只需要修改 Jenkins 打包脚本，将 <code>gradlew assebleRelease</code> 改为 <code>gradlew bundleRelease</code>，就可以将产物从 .apk 变为 .aab，至于签名密钥文件，可以沿用 .keystore，也可以将 .keystore 转换成 .jks，这两种都是一样的，转换指令为：<code>keytool -importkeystore -srckeystore your-keystore.keystore -srcstoretype JKS -destkeystore your-keystore.jks -deststoretype JKS</code></p>
+<p>.keystore 和 .jks 文件本质上是 Java 密钥库的不同命名格式，网上很多文章说 .keystore 是 Eclipse、keytool 生成的，而 .jks 是 Android Studio 生成的，它们本质是一样的，具体还没怎么研究，相关文章也少，暂时按这样理解，后续由新的认知可以再补充下</p>
+<p>另外还有个语言分包问题，如果 app 做了应用内多语言切换的话，用 AAB 格式，会由于根据语言分发的特性而导致部分语言实效，所以还要加上如下配置，这里记录一下</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Gradle">android &#123;<br><br>    ...<br><br>    bundle &#123;<br>        language &#123;<br>            <span class="hljs-comment">// Specifies that the app bundle should not support</span><br>            <span class="hljs-comment">// configuration APKs for language resources. These</span><br>            <span class="hljs-comment">// resources are instead packaged with each base and</span><br>            <span class="hljs-comment">// feature APK.</span><br>            enableSplit = <span class="hljs-keyword">false</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/" class="category-chain-item">开发笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+        <a href="/tags/%E5%BA%94%E7%94%A8%E7%AD%BE%E5%90%8D/" class="print-no-link">#应用签名</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>开发笔记-应用签名</div>
+      <div>https://enderhoshi.github.io/2025/01/17/开发笔记-应用签名/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/02/11/2024/" title="2024 年度总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2024 年度总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/05/ConstraintLayout%20%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/" title="ConstraintLayout 的一个小技巧">
+                        <span class="hidden-mobile">ConstraintLayout 的一个小技巧</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

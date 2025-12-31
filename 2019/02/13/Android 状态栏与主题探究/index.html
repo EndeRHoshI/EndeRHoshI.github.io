@@ -1,0 +1,731 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前不久在写一个功能的时候，遇到一个添加引导页的需求，直接照搬了之前的引导页的实现方式，使用了 NewbieGuide 来实现，发现在 Activity 中引导页弹出时无法遮盖状态栏，除了状态栏外的部分才能正常被遮盖，所以探究下这个是什么原因导致的        项目中其他地方的遮罩可以完整的盖住整个手机屏幕，连同状态栏一起，所以先去看看这些地方是如何实现的，一共有两种：  布局中设置 androi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 状态栏与主题探究">
+<meta property="og:url" content="https://enderhoshi.github.io/2019/02/13/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="前不久在写一个功能的时候，遇到一个添加引导页的需求，直接照搬了之前的引导页的实现方式，使用了 NewbieGuide 来实现，发现在 Activity 中引导页弹出时无法遮盖状态栏，除了状态栏外的部分才能正常被遮盖，所以探究下这个是什么原因导致的        项目中其他地方的遮罩可以完整的盖住整个手机屏幕，连同状态栏一起，所以先去看看这些地方是如何实现的，一共有两种：  布局中设置 androi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E9%97%AE%E9%A2%98%E5%A4%8D%E7%8E%B0%E5%9B%BE.jpg?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F.jpg?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E7%8A%B6%E6%80%81%E6%A0%8F%E7%A9%BF%E9%80%8F.jpg?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E9%A2%9C%E8%89%B2.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-TransLinearLayout%20%E7%9A%84%20getTopInset.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-getTopInset%20%E6%96%B9%E6%B3%95.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-getSystemWindowInsetTop%20%E6%96%B9%E6%B3%95.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-colorPrimary%20%E7%AD%89%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3.jpg?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E9%87%8D%E5%A4%8D%E5%AF%BC%E8%87%B4%E4%B8%A4%E4%B8%AA%20ActionBar.jpg?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E9%87%8D%E5%A4%8D%E6%8A%A5%E9%94%99.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-FLAG_TRANSLUCENT_STATUS.png?raw=true">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS.png?raw=true">
+<meta property="article:published_time" content="2019-02-13T13:16:28.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.144Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E9%97%AE%E9%A2%98%E5%A4%8D%E7%8E%B0%E5%9B%BE.jpg?raw=true">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Android 状态栏与主题探究 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Android 状态栏与主题探究"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2019-02-13 21:16" pubdate>
+          2019年2月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Android 状态栏与主题探究</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>前不久在写一个功能的时候，遇到一个添加引导页的需求，直接照搬了之前的引导页的实现方式，使用了 <a target="_blank" rel="noopener" href="https://github.com/huburt-Hu/NewbieGuide">NewbieGuide</a> 来实现，发现在 Activity 中引导页弹出时无法遮盖状态栏，除了状态栏外的部分才能正常被遮盖，所以探究下这个是什么原因导致的</p>
+<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E9%97%AE%E9%A2%98%E5%A4%8D%E7%8E%B0%E5%9B%BE.jpg?raw=true" srcset="/img/loading.gif" lazyload width = "460" height = "800" alt="图片名称" align=center />
+
+<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F.jpg?raw=true" srcset="/img/loading.gif" lazyload width = "460" height = "800" alt="图片名称" align=center />
+
+<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E7%8A%B6%E6%80%81%E6%A0%8F%E7%A9%BF%E9%80%8F.jpg?raw=true" srcset="/img/loading.gif" lazyload width = "460" height = "800" alt="图片名称" align=center />
+
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E9%A2%9C%E8%89%B2.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+<p>项目中其他地方的遮罩可以完整的盖住整个手机屏幕，连同状态栏一起，所以先去看看这些地方是如何实现的，一共有两种：</p>
+<ol>
+<li>布局中设置 android:fitsSystemWindows&#x3D;”true” 的同时，使用了自定义的 TransLinearLayout<ul>
+<li>这个 TranslinearLayout 中的 onMeasure 方法中，加上了 WindowInsets 的 getSystemWindowInsetTop 取得的高度<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-TransLinearLayout%20%E7%9A%84%20getTopInset.png?raw=true" srcset="/img/loading.gif" lazyload><br>而 WindowInsets 这里的 inset 的直译是插入物，可以理解为特定屏幕区域，WindowInsets 的三个成员变量 mSystemWindowInsets，mWindowDecorInsets，mStableInsets 表示了三种屏幕区域，而 SystemWindowInsets 系统窗口区域代表着整个屏幕窗口上，状态栏，导航栏，输入法等系统窗口占用的区域<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-getTopInset%20%E6%96%B9%E6%B3%95.png?raw=true" srcset="/img/loading.gif" lazyload><br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-getSystemWindowInsetTop%20%E6%96%B9%E6%B3%95.png?raw=true" srcset="/img/loading.gif" lazyload><br>这里的top表示的是顶部占位区域的宽度，即状态栏的宽度，长度默认是屏宽</li>
+</ul>
+</li>
+<li>某些 Activity 的 Theme 中加上 windowTranslucentStatus&#x3D;true 属性，或者在活动的 onCreate 代码中设置 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;android:windowTranslucentStatus&quot;</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br></code></pre></td></tr></table></figure>
+ <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;<br>  window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)<br>&#125;<br><br>setContentView(R.layout.ai_kline_act_kline_master)<br><br><span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;<br>  <span class="hljs-keyword">val</span> titleBar = findViewById&lt;ConstraintLayout&gt;(R.id.ai_kline_master_title_bar)<br>  <span class="hljs-keyword">var</span> statusBarHeight = <span class="hljs-number">60</span><br>  <span class="hljs-keyword">if</span> (ScreenUtil.getStatusBarHeight(<span class="hljs-keyword">this</span>) != <span class="hljs-number">0</span>) &#123;<br>    statusBarHeight = ScreenUtil.getStatusBarHeight(<span class="hljs-keyword">this</span>)<br>  &#125;<br><br>  titleBar.setPadding(titleBar.paddingLeft, titleBar.paddingTop + statusBarHeight, titleBar.paddingRight, titleBar.paddingBottom)<br><br>  <span class="hljs-keyword">val</span> titleBarLayoutParams = titleBar.layoutParams<br>  titleBarLayoutParams.height = titleBarLayoutParams.height + statusBarHeight<br>  titleBar.layoutParams = titleBarLayoutParams<br>&#125;<br><br></code></pre></td></tr></table></figure>
+至此明白了需要怎样去实现，解决了问题，但是从这里可以看出我对主题，状态栏相关的知识不够扎实，故对相关内容重新整理归纳一下</li>
+</ol>
+<p>首先是主题相关的内容，Android 5.0 发布后，support-v7-appcompat 也更新到V21，增加了 ToolBar、recyclerview、cardview 等控件。Android 从 5.0 开始支持 Material Design 应用，可以通过修改各项参数来达到不同的主题效果，以下是各项参数的作用</p>
+<p><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-colorPrimary%20%E7%AD%89%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3.jpg?raw=true" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>textColorPrimary 应用的主要文字颜色，ActionBar 的标题文字默认使用该颜色</li>
+<li>colorPrimary 应用的主要色调，actionBar 默认使用该颜色，Toolbar 导航栏的底色</li>
+<li>statusBarColor 状态栏颜色，默认使用 colorPrimaryDark</li>
+<li>colorPrimaryDark 应用的主要暗色调，statusBarColor 默认使用该颜色</li>
+<li>windowBackground 窗口背景颜色</li>
+<li>navigationBarColor 底部栏颜色</li>
+<li>colorAccent CheckBox，RadioButton，SwitchCompat 等一般控件的选中效果默认采用该颜色</li>
+<li>colorForeground 应用的前景色，ListView的分割线，switch 滑动区默认使用该颜色</li>
+<li>colorBackground 应用的背景色，popMenu 的背景默认使用该颜色</li>
+<li>colorControlNormal CheckBox，RadioButton，SwitchCompat 等默认状态的颜色。</li>
+<li>colorControlHighlight 控件按压时的色调</li>
+<li>colorControlActivated 控件选中时的颜色，默认使用 colorAccent</li>
+<li>colorButtonNormal 默认按钮的背景颜色</li>
+<li>editTextColor ：默认 EditView 输入框字体的颜色。</li>
+<li>textColor Button，textView 的文字颜色</li>
+<li>textColorPrimaryDisableOnly RadioButton checkbox 等控件的文字</li>
+<li>colorSwitchThumbNormal switch thumbs 默认状态的颜色. (switch off)</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;windowNoTitle&quot;</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;windowActionBar&quot;</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;android:windowNoTitle&quot;</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;android:windowActionBar&quot;</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>又发现到 AppCompatActivity 中出现了 windowNoTitle 属性，前边不需要加 “android:”，那这两个有什么区别吗？</p>
+<p>其实带 android 的是系统的，不带 android 是兼容样式的，就是 Theme.AppCompat 样式的，因为是 support 包里重新定义了这个属性，即 windowNoTitle 是 appcompat-v7 中的属性，在 appcompat-v7\res\values\values.xml 中定义了，可以打开 appcompat-v7\res\values\values.xml 搜索 AppCompatTheme，可以找到定义的 “windowNoTitle”、”windowActionBar” 等属性。</p>
+<p>“windowNoTitle” 属性在代码中可以使用 R.attr.windowNoTitle 访问，<br>“android:windowNoTitle” 则需要使用 android.R.attr.windowNoTitle 访问。</p>
+<p>使用 AppCompatActivity 时（Activity 必须使用 Theme.AppCompat 主题及其子主题），测试发现：</p>
+<ol>
+<li><p>“android:windowActionBar” 属性在 AppCompatActivity 中不起作用</p>
+</li>
+<li><p>windowNoTitle &#x3D; false 并且 android:windowNoTitle &#x3D; false 时，会出现两个标题，位于下方的是 AppCompatActivity的标题栏</p>
+<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E9%87%8D%E5%A4%8D%E5%AF%BC%E8%87%B4%E4%B8%A4%E4%B8%AA%20ActionBar.jpg?raw=true" srcset="/img/loading.gif" lazyload width = "460" height = "800" alt="图片名称" align=center /></li>
+<li><p>当windowNoTitle &#x3D; false，windowActionBar &#x3D; false 时，会报错: AppCompat does not support the current theme features<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E9%87%8D%E5%A4%8D%E6%8A%A5%E9%94%99.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>windowNoTitle &#x3D; true 并且 android:windowNoTitle &#x3D; true时 ,无标题</p>
+</li>
+</ol>
+<p>然后是状态栏的沉浸式实现的转变：</p>
+<ol>
+<li><p>Android4.4（API 19）- Android 5.0（API 21）： 这个阶段可以实现沉浸式，但是表现得还不是很好，实现方式为: 通过 FLAG_TRANSLUCENT_STATUS 设置状态栏为透明并且为全屏模式，然后通过添加一个与 StatusBar 一样大小的 View，将 View 的 background 设置为我们想要的颜色，或者是像上文那样动态设置一个 padding，从而来实现沉浸式</p>
+<p>这里的 FLAG_TRANSLUCENT_STATUS 的含义是：设置状态栏透明，并且变为全屏模式，从注释中看到，当 window 的这个属性有效的时候，会自动设置 system ui visibility 的标志 SYSTEM_UI_FLAG_LAYOUT_STABLE 和 SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-FLAG_TRANSLUCENT_STATUS.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>Android 5.0（API 21）以上版本： 在Android 5.0 的时候，加入了一个重要的属性和方法 android:statusBarColor（对应方法为 setStatusBarColor），通过这个方法我们就可以轻松实现沉浸式</p>
+</li>
+<li><p>Android 6.0（API 23）以上版本：Android 6.0 以上的实现方式和 Android 5.0 +是一样，但是从 Android 6.0（API 23）开始，我们可以改状态栏的绘制模式，可以显示白色或浅黑色的内容和图标（除了魅族手机，魅族自家有做源码更改，6.0 以下就能实现）<a target="_blank" rel="noopener" href="https://blog.csdn.net/geekqian/article/details/60468734">示例</a></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">//6.0 以上可以设置状态栏的字体为黑色，使用下面代码可以打开亮色状态栏模式，实现黑色字体，白底的需求用这句 setStatusBarColor(Color.WHITE)</span><br>window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR<br></code></pre></td></tr></table></figure>
+
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>同样的操作，在 Android 8.0 以上似乎并不能很好地实现，而是更符合 flag 原本的定义，FLAG_TRANSLUCENT_STATUS 其中的 TRANSLUCENT 的意思是半透明的意思，所以在 8.0 以上的时候，设置这个 FLAG 会让状态栏半透明，同时 SYSTEM_UI_FLAG_LAYOUT_STABLE（让应用的主体内容占用系统状态栏的空间）和SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN（全屏）也会生效，造成顶部和状态栏重叠的情况，同时有一条半透明的状态栏在上面，这样子的话，在 Android7.0 中可以完美实现的沉浸式，在 8.0 的时候还是会显示一条半透明状态栏，所以如果要实现沉浸式，设置 FLAG_TRANSLUCENT_STATUS 和 android:windowTranslucentStatus &#x3D; true 其实并不是太可取，应该要动态改变状态栏的颜色来实现真正的沉浸式，可以设置状态栏颜色与下方控件颜色一致，或者在没有设置 FLAG_TRANSLUCENT_STATUS 而设置了 FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS 的同时，设置状态栏颜色为透明，因为设置 FLAG_TRANSLUCENT_STATUS 会使得状态栏默认为半透明颜色<br><img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6-FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS.png?raw=true" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="category-chain-item">开发记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Android 状态栏与主题探究</div>
+      <div>https://enderhoshi.github.io/2019/02/13/Android 状态栏与主题探究/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2019年2月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/04/04/Java%20Calendar%20%E7%B1%BB%E8%A7%A3%E6%9E%90/" title="Java Calendar 类解析">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java Calendar 类解析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/12/12/WebView%20%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/" title="WebView 加载链接跳转快应用问题">
+                        <span class="hidden-mobile">WebView 加载链接跳转快应用问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

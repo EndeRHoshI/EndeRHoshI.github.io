@@ -1,0 +1,796 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录一次将 targetSdkVersion 从 31 提升到 35 的过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次 Android 15 适配">
+<meta property="og:url" content="https://enderhoshi.github.io/2025/03/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%20Android%2015%20%E9%80%82%E9%85%8D/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="记录一次将 targetSdkVersion 从 31 提升到 35 的过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://enderhoshi.github.io/img/blog/%E8%AE%B0%E4%B8%80%E6%AC%A1%20Android%2015%20%E9%80%82%E9%85%8D/AGP_Version_in_file.png">
+<meta property="og:image" content="https://enderhoshi.github.io/img/blog/%E8%AE%B0%E4%B8%80%E6%AC%A1%20Android%2015%20%E9%80%82%E9%85%8D/new_huayang.jpeg">
+<meta property="article:published_time" content="2025-03-13T08:38:33.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.148Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="版本适配">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://enderhoshi.github.io/img/blog/%E8%AE%B0%E4%B8%80%E6%AC%A1%20Android%2015%20%E9%80%82%E9%85%8D/AGP_Version_in_file.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>记一次 Android 15 适配 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="记一次 Android 15 适配"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-13 16:38" pubdate>
+          2025年3月13日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">记一次 Android 15 适配</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>公司有个项目一直没有维护，Google Play 上收到用户投诉，提示目标版本过低，无法安装，于是需要进行一次适配，这里详尽记录一下经过</p>
+<p>很多年前写过一篇 Android 9、10 的适配记录，但是过于凌乱，那时候基础也差，基本是搜到什么就粘贴进项目里，能跑起来就完事了（其实现在也差不多）。后面有一些开发笔记用于记录适配相关的事项，但是好像又比较零散，想着还是以记录完整经过的模式来写，写时候比较舒服，读起来也更通顺</p>
+<h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Gradle">targetSdkVersion = <span class="hljs-number">31</span><br>AGP Version = <span class="hljs-number">7.0</span>.<span class="hljs-number">4</span><br>Gradle Version = <span class="hljs-number">7.0</span>.<span class="hljs-number">2</span><br>Kotlin Version = <span class="hljs-number">1.6</span>.<span class="hljs-number">21</span><br></code></pre></td></tr></table></figure>
+<h2 id="提升相关版本"><a href="#提升相关版本" class="headerlink" title="提升相关版本"></a>提升相关版本</h2><p>最基础的一步是提升 targetSdkVersion，然后直接运行，发现报错提示还需要提升 AGP 版本，这里提升到 8.7.3</p>
+<p>这个 AGP 版本指的是 Android Gradle 插件版本（Android Gradle Plugin），该插件版本适用于在相应 Android Studio 项目中构建的所有模块，可以在以下几个地方指定：</p>
+<ol>
+<li>Android Studio 的 File &gt; Project Structure &gt; Project 菜单中指定插件版本 <img src="/../img/blog/%E8%AE%B0%E4%B8%80%E6%AC%A1%20Android%2015%20%E9%80%82%E9%85%8D/AGP_Version_in_file.png" srcset="/img/loading.gif" lazyload></li>
+<li>在顶级 build.gradle.kts 文件中指定 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle">plugins &#123;<br>    id(<span class="hljs-string">&quot;com.android.application&quot;</span>) version <span class="hljs-string">&quot;8.7.3&quot;</span> apply <span class="hljs-keyword">false</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>使用 build.gradle 的话，指的是 classpath ‘com.android.tools.build:gradle:8.7.3’ 这个 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">buildscript</span> &#123;<br>    <span class="hljs-keyword">dependencies</span> &#123;<br>        <span class="hljs-keyword">classpath</span> <span class="hljs-string">&#x27;com.android.tools.build:gradle:8.7.3&#x27;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>提升 AGP 版本后，对应的，Gradle 版本要提升到 8.9，JDK 需要升级至 17 以上</p>
+<p>后续因为 reverse() 方法的问题，提升了 Kotlin 版本到 1.9.22，又因为在 Kotlin 版本大于 1.7 时，Room 库 2.4.3 以下版本下无法识别挂起函数，编译报错，再把 Room 库提升到最新版本 2.6.1 后，又报如下问题</p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs moonscript"><span class="hljs-name">D</span>:\WorkSpace\cpp<span class="hljs-number">-0914</span>\common\build\tmp\kapt3\stubs\domesticDebug\com\ddpai\common\database\dao\VVideoDao.<span class="hljs-name">java</span>:<span class="hljs-number">16</span>: 错误: Methods annotated with [@Insert, @Upsert, @Update, @Delete] shouldn<span class="hljs-string">&#x27;t declare nullable parameters (com.ddpai.common.database.entities.VVideo[]).</span><br><span class="hljs-string">    com.ddpai.common.database.entities.VVideo[] item, @org.jetbrains.annotations.NotNull()</span><br></code></pre></td></tr></table></figure>
+
+<p>意思是这几个注解下不能用可空的类型，需要改成非空类型，好办，改完再运行下，无问题了</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ever69/article/details/130750021">解决 Kotlin 升级 1.7 以上版本时 Room 库报错的问题</a></li>
+</ul>
+<h2 id="模块级别的-build-gradle-改动"><a href="#模块级别的-build-gradle-改动" class="headerlink" title="模块级别的 build.gradle 改动"></a>模块级别的 build.gradle 改动</h2><p>这里的 build.gradle 指的是除了顶级 build.gradle 之外的 build.gradle，需要做以下改动</p>
+<h3 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h3><p>每个模块下的 build.gradle 都需要声明一个 namespace（下列代码举例子为了方便所以写到一起了，事实是分开的），新建项目会自带</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs gradle">android &#123;<br>    namespace = <span class="hljs-string">&quot;com.hoshi.test&quot;</span> <span class="hljs-comment">// 这个是 test 模块</span><br>&#125;<br>android &#123;<br>    namespace = <span class="hljs-string">&quot;com.hoshi.common&quot;</span> <span class="hljs-comment">// 这个是 common 模块</span><br>&#125;<br>android &#123;<br>    namespace = <span class="hljs-string">&quot;com.hoshi.platform&quot;</span> <span class="hljs-comment">// 这个是 platform 模块</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这个东东是干嘛的呢？为什么另一个项目不需要？待研究后补充，现在已知的是新增了这个之后，会导致你以前的 R 文件引用产生变化</p>
+<p>以前假设你在 test 模块下写代码，test 模块引用 common 模块，你只 <code>import com.hoshi.test.R</code>，就既可以使用 test 模块的资源，又可以使用 common 模块的资源</p>
+<p>但是现在不一样了，你 <code>import com.hoshi.test.R</code> 只能使用 test 模块的资源，如果你想用 common 的资源，你就需要在资源文件前加上完整包名，如 <code>context.getString(com.hoshi.common.R.string.common_today)</code></p>
+<p>增加了 namespace 后，AndroidManifest 里面的 <code>package=&quot;com.hoshi.test&quot;</code> 就可以删掉了</p>
+<h3 id="zipAlignEnabled"><a href="#zipAlignEnabled" class="headerlink" title="zipAlignEnabled"></a>zipAlignEnabled</h3><p>zipAlignEnabled 废弃，不再需要声明，删掉代码即可，直接是自动默认为开的</p>
+<h3 id="buildConfig"><a href="#buildConfig" class="headerlink" title="buildConfig"></a>buildConfig</h3><p>新版本 AGP，默认关闭 buildConfig，会导致你的 BuildConfig.xxxxx 全部出现异常，需要作如下配置</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle">android &#123;<br>    buildFeatures &#123;<br>        buildConfig = <span class="hljs-keyword">true</span> <span class="hljs-comment">// 配置开启 buildConfig 构建特性，新版本 AGP 需要配置</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="其他写法调整"><a href="#其他写法调整" class="headerlink" title="其他写法调整"></a>其他写法调整</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">flavorDimensions <span class="hljs-string">&#x27;isOverseas&#x27;</span><br><br><span class="hljs-comment">// flavor 配置的写法调整，上面是旧版的，改为下面这样</span><br>flavorDimensions = [<span class="hljs-string">&quot;isOverseas&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>这种调整经常会有，如果遇到可以往类似方向调整，或者直接搜一下如何解决</p>
+<h2 id="存储权限适配"><a href="#存储权限适配" class="headerlink" title="存储权限适配"></a>存储权限适配</h2><p>targetSdkVersion 大于等于 33，并且运行在 Android 13 的手机上时，通过代码判断是否拥有 READ_EXTERNAL_STORAGE 权限，一定返回 false</p>
+<p>XXPermissions 库不再允许申请 READ_EXTERNAL_STORAGE 权限（会直接闪退并告知原因是申请 READ_EXTERNAL_STORAGE），而 ActivityResultLauncher 库中，取图片、视频的 PickContentLauncher 会判断是否拥有 READ_EXTERNAL_STORAGE 权限，所以需要做一下适配</p>
+<p>首先彻底移除自己项目中所有的 READ_EXTERNAL_STORAGE，使用 READ_MEDIA_IMAGES、READ_MEDIA_VIDEO、READ_MEDIA_AUDIO 替代，然后把 PickContentLauncher 单独取出来，进行如下修改</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Kotlin"><span class="hljs-comment">// 当当前手机版本为 Android 13，并且 targetSdkVersion 为 33 时</span><br><span class="hljs-comment">// 根据文件类型分别取得 READ_MEDIA_IMAGES 和 READ_MEDIA_VIDEO</span><br><span class="hljs-comment">// 低版本下一律取 READ_EXTERNAL_STORAGE</span><br><span class="hljs-keyword">val</span> applicationInfo = AppState.getApplicationContext().applicationInfo<br><span class="hljs-keyword">val</span> permissionStr = <span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.TIRAMISU <br>    &amp;&amp; applicationInfo.targetSdkVersion &gt;= Build.VERSION_CODES.TIRAMISU<br>) &#123;<br>    <span class="hljs-keyword">if</span> (input == <span class="hljs-string">&quot;image/*&quot;</span>) &#123;<br>        Manifest.permission.READ_MEDIA_IMAGES<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        Manifest.permission.READ_MEDIA_VIDEO<br>    &#125;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    Manifest.permission.READ_EXTERNAL_STORAGE<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>最后找一下用到原 PickContentLauncher 类的地方，将其替换成自己魔改过的 PickContentLauncher 类</p>
+<h2 id="MQTT-相关调整"><a href="#MQTT-相关调整" class="headerlink" title="MQTT 相关调整"></a>MQTT 相关调整</h2><p>因为以下众多原因，需要对 MQTT 库进行一些魔改</p>
+<ol>
+<li>SCHEDULE_EXACT_ALARM 权限需要和 Google 官方说明申请原因，还要拍摄录像告知使用场景，最好移除掉</li>
+<li>前台 service 需要声明 android:foregroundServiceType</li>
+<li>动态广播接收器必须指定导出的行为，也就是 registerReceiver 方法要加一个 flag 说明是 RECEIVER_EXPORTED 还是 RECEIVER_NOT_EXPORTED</li>
+</ol>
+<p>Github 上有挺多方案，甚至还有 Kotlin 版本的，现在追求改动最小，所以用了 <a target="_blank" rel="noopener" href="https://github.com/mayzs/paho.mqtt.android">mayzs 的方案</a>。这个方案将之前官方 MQTT 用到的 AlarmManager 直接用 Worker 替换掉，且也做了 2、3 两点的适配，十分符合此次适配的需求</p>
+<h2 id="隐式-Intent-和-PendingIntent-的限制"><a href="#隐式-Intent-和-PendingIntent-的限制" class="headerlink" title="隐式 Intent 和 PendingIntent 的限制"></a>隐式 Intent 和 PendingIntent 的限制</h2><p>官方的说法是，要启动非导出活动，应用程序应使用显式意图，具体可以直接看我之前写过的文章中的某段 —— <a href="https://enderhoshi.github.io/2024/03/05/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0-%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/#No-3-Android-14-%E9%80%82%E9%85%8D-Intent-%E7%9B%B8%E5%85%B3">Android 14 适配 Intent 相关</a></p>
+<p>这个不难，如果自己写有统一的跳转方法的话，直接给 intent 加上 packageName 即可，这里需要特别注意的就是，第三方库里面的跳转如果没有加上 packageName 就会导致闪退，我这里又是 ActivityResultLauncher 库里面的跳转导致的，只能说开源不易，不能怪人，自己发现后及时修改即可</p>
+<h2 id="Edge-to-Edge-适配，沉浸式的新方案"><a href="#Edge-to-Edge-适配，沉浸式的新方案" class="headerlink" title="Edge to Edge 适配，沉浸式的新方案"></a>Edge to Edge 适配，沉浸式的新方案</h2><p>之前一直用 ImmersionBar 库来做沉浸式，提升到 Android 15 后，发现在某些页面中，状态栏和应用顶部的控件又重叠了，好家伙全都白搞了，又要一轮全新的适配。虽然官方告知可以在 theme 中声明 <code>&lt;item name=&quot;android:windowOptOutEdgeToEdgeEnforcement&quot;&gt;true&lt;/item&gt;</code> 来暂时规避，但是 Android 16 明确说了会废弃并停用这个选项，躲得了初一躲不过十五，还是乖乖适配好了</p>
+<p>首先把 ImmersiveBar 相关的解决布局与状态栏重叠问题的代码（比如 <code>ImmersionBar.fitsSystemWindows()</code> 这些）移除掉，避免重复处理，然后写相关的 View 扩展代码如下</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs Kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Android 15 Edge to Edge 适配</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@receiver</span> View</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">fun</span> View.<span class="hljs-title">statusPaddingEdge</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">val</span> layoutParams = <span class="hljs-keyword">this</span>.layoutParams <span class="hljs-comment">// 首先取得 LayoutParams</span><br>    <span class="hljs-keyword">var</span> oldHeight = layoutParams.height <span class="hljs-comment">// 然后先用 LayoutParams 取得控件的高</span><br>    <span class="hljs-keyword">var</span> isMatchParent = <span class="hljs-literal">false</span><br>    <span class="hljs-keyword">if</span> (oldHeight == ViewGroup.LayoutParams.MATCH_PARENT) &#123;<br>        isMatchParent = <span class="hljs-literal">true</span><br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (oldHeight == ViewGroup.LayoutParams.WRAP_CONTENT) &#123;<br>        <span class="hljs-comment">// 如果是 MATCH_PARENT 或者 WRAP_CONTENT，要再测量取实际高度</span><br>        <span class="hljs-keyword">val</span> width = View.MeasureSpec.makeMeasureSpec(<span class="hljs-number">0</span>, View.MeasureSpec.UNSPECIFIED)<br>        <span class="hljs-keyword">val</span> height = View.MeasureSpec.makeMeasureSpec(<span class="hljs-number">0</span>, View.MeasureSpec.UNSPECIFIED)<br>        <span class="hljs-keyword">this</span>.measure(width, height)<br><br>        oldHeight = <span class="hljs-keyword">this</span>.measuredHeight <span class="hljs-comment">// 然后先在外部取得控件的高，放在监听里面可能会多次回调导致高度累加，显示异常</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> (oldHeight &lt;= <span class="hljs-number">0</span> &amp;&amp; (oldHeight != ViewGroup.LayoutParams.MATCH_PARENT)) &#123;<br>        VLog.e(<span class="hljs-string">&quot;statusPaddingEdge&quot;</span>, <span class="hljs-string">&quot;取得控件的高小于 0，且不是 MATCH_PARENT，不正确，请检查，对应控件：&quot;</span> + <span class="hljs-keyword">this</span>.javaClass.name)<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    ViewCompat.setOnApplyWindowInsetsListener(<span class="hljs-keyword">this</span>) &#123; v, insets -&gt;<br>        <span class="hljs-keyword">val</span> statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars())<br>        <span class="hljs-keyword">val</span> statusBarsTop = statusBars.top<br>        <span class="hljs-keyword">if</span> (!isMatchParent) &#123;<br>            layoutParams.height = oldHeight + statusBarsTop <span class="hljs-comment">// 如果不是 MATCH_PARENT，整个 View 要增高</span><br>        &#125;<br>        v.layoutParams = layoutParams<br>        v.setPadding(statusBars.left, statusBarsTop, statusBars.right, statusBars.bottom)<br>        <span class="hljs-comment">// VLog.e(&quot;statusPaddingEdge&quot;, &quot;statusBars = $statusBars, oldHeight = $oldHeight&quot;)</span><br>        insets<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 在实际使用过程中，有一些界面/控件不会触发 setOnApplyWindowInsetsListener 里面的 OnApplyWindowInsetsListener，这时候就用下面这个老方法来处理</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 增加 View 的上内边距, 增加高度为状态栏高度, 防止视图和状态栏重叠</span><br><span class="hljs-comment"> * 如果是 RelativeLayout 设置 padding 值会导致 centerInParent 等属性无法正常显示</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * !----注意----! 这个方法在某些手机（目前发现荣耀 magic3）的横屏界面上会出问题，表现为顶部多出一段间距</span><br><span class="hljs-comment"> * 可以尝试采用其它沉浸式方法处理，如 statusPaddingEdge、ImmersionBar</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> remove true: paddingTop = 状态栏高度</span><br><span class="hljs-comment"> *               false: paddingTop = 0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@JvmOverloads</span><br><span class="hljs-function"><span class="hljs-keyword">fun</span> View.<span class="hljs-title">statusPadding</span><span class="hljs-params">(remove: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>)</span></span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> RelativeLayout) &#123;<br>        <span class="hljs-keyword">throw</span> UnsupportedOperationException(<span class="hljs-string">&quot;Unsupported set statusPadding for RelativeLayout&quot;</span>)<br>    &#125;<br>    <span class="hljs-keyword">val</span> statusBarHeight = context.statusBarHeight<br>    <span class="hljs-keyword">val</span> lp = layoutParams<br>    <span class="hljs-keyword">if</span> (remove) &#123;<br>        <span class="hljs-keyword">if</span> (paddingTop &lt; statusBarHeight) <span class="hljs-keyword">return</span><br>        <span class="hljs-keyword">if</span> (lp != <span class="hljs-literal">null</span> &amp;&amp; lp.height &gt; <span class="hljs-number">0</span>) &#123;<br>            lp.height -= statusBarHeight <span class="hljs-comment">// 减高</span><br>        &#125;<br>        setPadding(<br>            paddingLeft, paddingTop - statusBarHeight,<br>            paddingRight, paddingBottom<br>        )<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">if</span> (paddingTop &gt;= statusBarHeight) <span class="hljs-keyword">return</span><br>        <span class="hljs-keyword">if</span> (lp != <span class="hljs-literal">null</span> &amp;&amp; lp.height &gt; <span class="hljs-number">0</span>) &#123;<br>            lp.height += statusBarHeight <span class="hljs-comment">// 增高</span><br>        &#125;<br>        setPadding(<br>            paddingLeft, paddingTop + statusBarHeight,<br>            paddingRight, paddingBottom<br>        )<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在状态栏和控件重叠的页面，让重叠的控件调用上面代码即可</p>
+<h3 id="参考文章-1"><a href="#参考文章-1" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/guolin_blog/article/details/141500877">Android 15 新特性，强制 edge-to-edge 全面屏体验</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/about/versions/16/behavior-changes-16?hl=zh-cn#edge-to-edge">无边框设计停用退出选项</a></li>
+</ul>
+<h2 id="Collection-reversed-扩展方法闪退问题"><a href="#Collection-reversed-扩展方法闪退问题" class="headerlink" title="_Collection.reversed() 扩展方法闪退问题"></a>_Collection.reversed() 扩展方法闪退问题</h2><p>报错如下</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">java.lang.NoSuchMethodError: No <span class="hljs-keyword">interface</span> <span class="hljs-keyword">method</span> <span class="hljs-title function_">reversed</span><span class="hljs-params">()</span><span class="hljs-title function_">Ljava</span>/<span class="hljs-title function_">util</span>/<span class="hljs-title function_">List</span>; <span class="hljs-keyword">in</span> <span class="hljs-keyword">class</span> Ljava/util/List<span class="hljs-punctuation">;</span> <span class="hljs-keyword">or</span> its super classes (declaration <span class="hljs-keyword">of</span> <span class="hljs-string">&#x27;java.util.List&#x27;</span> appears <span class="hljs-keyword">in</span> /apex/com.android.runtime/javalib/core-oj.jar)<br></code></pre></td></tr></table></figure>
+
+<p>这里报错的是集合类的扩展方法 reversed()，以前用得好好的，突然就不行了，感觉可能也和 APG 版本、JDK 版本有关。我这里直接替换为 asReversed() 即可，下面说下它们之间有什么不同</p>
+<p>简单概括就是：两个类都会返回一个 List，改变 list.reversed() 返回的 List 中的元素，不会影响到原 List，而改变 list.asReversed() 返回的 List 中的元素，会影响到原 List </p>
+<p>后来想到还是要看看为什么突然就不行了，留意到我的 Kotlin 版本是 1.6.21，看了下扩展方法里面的具体实现，处于位置 kotlin-stdlib-common-1.6.21-sources.jar!\generated_Collections.kt，代码如下</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Kotlin"><span class="hljs-keyword">public</span> <span class="hljs-keyword">expect</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> MutableList<span class="hljs-type">&lt;T&gt;</span>.<span class="hljs-title">reverse</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Unit</span><br></code></pre></td></tr></table></figure>
+<p>这里的这个 expect 关键字是用于跨平台的，这里用 expect 声明了方法之后，其他平台再使用对应的 actual 关键字实现对应的方法，每个目标平台（如 JVM、JS、Native 等）都可以有自己的 actual 实现</p>
+<p>那么可以猜测，应该是提升了 JDK 版本为 17 后，对应的 Native 实现没有实现到这个方法了，所以导致报错，于是升级 Kotlin 版本试试，发现升级后，reverse 扩展方法位置变了，在 _CollectionsJVM.kt 里面，且代码变为如下</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Kotlin"><span class="hljs-keyword">public</span> <span class="hljs-keyword">actual</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> MutableList<span class="hljs-type">&lt;T&gt;</span>.<span class="hljs-title">reverse</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Unit</span> &#123;<br>    java.util.Collections.reverse(<span class="hljs-keyword">this</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>看起来是个 actual 方法，有实现了，应该可行了，编译运行，执行相关的方法，没有报错了</p>
+<h3 id="参考文章-2"><a href="#参考文章-2" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_27263697/article/details/145594156">Kotlin 中 expect 和 actual 关键字修饰的函数作用</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/57115894/16861528">asReversed() vs reversed() in Kotlin?</a></li>
+</ul>
+<h2 id="R8-混淆相关"><a href="#R8-混淆相关" class="headerlink" title="R8 混淆相关"></a>R8 混淆相关</h2><p>上面的步骤都处理完了，提交代码，进行远程打包，直接报错</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">app:minifyReleaseWithR8 FAILED<br><br>Missing classes detected <span class="hljs-keyword">while</span> running R8. Please add the missing classes or apply additional keep rules that are generated <span class="hljs-keyword">in</span> D:\WorkSpace\myApp\app\build\outputs\mapping\domesticRelease\missing_rules.txt.<br></code></pre></td></tr></table></figure>
+
+<p>打开提示中的对应目录，有如下内容，说明我们缺少了这些，需要加上。这里的 -dontwarn 是关闭警告的意思，为什么需要加上这些，具体原理不明，估计是 JDK 版本提升后，R8 的一些相关配置改变了</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs txt">-dontwarn com.google.android.exoplayer2.decoder.OutputBuffer$Owner<br>-dontwarn com.google.android.exoplayer2.decoder.OutputBuffer<br>-dontwarn com.google.android.exoplayer2.decoder.SimpleOutputBuffer<br>-dontwarn com.google.android.exoplayer2.drm.ExoMediaCrypto<br></code></pre></td></tr></table></figure>
+
+<p>复制粘贴到 proguard-rules.pro 中，再上传打包，这次没问题了，打包 apk 成功，但是安装好后一运行就闪退了，好好好，再看闪退日志</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">java<span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.ClassCastException</span>: com<span class="hljs-selector-class">.google</span><span class="hljs-selector-class">.gson</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.LinkedTreeMap</span> cannot be cast Student<br><span class="hljs-comment">// 另外还有一些关于 ParameterizedType 的问题，这里没有记录到就不贴了，大致是说取不到具体泛型类型，只能取到一个 Class 之类的</span><br><span class="hljs-comment">// 因为我这个项目的 ViewBinding 是用反射的方式来处理的，所以还有一些 ViewBinding 工具无法取到泛型产生的报错</span><br></code></pre></td></tr></table></figure>
+
+<p>搜索资料得知，如果使用了 R8 混淆，JDK 17 默认会开启 R8 fullMode 混淆模式，完整模式下，对于没有 keep 的类，将会擦除泛型信息。而我的项目中 ViewBinding 是用反射的方式在基类中处理的，并且使用了类似于 BaseResponse&lt;T&gt; 的类，有自定义解析器，所以精准踩中了这个雷。一个个去手动配置混淆豁免规则过于麻烦，所以选择直接手动关闭完整模式，在 gradle.properties 文件中添加以下代码即可</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">android.enableR8.fullMode=<span class="hljs-keyword">false</span><br></code></pre></td></tr></table></figure>
+<h3 id="参考文章-3"><a href="#参考文章-3" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/liujingxing/rxhttp/issues/471">R8 full mode 完整模式兼容问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7155483761197449223">使用 ViewBinding 混淆后 APP 炸了？</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36652498/article/details/107457231">使用 gson，出现 LinkedTreeMap cannot be cast to xxx</a></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/../img/blog/%E8%AE%B0%E4%B8%80%E6%AC%A1%20Android%2015%20%E9%80%82%E9%85%8D/new_huayang.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>至此，这次的 Android 15 告一段落了。不得不说 Android 的适配每次都能给你来点新花样，每次有新版本时，及时对 APP 进行适配，能够减轻将来再有新版本时适配的工作量，同时也能更快利用上一些新版本 <del>Bug</del> 特性，还是值得重视的</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="category-chain-item">开发记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+        <a href="/tags/%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/" class="print-no-link">#版本适配</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>记一次 Android 15 适配</div>
+      <div>https://enderhoshi.github.io/2025/03/13/记一次 Android 15 适配/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/09/git%20merge%20%E5%90%8E%E4%BA%A7%E7%94%9F%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%E7%9A%84%E5%8E%9F%E5%9B%A0/" title="git merge 后产生重复提交的原因">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">git merge 后产生重复提交的原因</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/02/25/ADB%20%E6%BC%AB%E6%B8%B8%E6%8C%87%E5%8D%97/" title="ADB 漫游指南">
+                        <span class="hidden-mobile">ADB 漫游指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

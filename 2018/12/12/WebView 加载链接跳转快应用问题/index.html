@@ -1,0 +1,792 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言最近在项目中遇到一个关于快应用的问题，就是在应用内某个页面使用 WebView 查看微博时，会发生一次跳转到快应用的行为，在一些机型（目前发现华为的一些机型）上会因为 scheme 协议的问题而无法正确跳转，加载不了页面，而在另一个类似的页面打开，又没有发生跳转，只在应用内打开了微博页面，后来通过排查，用不是太妥善的方法解决了问题，先做下记录，以后再完善 分析过程在使用以下机型的时候会出现下面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebView 加载链接跳转快应用问题">
+<meta property="og:url" content="https://enderhoshi.github.io/2018/12/12/WebView%20%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="前言最近在项目中遇到一个关于快应用的问题，就是在应用内某个页面使用 WebView 查看微博时，会发生一次跳转到快应用的行为，在一些机型（目前发现华为的一些机型）上会因为 scheme 协议的问题而无法正确跳转，加载不了页面，而在另一个类似的页面打开，又没有发生跳转，只在应用内打开了微博页面，后来通过排查，用不是太妥善的方法解决了问题，先做下记录，以后再完善 分析过程在使用以下机型的时候会出现下面">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E5%BE%AE%E5%8D%9A%E7%9B%B4%E6%92%ADbug.png?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E5%B0%8F%E7%B1%B3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E5%8D%8E%E4%B8%BA.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E6%B2%A1%E6%9C%89%E5%BE%AE%E5%8D%9A%E6%97%B6%E7%9A%84%E6%98%BE%E7%A4%BA.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-setMixedContentMode%E6%96%B9%E6%B3%95.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E6%B5%8B%E8%AF%95%E6%9C%BA%E5%9E%8B.png">
+<meta property="article:published_time" content="2018-12-12T09:16:28.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.147Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="WebView">
+<meta property="article:tag" content="快应用">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/EndeRHoshI/Photo/blob/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E5%BE%AE%E5%8D%9A%E7%9B%B4%E6%92%ADbug.png?raw=true">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>WebView 加载链接跳转快应用问题 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="WebView 加载链接跳转快应用问题"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2018-12-12 17:16" pubdate>
+          2018年12月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">WebView 加载链接跳转快应用问题</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在项目中遇到一个关于快应用的问题，就是在应用内某个页面使用 WebView 查看微博时，会发生一次跳转到快应用的行为，在一些机型（目前发现华为的一些机型）上会因为 scheme 协议的问题而无法正确跳转，加载不了页面，而在另一个类似的页面打开，又没有发生跳转，只在应用内打开了微博页面，后来通过排查，用不是太妥善的方法解决了问题，先做下记录，以后再完善</p>
+<h2 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h2><p>在使用以下机型的时候会出现下面图中的问题，而华为荣耀8青春版却又没有这个问题</p>
+<ul>
+<li><p>华为畅享 6  </p>
+<ul>
+<li>EMUI 4.7</li>
+<li>Android 6.0</li>
+</ul>
+</li>
+<li><p>华为 p9 </p>
+<ul>
+<li>EMUI 8.0 </li>
+<li>Android 8.0</li>
+</ul>
+</li>
+<li><p>华为畅享 7</p>
+<img src="https://github.com/EndeRHoshI/Photo/blob/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E5%BE%AE%E5%8D%9A%E7%9B%B4%E6%92%ADbug.png?raw=true" srcset="/img/loading.gif" lazyload width = "400" height = "690" alt="图片名称" align=center /></li>
+</ul>
+<p>图中的报错信息显示是加载到了一个未知的 scheme，导致无法加载页面，我 load 的明明就是一个 http 链接，怎么会变成 scheme 呢，从报错中的 hwfastapp 就可以看出端倪，fastapp 不就是之前发布的快应用吗？先去了解下什么是<a target="_blank" rel="noopener" href="https://www.quickapp.cn/">快应用</a></p>
+<p>从官网中可以看到，这是努比亚、联想、一加、小米、vivo、华为、OPPO、金立、魅族、中兴这十家厂商联合起来的快应用联盟所推出的一种应用形态，旨在打造一种无需安装，即点即用的新的应用体验，我感觉其实类似之前的 Progressive Web App(PWA)，看了下手头上的手机，就只有小米和华为，先拿这两家来测试下：</p>
+<img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E5%B0%8F%E7%B1%B3.jpg" srcset="/img/loading.gif" lazyload width = "600" height = "800" alt="图片名称" align=center />
+
+<img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E5%8D%8E%E4%B8%BA.jpg" srcset="/img/loading.gif" lazyload width = "600" height = "800" alt="图片名称" align=center />
+
+<p>先是华为，可以在 WebView 的 setWebViewClient 中通过重写 shouldOverrideUrlLoading() 方法来看到 webView.loadUrl(url) 都干了什么，关于 shouldOverrideUrlLoading() 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">  * Give the host application a chance to take over the control when a new</span><br><span class="hljs-comment">  * url is about to be loaded in the current WebView. If WebViewClient is not</span><br><span class="hljs-comment">  * provided, by default WebView will ask Activity Manager to choose the</span><br><span class="hljs-comment">  * proper handler for the url. If WebViewClient is provided, return true</span><br><span class="hljs-comment">  * means the host application handles the url, while return false means the</span><br><span class="hljs-comment">  * current WebView handles the url.</span><br><span class="hljs-comment">  * This method is not called for requests using the POST &quot;method&quot;.</span><br><span class="hljs-comment">  *</span><br><span class="hljs-comment">  * <span class="hljs-doctag">@param</span> view The WebView that is initiating the callback.</span><br><span class="hljs-comment">  * <span class="hljs-doctag">@param</span> url The url to be loaded.</span><br><span class="hljs-comment">  * <span class="hljs-doctag">@return</span> True if the host application wants to leave the current WebView</span><br><span class="hljs-comment">  *         and handle the url itself, otherwise return false.</span><br><span class="hljs-comment">  * <span class="hljs-doctag">@deprecated</span> Use &#123;<span class="hljs-doctag">@link</span> #shouldOverrideUrlLoading(WebView, WebResourceRequest)</span><br><span class="hljs-comment">  *             shouldOverrideUrlLoading(WebView, WebResourceRequest)&#125; instead.</span><br><span class="hljs-comment">  */</span><br><span class="hljs-meta">@Deprecated</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">shouldOverrideUrlLoading</span><span class="hljs-params">(WebView view, String url)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>大致的意思是</p>
+<ul>
+<li>若没有设置 WebViewClient 则由系统（Activity Manager）处理该 url，通常是使用浏览器打开或弹出浏览器选择对话框。</li>
+<li>若设置 WebViewClient 且该方法返回 true ，则说明由应用的代码处理该 url，WebView 不处理，也就是程序员自己做处理。</li>
+<li>若设置 WebViewClient 且该方法返回 false，则说明由 WebView 处理该 url，即用 WebView 加载该 url</li>
+</ul>
+<p>而 WebView 的前进、后退、刷新、以及 post 请求都不会调用 shouldOverrideUrlLoading 方法，除去以上行为，还得满足(!isLoadUrl || isRedirect） 即 （不是通过 webView.loadUrl 来加载的 或者 是重定向的）这个条件，才会调用 shouldOverrideUrlLoading 方法</p>
+<p>所以通过重写 WebView的shouldOverrideUrlLoading() 方法，可以捕获到重定向的链接经历了几次变化</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">https:</span><span class="hljs-comment">//api.weibo.com/开头</span><br>          ⬇️<br><span class="hljs-symbol">http:</span><span class="hljs-comment">//weibo.com/</span><br>          ⬇️<br><span class="hljs-symbol">http:</span><span class="hljs-comment">//m.weibo.cn/XXXXXX/XXXXXXX?&amp;jumpfrom=weibocom</span><br>          ⬇️<br><span class="hljs-symbol">https:</span><span class="hljs-comment">//m.weibo.cn/status/XXXXXXXXX?jumpfrom=weibocom</span><br>          ⬇️<br><span class="hljs-symbol">hwfastapp:</span><span class="hljs-comment">//xxxxxx</span><br></code></pre></td></tr></table></figure>
+<p>然后 WebView 在加载这条 scheme 的时候，无法识别，所以报错了，那么好办，直接过滤掉这个开头的，或者干脆不单只华为，连其他厂商的也不加载了，就是只加载 http 或者 https 开头的链接，那就不用报错了吧，试了一下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">webSiteNavigation.setWebViewClient(<span class="hljs-keyword">new</span> <span class="hljs-title class_">WebViewClient</span>() &#123;<br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">shouldOverrideUrlLoading</span><span class="hljs-params">(WebView view, String url)</span> &#123;<br>    <span class="hljs-keyword">if</span> (url.startsWith(<span class="hljs-string">&quot;http:&quot;</span>) || url.startsWith(<span class="hljs-string">&quot;https:&quot;</span>)) &#123;<br>      view.loadUrl(url);<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-comment">//不做任何事直接返回true</span><br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>果然可行，在页面内加载出了微博的页面，并没有跳转快应用</p>
+<p>那再试试小米系统，同样的方法，却发现小米仍然可以跳转到快应用，但是 shouldOverrideUrlLoading() 捕获不到关于快应用的链接，都是正常的 http 或者 https 头的，那是不是还有其他方式跳转快应用，而没有华为那么明显呢，重写一下 shouldInterceptRequest() 方法，看看发生了什么，从返回中可以看到，都是一些 js、css 页面或者是 log 和页面内的图片资源 jpg、svg 图</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs cmd">I/lvqx-test: https://api.weibo.com/<span class="hljs-number">2</span>/statuses/go?uid=<span class="hljs-number">6360369679</span>&amp;id=<span class="hljs-number">4316516449593454</span><br>I/lvqx-test: http://weibo.com/<span class="hljs-number">6360369679</span>/H6VFqEfH8<br>I/lvqx-test: https://weibo.com/<span class="hljs-number">6360369679</span>/H6VFqEfH8<br>I/lvqx-test: http://m.weibo.cn/<span class="hljs-number">6360369679</span>/H6VFqEfH8?&amp;jumpfrom=weibocom<br>I/lvqx-test: https://m.weibo.cn/<span class="hljs-number">6360369679</span>/H6VFqEfH8?&amp;jumpfrom=weibocom<br>I/lvqx-test: https://m.weibo.cn/status/H6VFqEfH8?jumpfrom=weibocom<br><br>I/lvqx-test: https://h5.sinaimg.cn/m/weibo-lite/js/vendor.<span class="hljs-number">9</span>e10b5e9.js<br>I/lvqx-test: https://h5.sinaimg.cn/m/weibo-lite/js/app.<span class="hljs-number">81</span>d27428.js<br>I/lvqx-test: https://h5.sinaimg.cn/m/weibo-lite/css/app.c20922eb.css<br>I/lvqx-test: https://h5.sinaimg.cn/m/weibo-lite/js/manifest.<span class="hljs-number">65</span>eb9185.js<br>I/lvqx-test: https://h5.sinaimg.cn/marvel/v1.<span class="hljs-number">4</span>.<span class="hljs-number">0</span>/css/lib/base.css<br>I/lvqx-test: https://h5.sinaimg.cn/marvel/v1.<span class="hljs-number">4</span>.<span class="hljs-number">0</span>/css/card/cards.css<br>I/lvqx-test: https://m.weibo.cn/static/pwa/sw-registration.js<br>I/lvqx-test: https://h5.sinaimg.cn/upload/<span class="hljs-number">1005</span>/<span class="hljs-number">16</span>/<span class="hljs-number">2017</span>/<span class="hljs-number">11</span>/<span class="hljs-number">30</span>/wbp.js<br>I/lvqx-test: https://h5.sinaimg.cn/marvel/v1.<span class="hljs-number">4</span>.<span class="hljs-number">0</span>/img/sprite.svg<br>I/lvqx-test: https://h5.sinaimg.cn/m/weibo-lite/js/statusLite.<span class="hljs-number">034</span>a91ca.js<br>I/lvqx-test: http://thefatherofsalmon.com/?i=com.sina.weibo.quickapp&amp;p=WBDetail&amp;a=blog_id<span class="hljs-variable">%3DH6VFqEfH8%</span><span class="hljs-number">26</span>luicode<span class="hljs-variable">%3D10000835%</span><span class="hljs-number">26</span>lfid%<span class="hljs-number">3</span>D_detail<br>I/lvqx-test: https://m.weibo.cn/api/config<br>I/lvqx-test: https://m.weibo.cn/statuses/show?id=H6VFqEfH8<br>I/lvqx-test: https://h5.sinaimg.cn/m/weibo-lite/fonts/iconfont.<span class="hljs-number">25</span>fdf7a.ttf<br>I/lvqx-test: https://tvax3.sinaimg.cn/crop.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">512</span>.<span class="hljs-number">512</span>.<span class="hljs-number">180</span>/<span class="hljs-number">006</span>WrsHJly8fruc0frworj30e80e8dg6.jpg<br>I/lvqx-test: http://n.sinaimg.cn/photo/<span class="hljs-number">5213</span>b46e/<span class="hljs-number">20180926</span>/timeline_card_small_super_default.png<br>I/lvqx-test: https://h5.sinaimg.cn/upload/<span class="hljs-number">2015</span>/<span class="hljs-number">09</span>/<span class="hljs-number">25</span>/<span class="hljs-number">3</span>/timeline_card_small_web_default.png<br>I/lvqx-test: https://r.sinaimg.cn/large/tc/mmbiz_qpic_cn/<span class="hljs-number">8</span>c0ce7e3eaa0ba15ce3fe495847538f3.jpg<br>I/lvqx-test: https://m.weibo.cn/comments/hotflow?id=<span class="hljs-number">4316516449593454</span>&amp;mid=<span class="hljs-number">4316516449593454</span>&amp;max_id_type=<span class="hljs-number">0</span><br>I/lvqx-test: https://h5.sinaimg.cn/upload/<span class="hljs-number">2015</span>/<span class="hljs-number">05</span>/<span class="hljs-number">15</span>/<span class="hljs-number">28</span>/WeiboLogoCh.svg<br></code></pre></td></tr></table></figure>
+<p>打开这些页面，搜索一下相关的关键字，发现在一个<a target="_blank" rel="noopener" href="https://h5.sinaimg.cn/m/weibo-lite/js/app.81d27428.js">js页面</a>内，有如下代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">default</span>.<span class="hljs-title function_">toappRouter</span>(<span class="hljs-string">&quot;com.sina.weibo.quickapp&quot;</span>, <span class="hljs-string">&quot;WBHome&quot;</span>, &#123;<br>        <span class="hljs-attr">luicode</span>: <span class="hljs-number">10000835</span>,<br>        <span class="hljs-attr">lfid</span>: <span class="hljs-variable language_">window</span>.<span class="hljs-property">config</span>.<span class="hljs-property">wm</span> + <span class="hljs-string">&quot;_home&quot;</span>&#125;)<br><br><span class="hljs-keyword">default</span>.<span class="hljs-title function_">toappRouter</span>(<span class="hljs-string">&quot;com.sina.weibo.quickapp&quot;</span>, <span class="hljs-string">&quot;WBDetail&quot;</span>, &#123;<br>        <span class="hljs-attr">blog_id</span>: e.<span class="hljs-property">params</span>.<span class="hljs-property">id</span>,<br>        <span class="hljs-attr">luicode</span>: <span class="hljs-number">10000835</span>,<br>        <span class="hljs-attr">lfid</span>: <span class="hljs-variable language_">window</span>.<span class="hljs-property">config</span>.<span class="hljs-property">wm</span> + <span class="hljs-string">&quot;_detail&quot;</span>&#125;)<br></code></pre></td></tr></table></figure>
+<p>看不懂 javascript，而且代码也经过了混淆，但是可以推断出这里就是跳转到微博快应用的代码，可以去翻翻<a target="_blank" rel="noopener" href="https://doc.quickapp.cn/tutorial/platform/url-jump-configuration.html">官方文档</a>看看，也有类似的，而从捕获的url中，有一条 <code>http://thefatherofsalmon.com/?i=com.sina.weibo.quickapp&amp;p=WBDetail&amp;a=blog_id%xxxxxxxxxx%xxxxxxxxxx%26lfid%3D_detail</code> 这样的，每当捕获到这条 url 之后，应用就发生了跳转，其中的 i&#x3D;com.sina.weibo.quickapp和p&#x3D;WBDetail 刚好与上文中的 js 代码吻合，所以，应该是加载了这个 js 页面后，页面内有跳转到快应用的逻辑，所以发生了跳转，只不过我们常见的是点击“在应用内打开”再去打开，而这里是直接就跳转了</p>
+<p>而跳转时，当手机内没有快应用的时候，就会发生报错，类似没有安装微博时的报错</p>
+<img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E6%B2%A1%E6%9C%89%E5%BE%AE%E5%8D%9A%E6%97%B6%E7%9A%84%E6%98%BE%E7%A4%BA.jpg" srcset="/img/loading.gif" lazyload width = "400" height = "690" alt="图片名称" align=center />
+
+<p>可以到<a target="_blank" rel="noopener" href="https://bbs.quickapp.cn/forum.php?mod=viewthread&tid=757&highlight=%E6%9C%BA%E5%9E%8B">官网论坛</a>看到什么样的机型才支持快应用</p>
+<table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>快应用支持机型</th>
+<th><a target="_blank" rel="noopener" href="https://blog.csdn.net/yyoinge/article/details/81063335">具体机型</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>华为</td>
+<td>使用华为应用市场8.0.3以上版本支持</td>
+<td>更新最新版应用商店（8.0.3）后均支持</td>
+</tr>
+<tr>
+<td>金立</td>
+<td>Andorid 5.0以上机型均支持</td>
+<td>S10、S10L；F103、S10、S10L、GN3003、F100、F105、GN3001、GN5007、M7GN5005、S9</td>
+</tr>
+<tr>
+<td>小米</td>
+<td>MIUI8.5以上</td>
+<td>除米1、红米1外全支持</td>
+</tr>
+<tr>
+<td>魅族</td>
+<td>Flyme6.3.0.0固件版本大部分机型;Flyme7全版本机型</td>
+<td>MX4、MX4 Pro、魅蓝 note、魅蓝 note2、MX5、魅蓝2、PRO 5、魅蓝 metal、魅蓝 Note3、PRO 6、PRO 6s、魅蓝 3、魅蓝 3s、MX6、魅蓝 E、魅蓝 U20、魅蓝 U10、魅蓝 Max、魅蓝 5、魅蓝 X、魅蓝 Note5、PRO 6 Plus、魅蓝 5s、魅蓝 E2、PRO 7 标准版、PRO 7 高配版、PRO 7 Plus、魅蓝 S6</td>
+</tr>
+<tr>
+<td>努比亚</td>
+<td>支持的机型：<br>O：609, 611, 606<br>N： 563, 589, 591, 595, 608, 612, 617<br>M：531, 549, 569, 551, 573<br>系统升级情况：目前最高版本是1.0.1.2是对应联盟1010的版本，各分支和rom都已经是这个1.0.1.2<br>版本覆盖场景：桌面全局搜索、浏览器搜索、应用中心快应用专题</td>
+<td>预装了快应用引擎NX608J,NX609J、红魔游戏手机，Z18mini</td>
+</tr>
+<tr>
+<td>OPPO</td>
+<td>Android4.4以上</td>
+<td>安卓4.4版本以上全覆盖</td>
+</tr>
+<tr>
+<td>vivo</td>
+<td>FuntouchOS 3.2及以上</td>
+<td>X9i、X9、X9PLUS、X9s、X20、X20Plus、X20PlusUD、X21A&#x2F;X21&#x2F;X21UD、A&#x2F;X21UD、X21iA&#x2F;X21i、NEX、Y66i、Y75、Y79A、Xplay6、Y71、Y85、Y83&#x2F;Y83A、Z1</td>
+</tr>
+<tr>
+<td>联想</td>
+<td>负一屏支持18年新发布机型，商店覆盖所有机型</td>
+<td>ZUI系统rom3.9，应用商店9.8版本以上</td>
+</tr>
+<tr>
+<td>中兴</td>
+<td>新发布机型</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>但是另一个类似的页面却又能正确加载而不发生跳转，看了代码发现是跟混合加载相关，在发生跳转的页面，有下面这样的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 版本大于21 增加设置混合加载http和https</span><br><span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;<br>  webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>来看看这个 setMixedContentMode() 方法</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-setMixedContentMode%E6%96%B9%E6%B3%95.png" srcset="/img/loading.gif" lazyload></p>
+<p>翻译如下：</p>
+<blockquote>
+<p>当安全源尝试从不安全的源加载资源时，配置 WebView 的行为， 默认情况下，以 Build.VERSION_CODES.KITKAT 或更低版本为目标的应用程序默认为 MIXED_CONTENT_ALWAYS_ALLOW， 针对 Build.VERSION_CODES.LOLLIPOP 的应用默认为 MIXED_CONTENT_NEVER_ALLOW， WebView 的首选和最安全的操作模式是 MIXED_CONTENT_NEVER_ALLOW，强烈建议不要使用 MIXED_CONTENT_ALWAYS_ALLOW</p>
+</blockquote>
+<p>而它的三个参数的说明如下：</p>
+<ul>
+<li><p>MIXED_CONTENT_ALWAYS_ALLOW </p>
+<p>在这种模式下，WebView是可以在一个安全的站点（Https）里加载非安全的站点内容（Http），这是WebView最不安全的操作模式，尽可能地不要使用这种模式</p>
+</li>
+<li><p>MIXED_CONTENT_COMPATIBILITY_MODE </p>
+<p>在这种模式下，当涉及到混合式内容时，WebView会尝试去兼容最新Web浏览器的风格，一些不安全的内容（Http）能被加载到一个安全的站点上（Https），而其他类型的内容将会被阻塞，这些内容的类型是被允许加载还是被阻塞可能会随着版本的不同而改变，并没有明确的定义，这种模式主要用于在App里面不能控制内容的渲染，但是又希望在一个安全的环境下运行，兼容模式下会对部分元素进行加载，策略未严格指定，一般默认加载图片、音视频，屏蔽HTML、JS、CSS，为获得最高安全性，建议应用程序使用MIXED_CONTENT_NEVER_ALLOW</p>
+</li>
+<li><p>MIXED_CONTENT_NEVER_ALLOW </p>
+<p>Webview 不允许一个安全的站点（https）去加载非安全的站点内容（http），比如 https 网页内容的图片是http链接。强烈建议App使用这种模式，因为这样更安全</p>
+</li>
+</ul>
+<p>通俗地说，现在很多网站都改成了 https 进行访问，https 可以提升访问网站的安全性，防止信息被窃取，如果所有的网页都是 https 且网页内的链接也是都是 https，那就没有混合加载的问题了，但是仍然有一些资源现阶段还没有改变成 https 访问，往往页面都嵌入了 http 的链接，这种混合网页如果不进行处理，直接加载是会出现错误的，比如某些图片加载不出来等等</p>
+<p>查看上面的 js 页面的那条让应用跳转的 url，头部正是 http 开头的 <code>http://thefatherofsalmon.com/?i=com.sina.weibo.quickapp&amp;p=WBDetail&amp;a=blog_id%xxxxxxxxxx%xxxxxxxxxx%26lfid%3D_detail</code></p>
+<p>所以我猜测问题应该是出在这里，在Android 5.0（Api Level 21）以下，默认采用的是 MIXED_CONTENT_ALWAYS_ALLOW 模式，即总是允许 WebView 同时加载 Https 和 Http，而从 Android 5.0（Api Level 21）开始，默认使用 MIXED_CONTENT_NEVER_ALLOW 模式，即总是不允许 WebView 同时加载 Https 和 Http，所以在没有设置 MIXED_CONTENT_NEVER_ALLOW 模式的那个页面，当我没有 setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW) 时，并没有加载到这条不安全的 url，所以才没有跳转</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>新浪微博在 17 年已经启用 https，在使用中很少发现 http 的，在测试中可以正常加载，因此应该可以放心地使用 MIXED_CONTENT_NEVER_ALLOW 模式，不启用混合加载了，但是其他页面还说不定，所以在关于加载微博的地方使用 MIXED_CONTENT_NEVER_ALLOW 模式，在公共的 WebView 里还是使用 MIXED_CONTENT_ALWAYS_ALLOW 模式会比较好，在混合加载并只加载 http&#x2F;https 头时小米、OPPO 还是会跳转快应用而华为、联想、金立、一加、努比亚、中兴、vivo、魅族就不跳转了，不过我测试的是部分机型，有的机型优测上面没有，所以实际的情况还不太清楚，而快应用则是我平时比较少见到的，不是这次的bug都忘了还有这个东西，总之在使用WebView加载网页时还有很多大大小小的坑，这次只是其中一个，也发现了 WebView 在使用中的很多应该注意的点，以后开发中再遇到的时候再记录下来</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98/WebView%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%BF%AB%E5%BA%94%E7%94%A8%E9%97%AE%E9%A2%98-%E6%B5%8B%E8%AF%95%E6%9C%BA%E5%9E%8B.png" srcset="/img/loading.gif" lazyload></p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3474cb8096da">关于shouldOverrideUrlLoading方法的一些考证</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="category-chain-item">开发记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+        <a href="/tags/%E5%BF%AB%E5%BA%94%E7%94%A8/" class="print-no-link">#快应用</a>
+      
+        <a href="/tags/WebView/" class="print-no-link">#WebView</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>WebView 加载链接跳转快应用问题</div>
+      <div>https://enderhoshi.github.io/2018/12/12/WebView 加载链接跳转快应用问题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2018年12月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/02/13/Android%20%E7%8A%B6%E6%80%81%E6%A0%8F%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%8E%A2%E7%A9%B6/" title="Android 状态栏与主题探究">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Android 状态栏与主题探究</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/12/05/Nexus6p%20%E5%88%B7%E6%9C%BA%E6%8C%87%E5%8C%97/" title="Nexus6p 刷机指北">
+                        <span class="hidden-mobile">Nexus6p 刷机指北</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

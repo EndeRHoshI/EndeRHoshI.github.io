@@ -1,0 +1,747 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一些疑难杂症的笔记记录，汇集到一定量后可以再分类存放">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发笔记-疑难杂症">
+<meta property="og:url" content="https://enderhoshi.github.io/2024/03/05/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0-%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="一些疑难杂症的笔记记录，汇集到一定量后可以再分类存放">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://enderhoshi.github.io/img/cover/coding_note.png">
+<meta property="article:published_time" content="2024-03-05T07:35:26.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.148Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="疑难杂症">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://enderhoshi.github.io/img/cover/coding_note.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>开发笔记-疑难杂症 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="开发笔记-疑难杂症"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-05 15:35" pubdate>
+          2024年3月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">开发笔记-疑难杂症</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>整理之前的近期小记时，发现有一些笔记不太好归类，且可能比较偏门，统一放到这里，汇集到一定量后可以再分类存放</p>
+<!-- more -->
+
+<h2 id="No-1-听云集成报错-No-virtual-method-isVisible"><a href="#No-1-听云集成报错-No-virtual-method-isVisible" class="headerlink" title="No.1 听云集成报错 No virtual method isVisible()"></a>No.1 听云集成报错 No virtual method isVisible()</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">java.lang.NoSuchMethodError: No virtual method isVisible()Z <span class="hljs-keyword">in</span> class Lcom/xxxx/xxxxxx/containers/xxxxxx; or its super classes (declaration of <span class="hljs-string">&#x27;com.xxxxxx.xxxxxxx.containers.xxxxxx&#x27;</span> appears <span class="hljs-keyword">in</span> /data/app/com.myapp.app-JUxpxJQv7z6s5jkYdS3yHw==/base.apk!classes3.dex)<br></code></pre></td></tr></table></figure>
+<p>报错信息如上图，初步推断为听云嵌码插桩逻辑有些问题，部分类应该跳过插桩的过程，搜索相关内容寥寥无几，且不相关，听云客服疑似空号，添加失败，客服群也加不进去，最后从非常旧和凌乱的文档中看到一个不太起眼的描述：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-comment"># 等号“=”后替换为需要过滤听云嵌码的类的路径，如有多个路径，使用英文逗号隔开</span><br>noInstrumentedClasses=com/xxxxxx/xxxxxxx/containers/xxxxxxx<br></code></pre></td></tr></table></figure>
+<p>把报错中指出的类填入这个 noInstrumentedClasses 中，再次编译，还是不行，后来发现是他的配置内容有缓存在本地，clean project 再重新跑就可以了，记录这个不是为了下次接入再查阅，而是提醒自己需要提升信息搜集能力和文档查阅能力，同时多从报错中推断；处理类似的第三方接入问题时，更改配置要 clean project，避免部分配置缓存在本地造成误判，认为自己的写法有误；另外，接入第三方库时尽量选取维护比较积极，售后比较靠谱的</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/alibaba/flutter_boost/issues/646">相关链接</a></p>
+<h2 id="No-2-Mac-处理-Adobe-Genuine-Software-Integrity-Service"><a href="#No-2-Mac-处理-Adobe-Genuine-Software-Integrity-Service" class="headerlink" title="No.2 Mac 处理 Adobe Genuine Software Integrity Service"></a>No.2 Mac 处理 Adobe Genuine Software Integrity Service</h2><p>使用”不明来路”的 ps, 某一天突然弹出个窗，必须点一下才能关掉，而且过一会又弹出来，无法彻底关闭</p>
+<p>解决方法:</p>
+<ol>
+<li>关闭所有 Adobe 软件</li>
+<li>$ sudo rm &#x2F;Library&#x2F;Application\ Support&#x2F;Adobe&#x2F;AdobeGCClient&#x2F;AdobeGCClient.app&#x2F;Contents&#x2F;MacOS&#x2F;AdobeGCClient</li>
+<li>启动 ps，就正常了</li>
+</ol>
+<h2 id="No-3-Android-SSL-验证服务器证书-Hostname-不匹配错误"><a href="#No-3-Android-SSL-验证服务器证书-Hostname-不匹配错误" class="headerlink" title="No.3 Android SSL 验证服务器证书 Hostname 不匹配错误"></a>No.3 Android SSL 验证服务器证书 Hostname 不匹配错误</h2><p>有时候开发需要改动 host，然后会报 host name 不匹配的错误，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">12</span>-<span class="hljs-number">24</span> <span class="hljs-number">16</span>:<span class="hljs-number">37</span>:<span class="hljs-number">04.801</span>: W/System.err(<span class="hljs-number">26380</span>):   java.io.IOException: Hostname <span class="hljs-string">&#x27;74.208.145.100&#x27;</span> was not verified<br></code></pre></td></tr></table></figure>
+<p>错误原因是验证证书时发现真正请求和服务器的证书域名不一致，这时就可以在客户端代码中增加如下代码，忽略hostname 的验证</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Java">HttpsURLConnection.setDefaultHostnameVerifier( <span class="hljs-keyword">new</span> <span class="hljs-title class_">HostnameVerifier</span>()&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">verify</span><span class="hljs-params">(String string,SSLSession ssls)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h2 id="No-4-电脑可以科学上网但是模拟器不能的情况"><a href="#No-4-电脑可以科学上网但是模拟器不能的情况" class="headerlink" title="No.4 电脑可以科学上网但是模拟器不能的情况"></a>No.4 电脑可以科学上网但是模拟器不能的情况</h2><p>自己胡乱鼓捣的时候，发现有这样一种情况：电脑已经开启了科学上网，模拟器可以上网，但是不能浏览外网</p>
+<p>解决方法:</p>
+<ol>
+<li>打开模拟器配置，找到 proxy 选项</li>
+<li>ip 写 127.0.0.1，端口写代理的端口（如果使用的是 Clash，打开 Clash 主界面 -&gt; General 应该就可以看到）</li>
+<li>保存设置，再尝试一下</li>
+</ol>
+<h2 id="No-5-AS-4-2-Gradle-面板中-Tasks-不见了"><a href="#No-5-AS-4-2-Gradle-面板中-Tasks-不见了" class="headerlink" title="No.5 AS 4.2 Gradle 面板中 Tasks 不见了"></a>No.5 AS 4.2 Gradle 面板中 Tasks 不见了</h2><p>某次想要执行一些 Gradle 命令，点开 Gradle 面板时，发现其中的 Tasks 不见了</p>
+<p><img src="/../img/blog/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/Task_missing.webp" srcset="/img/loading.gif" lazyload></p>
+<p>解决办法如下：</p>
+<p><img src="/../img/blog/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/Task_missing_fix.webp" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/62503ba5d83d">参考文章</a></p>
+<h2 id="No-6-gradle-properties-中文乱码"><a href="#No-6-gradle-properties-中文乱码" class="headerlink" title="No.6 gradle.properties 中文乱码"></a>No.6 gradle.properties 中文乱码</h2><p>如果发现 gradle.properties 原本应该是中文的一些注释变成了乱码，可以留意一下 IDE 右下方的编码是什么格式，如果是 ISO-8859-1，那么就可以到设置里找到 Editor -&gt; File Encodings 选项，把默认的 properties 格式改成 UTF-8，如下图</p>
+<p><img src="/../img/blog/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/gradle_properties_garbled.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="No-7-返回手势需要执行两次"><a href="#No-7-返回手势需要执行两次" class="headerlink" title="No.7 返回手势需要执行两次"></a>No.7 返回手势需要执行两次</h2><p>我们平时使用返回手势时，手机边缘会出现一个返回箭头以示成功触发，松开手指就会执行返回操作，但是我开发时发现我的 App 存在一个问题，返回手势第一次触发无反应，第二次才会出现箭头，此时把手指移回边缘，也就是把返回操作取消掉，再执行，又是无反应，再触发一次才能成功。简而言之就是我每次想触发返回，都要执行两次手势</p>
+<p>看了一下 Logcat，发现频繁打印 <code>Android handleResized abandoned!</code>，问问 AI，得到这样的答复：这个日志通常由 SurfaceFlinger 或 ViewRootImpl 打印，表示在处理窗口大小变化时遇到问题，导致一些窗口调整操作被中止或放弃</p>
+<p>检查代码发现，注释掉处理全屏的代码后，这个现象就不再会发生，再继续追问，得到这样的答复：如果你观察到 <code>Android handleResized abandoned!</code> 频繁出现在全屏模式下，这通常与窗口大小调整、系统栏状态变化或 SurfaceView 的 Surface 变化有关</p>
+<p>我又多尝试了一下，发现这个与全屏情况下，触碰边缘后弹出状态栏有一点像，类似于正常情况下第一次触碰手机屏幕边缘时，状态栏弹出来，然后才能响应接下来第二次的操作。之所以我不能第一时间发现，就是因为我的全屏代码似乎没有生效，导致状态栏一直显示着，但是却需要两次去触发返回</p>
+<p>我的设置全屏代码如下，有很多已经被废弃的属性，可能是因为我提升了 Android 版本，其中有一些属性已经无效了导致出现问题。我想替换 ImmersionBar 库来做全屏，发现它的 fullScreen 方法也失效了，应该也是因为同样的原因。于是换用了 ImmersionBar 库的 hideBar 方法，隐藏状态栏和导航栏来实现全屏，暂告一段落，这里先记录一下，具体的原因后续有兴趣再研究了</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs Kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 设置是否全屏</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> enabled 是否全屏显示</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">fun</span> Activity.<span class="hljs-title">setFullscreen</span><span class="hljs-params">(enabled: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">true</span>)</span></span> &#123;<br>    <span class="hljs-keyword">if</span> (enabled) &#123;<br>        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">val</span> lp: WindowManager.LayoutParams = window.attributes<br>        <span class="hljs-comment">// LayoutParams.FLAG_FULLSCREEN 强制屏幕状态条栏弹出</span><br>        lp.flags = lp.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()<br>        window.attributes = lp<br>        <span class="hljs-comment">// 不允许窗口扩展到屏幕之外  clear掉了</span><br>        window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)<br>    &#125;<br><br>    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)<br>    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)<br><br>    <span class="hljs-keyword">var</span> systemUiVisibility = window.decorView.systemUiVisibility<br>    systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN<br>    systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_STABLE<br>    window.decorView.systemUiVisibility = systemUiVisibility<br><br>    window.statusBarColor = Color.TRANSPARENT<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/" class="category-chain-item">开发笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+        <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" class="print-no-link">#疑难杂症</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>开发笔记-疑难杂症</div>
+      <div>https://enderhoshi.github.io/2024/03/05/开发笔记-疑难杂症/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/03/05/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0-%E7%89%88%E6%9C%AC%E9%80%82%E9%85%8D/" title="开发笔记-版本适配">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">开发笔记-版本适配</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/05/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0-Fragment/" title="开发笔记-Fragment">
+                        <span class="hidden-mobile">开发笔记-Fragment</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

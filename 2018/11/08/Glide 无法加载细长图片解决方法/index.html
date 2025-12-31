@@ -1,0 +1,726 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HoshIlIlI">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Glide 加载细长图片踩坑记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Glide 无法加载细长图片解决方法">
+<meta property="og:url" content="https://enderhoshi.github.io/2018/11/08/Glide%20%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="HoshI-blog">
+<meta property="og:description" content="Glide 加载细长图片踩坑记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-bug%E5%8F%8D%E9%A6%88.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E5%8E%9F%E5%9B%BE.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E9%87%8D%E6%96%B0%E8%AE%BE%E7%BD%AE%E5%AE%BD%E9%AB%98%E7%9A%84ImageView.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E5%AE%8C%E6%95%B4%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-VideoDecoder%E7%B1%BB.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-setDataSource.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-stackoverflow%E8%A7%A3%E9%87%8A.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-override%E6%96%B9%E6%B3%95.png">
+<meta property="article:published_time" content="2018-11-08T14:01:28.000Z">
+<meta property="article:modified_time" content="2025-12-31T08:07:41.144Z">
+<meta property="article:author" content="HoshIlIlI">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Glide">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-bug%E5%8F%8D%E9%A6%88.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Glide 无法加载细长图片解决方法 - HoshI-blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"enderhoshi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"tajs":null,"woyaola":null,"cnzz":1280949570},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="HoshI-blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HoShI&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Glide 无法加载细长图片解决方法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2018-11-08 22:01" pubdate>
+          2018年11月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Glide 无法加载细长图片解决方法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>今天在开发过程中，看到测试的 bug 反馈中有一条挺有趣的，就是当用户发出很细很长的图片时，无法加载出那个细长图片，为什么说细长图片，而不直接说长图呢，接下来分享下这个 bug 的解决流程</p>
+<p>以下就是今天看到的诡异 bug</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-bug%E5%8F%8D%E9%A6%88.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到，这个用户发了一条很长很长的图片，在安卓端显示的时候是空白的，但是在 iOS 端则是正常的，由此可以推断，后台返回给我们的数据应该是正常的，我验证了一下，在 postman 中发起请求，得到缩略图和原图后保存了下来，可以看到两个图片的信息如下：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E5%8E%9F%E5%9B%BE.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>明明就是实实在在存在的图像，怎么显示空白呢，同事之前遇到过一个无法显示长图的情况，那是因为图片的宽或者高超过了手机的限制，所以导致无法正常显示图片，解决的方案是载入图像时分段载入，就不会出现不显示图片的情况。但是我这里的两张图，一张顶多也就 5000，而缩略图更加诡异，明明只有 408 的高度，却显示不出来了，这就奇怪得很了，继续看看是什么原因</p>
+<p>我依稀记得这个不是普通的写死宽高的 ImageView，也不是普通的 match_parent，wrap_content 之类的，于是去看了一下，果然，用的是一个重写的自适应高宽高比的自定义View，逻辑如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">AdaptiveImageView</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> &#123;<br>  <span class="hljs-built_in">super</span>(context, attrs);<br>  maxSize = (<span class="hljs-type">int</span>) context.obtainStyledAttributes(attrs, R.styleable.AdaptiveImageView).<br>  getDimension(R.styleable.AdaptiveImageView_maxSize, <span class="hljs-number">720</span>);<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 通过maxSize 的最大宽高，自动适应高宽高</span><br><span class="hljs-comment">* <span class="hljs-doctag">@param</span> uri 图片的uri</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">loadUri</span><span class="hljs-params">(String uri, LoadOptions loadOptions)</span> &#123;<br>  ImageLoaderManager.INSTANCE.loadUri(<span class="hljs-built_in">this</span>, uri, loadOptions, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImageInfoCallback</span>() &#123;<br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onFailed</span><span class="hljs-params">()</span> &#123;&#125;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onSuccess</span><span class="hljs-params">(ImageSize imageSize)</span> &#123;<br>    <span class="hljs-type">float</span> <span class="hljs-variable">originHeight</span> <span class="hljs-operator">=</span> imageSize.getHeight();<br>    <span class="hljs-type">float</span> <span class="hljs-variable">originWidth</span> <span class="hljs-operator">=</span> imageSize.getWidth();<br>    <span class="hljs-type">float</span> adaptiveHeight, adaptiveWidth;<br>    <span class="hljs-keyword">if</span> (originWidth &gt; originHeight) &#123;<br>      adaptiveWidth = maxSize;<br>      adaptiveHeight = originHeight * ((<span class="hljs-type">float</span>) maxSize / originWidth);<br><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      adaptiveHeight = maxSize;<br>      adaptiveWidth = originWidth * ((<span class="hljs-type">float</span>) maxSize / originHeight);<br>    &#125;<br><br>    ImageTools.INSTANCE.resizeView(AdaptiveImageView.<span class="hljs-built_in">this</span>, (<span class="hljs-type">int</span>)adaptiveWidth, (<span class="hljs-type">int</span>)adaptiveHeight);<br>    &#125;<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>那么可以看到，这个 View 是经过 resizeView，按照赋予它的最大宽高计算过后，再重新设定宽高的，我把这个控件重新设置后的宽高输出如下：</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E9%87%8D%E6%96%B0%E8%AE%BE%E7%BD%AE%E5%AE%BD%E9%AB%98%E7%9A%84ImageView.png" srcset="/img/loading.gif" lazyload></p>
+<p>明明 width 就是 7.35，应该可以正常显示才是，我打开手机的开发者选项中的显示布局和边距模式，也可以看到确实是存在一个很细的 ImageView 的，但是图片却不显示出来，所以说问题也不出现在这个自适应高宽高的 View 上</p>
+<p>那就可能是加载图片的时候出了问题了，项目是用 Glide 来加载图片的。我想要看到 Glide 的输出日志，但是项目内的 Glide 调用是在封装好的库中进行的，而且封装的时候并没有去监听 Glide 的异常输出，所以看不到异常信息，我又没办法修改这个库，那就简单写个 demo 去加载这个图片试试</p>
+<p>结果发现，把 Glide 的 into 中的 Target 改为 ImageView 的时候，图片正常地显示出来了，那么这个 into 到底是什么的，可以参考官方的文档：</p>
+<blockquote>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>Glide中的目标作为请求跟请求者之间的传递者。目标负责显示占位符，加载的资源以及为每个请求确定合适的尺寸。最常用目标是使用ImageView显示占位符，Drawable和Bitmap的ImageViewTarget。用户还可以实现自己的目标，或者对任何可用的基类进行子类化。</p>
+<h3 id="指定目标"><a href="#指定目标" class="headerlink" title="指定目标"></a>指定目标</h3><p>into(Target) 方法不仅用于启动每个请求，同时也可以指定将要接收请求结果的目标。Glide 提供了一个辅助方法给into(ImageView)，其采用 ImageView 并把它包装在目标于适合所请求的资源类型。<br>为了方便使用自定义目标，这些 into() 方法返回提供给他们的目标</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.10tiao.com/html/227/201706/2650240067/1.html">郭霖在公众号中</a>也提及了关于这个 into 以及 Target 的一些内容，节选一部分如下：</p>
+<blockquote>
+<p>使用了这么久的 Glide，我们都知道 into() 方法中是可以传入 ImageView 的。那么 into() 方法还可以传入别的参数吗？我可以让 Glide 加载出来的图片不显示到 ImageView 上吗？答案是肯定的，这就需要用到自定义 Target 功能。</p>
+</blockquote>
+<blockquote>
+<p>其实通过上面的分析，我们已经知道了，into() 方法还有一个接收 Target 参数的重载。即使我们传入的参数是 ImageView，Glide 也会在内部自动构建一个Target对象。而如果我们能够掌握自定义Target技术的话，就可以更加随心所欲地控制Glide的回调了。</p>
+</blockquote>
+<blockquote>
+<p>我们创建了一个 SimpleTarget 的实例，并且指定它的泛型是 GlideDrawable，然后重写了 onResourceReady() 方法。在 onResourceReady() 方法中，我们就可以获取到 Glide 加载出来的图片对象了，也就是方法参数中传过来的 GlideDrawable 对象。有了这个对象之后你可以使用它进行任意的逻辑操作，这里我只是简单地把它显示到了 ImageView 上</p>
+</blockquote>
+<blockquote>
+<p>SimpleTarget 中的泛型并不一定只能是 GlideDrawable，如果你能确定你正在加载的是一张静态图而不是 GIF 图的话，我们还能直接拿到这张图的 Bitmap 对象</p>
+</blockquote>
+<blockquote>
+<p>Glide 在内部自动帮我们创建的 GlideDrawableImageViewTarget 就是 ViewTarget 的子类。只不过 GlideDrawableImageViewTarget 被限定只能作用在 ImageView 上，而 ViewTarget 的功能更加广泛，它可以作用在任意的 View 上</p>
+</blockquote>
+<p>所以我的大致理解如下：给这个 Target 设置一个泛型，然后它会返回给你这个泛型的对象，你就可以拿这个返回的对象去处理一些事情了，而项目中返回的是 ImageView，返回的 resource 是 Drawable，我们就可以将 Drawable 给 set 到 ImageView 中了</p>
+<p>然而就是在这里，使用细长图片的时候，调用的回调并不是 onResourceLoading，而是 onLoadFailed，说明图片加载出了错误，而 onLoadFailed 中并不会取得抛出的错误，那么就在 Glide 的 builder 中再加一条 .listener() 方法，去获取它的详细的报错信息</p>
+<p>整个完整的小 demo 如下所示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MainActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AppCompatActivity</span> &#123;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> &#123;<br>    <span class="hljs-built_in">super</span>.onCreate(savedInstanceState);<br>    setContentView(R.layout.activity_main);<br><br>    <span class="hljs-type">ImageView</span> <span class="hljs-variable">imageView</span> <span class="hljs-operator">=</span> findViewById(R.id.iv_test);<br>    <span class="hljs-type">RequestOptions</span> <span class="hljs-variable">requestOptions</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RequestOptions</span>();<br><br>    <span class="hljs-comment">//requestOptions.override(80, 80);//设置width和height后可以正常显示</span><br><br>    <span class="hljs-comment">//requestOptions.signature(new ObjectKey(System.currentTimeMillis())); //网上说的缓存问题解决方案，并没有作用</span><br><br>    <span class="hljs-comment">//自己制作的细长图片https://github.com/EndeRHoshI/Photo/blob/master/blog/Glide/%E7%BB%86%E9%95%BF%E5%9B%BE%E6%A1%88.png?raw=true</span><br>    <span class="hljs-comment">//原图 https://static.aicoinstorge.com/talk/18-11-07/100518-cdc-166.jpeg</span><br>    <span class="hljs-comment">//缩略图 https://static.aicoinstorge.com/talk/18-11-07/100518-cdc-166.jpeg?x-oss-process=image/resize,m_mfit,h_408,w_4</span><br>    <span class="hljs-comment">//平时的普通图片 https://static.aicoinstorge.com/talk/18-11-08/082142-569-179.jpeg?x-oss-process=image/resize,m_mfit,h_408,w_176</span><br>    <span class="hljs-comment">//平时的普通图片 http://oz5ak1kvp.bkt.clouddn.com/cms_liuhua/user/img1516646371.jpg</span><br><br>    <span class="hljs-comment">//into的参数使用imageView可以正常使用，问题出在不设置宽高的 target —— CustomViewTarget 上</span><br>    Glide.with(imageView)<br>        .load(<span class="hljs-string">&quot;https://static.aicoinstorge.com/talk/18-11-07/100518-cdc-166.jpeg&quot;</span>)<br>        .apply(requestOptions)<br>        .listener(<span class="hljs-keyword">new</span> <span class="hljs-title class_">RequestListener</span>&lt;Drawable&gt;() &#123;<br>          <span class="hljs-meta">@Override</span><br>          <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">onLoadFailed</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> GlideException e, Object model, Target&lt;Drawable&gt; target, <span class="hljs-type">boolean</span> isFirstResource)</span> &#123;<br>            <span class="hljs-keyword">if</span> (e != <span class="hljs-literal">null</span>) &#123;<br>              e.printStackTrace();<br>              e.logRootCauses(<span class="hljs-string">&quot;root-lvqx&quot;</span>);<br>              Log.d(<span class="hljs-string">&quot;lvqx-causes&quot;</span>,<span class="hljs-string">&quot;\nMessage----&gt;&quot;</span> + e.getMessage() + <span class="hljs-string">&quot;\nCauses----&gt;&quot;</span> + e.getCauses());<br>            &#125;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>          &#125;<br><br>          <span class="hljs-meta">@Override</span><br>          <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">onResourceReady</span><span class="hljs-params">(Drawable resource, Object model, </span><br><span class="hljs-params">              Target&lt;Drawable&gt; target, DataSource dataSource, <span class="hljs-type">boolean</span> isFirstResource)</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>          &#125;<br>        &#125;)<br>        .into(<span class="hljs-keyword">new</span> <span class="hljs-title class_">CustomViewTarget</span>&lt;ImageView, Drawable&gt;(imageView) &#123;<br>      <span class="hljs-meta">@Override</span><br>      <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onLoadFailed</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Drawable errorDrawable)</span> &#123;<br>        Log.d(<span class="hljs-string">&quot;glide-test&quot;</span>, <span class="hljs-string">&quot;fail&quot;</span>);<span class="hljs-comment">//Options不设置宽高，设置CustomViewTarget，且图片过于细长的时候，会加载失败回调该方法</span><br>      &#125;<br><br>      <span class="hljs-meta">@Override</span><br>      <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onResourceReady</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> Drawable resource, <span class="hljs-meta">@Nullable</span> Transition&lt;? <span class="hljs-built_in">super</span> Drawable&gt; transition)</span> &#123;<br>        view.setImageDrawable(resource);<br>      &#125;<br><br>      <span class="hljs-meta">@Override</span><br>      <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onResourceCleared</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Drawable placeholder)</span> &#123;<br>        Log.d(<span class="hljs-string">&quot;glide-test&quot;</span>, <span class="hljs-string">&quot;cleared&quot;</span>);<br>      &#125;<br>    &#125;);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>获得的完整报错信息如下：<img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E5%AE%8C%E6%95%B4%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF.png" srcset="/img/loading.gif" lazyload></p>
+<p>接下来我在 e.logRootCauses 方法输出的信息中找到了抛出这个 GlideException 的地方，就是 setDataSource 方法，这个 setDataSource 方法在 Glide 的 VideoDecoder 类中的 decode 方法中调用，具体抛出异常的地方如下：<br><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-VideoDecoder%E7%B1%BB.png" srcset="/img/loading.gif" lazyload></p>
+<p>在其中的 296 行中的 setDataSource 方法抛出</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-setDataSource.png" srcset="/img/loading.gif" lazyload></p>
+<p>错误的描述是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Caused by: java.lang.RuntimeException: setDataSource failed: status = 0x80000000<br></code></pre></td></tr></table></figure>
+
+<p>查到的结果是说，这个错误的意思是因为文件不完整，已损坏等等原因而读取错误</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-stackoverflow%E8%A7%A3%E9%87%8A.png" srcset="/img/loading.gif" lazyload></p>
+<p>好了，那现在项目框架选择了使用 Glide 来加载图片，又封装好了特定的库去调用 Glide，无法修改其中内容，每当加载到这种奇葩细长图片的时候就无法显示，而且也不是之前同事遇到的超长图片的问题（图片的宽高远远没有达到手机限制的最大宽高，所以这个根本不是尺寸长短的问题，而是宽高比的问题，不能称之为长图加载失败，而是细长图加载失败….），那么到底要怎样解决呢</p>
+<p>我再去看了下官方文档，看到了以下这条</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95.png" srcset="/img/loading.gif" lazyload></p>
+<p>override方法的官方api文档解释如下</p>
+<p><img src="https://raw.githubusercontent.com/EndeRHoshI/Photo/master/blog/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8/Glide%E5%8A%A0%E8%BD%BD%E7%BB%86%E9%95%BF%E5%9B%BE%E7%89%87%E5%BC%82%E5%B8%B8-override%E6%96%B9%E6%B3%95.png" srcset="/img/loading.gif" lazyload></p>
+<p>这下可以改变 Target 的宽高来达到目的了，而且文档中也说了，应该只用于你需要一个很特别的图像尺寸的时候，这种细长图，够奇葩了，那就试着设置了一下，发现只要是设置了这个，图像都可以显示了，无论是 override(1, 1) 还是 override(80, 80)，都可以显示出来，只是如果设置宽高为1，会把图像处理成宽度为1个像素，然后拉伸填满 View，这样就会让图像面目全非，宽度 80 会好一点，那这个数当然不能写死，如果图像比较大的时候就会模糊不清，刚好看到接口中后台为了让 iOS 端正确显示图片而有传图像的宽高过来，把这个设置进去，就刚好可以设置 Target 的高度让其符合这张奇葩图片了，图像完美地显示了出来，bug 至此就修复了</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>bug 已经修复，但是问题还是很多，总结起来就是封装第三方库的时候最好把输出异常信息的操作也封装进去，这样会比较方便排查故障</p>
+<p>然后还有几点没有弄懂的：</p>
+<ol>
+<li>为什么普通的图片没有设置宽高，可以正常显示，而这个细长图片就不可以呢，是因为不能自适应？</li>
+<li>如果不能自适应，那么为什么 Target 设置成 ImageView 的时候又可以显示了呢？</li>
+<li>setDataSource 方法只有在使用细长图案的时候才会调用到，然后抛出异常，我设置了断点，但是在使用正常图案时并没有跑到 setDataSource 方法中去，为什么呢？</li>
+<li>这个 CustomViewTarget 到底干了啥，它在处理细长图案时是怎样的？现在看源码还是看不太懂</li>
+</ol>
+<p>如果以后技术深入到了这个程度，也有这样的闲情逸致再去研究，再接着更新</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" class="category-chain-item">开发记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+        <a href="/tags/Glide/" class="print-no-link">#Glide</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Glide 无法加载细长图片解决方法</div>
+      <div>https://enderhoshi.github.io/2018/11/08/Glide 无法加载细长图片解决方法/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>HoshIlIlI</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2018年11月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/11/14/Android%20%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8%E6%8E%A2%E7%B4%A2/" title="Android 字体使用探索">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Android 字体使用探索</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/10/08/AS%20%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6%E5%92%8C%20Parcelable%20%E6%8E%A5%E5%8F%A3/" title="AS 下载插件 | 使用 Parcelable 接口">
+                        <span class="hidden-mobile">AS 下载插件 | 使用 Parcelable 接口</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
